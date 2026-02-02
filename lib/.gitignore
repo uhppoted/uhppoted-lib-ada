@@ -1,0 +1,8 @@
+.DS_Store
+*.o
+
+*.ali
+/obj/
+/lib/
+/alire/
+/config/

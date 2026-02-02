@@ -1,0 +1,9 @@
+name = "uhppoted_lib_ada"
+description = "Library for the UHPPOTE access controllers"
+version = "0.1.0-dev"
+
+authors = ["uhppoted"]
+maintainers = ["uhppoted <uhppoted.development@gmail.com>"]
+licenses = "MIT"
+website = "https://github.com/uhppoted/uhppoted-lib-ada"
+tags = ["access-control", "uhppote"]

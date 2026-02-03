@@ -3,16 +3,22 @@ with Uhppoted.Lib;
 
 procedure Cli is
    use Uhppoted.Lib;
-   
-   Controllers : constant Controller_Array := Get_Controllers;
+
+   Controllers : constant Controller_List := Find_Controllers;
 begin
    Ada.Text_IO.Put_Line ("--- UHPPOTE Discovery Test ---");
-   
+
    if Controllers'Length = 0 then
       Ada.Text_IO.Put_Line ("No controllers found.");
    else
-      for ID of Controllers loop
-         Ada.Text_IO.Put_Line ("Found Controller ID:" & ID'Image);
+      for C of Controllers loop
+         Ada.Text_IO.Put_Line ("Found Controller ID:" & C.ID'Image);
+         Ada.Text_IO.Put_Line ("                     " & Uhppoted.Lib.To_String (C.Address));
+         Ada.Text_IO.Put_Line ("                     " & Uhppoted.Lib.To_String (C.Gateway));
+         Ada.Text_IO.Put_Line ("                     " & Uhppoted.Lib.To_String (C.Netmask));
+         Ada.Text_IO.Put_Line ("                     " & C.MAC);
+         Ada.Text_IO.Put_Line ("                     " & C.Firmware);
+         Ada.Text_IO.Put_Line ("                     " & Uhppoted.Lib.To_String (C.Date));
       end loop;
    end if;
 

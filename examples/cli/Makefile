@@ -6,6 +6,6 @@ clean:
 build:
 	alr build
 
-get-controllers: build
+find-controllers: build
 	$(CLI)
 

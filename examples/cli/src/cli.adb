@@ -13,12 +13,12 @@ begin
    else
       for C of Controllers loop
          Ada.Text_IO.Put_Line ("Found Controller ID:" & C.ID'Image);
-         Ada.Text_IO.Put_Line ("                     " & Uhppoted.Lib.To_String (C.Address));
-         Ada.Text_IO.Put_Line ("                     " & Uhppoted.Lib.To_String (C.Gateway));
-         Ada.Text_IO.Put_Line ("                     " & Uhppoted.Lib.To_String (C.Netmask));
-         Ada.Text_IO.Put_Line ("                     " & C.MAC);
+         Ada.Text_IO.Put_Line ("                     " & Image (C.Address));
+         Ada.Text_IO.Put_Line ("                     " & Image (C.Netmask));
+         Ada.Text_IO.Put_Line ("                     " & Image (C.Gateway));
+         Ada.Text_IO.Put_Line ("                     " & Image (C.MAC));
          Ada.Text_IO.Put_Line ("                     " & C.Firmware);
-         Ada.Text_IO.Put_Line ("                     " & Uhppoted.Lib.To_String (C.Date));
+         Ada.Text_IO.Put_Line ("                     " & Image (C.Date));
       end loop;
    end if;
 

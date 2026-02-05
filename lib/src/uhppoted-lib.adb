@@ -53,7 +53,7 @@ package body Uhppoted.Lib is
          end;
       end loop;
 
-      return S(1 .. 17);
+      return S (1 .. 17);
    end Image;
 
 end Uhppoted.Lib;

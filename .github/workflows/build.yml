@@ -33,6 +33,7 @@ jobs:
       run: |
         ls -la
         cd lib && alr --non-interactive update
-        cd lib && alr --non-interactive build
+        ls -la
+        alr --non-interactive build
         ls -la
 

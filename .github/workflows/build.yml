@@ -20,10 +20,10 @@ jobs:
         wget -O /tmp/alire.zip https://github.com/alire-project/alire/releases/download/v2.1.0/alr-2.1.0-bin-x86_64-linux.zip
         unzip /tmp/alire.zip -d /opt/alire
         echo "/opt/alire/bin" >> $GITHUB_PATH
-        alr config --global --set interactive.disabled true
 
     - name: Install Ada
       run: |
+        alr config --global --set interactive.disabled true
         alr toolchain
 
     - name: Check out code

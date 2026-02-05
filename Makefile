@@ -7,6 +7,9 @@ build:
 test:
 	cd lib && make test
 
+build-all:
+	alr help
+
 find-controllers: build
 	cd examples/cli && make find-controllers
 

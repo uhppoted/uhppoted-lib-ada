@@ -31,9 +31,5 @@ jobs:
 
     - name: Build
       run: |
-        ls -la
-        cd lib && alr --non-interactive update
-        ls -la
-        alr --non-interactive build
-        ls -la
+        make build-all
 

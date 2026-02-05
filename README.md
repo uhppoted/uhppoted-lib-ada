@@ -1,3 +1,5 @@
+![build](https://github.com/uhppoted/uhppoted-lib-ada/workflows/build/badge.svg)
+
 # uhppoted-lib-ada
 
 Standalone ADA library for the UHPPOTE access controllers.

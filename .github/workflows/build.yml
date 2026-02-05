@@ -21,6 +21,10 @@ jobs:
         unzip /tmp/alire.zip -d /opt/alire
         echo "/opt/alire/bin" >> $GITHUB_PATH
 
+    - name: Install Ada
+      run: |
+        alr toolchain
+
     - name: Check out code
       uses: actions/checkout@v4
 

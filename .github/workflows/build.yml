@@ -31,4 +31,6 @@ jobs:
 
     - name: Build
       run: |
-        make build-all
+        ls -la
+        cd lib && alr clean --non-interactive
+

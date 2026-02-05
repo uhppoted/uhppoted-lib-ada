@@ -4,10 +4,11 @@
 - [ ] format
 - [ ] lint
 
-- [ ] get-controllers
+- [ ] find-controllers
+    - https://stackoverflow.com/questions/67969309/ada-customise-image
+    - http://www.ada-auth.org/standards/22rm/html/rm-4-10.html
 
-
-- [ ] fix compiler switches
+- (?) fix compiler switches
 ```
            ,"-ffunction-sections" -- Separate ELF section for each function
            ,"-fdata-sections" -- Separate ELF section for each variable

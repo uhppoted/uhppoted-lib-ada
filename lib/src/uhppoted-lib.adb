@@ -7,14 +7,14 @@ with Uhppoted.Lib.UDP;
 package body Uhppoted.Lib is
 
    function Find_Controllers return Controller_List is
-      Request  : constant Packet := Uhppoted.Lib.Encode.Find_Controllers;
+      Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
       Response : Packet;
       C : Controller;
    begin
       Response := Uhppoted.Lib.UDP.Send (Request);
       C := Uhppoted.Lib.Decode.Get_Controller (Response);
 
-      return (1 => C);
+      return [1 => C];
    end Find_Controllers;
 
    function Image (Addr : IPv4) return String is
@@ -37,21 +37,23 @@ package body Uhppoted.Lib is
    end Image;
 
    function Image (MAC : MAC_Address) return String is
-      use Ada.Strings.Fixed;
-
-      function To_Hex (Value : Unsigned_8) return String is
-         Hex_Digits : constant String := "0123456789abcdef";
-      begin
-         return (1 => Hex_Digits (Integer (Value / 16) + 1),
-                 2 => Hex_Digits (Integer (Value mod 16) + 1));
-      end To_Hex;
-
+      Hex : constant String := "0123456789abcdef";
+      S   : String (1 .. 18);
+      I   : Positive := 1;
    begin
-      return To_Hex (MAC (1)) & ":" &
-             To_Hex (MAC (2)) & ":" &
-             To_Hex (MAC (3)) & ":" &
-             To_Hex (MAC (4)) & ":" &
-             To_Hex (MAC (5)) & ":" &
-             To_Hex (MAC (6));
+      for B of MAC loop
+         declare
+            MSB : constant Integer := Integer (Shift_Right (B, 4));
+            LSB : constant Integer := Integer (B and 16#0F#);
+         begin
+            S (I) := Hex (MSB + 1);
+            S (I + 1) := Hex (LSB + 1);
+            S (I + 2) := ':';
+            I := I + 3;
+         end;
+      end loop;
+
+      return S(1 .. 17);
    end Image;
+
 end Uhppoted.Lib;

@@ -1,5 +1,5 @@
-name = "cli"
-description = "Example CLI for the uhppoted-lib-ada crate"
+name = "tests"
+description = "uhppoted-lib-ada unit tests"
 version = "0.1.0-dev"
 
 authors = ["uhppoted"]
@@ -9,10 +9,13 @@ licenses = "MIT"
 website = "https://github.com/uhppoted/uhppoted-lib-ada"
 tags = []
 
-executables = ["cli"]
+executables = ["tests"]
+
+[[depends-on]]
+aunit = "^26.0.0"
 
 [[depends-on]]
 uhppoted_lib_ada = "*"
 
 [[pins]]
-uhppoted_lib_ada = { path='../../lib' }
+uhppoted_lib_ada = { path='..' }

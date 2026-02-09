@@ -1,6 +1,12 @@
 clean:
 	cd lib && make clean
 
+update:
+	cd lib               && alr index --update-all
+	cd lib/tests         && alr index --update-all
+	cd integration-tests && alr index --update-all
+	cd examples          && alr index --update-all
+
 build:
 	cd lib && make build
 

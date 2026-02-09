@@ -1,0 +1,18 @@
+name = "integration_tests"
+description = "Integration tests for the uhppoted-lib-ada crate."
+version = "0.1.0-dev"
+
+authors = ["uhppoted"]
+maintainers = ["uhppoted <uhppoted.development@gmail.com>"]
+maintainers-logins = ["uhppoted"]
+licenses = "MIT"
+website = "https://github.com/uhppoted/uhppoted-lib-ada"
+tags = []
+
+executables = ["integration_tests"]
+
+[[depends-on]]
+uhppoted_lib_ada = "~0.1.0-dev"
+
+[[pins]]
+uhppoted_lib_ada = { path='../lib' }

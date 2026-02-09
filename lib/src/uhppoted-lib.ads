@@ -3,8 +3,6 @@ with Interfaces;
 package Uhppoted.Lib is
    use Interfaces;
 
-   type Packet is array (1 .. 64) of Unsigned_8;
-
    type IPv4 is array (1 .. 4) of Unsigned_8;
    type MAC_Address is array (1 .. 6) of Unsigned_8;
    subtype Version is String (1 .. 4);

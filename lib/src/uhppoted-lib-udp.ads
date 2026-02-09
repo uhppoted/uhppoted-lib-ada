@@ -1,6 +1,9 @@
+with Uhppoted.Lib.Types;
+
 package Uhppoted.Lib.UDP is
+   use Uhppoted.Lib.Types;
 
    --  Broadcasts a 64 byte request packet and returns the response (if any).
-   function Send (Request : Uhppoted.Lib.Packet) return Uhppoted.Lib.Packet;
+   function Broadcast (Request : Packet) return Packet_List;
 
 end Uhppoted.Lib.UDP;

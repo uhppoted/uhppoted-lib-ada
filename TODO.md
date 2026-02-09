@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] github workflow
+- [x] github workflow
 - [ ] format
 - [ ] lint
 

@@ -3,18 +3,28 @@ with Ada.Strings.Fixed;
 with Uhppoted.Lib.Encode;
 with Uhppoted.Lib.Decode;
 with Uhppoted.Lib.UDP;
+with Uhppoted.Lib.Types;
 
 package body Uhppoted.Lib is
+   use Uhppoted.Lib.Types;
 
    function Find_Controllers return Controller_List is
       Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
-      Response : Packet;
-      C : Controller;
+      Replies  : constant Packet_List := Uhppoted.Lib.UDP.Broadcast (Request);
+      Response : Controller_List (1 .. Integer(Replies.Length));
+      IX       : Positive := 1;
    begin
-      Response := Uhppoted.Lib.UDP.Send (Request);
-      C := Uhppoted.Lib.Decode.Get_Controller (Response);
+      for Reply of Replies loop
+         declare
+            C : Controller;
+         begin
+            C := Uhppoted.Lib.Decode.Get_Controller (Reply);
+            Response (IX) := C;
+            IX := IX + 1;
+         end;
+      end loop;
 
-      return [1 => C];
+      return Response;
    end Find_Controllers;
 
    function Image (Addr : IPv4) return String is

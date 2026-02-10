@@ -1,10 +1,23 @@
-with Ada.Text_IO;
-with Ada.Assertions;
+with AUnit.Assertions;
 
 package body Uhppoted.Lib.Integration_Tests is
+   use AUnit.Assertions;
 
-   procedure Test_Find_Controllers  is
-      C405419896 : Uhppoted.Lib.Controller := (
+   overriding function Name (T : Integration_Test) return AUnit.Message_String is
+   begin
+      return AUnit.Format ("integrations tests");
+   end Name;
+
+   overriding procedure Register_Tests (T : in out Integration_Test) is
+      use AUnit.Test_Cases.Registration;
+   begin
+      Register_Routine (T, Test_Find_Controllers'Access, "Test Find_Controllers");
+   end Register_Tests;
+
+   procedure Test_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C405419896 : constant Uhppoted.Lib.Controller := (
          ID       => 405419896,
          Address  => (192, 168, 1, 100),
          Netmask  => (255, 255, 255, 0),
@@ -16,7 +29,7 @@ package body Uhppoted.Lib.Integration_Tests is
             Month => 11,
             Day   => 5));
 
-      C303986753 : Uhppoted.Lib.Controller := (
+      C303986753 : constant Uhppoted.Lib.Controller := (
          ID       => 303986753,
          Address  => (192, 168, 1, 100),
          Netmask  => (255, 255, 255, 0),
@@ -28,7 +41,7 @@ package body Uhppoted.Lib.Integration_Tests is
             Month => 8,
             Day   => 15));
 
-      C201020304 : Uhppoted.Lib.Controller := (
+      C201020304 : constant Uhppoted.Lib.Controller := (
          ID       => 201020304,
          Address  => (192, 168, 1, 101),
          Netmask  => (255, 255, 255, 0),
@@ -42,21 +55,10 @@ package body Uhppoted.Lib.Integration_Tests is
 
       Controllers : constant Controller_List := Find_Controllers;
    begin
-      if Controllers'Length /= 3 then
-         raise Ada.Assertions.Assertion_Error with "expected 3 controllers, got" & Controllers'Length'Image;
-      end if;
-
-      if Controllers (1) /= C405419896 then
-         raise Ada.Assertions.Assertion_Error with "invalid 405419896 controller record";
-      end if;
-
-      if Controllers (2) /= C303986753 then
-         raise Ada.Assertions.Assertion_Error with "invalid 303986753 controller record";
-      end if;
-
-      if Controllers (3) /= C201020304 then
-         raise Ada.Assertions.Assertion_Error with "invalid 201020304 controller record";
-      end if;
+      Assert (Controllers'Length = 3, "expected 3 controllers, got" & Controllers'Length'Image);
+      Assert (Controllers (1) = C405419896, "invalid 405419896 controller record");
+      Assert (Controllers (2) = C303986753, "invalid 303986753 controller record");
+      Assert (Controllers (3) = C201020304, "invalid 201020304 controller record");
 
    end Test_Find_Controllers;
 

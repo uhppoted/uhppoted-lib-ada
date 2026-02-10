@@ -12,7 +12,11 @@ tags = []
 executables = ["integration_tests"]
 
 [[depends-on]]
-uhppoted_lib_ada = "~0.1.0-dev"
+aunit = "^26.0.0"
+
+[[depends-on]]
+uhppoted_lib_ada = "*"
 
 [[pins]]
 uhppoted_lib_ada = { path='../lib' }
+

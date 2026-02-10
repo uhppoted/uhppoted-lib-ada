@@ -16,6 +16,7 @@
   - use AUnit?
 
 - [ ] find-controllers
-    - [ ] udp
+    - [x] udp broadcast
+    - [ ] integration test
     - https://stackoverflow.com/questions/67969309/ada-customise-image
     - http://www.ada-auth.org/standards/22rm/html/rm-4-10.html

@@ -1,11 +1,16 @@
 with AUnit.Assertions;
+with GNAT.Sockets;
+with Ada.Streams;
 
 package body Uhppoted.Lib.Integration_Tests is
    use AUnit.Assertions;
+   use GNAT.Sockets;
+
+   UDP  : Socket_Type;
 
    overriding function Name (T : Integration_Test) return AUnit.Message_String is
    begin
-      return AUnit.Format ("integrations tests");
+      return AUnit.Format ("integration tests");
    end Name;
 
    overriding procedure Register_Tests (T : in out Integration_Test) is
@@ -14,15 +19,87 @@ package body Uhppoted.Lib.Integration_Tests is
       Register_Routine (T, Test_Find_Controllers'Access, "Test Find_Controllers");
    end Register_Tests;
 
-   procedure Test_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
+   overriding procedure Set_Up (T : in out Integration_Test) is
+   begin
+      null;
+   end Set_Up;
+
+   overriding procedure Tear_Down (T : in out Integration_Test) is
+   begin
+      Close_Socket (UDP);
+   end Tear_Down;
+
+   task body Listen is
+      Bind : Sock_Addr_Type;
+
+      subtype Packet is Ada.Streams.Stream_Element_Array (1 .. 64);
+   begin
+      Bind.Addr := Any_Inet_Addr;
+      Bind.Port := 60000;
+
+      Create_Socket (UDP, Family_Inet, Socket_Datagram);
+      Bind_Socket (UDP, Bind);
+
+      loop
+         declare
+            Buffer : Packet;
+            Offset : Ada.Streams.Stream_Element_Offset;
+            From : Sock_Addr_Type;
+
+         Replies : constant array (1 .. 3) of Packet := [
+            1 => [
+               16#17#, 16#94#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,
+               16#c0#, 16#a8#, 16#01#, 16#64#, 16#ff#, 16#ff#, 16#ff#, 16#00#,
+               16#c0#, 16#a8#, 16#01#, 16#01#, 16#00#, 16#12#, 16#23#, 16#34#,
+               16#45#, 16#56#, 16#08#, 16#92#, 16#20#, 16#18#, 16#11#, 16#05#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+            ],
+
+            2 => [
+               16#17#, 16#94#, 16#00#, 16#00#, 16#41#, 16#78#, 16#1e#, 16#12#,
+               16#c0#, 16#a8#, 16#01#, 16#64#, 16#ff#, 16#ff#, 16#ff#, 16#00#,
+               16#c0#, 16#a8#, 16#01#, 16#01#, 16#52#, 16#fd#, 16#fc#, 16#07#,
+               16#21#, 16#82#, 16#08#, 16#92#, 16#20#, 16#19#, 16#08#, 16#15#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+            ],
+
+            3 => [
+               16#17#, 16#94#, 16#00#, 16#00#, 16#90#, 16#53#, 16#fb#, 16#0b#,
+               16#c0#, 16#a8#, 16#01#, 16#65#, 16#ff#, 16#ff#, 16#ff#, 16#00#,
+               16#c0#, 16#a8#, 16#01#, 16#01#, 16#52#, 16#fd#, 16#fc#, 16#07#,
+               16#21#, 16#82#, 16#06#, 16#62#, 16#20#, 16#20#, 16#01#, 16#01#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+               16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+            ]
+        ];
+
+         begin
+            Receive_Socket (UDP, Buffer, Offset, From);
+            for Reply of Replies loop
+               Send_Socket (UDP, Reply, Offset, From);
+            end loop;
+         end;
+      end loop;
+
+   end Listen;
+
+   procedure Test_Find_Controllers (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
       C405419896 : constant Uhppoted.Lib.Controller := (
          ID       => 405419896,
-         Address  => (192, 168, 1, 100),
-         Netmask  => (255, 255, 255, 0),
-         Gateway  => (192, 168, 1, 1),
-         MAC      => (16#00#, 16#12#, 16#23#, 16#34#, 16#45#, 16#56#),
+         Address  => [192, 168, 1, 100],
+         Netmask  => [255, 255, 255, 0],
+         Gateway  => [192, 168, 1, 1],
+         MAC      => [16#00#, 16#12#, 16#23#, 16#34#, 16#45#, 16#56#],
          Firmware => "0892",
          Date     => (
             Year  => 2018,
@@ -31,10 +108,10 @@ package body Uhppoted.Lib.Integration_Tests is
 
       C303986753 : constant Uhppoted.Lib.Controller := (
          ID       => 303986753,
-         Address  => (192, 168, 1, 100),
-         Netmask  => (255, 255, 255, 0),
-         Gateway  => (192, 168, 1, 1),
-         MAC      => (16#52#, 16#fd#, 16#fc#, 16#07#, 16#21#, 16#82#),
+         Address  => [192, 168, 1, 100],
+         Netmask  => [255, 255, 255, 0],
+         Gateway  => [192, 168, 1, 1],
+         MAC      => [16#52#, 16#fd#, 16#fc#, 16#07#, 16#21#, 16#82#],
          Firmware => "0892",
          Date     => (
             Year  => 2019,
@@ -43,10 +120,10 @@ package body Uhppoted.Lib.Integration_Tests is
 
       C201020304 : constant Uhppoted.Lib.Controller := (
          ID       => 201020304,
-         Address  => (192, 168, 1, 101),
-         Netmask  => (255, 255, 255, 0),
-         Gateway  => (192, 168, 1, 1),
-         MAC      => (16#52#, 16#fd#, 16#fc#, 16#07#, 16#21#, 16#82#),
+         Address  => [192, 168, 1, 101],
+         Netmask  => [255, 255, 255, 0],
+         Gateway  => [192, 168, 1, 1],
+         MAC      => [16#52#, 16#fd#, 16#fc#, 16#07#, 16#21#, 16#82#],
          Firmware => "0662",
          Date     => (
             Year  => 2020,

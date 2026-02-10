@@ -9,7 +9,8 @@ project Integration_Tests is
 
    package Compiler is
       for Default_Switches ("Ada") use Integration_Tests_Config.Ada_Compiler_Switches & (
-         "-gnatyM120"
+          "-gnat2022"
+         ,"-gnatyM120"
       );
    end Compiler;
 

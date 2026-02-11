@@ -1,4 +1,3 @@
-with Ada.Text_IO;
 with AUnit.Assertions;
 with GNAT.Sockets;
 with Ada.Streams;
@@ -16,7 +15,7 @@ package body Uhppoted.Lib.Integration_Tests is
 
       Broadcast_Addr => (
          Family => GNAT.Sockets.Family_Inet,
-         Addr => Inet_Addr ("192.168.1.255"),
+         Addr => Inet_Addr ("255.255.255.255"),
          Port => 60005),
 
       Listen_Addr => (
@@ -39,12 +38,11 @@ package body Uhppoted.Lib.Integration_Tests is
 
    overriding procedure Set_Up (T : in out Integration_Test) is
    begin
-      Ada.Text_IO.Put_Line(" >>>>>>>>> SETUP");
+      null;
    end Set_Up;
 
    overriding procedure Tear_Down (T : in out Integration_Test) is
    begin
-      Ada.Text_IO.Put_Line(" >>>>>>>>> TEARDOWN");
       Close_Socket (UDP);
    end Tear_Down;
 
@@ -53,8 +51,6 @@ package body Uhppoted.Lib.Integration_Tests is
 
       subtype Packet is Ada.Streams.Stream_Element_Array (1 .. 64);
    begin
-      Ada.Text_IO.Put_Line(" >>>>>>>>> LISTEN");
-
       Bind.Addr := Any_Inet_Addr;
       Bind.Port := 60005;
 
@@ -151,15 +147,8 @@ package body Uhppoted.Lib.Integration_Tests is
             Month => 1,
             Day   => 1));
 
-      Controllers : Controller_List (1 .. 3);
+      Controllers : constant Controller_List := Find_Controllers (U);
    begin
-      Ada.Text_IO.Put_Line(" >>>>>>>>> FIND CONTROLLERS");
-      delay 1.0;
-
-      Ada.Text_IO.Put_Line(" >>>>>>>>> FIND CONTROLLERS - BEFORE");
-      Controllers := Find_Controllers (U);
-      Ada.Text_IO.Put_Line(" >>>>>>>>> FIND CONTROLLERS - AFTER");
-
       Assert (Controllers'Length = 3, "expected 3 controllers, got" & Controllers'Length'Image);
       Assert (Controllers (1) = C405419896, "invalid 405419896 controller record");
       Assert (Controllers (2) = C303986753, "invalid 303986753 controller record");

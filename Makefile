@@ -19,7 +19,6 @@ integration-tests: build
 build-all:
 	cd lib && alr --non-interactive update
 	cd lib && make build
-	cd examples/cli && make build
 
 find-controllers: build
 	cd examples/cli && make find-controllers

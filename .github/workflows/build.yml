@@ -33,9 +33,9 @@ jobs:
       run: |
         make build-all
 
-    # - name: Build examples
-    #   run: |
-    #     cd examples/cli && make build
+    - name: Build examples
+      run: |
+        cd examples/cli && make build
 
     - name: Run integration tests
       run: |

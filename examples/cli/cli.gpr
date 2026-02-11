@@ -1,5 +1,6 @@
 with "config/cli_config.gpr";
 project Cli is
+   Platform := external ("platform", Cli_Config.Alire_Host_OS);
 
    for Source_Dirs use ("src/", "config/");
    for Object_Dir use "obj/" & Cli_Config.Build_Profile;
@@ -12,7 +13,14 @@ project Cli is
    end Compiler;
 
    package Linker is
-      for Default_Switches ("Ada") use ("-Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk");
+      case Platform is
+         when "macos" =>
+            for Default_Switches ("Ada") use ("-Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk");
+         when "linux" | "windows" =>
+            for Default_Switches ("Ada") use ();
+         when others =>
+            null;
+      end case;   
    end Linker;
 
    package Binder is

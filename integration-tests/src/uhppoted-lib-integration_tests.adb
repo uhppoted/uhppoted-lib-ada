@@ -47,7 +47,7 @@ package body Uhppoted.Lib.Integration_Tests is
    overriding procedure Tear_Down (T : in out Integration_Test) is
    begin
       Ada.Text_IO.Put_Line (">>>> teardown");
-      --  Close_Socket (UDP);
+      Close_Socket (UDP);
       Ada.Text_IO.Put_Line (">>>> teardown/done");
    end Tear_Down;
 

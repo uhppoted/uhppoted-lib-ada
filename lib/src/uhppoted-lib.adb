@@ -6,9 +6,9 @@ with Uhppoted.Lib.Types;
 package body Uhppoted.Lib is
    use Uhppoted.Lib.Types;
 
-   function Find_Controllers return Controller_List is
+   function Find_Controllers (U : UHPPOTE) return Controller_List is
       Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
-      Replies  : constant Packet_List := Uhppoted.Lib.UDP.Broadcast (Request);
+      Replies  : constant Packet_List := Uhppoted.Lib.UDP.Broadcast (U, Request);
       Response : Controller_List (1 .. Integer (Replies.Length));
       IX       : Positive := 1;
    begin

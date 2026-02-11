@@ -1,10 +1,30 @@
+with GNAT.Sockets;
 with Ada.Text_IO;
 with Uhppoted.Lib;
 
 procedure Cli is
    use Uhppoted.Lib;
+   use GNAT.Sockets;
 
-   Controllers : constant Controller_List := Find_Controllers;
+   U : constant UHPPOTE := (
+      Bind_Addr => (
+         Family => GNAT.Sockets.Family_Inet,
+         Addr => Any_Inet_Addr,
+         Port => 0),
+
+      Broadcast_Addr => (
+         Family => GNAT.Sockets.Family_Inet,
+         Addr => Inet_Addr ("192.168.1.255"),
+         Port => 60000),
+
+      Listen_Addr => (
+         Family => GNAT.Sockets.Family_Inet,
+         Addr => Any_Inet_Addr,
+         Port => 60001),
+
+      Debug => True);
+
+   Controllers : constant Controller_List := Find_Controllers (U);
 begin
    Ada.Text_IO.Put_Line ("--- UHPPOTE Discovery Test ---");
 

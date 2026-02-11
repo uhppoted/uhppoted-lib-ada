@@ -13,10 +13,10 @@ package body Uhppoted.Lib.UDP is
    function To_Packet is new Ada.Unchecked_Conversion (Source => Stream_Packet,  Target => Packet);
 
    --  Broadcasts a 64 byte request packet and returns the response (if any).
-   function Broadcast (Request : Packet) return Packet_List is
+   function Broadcast (U : UHPPOTE; Request : Packet) return Packet_List is
       Client  : Socket_Type;
-      Bind    : Sock_Addr_Type;
-      Address : Sock_Addr_Type;
+      Bind    : constant Sock_Addr_Type := U.Bind_Addr;
+      Address : constant Sock_Addr_Type := U.Broadcast_Addr;
       Offset  : Ada.Streams.Stream_Element_Offset;
 
       Read_Set : Socket_Set_Type;
@@ -32,14 +32,7 @@ package body Uhppoted.Lib.UDP is
    begin
       Replies.Reserve_Capacity (16);
 
-      Bind.Addr := Any_Inet_Addr;
-      Bind.Port := 0;
-
-      Address.Addr := Inet_Addr ("192.168.1.255");
-      Address.Port := 60000;
-
       Create_Selector (Selector);
-
       Empty (Read_Set);
       Empty (Write_Set);
 

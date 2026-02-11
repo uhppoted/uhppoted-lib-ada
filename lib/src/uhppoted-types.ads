@@ -1,7 +1,15 @@
 with Interfaces;
+with GNAT.Sockets;
 
 package Uhppoted.Types is
    use Interfaces;
+
+   type UHPPOTE is record
+      Bind_Addr      : GNAT.Sockets.Sock_Addr_Type;
+      Broadcast_Addr : GNAT.Sockets.Sock_Addr_Type;
+      Listen_Addr    : GNAT.Sockets.Sock_Addr_Type;
+      Debug          : Boolean;
+   end record;
 
    type IPv4 is array (1 .. 4) of Interfaces.Unsigned_8;
    type MAC_Address is array (1 .. 6) of Unsigned_8;

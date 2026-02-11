@@ -38,7 +38,7 @@ package body Uhppoted.Lib.Integration_Tests is
 
    overriding procedure Set_Up (T : in out Integration_Test) is
    begin
-      null;
+      delay 1.0;
    end Set_Up;
 
    overriding procedure Tear_Down (T : in out Integration_Test) is

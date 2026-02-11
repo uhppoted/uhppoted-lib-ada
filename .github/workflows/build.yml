@@ -40,3 +40,4 @@ jobs:
     - name: Run integration tests
       run: |
         make integration-tests
+      timeout-minutes: 2

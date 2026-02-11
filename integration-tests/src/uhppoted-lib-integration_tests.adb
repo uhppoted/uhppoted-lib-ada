@@ -1,10 +1,13 @@
+with Ada.Text_IO;
+with Ada.Streams;
+with Ada.Calendar;
 with AUnit.Assertions;
 with GNAT.Sockets;
-with Ada.Streams;
 
 package body Uhppoted.Lib.Integration_Tests is
    use AUnit.Assertions;
    use GNAT.Sockets;
+   use Ada.Calendar;
 
    UDP  : Socket_Type;
    U : constant UHPPOTE := (
@@ -38,27 +41,46 @@ package body Uhppoted.Lib.Integration_Tests is
 
    overriding procedure Set_Up (T : in out Integration_Test) is
    begin
-      null;
+      Ada.Text_IO.Put_Line (">>>> setup");
    end Set_Up;
 
    overriding procedure Tear_Down (T : in out Integration_Test) is
    begin
-      Close_Socket (UDP);
+      Ada.Text_IO.Put_Line (">>>> teardown");
+      --  Close_Socket (UDP);
+      Ada.Text_IO.Put_Line (">>>> teardown/done");
    end Tear_Down;
 
    task body Listen is
       Bind : Sock_Addr_Type;
 
+      Read_Set : Socket_Set_Type;
+      Write_Set : Socket_Set_Type;
+      Selector : Selector_Type;
+      Status : Selector_Status;
+      Start : constant Time := Clock;
+      Deadline : constant Time := Start + 2.5;
+
       subtype Packet is Ada.Streams.Stream_Element_Array (1 .. 64);
    begin
+      Ada.Text_IO.Put_Line (">>>> listen");
+
       Bind.Addr := Any_Inet_Addr;
       Bind.Port := 60005;
 
       Create_Socket (UDP, Family_Inet, Socket_Datagram);
       Bind_Socket (UDP, Bind);
 
+      Create_Selector (Selector);
+      Empty (Read_Set);
+      Empty (Write_Set);
+      Set (Read_Set, UDP);
+
       loop
          declare
+            Now : constant Time := Clock;
+            Remaining  : Duration;
+
             Buffer : Packet;
             Offset : Ada.Streams.Stream_Element_Offset;
             From : Sock_Addr_Type;
@@ -99,13 +121,29 @@ package body Uhppoted.Lib.Integration_Tests is
            ];
 
          begin
-            Receive_Socket (UDP, Buffer, Offset, From);
-            for Reply of Replies loop
-               Send_Socket (UDP, Reply, Offset, From);
-            end loop;
+            Remaining := Deadline - Now;
+
+            exit when Remaining <= 0.0;
+
+            Check_Selector (Selector,
+                            R_Socket_Set => Read_Set,
+                            W_Socket_Set => Write_Set,
+                            Status       => Status,
+                            Timeout      => 5.0);
+
+            if Status = Completed then
+               Receive_Socket (UDP, Buffer, Offset, From);
+               for Reply of Replies loop
+                  Send_Socket (UDP, Reply, Offset, From);
+               end loop;
+            end if;
          end;
       end loop;
 
+      Close_Selector (Selector);
+      Close_Socket (UDP);
+
+      Ada.Text_IO.Put_Line (">>>> listen/done");
    end Listen;
 
    procedure Test_Find_Controllers (T : in out Test_Case'Class) is

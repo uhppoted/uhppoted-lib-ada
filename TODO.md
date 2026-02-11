@@ -13,7 +13,7 @@
    );
 ```
 - [ ] integration tests
-    - [ ] github workflow
+    - [x] github workflow
     - [ ] `test_suite.adb:8:21: warning: use of an anonymous access type allocator [-gnatw_a]`
 
 - [ ] find-controllers

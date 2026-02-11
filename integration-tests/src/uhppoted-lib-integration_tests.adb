@@ -1,4 +1,3 @@
-with Ada.Text_IO;
 with Ada.Streams;
 with Ada.Calendar;
 with AUnit.Assertions;
@@ -41,14 +40,12 @@ package body Uhppoted.Lib.Integration_Tests is
 
    overriding procedure Set_Up (T : in out Integration_Test) is
    begin
-      Ada.Text_IO.Put_Line (">>>> setup");
+      null;
    end Set_Up;
 
    overriding procedure Tear_Down (T : in out Integration_Test) is
    begin
-      Ada.Text_IO.Put_Line (">>>> teardown");
       Close_Socket (UDP);
-      Ada.Text_IO.Put_Line (">>>> teardown/done");
    end Tear_Down;
 
    task body Listen is
@@ -63,8 +60,6 @@ package body Uhppoted.Lib.Integration_Tests is
 
       subtype Packet is Ada.Streams.Stream_Element_Array (1 .. 64);
    begin
-      Ada.Text_IO.Put_Line (">>>> listen");
-
       Bind.Addr := Any_Inet_Addr;
       Bind.Port := 60005;
 
@@ -121,6 +116,7 @@ package body Uhppoted.Lib.Integration_Tests is
            ];
 
          begin
+            -- NTS: github workflow hangs indefinitely without a CheckSelector
             Remaining := Deadline - Now;
 
             exit when Remaining <= 0.0;
@@ -142,8 +138,6 @@ package body Uhppoted.Lib.Integration_Tests is
 
       Close_Selector (Selector);
       Close_Socket (UDP);
-
-      Ada.Text_IO.Put_Line (">>>> listen/done");
    end Listen;
 
    procedure Test_Find_Controllers (T : in out Test_Case'Class) is

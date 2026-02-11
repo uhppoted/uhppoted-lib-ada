@@ -1,8 +1,10 @@
+with Interfaces;
 with Ada.Unchecked_Conversion;
 
 with Uhppoted.Lib.Responses;
 
 package body Uhppoted.Lib.Decode is
+   use Interfaces;
    use Uhppoted.Lib.Responses;
 
    --  Translates a BCD coded string in a byte array to a string.
@@ -43,7 +45,7 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte get-controller response as a Controller record.
    function Get_Controller (Reply : Packet)
-      return Uhppoted.Lib.Controller is
+      return Uhppoted.Types.Controller is
 
       function Convert is new Ada.Unchecked_Conversion (
          Source => Packet,

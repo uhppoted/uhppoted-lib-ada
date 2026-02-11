@@ -1,9 +1,11 @@
+with Interfaces;
 with Ada.Streams;
 with System;
 
 with Uhppoted.Lib.Types;
 
 package Uhppoted.Lib.Responses is
+   use Interfaces;
    use Uhppoted.Lib.Types;
 
    type GetControllerResponse is record

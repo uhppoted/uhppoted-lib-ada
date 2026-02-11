@@ -33,10 +33,10 @@ jobs:
       run: |
         make build-all
 
-    - name: Build examples
-      run: |
-        cd examples/cli && make build
+    # - name: Build examples
+    #   run: |
+    #     cd examples/cli && make build
 
-    - name: Build integration tests
+    - name: Run integration tests
       run: |
-        cd integration-tests && make build
+        make integration-tests

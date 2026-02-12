@@ -1,11 +1,14 @@
+with Uhppoted.Lib.Requests;
+
 package body Uhppoted.Lib.Encode is
+   use Uhppoted.Lib.Requests;
 
    --  Encodes a get-controller request as a 64 byte array.
-   function Get_Controller (ID : Unsigned_32) return Packet is
-      Buffer : Packet := [others => 0];
+   function Get_Controller (Controller : Unsigned_32) return Packet is
+      Request : GetControllerRequest;
+      Buffer  : Packet with Address => Request'Address;
    begin
-      Buffer (1) := 16#17#;
-      Buffer (2) := 16#94#;
+      Request.Controller := Controller;
 
       return Buffer;
    end Get_Controller;

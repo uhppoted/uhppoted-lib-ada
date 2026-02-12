@@ -22,6 +22,7 @@ project Uhppoted_Lib_Ada is
       "Uhppoted.Lib",
       "Uhppoted.Types",
       "Uhppoted.Lib.Types",
+      "Uhppoted.Lib.Encode",
       "Uhppoted.Lib.Decode"
    );
 

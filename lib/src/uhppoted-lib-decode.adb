@@ -1,5 +1,4 @@
 with Interfaces;
-with Ada.Unchecked_Conversion;
 
 with Uhppoted.Lib.Responses;
 
@@ -44,16 +43,10 @@ package body Uhppoted.Lib.Decode is
    end Unpack_Date;
 
    --  Decodes a 64 byte get-controller response as a Controller record.
-   function Get_Controller (Reply : Packet)
-      return Uhppoted.Types.Controller is
-
-      function Convert is new Ada.Unchecked_Conversion (
-         Source => Packet,
-         Target => GetControllerResponse);
-
-      Response : constant GetControllerResponse := Convert (Reply);
+   function Get_Controller (Reply : Packet) return Uhppoted.Types.Controller is
+      Response : GetControllerResponse with Import, Address => Reply'Address;
    begin
-      return (ID       => Response.ID,
+      return (ID       => Response.Controller,
               Address  => Response.Address,
               Netmask  => Response.Netmask,
               Gateway  => Response.Gateway,

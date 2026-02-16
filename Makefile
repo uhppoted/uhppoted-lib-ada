@@ -1,6 +1,9 @@
 clean:
 	cd lib && make clean
 
+generate:
+	cd .codegen && make generate
+
 update:
 	cd lib               && alr index --update-all
 	cd lib/tests         && alr index --update-all

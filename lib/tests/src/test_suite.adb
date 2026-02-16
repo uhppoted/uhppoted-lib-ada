@@ -1,6 +1,7 @@
 with AUnit.Test_Suites;
 with Uhppoted.Lib.Encode.Tests;
 with Uhppoted.Lib.Decode.Tests;
+with Uhppoted.Lib.Tests.Encode;
 
 function Test_Suite return AUnit.Test_Suites.Access_Test_Suite is
    use AUnit.Test_Suites;
@@ -8,5 +9,6 @@ function Test_Suite return AUnit.Test_Suites.Access_Test_Suite is
 begin
    Add_Test (Result, new Uhppoted.Lib.Encode.Tests.Encoder_Test);
    Add_Test (Result, new Uhppoted.Lib.Decode.Tests.Decoder_Test);
+   Add_Test (Result, new Uhppoted.Lib.Tests.Encode.Encoder_Test);
    return Result;
 end Test_Suite;

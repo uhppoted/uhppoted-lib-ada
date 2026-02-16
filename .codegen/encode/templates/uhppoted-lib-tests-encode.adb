@@ -14,8 +14,7 @@ package body Uhppoted.Lib.Tests.Encode is
    overriding procedure Register_Tests (T : in out Encoder_Test) is
       use AUnit.Test_Cases.Registration;
    begin
-      Register_Routine (T, Test_Encode_Find_Controllers'Access, "Test Get_Controller(0)");
-      Register_Routine (T, Test_Encode_Get_Controller'Access,   "Test Get_Controller(405419896)");
+{{- template "register" . }}
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -49,3 +48,7 @@ package body Uhppoted.Lib.Tests.Encode is
    end Test_Encode_Get_Controller;
 
 end Uhppoted.Lib.Tests.Encode;
+{{define "register"}}
+{{- range $test := .Tests }}
+      Register_Routine (T, {{ printf "%s'Access," $test.Name | rpad 36 }} "{{ $test.Description }}");
+{{- end }}{{end}}

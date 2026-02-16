@@ -2,10 +2,15 @@ package encode
 
 import (
 	_ "embed"
+	"fmt"
 	"log"
 	"os"
 	"text/template"
-	// lib "github.com/uhppoted/uhppoted-codegen/model/types"
+
+	lib "github.com/uhppoted/uhppoted-codegen/model/types"
+
+	"codegen/codegen"
+	"codegen/model"
 )
 
 //go:embed templates/uhppoted-lib-tests-encode.ads
@@ -14,14 +19,21 @@ var ads string
 //go:embed templates/uhppoted-lib-tests-encode.adb
 var adb string
 
+type test struct {
+	Name        string
+	Description string
+}
+
 func UnitTests() {
 	log.Println("   ... generating encode unit tests")
 
-	encodeTestsADS()
-	encodeTestsADB()
+	tests := transmogrify(model.Requests)
+
+	encodeTestsADS(tests)
+	encodeTestsADB(tests)
 }
 
-func encodeTestsADS() {
+func encodeTestsADS(tests []test) {
 	const file = "../lib/tests/src/uhppoted-lib-tests-encode.ads"
 
 	if f, err := os.Create(file); err != nil {
@@ -30,15 +42,12 @@ func encodeTestsADS() {
 		defer f.Close()
 
 		var data = struct {
-			// API       []*lib.Function
-			// Responses []*lib.Response
+			Tests []test
 		}{
-			// API:       model.API,
-			// Responses: model.Responses,
+			Tests: tests,
 		}
 
-		// tmpl := template.Must(template.New("encode").Funcs(codegen.Functions).Parse(ads))
-		tmpl := template.Must(template.New("encode-tests").Parse(ads))
+		tmpl := template.Must(template.New("encode-tests").Funcs(codegen.Functions).Parse(ads))
 		if err := tmpl.Execute(f, data); err != nil {
 			log.Fatalf("%v", err)
 		}
@@ -47,7 +56,7 @@ func encodeTestsADS() {
 	}
 }
 
-func encodeTestsADB() {
+func encodeTestsADB(tests []test) {
 	const file = "../lib/tests/src/uhppoted-lib-tests-encode.adb"
 
 	if f, err := os.Create(file); err != nil {
@@ -56,19 +65,31 @@ func encodeTestsADB() {
 		defer f.Close()
 
 		var data = struct {
-			// API       []*lib.Function
-			// Responses []*lib.Response
+			Tests []test
 		}{
-			// API:       model.API,
-			// Responses: model.Responses,
+			Tests: tests,
 		}
 
-		// tmpl := template.Must(template.New("encode").Funcs(codegen.Functions).Parse(ads))
-		tmpl := template.Must(template.New("encode-tests").Parse(adb))
+		tmpl := template.Must(template.New("encode-tests").Funcs(codegen.Functions).Parse(adb))
 		if err := tmpl.Execute(f, data); err != nil {
 			log.Fatalf("%v", err)
 		}
 
 		log.Printf("... generated %s", file)
 	}
+}
+
+func transmogrify(requests []lib.Request) []test {
+	transmogrified := []test{}
+
+	for _, rq := range requests {
+		for _, t := range rq.Tests {
+			transmogrified = append(transmogrified, test{
+				Name:        fmt.Sprintf("Test_Encode_%v", codegen.AdaName(t.Name)),
+				Description: fmt.Sprintf("Test encode %v request", codegen.AdaName(t.Name)),
+			})
+		}
+	}
+
+	return transmogrified
 }

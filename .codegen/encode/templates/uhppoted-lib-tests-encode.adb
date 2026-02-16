@@ -1,7 +1,10 @@
 with AUnit.Assertions;
+with Uhppoted.Lib.Types;
+with Uhppoted.Lib.Encode;
 
-package body Uhppoted.Lib.Encode.Tests is
+package body Uhppoted.Lib.Tests.Encode is
    use AUnit.Assertions;
+   use Uhppoted.Lib.Types;
 
    overriding function Name (T : Encoder_Test) return AUnit.Message_String is
    begin
@@ -45,4 +48,4 @@ package body Uhppoted.Lib.Encode.Tests is
       Assert (Request = Expected, "incorrectly decoded get-controller request: got" & Request'Image);
    end Test_Encode_Get_Controller;
 
-end Uhppoted.Lib.Encode.Tests;
+end Uhppoted.Lib.Tests.Encode;

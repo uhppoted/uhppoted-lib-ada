@@ -9,7 +9,7 @@ licenses = "MIT"
 website = "https://github.com/uhppoted/uhppoted-lib-ada"
 tags = []
 
-executables = ["tests"]
+executables = ["uhppoted_lib_tests"]
 
 [[depends-on]]
 aunit = "^26.0.0"

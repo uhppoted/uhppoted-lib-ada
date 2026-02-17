@@ -30,7 +30,7 @@ package body Uhppoted.Lib.Tests.Encode is
 
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
    begin
-      Assert (Request = Expected, "incorrectly encoded find-controllers request: got" & Request'Image);
+      Assert (Request = Expected, "incorrectly encoded get-controller request: got" & Request'Image);
    end Test_Encode_Find_Controllers;
 
    procedure Test_Encode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -45,7 +45,8 @@ package body Uhppoted.Lib.Tests.Encode is
 
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (405419896);
    begin
-      Assert (Request = Expected, "incorrectly decoded get-controller request: got" & Request'Image);
+      Assert (Request = Expected, "incorrectly encoded get-controller request: got" & Request'Image);
    end Test_Encode_Get_Controller;
+
 
 end Uhppoted.Lib.Tests.Encode;

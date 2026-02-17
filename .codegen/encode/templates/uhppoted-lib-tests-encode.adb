@@ -16,39 +16,28 @@ package body Uhppoted.Lib.Tests.Encode is
    begin
 {{- template "register" . }}
    end Register_Tests;
-
-   procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
-      pragma Unreferenced (T);
-
-      Expected : constant Packet := [
-         16#17#, 16#94#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
-         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
-         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
-         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
-      ];
-
-      Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
-   begin
-      Assert (Request = Expected, "incorrectly encoded find-controllers request: got" & Request'Image);
-   end Test_Encode_Find_Controllers;
-
-   procedure Test_Encode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
-      pragma Unreferenced (T);
-
-      Expected : constant Packet := [
-         16#17#, 16#94#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
-         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
-         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
-         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
-      ];
-
-      Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (405419896);
-   begin
-      Assert (Request = Expected, "incorrectly decoded get-controller request: got" & Request'Image);
-   end Test_Encode_Get_Controller;
+{{ range $test := .Tests }}
+{{- template "unittest" $test }}
+{{- end }}
 
 end Uhppoted.Lib.Tests.Encode;
-{{define "register"}}
+
+{{- define "register"}}
 {{- range $test := .Tests }}
-      Register_Routine (T, {{ printf "%s'Access," $test.Name | rpad 36 }} "{{ $test.Description }}");
+      Register_Routine (T, {{ printf "Test_Encode_%s'Access," $test.Name | rpad 36 }} "{{ $test.Description }}");
 {{- end }}{{end}}
+
+{{- define "unittest"}}
+   procedure Test_Encode_{{ .Name }} (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+{{- range $bytes := .Expected }}
+         {{ $bytes }}{{ end }}
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.{{ var .Request }} ({{ args .Args }});
+   begin
+      Assert (Request = Expected, "incorrectly encoded {{ .Request }} request: got" & Request'Image);
+   end Test_Encode_{{ .Name }};
+{{ end }}

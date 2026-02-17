@@ -1,6 +1,7 @@
 package codegen
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 	"text/template"
@@ -8,6 +9,8 @@ import (
 )
 
 var Functions = template.FuncMap{
+	"var":  AdaName,
+	"args": args,
 	"rpad": rpad,
 }
 
@@ -19,6 +22,16 @@ func AdaName(s string) string {
 	}
 
 	return strings.Join(tokens, "_")
+}
+
+func KebabCase(s string) string {
+	tokens := regexp.MustCompile(`\s+`).Split(s, -1)
+
+	for i, token := range tokens[1:] {
+		tokens[i+1] = strings.ToLower(token)
+	}
+
+	return strings.Join(tokens, "-")
 }
 
 func capitalize(s string) string {
@@ -37,4 +50,14 @@ func rpad(length int, s string) string {
 	}
 
 	return s + strings.Repeat(" ", length-len(s))
+}
+
+func args(list []any) string {
+	s := []string{}
+
+	for _, v := range list {
+		s = append(s, fmt.Sprintf("%v", v))
+	}
+
+	return strings.Join(s, ", ")
 }

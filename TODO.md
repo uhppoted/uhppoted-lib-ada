@@ -17,8 +17,10 @@
 
 - [x] find-controllers
 - [ ] get-controller
-   - [x] controller ID
-   - [ ] controller struct
+    - [x] controller ID
+    - [ ] controller struct
+    - [ ] CLI
+    - [ ] integration test
 
 - [ ] UDP
     - [ ] broadcast timeout parameter

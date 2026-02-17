@@ -17,7 +17,14 @@
 
 - [x] find-controllers
 - [ ] get-controller
+   - [x] controller ID
+   - [ ] controller struct
 
+- [ ] UDP
+    - [ ] broadcast timeout parameter
+    - [ ] send timeout parameter
+    - [ ] sendto
+    - [ ] controlled types for sockets/selectors
 
 - https://stackoverflow.com/questions/67969309/ada-customise-image
 - http://www.ada-auth.org/standards/22rm/html/rm-4-10.html

@@ -25,4 +25,11 @@ package body Uhppoted.Lib is
       return Response;
    end Find_Controllers;
 
+   function Get_Controller (U : UHPPOTE; C : Unsigned_32) return Controller is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C);
+      Reply   : constant Packet := Uhppoted.Lib.UDP.Send (U, Request);
+   begin
+      return Uhppoted.Lib.Decode.Get_Controller (Reply);
+   end Get_Controller;
+
 end Uhppoted.Lib;

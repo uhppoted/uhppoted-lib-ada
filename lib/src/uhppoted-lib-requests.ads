@@ -1,9 +1,7 @@
-with Interfaces;
 with Ada.Streams;
 with System;
 
 package Uhppoted.Lib.Requests is
-   use Interfaces;
 
    type GetControllerRequest is record
       SOH        : Unsigned_8 := 16#17#;

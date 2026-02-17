@@ -25,22 +25,36 @@ procedure Cli is
       Debug => True);
 
    Controllers : constant Controller_List := Find_Controllers (U);
+   C : constant Controller := Get_Controller (U, 405419896);
 begin
-   Ada.Text_IO.Put_Line ("--- UHPPOTE Discovery Test ---");
+   Ada.Text_IO.Put_Line ("--- find-controllers");
 
    if Controllers'Length = 0 then
       Ada.Text_IO.Put_Line ("No controllers found.");
    else
       for C of Controllers loop
-         Ada.Text_IO.Put_Line ("Found Controller ID:" & C.ID'Image);
-         Ada.Text_IO.Put_Line ("                     " & Image (C.Address));
-         Ada.Text_IO.Put_Line ("                     " & Image (C.Netmask));
-         Ada.Text_IO.Put_Line ("                     " & Image (C.Gateway));
-         Ada.Text_IO.Put_Line ("                     " & Image (C.MAC));
-         Ada.Text_IO.Put_Line ("                     " & C.Firmware);
-         Ada.Text_IO.Put_Line ("                     " & Image (C.Date));
+         Ada.Text_IO.Put_Line ("controller:" & C.ID'Image);
+         Ada.Text_IO.Put_Line ("            " & Image (C.Address));
+         Ada.Text_IO.Put_Line ("            " & Image (C.Netmask));
+         Ada.Text_IO.Put_Line ("            " & Image (C.Gateway));
+         Ada.Text_IO.Put_Line ("            " & Image (C.MAC));
+         Ada.Text_IO.Put_Line ("            " & C.Firmware);
+         Ada.Text_IO.Put_Line ("            " & Image (C.Date));
+         Ada.Text_IO.Put_Line ("");
       end loop;
    end if;
 
-   Ada.Text_IO.Put_Line ("------------------------------");
+   Ada.Text_IO.Put_Line ("");
+
+   Ada.Text_IO.Put_Line ("--- get-controller");
+   Ada.Text_IO.Put_Line ("controller:" & C.ID'Image);
+   Ada.Text_IO.Put_Line ("            " & Image (C.Address));
+   Ada.Text_IO.Put_Line ("            " & Image (C.Netmask));
+   Ada.Text_IO.Put_Line ("            " & Image (C.Gateway));
+   Ada.Text_IO.Put_Line ("            " & Image (C.MAC));
+   Ada.Text_IO.Put_Line ("            " & C.Firmware);
+   Ada.Text_IO.Put_Line ("            " & Image (C.Date));
+
+   Ada.Text_IO.Put_Line ("");
+
 end Cli;

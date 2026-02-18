@@ -7,6 +7,7 @@ package body Uhppoted.Lib.Integration_Tests is
    use AUnit.Assertions;
    use GNAT.Sockets;
    use Ada.Calendar;
+   use Uhppoted.Lib;
 
    UDP  : Socket_Type;
    U : constant UHPPOTE := (
@@ -116,7 +117,7 @@ package body Uhppoted.Lib.Integration_Tests is
            ];
 
          begin
-            -- NTS: github workflow hangs indefinitely without a CheckSelector
+            --  NTS: github workflow hangs indefinitely without a CheckSelector
             Remaining := Deadline - Now;
 
             exit when Remaining <= 0.0;
@@ -143,7 +144,7 @@ package body Uhppoted.Lib.Integration_Tests is
    procedure Test_Find_Controllers (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C405419896 : constant Uhppoted.Lib.Controller := (
+      C405419896 : constant Controller_Record := (
          ID       => 405419896,
          Address  => [192, 168, 1, 100],
          Netmask  => [255, 255, 255, 0],
@@ -155,7 +156,7 @@ package body Uhppoted.Lib.Integration_Tests is
             Month => 11,
             Day   => 5));
 
-      C303986753 : constant Uhppoted.Lib.Controller := (
+      C303986753 : constant Controller_Record := (
          ID       => 303986753,
          Address  => [192, 168, 1, 100],
          Netmask  => [255, 255, 255, 0],
@@ -167,7 +168,7 @@ package body Uhppoted.Lib.Integration_Tests is
             Month => 8,
             Day   => 15));
 
-      C201020304 : constant Uhppoted.Lib.Controller := (
+      C201020304 : constant Controller_Record := (
          ID       => 201020304,
          Address  => [192, 168, 1, 101],
          Netmask  => [255, 255, 255, 0],
@@ -179,7 +180,7 @@ package body Uhppoted.Lib.Integration_Tests is
             Month => 1,
             Day   => 1));
 
-      Controllers : constant Controller_List := Find_Controllers (U);
+      Controllers : constant Controller_Record_List := Find_Controllers (U);
    begin
       Assert (Controllers'Length = 3, "expected 3 controllers, got" & Controllers'Length'Image);
       Assert (Controllers (1) = C405419896, "invalid 405419896 controller record");

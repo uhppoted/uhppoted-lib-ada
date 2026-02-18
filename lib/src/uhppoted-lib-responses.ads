@@ -7,10 +7,10 @@ package Uhppoted.Lib.Responses is
    use Uhppoted.Lib.Types;
 
    type GetControllerResponse is record
-      SOH        : Unsigned_8 := 16#17#;
-      OpCode     : Unsigned_8 := 16#94#;
+      SOH        : Interfaces.Unsigned_8 := 16#17#;
+      OpCode     : Interfaces.Unsigned_8 := 16#94#;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
-      Controller : Unsigned_32;
+      Controller : Interfaces.Unsigned_32;
       Address    : IPv4;
       Netmask    : IPv4;
       Gateway    : IPv4;

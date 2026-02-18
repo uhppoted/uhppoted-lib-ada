@@ -2,6 +2,7 @@ with AUnit.Assertions;
 
 package body Uhppoted.Lib.Decode.Tests is
    use AUnit.Assertions;
+   use Uhppoted.Lib;
 
    overriding function Name (T : Decoder_Test) return AUnit.Message_String is
    begin
@@ -27,7 +28,7 @@ package body Uhppoted.Lib.Decode.Tests is
    procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
 
-      Expected : constant Uhppoted.Lib.Controller := (
+      Expected : constant Uhppoted.Lib.Controller_Record := (
          ID       => 405419896,
          Address  => [192, 168, 1, 100],
          Netmask  => [255, 255, 255, 0],
@@ -46,7 +47,7 @@ package body Uhppoted.Lib.Decode.Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      Result : constant Uhppoted.Lib.Controller := Uhppoted.Lib.Decode.Get_Controller (Reply);
+      Result : constant Controller_Record := Decode.Get_Controller (Reply);
    begin
       Assert (Result = Expected, "incorrectly decoded get-controller response: got" & Result'Image);
    end Test_Decode_Get_Controller;

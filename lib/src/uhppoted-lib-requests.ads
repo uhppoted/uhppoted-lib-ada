@@ -4,10 +4,10 @@ with System;
 package Uhppoted.Lib.Requests is
 
    type GetControllerRequest is record
-      SOH        : Unsigned_8 := 16#17#;
-      OpCode     : Unsigned_8 := 16#94#;
+      SOH        : Interfaces.Unsigned_8 := 16#17#;
+      OpCode     : Interfaces.Unsigned_8 := 16#94#;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
-      Controller : Unsigned_32;
+      Controller : Interfaces.Unsigned_32;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 

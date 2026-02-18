@@ -1,5 +1,3 @@
-with Interfaces;
-
 with Uhppoted.Lib.Responses;
 
 package body Uhppoted.Lib.Decode is
@@ -42,8 +40,8 @@ package body Uhppoted.Lib.Decode is
       return (Year => Year, Month => Month, Day => Day);
    end Unpack_Date;
 
-   --  Decodes a 64 byte get-controller response as a Controller record.
-   function Get_Controller (Reply : Packet) return Uhppoted.Types.Controller is
+   --  Decodes a 64 byte get-controller response as a Controller_Record record.
+   function Get_Controller (Reply : Packet) return Uhppoted.Types.Controller_Record is
       Response : GetControllerResponse with Import, Address => Reply'Address;
    begin
       return (ID       => Response.Controller,

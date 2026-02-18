@@ -1,6 +1,7 @@
 with Uhppoted.Lib.Requests;
 
 package body Uhppoted.Lib.Encode is
+   use Interfaces;
    use Uhppoted.Lib.Requests;
 
    --  Encodes a get-controller request as a 64 byte array.

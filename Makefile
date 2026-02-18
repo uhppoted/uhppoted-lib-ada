@@ -26,3 +26,5 @@ build-all:
 find-controllers: build
 	cd examples/cli && make find-controllers
 
+get-controller: build
+	cd examples/cli && make get-controller

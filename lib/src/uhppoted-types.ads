@@ -1,15 +1,7 @@
 with Interfaces;
-with GNAT.Sockets;
 
 package Uhppoted.Types is
    use Interfaces;
-
-   type UHPPOTE is record
-      Bind_Addr      : GNAT.Sockets.Sock_Addr_Type;
-      Broadcast_Addr : GNAT.Sockets.Sock_Addr_Type;
-      Listen_Addr    : GNAT.Sockets.Sock_Addr_Type;
-      Debug          : Boolean;
-   end record;
 
    type IPv4 is array (1 .. 4) of Interfaces.Unsigned_8;
    type MAC_Address is array (1 .. 6) of Unsigned_8;
@@ -21,7 +13,7 @@ package Uhppoted.Types is
       Day   : Unsigned_8;
    end record;
 
-   type Controller is record
+   type Controller_Record is record
       ID       : Unsigned_32;
       Address  : IPv4;
       Netmask  : IPv4;
@@ -31,7 +23,7 @@ package Uhppoted.Types is
       Date     : DateOnly;
    end record;
 
-   type Controller_List is array (Positive range <>) of Controller;
+   type Controller_Record_List is array (Positive range <>) of Controller_Record;
 
    function Image (Addr : IPv4) return String;
    function Image (MAC : MAC_Address) return String;

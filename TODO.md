@@ -31,6 +31,17 @@
     - [ ] send timeout parameter
     - [ ] sendto
     - [ ] controlled types for sockets/selectors
+    - [ ] use enums for OpCodes
+```
+type Hardware_Status is (Off, Standby, On, Error);
+
+for Hardware_Status use (
+   Off     => 16#00#,
+   Standby => 16#01#,
+   On      => 16#02#,
+   Error   => 16#FF#
+);
+```
 
 - [ ] CLI
     - [ ] command line args

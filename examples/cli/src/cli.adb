@@ -1,78 +1,42 @@
-with GNAT.Sockets;
 with Ada.Text_IO;
-with Uhppoted.Lib;
+with Ada.Command_Line;
+with Ada.Containers.Indefinite_Hashed_Maps;
+with Ada.Strings.Hash;
+with Handlers;
 
-procedure Cli is
-   use Uhppoted.Lib;
-   use GNAT.Sockets;
+procedure CLI is
+   use Ada.Text_IO;
+   use Ada.Command_Line;
 
-   U : constant UHPPOTE := (
-      Bind_Addr => (
-         Family => GNAT.Sockets.Family_Inet,
-         Addr => Any_Inet_Addr,
-         Port => 0),
+   type Handler is access procedure;
 
-      Broadcast_Addr => (
-         Family => GNAT.Sockets.Family_Inet,
-         Addr => Inet_Addr ("192.168.1.255"),
-         Port => 60000),
+   package Command_Map is new Ada.Containers.Indefinite_Hashed_Maps (
+      Key_Type        => String,
+      Element_Type    => Handler,
+      Hash            => Ada.Strings.Hash,
+      Equivalent_Keys => "=");
 
-      Listen_Addr => (
-         Family => GNAT.Sockets.Family_Inet,
-         Addr => Any_Inet_Addr,
-         Port => 60001),
+   Commands : Command_Map.Map;
 
-      Debug => True);
-
-   C : constant Controller := (
-      Controller => 405419896,
-      Address    => ( Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("192.168.1.125"), Port => 60000),
-      Protocol   => Default);
-
-   Controllers : constant Controller_Record_List := Find_Controllers (U);
-   C1 : constant Controller_Record := Get_Controller (U, 405419896);
-   C2 : constant Controller_Record := Get_Controller (U, C);
+   procedure Register_Commands is
+   begin
+      Commands.Insert ("find-controllers", Handlers.Find_Controllers'Access);
+      Commands.Insert ("get-controller",   Handlers.Get_Controller'Access);
+   end Register_Commands;
 
 begin
-   Ada.Text_IO.Put_Line ("--- find-controllers");
+   Register_Commands;
 
-   if Controllers'Length = 0 then
-      Ada.Text_IO.Put_Line ("No controllers found.");
-   else
-      for C of Controllers loop
-         Ada.Text_IO.Put_Line ("controller:" & C.ID'Image);
-         Ada.Text_IO.Put_Line ("            " & Image (C.Address));
-         Ada.Text_IO.Put_Line ("            " & Image (C.Netmask));
-         Ada.Text_IO.Put_Line ("            " & Image (C.Gateway));
-         Ada.Text_IO.Put_Line ("            " & Image (C.MAC));
-         Ada.Text_IO.Put_Line ("            " & C.Firmware);
-         Ada.Text_IO.Put_Line ("            " & Image (C.Date));
-         Ada.Text_IO.Put_Line ("");
-      end loop;
+   if Argument_Count > 0 then
+      declare
+         Cmd : constant String := Argument (1);
+      begin
+         if Commands.Contains (Cmd) then
+            Commands.Element (Cmd).all;
+         else
+            Put_Line ("   *** ERROR: unknown command " & Cmd);
+         end if;
+      end;
    end if;
 
-   Ada.Text_IO.Put_Line ("");
-
-   Ada.Text_IO.Put_Line ("--- get-controller");
-   Ada.Text_IO.Put_Line ("controller:" & C1.ID'Image);
-   Ada.Text_IO.Put_Line ("            " & Image (C1.Address));
-   Ada.Text_IO.Put_Line ("            " & Image (C1.Netmask));
-   Ada.Text_IO.Put_Line ("            " & Image (C1.Gateway));
-   Ada.Text_IO.Put_Line ("            " & Image (C1.MAC));
-   Ada.Text_IO.Put_Line ("            " & C1.Firmware);
-   Ada.Text_IO.Put_Line ("            " & Image (C1.Date));
-
-   Ada.Text_IO.Put_Line ("");
-
-   Ada.Text_IO.Put_Line ("--- get-controller");
-   Ada.Text_IO.Put_Line ("controller:" & C2.ID'Image);
-   Ada.Text_IO.Put_Line ("            " & Image (C2.Address));
-   Ada.Text_IO.Put_Line ("            " & Image (C2.Netmask));
-   Ada.Text_IO.Put_Line ("            " & Image (C2.Gateway));
-   Ada.Text_IO.Put_Line ("            " & Image (C2.MAC));
-   Ada.Text_IO.Put_Line ("            " & C2.Firmware);
-   Ada.Text_IO.Put_Line ("            " & Image (C2.Date));
-
-   Ada.Text_IO.Put_Line ("");
-
-end Cli;
+end CLI;

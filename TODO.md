@@ -13,7 +13,7 @@
 ```
 - [ ] integration tests
     - [ ] cleanup listen logic
-    - [ ] `test_suite.adb:8:21: warning: use of an anonymous access type allocator [-gnatw_a]`
+    - [x] `test_suite.adb:8:21: warning: use of an anonymous access type allocator [-gnatw_a]`
 
 - [x] find-controllers
     - [ ] timeout parameter

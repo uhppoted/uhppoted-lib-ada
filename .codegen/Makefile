@@ -28,4 +28,4 @@ vet:
 debug: build
 
 generate: build
-	./bin/codegen --encode
+	./bin/codegen --all

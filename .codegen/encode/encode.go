@@ -38,7 +38,7 @@ func UnitTests() {
 }
 
 func encodeTestsADS(tests []test) {
-	const file = "../lib/tests/src/uhppoted-lib-tests-encode.ads"
+	const file = "../lib/tests/src/uhppoted-lib-encode-tests.ads"
 
 	if f, err := os.Create(file); err != nil {
 		log.Fatalf("%v", err)
@@ -61,7 +61,7 @@ func encodeTestsADS(tests []test) {
 }
 
 func encodeTestsADB(tests []test) {
-	const file = "../lib/tests/src/uhppoted-lib-tests-encode.adb"
+	const file = "../lib/tests/src/uhppoted-lib-encode-tests.adb"
 
 	if f, err := os.Create(file); err != nil {
 		log.Fatalf("%v", err)

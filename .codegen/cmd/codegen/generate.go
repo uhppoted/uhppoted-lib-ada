@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"codegen/decode"
 	"codegen/encode"
 )
 
@@ -28,11 +29,19 @@ func main() {
 
 			case "--decode":
 				args.decode = true
+
+			case "--all":
+				args.encode = true
+				args.decode = true
 			}
 		}
 	}
 
 	if args.encode {
 		encode.UnitTests()
+	}
+
+	if args.decode {
+		decode.UnitTests()
 	}
 }

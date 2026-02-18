@@ -2,7 +2,7 @@ with AUnit.Assertions;
 with Uhppoted.Lib.Types;
 with Uhppoted.Lib.Encode;
 
-package body Uhppoted.Lib.Tests.Encode is
+package body Uhppoted.Lib.Encode.Tests is
    use AUnit.Assertions;
    use Uhppoted.Lib.Types;
 
@@ -20,7 +20,7 @@ package body Uhppoted.Lib.Tests.Encode is
 {{- template "unittest" $test }}
 {{- end }}
 
-end Uhppoted.Lib.Tests.Encode;
+end Uhppoted.Lib.Encode.Tests;
 
 {{- define "register"}}
 {{- range $test := .Tests }}

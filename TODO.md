@@ -12,8 +12,10 @@
    );
 ```
 - [ ] integration tests
-    - [ ] cleanup listen logic
-    - [ ] move listen to stub
+    - [x] move listen to stub
+    - [x] cleanup listen logic
+    - [ ] 'Expected' package
+    - [ ] search messages list
 
 - [x] find-controllers
     - [x] timeout parameter
@@ -21,9 +23,9 @@
 - [ ] get-controller
     - [x] controller ID
     - [x] timeout parameter
+    - [x] integration test
     - [ ] controller struct
     - [ ] CLI
-    - [ ] integration test
     - [ ] validate controller ID in response
 
 - [ ] UDP

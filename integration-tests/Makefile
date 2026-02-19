@@ -1,4 +1,4 @@
-BIN = ./bin/uhppoted_lib_integration_tests
+BIN = ./bin/integration_tests
 
 clean:
 	alr clean

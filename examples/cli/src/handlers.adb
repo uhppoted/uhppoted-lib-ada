@@ -29,8 +29,10 @@ package body Handlers is
       Address    => (Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("192.168.1.125"), Port => 60000),
       Protocol   => Default);
 
+   Timeout : constant Duration := 2.5;
+
    procedure Find_Controllers is
-      Controllers : constant Controller_Record_List := Find_Controllers (U);
+      Controllers : constant Controller_Record_List := Find_Controllers (U, Timeout);
    begin
       Ada.Text_IO.Put_Line ("--- find-controllers");
 
@@ -53,8 +55,8 @@ package body Handlers is
    end Find_Controllers;
 
    procedure Get_Controller is
-      C1 : constant Controller_Record := Get_Controller (U, 405419896);
-      C2 : constant Controller_Record := Get_Controller (U, C);
+      C1 : constant Controller_Record := Get_Controller (U, 405419896, Timeout);
+      C2 : constant Controller_Record := Get_Controller (U, C, Timeout);
    begin
       Ada.Text_IO.Put_Line ("--- get-controller");
       Ada.Text_IO.Put_Line ("controller:" & C1.ID'Image);

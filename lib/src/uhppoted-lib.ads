@@ -23,9 +23,22 @@ package Uhppoted.Lib is
    subtype Controller_Record is Uhppoted.Types.Controller_Record;
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
 
-   function Find_Controllers (U : UHPPOTE) return Controller_Record_List;
-   function Get_Controller   (U : UHPPOTE; C : Interfaces.Unsigned_32) return Controller_Record;
-   function Get_Controller   (U : UHPPOTE; C : Controller) return Controller_Record;
+   function Find_Controllers (
+      U : UHPPOTE;
+      Timeout : Duration := 2.5
+   ) return Controller_Record_List;
+
+   function Get_Controller (
+      U : UHPPOTE;
+      C : Interfaces.Unsigned_32;
+      Timeout : Duration := 2.5
+   ) return Controller_Record;
+
+   function Get_Controller (
+      U : UHPPOTE;
+      C : Controller;
+      Timeout : Duration := 2.5
+   ) return Controller_Record;
 
    function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
    function Image (MAC : MAC_Address) return String renames Uhppoted.Types.Image;

@@ -14,7 +14,7 @@ package body Uhppoted.Lib.UDP is
    function To_Packet is new Ada.Unchecked_Conversion (Source => Stream_Packet,  Target => Packet);
 
    --  Broadcasts a 64 byte request packet and returns the response (if any).
-   function Broadcast (U : UHPPOTE; Request : Packet) return Packet_List is
+   function Broadcast (U : UHPPOTE; Request : Packet; Timeout : Duration) return Packet_List is
       Client  : Socket_Type;
       Bind    : constant Sock_Addr_Type := U.Bind_Addr;
       Address : constant Sock_Addr_Type := U.Broadcast_Addr;
@@ -24,8 +24,7 @@ package body Uhppoted.Lib.UDP is
       Write_Set : Socket_Set_Type;
       Selector : Selector_Type;
       Status : Selector_Status;
-      Start_Time : constant Time := Clock;
-      Deadline : constant Time := Start_Time + 2.5;
+      Deadline : constant Time := Clock + Timeout;
 
       From     : Sock_Addr_Type;
       Buffer   : Ada.Streams.Stream_Element_Array (1 .. 64);
@@ -78,7 +77,7 @@ package body Uhppoted.Lib.UDP is
    end Broadcast;
 
    --  Sends a 64 byte request packet and returns the response (if any).
-   function Send (U : UHPPOTE; Request : Packet) return Packet is
+   function Send (U : UHPPOTE; Request : Packet; Timeout : Duration) return Packet is
       Client  : Socket_Type;
       Bind    : constant Sock_Addr_Type := U.Bind_Addr;
       Address : constant Sock_Addr_Type := U.Broadcast_Addr;
@@ -88,7 +87,7 @@ package body Uhppoted.Lib.UDP is
       Write_Set  : Socket_Set_Type;
       Selector   : Selector_Type;
       Status     : Selector_Status;
-      Deadline   : constant Time := Clock + 2.5;
+      Deadline   : constant Time := Clock + Timeout;
       Remaining  : constant Duration := Deadline - Clock;
 
       From   : Sock_Addr_Type;

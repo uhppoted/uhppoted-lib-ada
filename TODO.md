@@ -13,22 +13,22 @@
 ```
 - [ ] integration tests
     - [ ] cleanup listen logic
-    - [x] `test_suite.adb:8:21: warning: use of an anonymous access type allocator [-gnatw_a]`
+    - [ ] move listen to stub
 
 - [x] find-controllers
-    - [ ] timeout parameter
+    - [x] timeout parameter
 
 - [ ] get-controller
     - [x] controller ID
+    - [x] timeout parameter
     - [ ] controller struct
     - [ ] CLI
     - [ ] integration test
-    - [ ] timeout parameter
     - [ ] validate controller ID in response
 
 - [ ] UDP
-    - [ ] broadcast timeout parameter
-    - [ ] send timeout parameter
+    - [x] broadcast timeout parameter
+    - [x] send timeout parameter
     - [ ] sendto
     - [ ] controlled types for sockets/selectors
     - [ ] use enums for OpCodes
@@ -47,6 +47,10 @@ for Hardware_Status use (
     - [ ] command line args
     - [ ] handle exceptions
     - [ ] pretty print
+
+- [ ] codegen
+    - [x] encode unit tests
+    - [ ] decode unit tests
 
 - https://stackoverflow.com/questions/67969309/ada-customise-image
 - http://www.ada-auth.org/standards/22rm/html/rm-4-10.html

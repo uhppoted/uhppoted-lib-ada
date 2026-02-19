@@ -7,9 +7,12 @@ package body Uhppoted.Lib is
    use Interfaces;
    use Uhppoted.Lib.Types;
 
-   function Find_Controllers (U : UHPPOTE) return Controller_Record_List is
+   function Find_Controllers (
+      U : UHPPOTE;
+      Timeout : Duration := 2.5
+   ) return Controller_Record_List is
       Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
-      Replies  : constant Packet_List := Uhppoted.Lib.UDP.Broadcast (U, Request);
+      Replies  : constant Packet_List := Uhppoted.Lib.UDP.Broadcast (U, Request, Timeout);
       Response : Controller_Record_List (1 .. Integer (Replies.Length));
       IX       : Positive := 1;
    begin
@@ -26,16 +29,24 @@ package body Uhppoted.Lib is
       return Response;
    end Find_Controllers;
 
-   function Get_Controller (U : UHPPOTE; C : Unsigned_32) return Controller_Record is
+   function Get_Controller (
+      U : UHPPOTE;
+      C : Unsigned_32;
+      Timeout : Duration := 2.5
+   ) return Controller_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C);
-      Reply   : constant Packet := Uhppoted.Lib.UDP.Send (U, Request);
+      Reply   : constant Packet := Uhppoted.Lib.UDP.Send (U, Request, Timeout);
    begin
       return Uhppoted.Lib.Decode.Get_Controller (Reply);
    end Get_Controller;
 
-   function Get_Controller (U : UHPPOTE; C : Controller) return Controller_Record is
+   function Get_Controller (
+      U : UHPPOTE;
+      C : Controller;
+      Timeout : Duration := 2.5
+   ) return Controller_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C.Controller);
-      Reply   : constant Packet := Uhppoted.Lib.UDP.Send (U, Request);
+      Reply   : constant Packet := Uhppoted.Lib.UDP.Send (U, Request, Timeout);
    begin
       return Uhppoted.Lib.Decode.Get_Controller (Reply);
    end Get_Controller;

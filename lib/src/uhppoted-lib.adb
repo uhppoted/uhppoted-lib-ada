@@ -2,10 +2,12 @@ with Uhppoted.Lib.Encode;
 with Uhppoted.Lib.Decode;
 with Uhppoted.Lib.UDP;
 with Uhppoted.Lib.Types;
+with Uhppoted.Lib.Responses;
 
 package body Uhppoted.Lib is
    use Interfaces;
    use Uhppoted.Lib.Types;
+   use Uhppoted.Lib.Responses;
 
    function Find_Controllers (
       U : UHPPOTE;
@@ -18,10 +20,18 @@ package body Uhppoted.Lib is
    begin
       for Reply of Replies loop
          declare
-            C : Controller_Record;
+            R : Get_Controller_Response;
          begin
-            C := Uhppoted.Lib.Decode.Get_Controller (Reply);
-            Response (IX) := C;
+            R := Uhppoted.Lib.Decode.Get_Controller (Reply);
+            Response (IX) := (
+              ID       => R.ID,
+              Address  => R.Address,
+              Netmask  => R.Netmask,
+              Gateway  => R.Gateway,
+              MAC      => R.MAC,
+              Firmware => R.Firmware,
+              Date     => R.Date);
+
             IX := IX + 1;
          end;
       end loop;
@@ -36,8 +46,16 @@ package body Uhppoted.Lib is
    ) return Controller_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C);
       Reply   : constant Packet := Uhppoted.Lib.UDP.Send (U, Request, Timeout);
+      R       : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
    begin
-      return Uhppoted.Lib.Decode.Get_Controller (Reply);
+      return (
+         ID       => R.ID,
+         Address  => R.Address,
+         Netmask  => R.Netmask,
+         Gateway  => R.Gateway,
+         MAC      => R.MAC,
+         Firmware => R.Firmware,
+         Date     => R.Date);
    end Get_Controller;
 
    function Get_Controller (
@@ -47,8 +65,16 @@ package body Uhppoted.Lib is
    ) return Controller_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C.Controller);
       Reply   : constant Packet := Uhppoted.Lib.UDP.Send (U, Request, Timeout);
+      R       : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
    begin
-      return Uhppoted.Lib.Decode.Get_Controller (Reply);
+      return (
+         ID       => R.ID,
+         Address  => R.Address,
+         Netmask  => R.Netmask,
+         Gateway  => R.Gateway,
+         MAC      => R.MAC,
+         Firmware => R.Firmware,
+         Date     => R.Date);
    end Get_Controller;
 
 end Uhppoted.Lib;

@@ -11,23 +11,14 @@ package body Uhppoted.Lib.Decode.Tests is
    overriding procedure Register_Tests (T : in out Decoder_Test) is
       use AUnit.Test_Cases.Registration;
    begin
+      Register_Routine (T, Test_Decode_Get_Controller'Access, "Test decode Get_Controller response");
       Register_Routine (T, Test_BCD'Access, "Test BCD");
-      Register_Routine (T, Test_Decode_Get_Controller'Access, "Test Get_Controller");
    end Register_Tests;
-
-   procedure Test_BCD (T : in out AUnit.Test_Cases.Test_Case'Class) is
-      pragma Unreferenced (T);
-
-      Expected : constant String := "1234";
-      Result   : constant String := BCD_To_String (BCD'(16#12#, 16#34#));
-   begin
-      Assert (Result = Expected, "BCD incorrectly decoded: got" & Result'Image);
-   end Test_BCD;
 
    procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
 
-      Expected : constant Controller_Record := (
+      Expected : constant Get_Controller_Response := (
          ID       => 405419896,
          Address  => [192, 168, 1, 100],
          Netmask  => [255, 255, 255, 0],
@@ -46,9 +37,18 @@ package body Uhppoted.Lib.Decode.Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      Result : constant Controller_Record := Get_Controller (Reply);
+      Response : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
    begin
-      Assert (Result = Expected, "incorrectly decoded get-controller response: got" & Result'Image);
+      Assert (Response = Expected, "incorrectly decoded get-controller response: got" & Response'Image);
    end Test_Decode_Get_Controller;
+
+   procedure Test_BCD (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant String := "1234";
+      Result   : constant String := BCD_To_String (BCD'(16#12#, 16#34#));
+   begin
+      Assert (Result = Expected, "BCD incorrectly decoded: got" & Result'Image);
+   end Test_BCD;
 
 end Uhppoted.Lib.Decode.Tests;

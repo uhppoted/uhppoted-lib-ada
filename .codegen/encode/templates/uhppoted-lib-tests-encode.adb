@@ -1,10 +1,7 @@
 with AUnit.Assertions;
-with Uhppoted.Lib.Types;
-with Uhppoted.Lib.Encode;
 
 package body Uhppoted.Lib.Encode.Tests is
    use AUnit.Assertions;
-   use Uhppoted.Lib.Types;
 
    overriding function Name (T : Encoder_Test) return AUnit.Message_String is
    begin
@@ -14,12 +11,11 @@ package body Uhppoted.Lib.Encode.Tests is
    overriding procedure Register_Tests (T : in out Encoder_Test) is
       use AUnit.Test_Cases.Registration;
    begin
-{{- template "register" . }}
+      {{- template "register" . }}
    end Register_Tests;
 {{ range $test := .Tests }}
 {{- template "unittest" $test }}
 {{- end }}
-
 end Uhppoted.Lib.Encode.Tests;
 
 {{- define "register"}}
@@ -32,7 +28,7 @@ end Uhppoted.Lib.Encode.Tests;
       pragma Unreferenced (T);
 
       Expected : constant Packet := [
-{{- range $bytes := .Expected }}
+         {{- range $bytes := .Expected }}
          {{ $bytes }}{{ end }}
       ];
 

@@ -11,10 +11,12 @@ package body Uhppoted.Lib.Decode.Tests is
    overriding procedure Register_Tests (T : in out Decoder_Test) is
       use AUnit.Test_Cases.Registration;
    begin
+      {{- template "register" . }}
       Register_Routine (T, Test_BCD'Access, "Test BCD");
-      Register_Routine (T, Test_Decode_Get_Controller'Access, "Test Get_Controller");
    end Register_Tests;
-
+{{ range $test := .Tests }}
+{{- template "unittest" $test }}
+{{- end }}
    procedure Test_BCD (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
 
@@ -24,10 +26,18 @@ package body Uhppoted.Lib.Decode.Tests is
       Assert (Result = Expected, "BCD incorrectly decoded: got" & Result'Image);
    end Test_BCD;
 
-   procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
+end Uhppoted.Lib.Decode.Tests;
+
+{{- define "register"}}
+{{- range $test := .Tests }}
+      Register_Routine (T, {{ printf "Test_Decode_%s'Access," $test.Name | rpad 32 }} "{{ $test.Description }}");
+{{- end }}{{end}}
+
+{{- define "unittest"}}
+   procedure Test_Decode_{{ .Name }} (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
 
-      Expected : constant Controller_Record := (
+      Expected : constant {{ var .Response }}_Response := (
          ID       => 405419896,
          Address  => [192, 168, 1, 100],
          Netmask  => [255, 255, 255, 0],
@@ -40,15 +50,12 @@ package body Uhppoted.Lib.Decode.Tests is
             Day   => 5));
 
       Reply : constant Packet := [
-         16#17#, 16#94#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#c0#, 16#a8#, 16#01#, 16#64#, 16#ff#, 16#ff#, 16#ff#, 16#00#,
-         16#c0#, 16#a8#, 16#01#, 16#01#, 16#00#, 16#12#, 16#23#, 16#34#,  16#45#, 16#56#, 16#08#, 16#92#, 16#20#, 16#18#, 16#11#, 16#05#,
-         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
-         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+         {{- range $bytes := .Reply }}
+         {{ $bytes }}{{ end }}
       ];
 
-      Result : constant Controller_Record := Get_Controller (Reply);
+      Response : constant {{ var .Response }}_Response := Uhppoted.Lib.Decode.{{ var .Response }} (Reply);
    begin
-      Assert (Result = Expected, "incorrectly decoded get-controller response: got" & Result'Image);
-   end Test_Decode_Get_Controller;
-
-end Uhppoted.Lib.Decode.Tests;
+      Assert (Response = Expected, "incorrectly decoded {{ .Response }} response: got" & Response'Image);
+   end Test_Decode_{{ .Name }};
+{{ end }}

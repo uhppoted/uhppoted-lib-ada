@@ -1,8 +1,8 @@
-with Uhppoted.Lib.Responses;
+with Uhppoted.Lib.Replies;
 
 package body Uhppoted.Lib.Decode is
    use Interfaces;
-   use Uhppoted.Lib.Responses;
+   use Uhppoted.Lib.Replies;
 
    --  Translates a BCD coded string in a byte array to a string.
    function BCD_To_String (Bytes : BCD) return String is
@@ -41,7 +41,7 @@ package body Uhppoted.Lib.Decode is
    end Unpack_Date;
 
    --  Decodes a 64 byte get-controller response as a Controller_Record record.
-   function Get_Controller (Reply : Packet) return Uhppoted.Types.Controller_Record is
+   function Get_Controller (Reply : Packet) return Get_Controller_Response is
       Response : GetControllerResponse with Import, Address => Reply'Address;
    begin
       return (ID       => Response.Controller,

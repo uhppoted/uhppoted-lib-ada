@@ -8,6 +8,8 @@ package Uhppoted.Lib.Decode.Tests is
    overriding procedure Register_Tests (T : in out Decoder_Test);
 
    procedure Test_BCD (T : in out AUnit.Test_Cases.Test_Case'Class);
-   procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class);
+{{- range $test := .Tests }}
+   procedure Test_Decode_{{ $test.Name }} (T : in out AUnit.Test_Cases.Test_Case'Class);
+{{- end }}
 
 end Uhppoted.Lib.Decode.Tests;

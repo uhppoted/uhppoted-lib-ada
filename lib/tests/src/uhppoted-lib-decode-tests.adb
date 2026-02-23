@@ -1,7 +1,9 @@
 with AUnit.Assertions;
+with Ada.Strings.Unbounded;
 
 package body Uhppoted.Lib.Decode.Tests is
    use AUnit.Assertions;
+   use Ada.Strings.Unbounded;
 
    overriding function Name (T : Decoder_Test) return AUnit.Message_String is
    begin
@@ -19,16 +21,13 @@ package body Uhppoted.Lib.Decode.Tests is
       pragma Unreferenced (T);
 
       Expected : constant Get_Controller_Response := (
-         ID       => 405419896,
-         Address  => [192, 168, 1, 100],
-         Netmask  => [255, 255, 255, 0],
-         Gateway  => [192, 168, 1, 1],
-         MAC      => [16#00#, 16#12#, 16#23#, 16#34#, 16#45#, 16#56#],
-         Firmware => "0892",
-         Date     => (
-            Year  => 2018,
-            Month => 11,
-            Day   => 5));
+         Controller  => 405419896,
+         IP_Address  => [192, 168, 1, 100],
+         Subnet_Mask => [255, 255, 255, 0],
+         Gateway     => [192, 168, 1, 1],
+         MAC_Address => [16#00#, 16#12#, 16#23#, 16#34#, 16#45#, 16#56#],
+         Version     => To_Unbounded_String ("v8.92"),
+         Date        => (Year => 2018, Month => 11, Day => 5));
 
       Reply : constant Packet := [
          16#17#, 16#94#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#c0#, 16#a8#, 16#01#, 16#64#, 16#ff#, 16#ff#, 16#ff#, 16#00#,

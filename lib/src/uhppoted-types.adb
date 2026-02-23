@@ -10,7 +10,7 @@ package body Uhppoted.Types is
              Trim (Addr (4)'Image, Ada.Strings.Both);
    end Image;
 
-   function Image (MAC : MAC_Address) return String is
+   function Image (MAC : Hardware_Addr) return String is
       Hex : constant String := "0123456789abcdef";
       S   : String (1 .. 18);
       I   : Positive := 1;

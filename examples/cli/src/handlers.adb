@@ -1,10 +1,12 @@
 with GNAT.Sockets;
 with Ada.Text_IO;
+with Ada.Strings.Unbounded;
 with Uhppoted.Lib;
 
 package body Handlers is
-   use Uhppoted.Lib;
+   use Ada.Strings.Unbounded;
    use GNAT.Sockets;
+   use Uhppoted.Lib;
 
    U : constant UHPPOTE := (
       Bind_Addr => (
@@ -45,7 +47,7 @@ package body Handlers is
             Ada.Text_IO.Put_Line ("            " & Image (C.Netmask));
             Ada.Text_IO.Put_Line ("            " & Image (C.Gateway));
             Ada.Text_IO.Put_Line ("            " & Image (C.MAC));
-            Ada.Text_IO.Put_Line ("            " & C.Firmware);
+            Ada.Text_IO.Put_Line ("            " & To_String (C.Firmware));
             Ada.Text_IO.Put_Line ("            " & Image (C.Date));
             Ada.Text_IO.Put_Line ("");
          end loop;
@@ -64,7 +66,7 @@ package body Handlers is
       Ada.Text_IO.Put_Line ("            " & Image (C1.Netmask));
       Ada.Text_IO.Put_Line ("            " & Image (C1.Gateway));
       Ada.Text_IO.Put_Line ("            " & Image (C1.MAC));
-      Ada.Text_IO.Put_Line ("            " & C1.Firmware);
+      Ada.Text_IO.Put_Line ("            " & To_String (C1.Firmware));
       Ada.Text_IO.Put_Line ("            " & Image (C1.Date));
 
       Ada.Text_IO.Put_Line ("");
@@ -75,7 +77,7 @@ package body Handlers is
       Ada.Text_IO.Put_Line ("            " & Image (C2.Netmask));
       Ada.Text_IO.Put_Line ("            " & Image (C2.Gateway));
       Ada.Text_IO.Put_Line ("            " & Image (C2.MAC));
-      Ada.Text_IO.Put_Line ("            " & C2.Firmware);
+      Ada.Text_IO.Put_Line ("            " & To_String (C2.Firmware));
       Ada.Text_IO.Put_Line ("            " & Image (C2.Date));
 
       Ada.Text_IO.Put_Line ("");

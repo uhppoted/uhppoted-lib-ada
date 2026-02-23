@@ -4,18 +4,31 @@ with System;
 with Uhppoted.Lib.Types;
 
 package Uhppoted.Lib.Replies is
+   use Interfaces;
    use Uhppoted.Lib.Types;
 
+   type Version_Field is record
+      Major : Unsigned_8;
+      Minor : Unsigned_8;
+   end record;
+
+   for Version_Field use record
+      Major at 0 range 0 .. 7;
+      Minor at 0 range 8 .. 15;
+   end record;
+
+   for Version_Field'Size use 16;
+
    type GetControllerResponse is record
-      SOH        : Interfaces.Unsigned_8 := 16#17#;
-      OpCode     : Interfaces.Unsigned_8 := 16#94#;
+      SOH        : Unsigned_8 := 16#17#;
+      OpCode     : Unsigned_8 := 16#94#;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
-      Controller : Interfaces.Unsigned_32;
+      Controller : Unsigned_32;
       Address    : IPv4;
       Netmask    : IPv4;
       Gateway    : IPv4;
-      MAC        : MAC_Address;
-      Version    : BCD (1 .. 2);
+      MAC        : Hardware_Addr;
+      Version    : Version_Field;
       Date       : BCD (1 .. 4);
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 32);
    end record;

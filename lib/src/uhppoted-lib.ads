@@ -40,7 +40,7 @@ package Uhppoted.Lib is
    ) return Controller_Record;
 
    function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
-   function Image (MAC : MAC_Address) return String renames Uhppoted.Types.Image;
+   function Image (MAC  : Hardware_Addr) return String renames Uhppoted.Types.Image;
    function Image (Date : DateOnly) return String renames Uhppoted.Types.Image;
 
 end Uhppoted.Lib;

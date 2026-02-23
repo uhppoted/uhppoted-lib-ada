@@ -25,12 +25,12 @@ package body Uhppoted.Lib is
          begin
             R := Uhppoted.Lib.Decode.Get_Controller (Reply);
             Response (IX) := (
-              ID       => R.ID,
-              Address  => R.Address,
-              Netmask  => R.Netmask,
+              ID       => R.Controller,
+              Address  => R.IP_Address,
+              Netmask  => R.Subnet_Mask,
               Gateway  => R.Gateway,
-              MAC      => R.MAC,
-              Firmware => R.Firmware,
+              MAC      => R.MAC_Address,
+              Firmware => R.Version,
               Date     => R.Date);
 
             IX := IX + 1;
@@ -51,12 +51,12 @@ package body Uhppoted.Lib is
       R        : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
    begin
       return (
-         ID       => R.ID,
-         Address  => R.Address,
-         Netmask  => R.Netmask,
+         ID       => R.Controller,
+         Address  => R.IP_Address,
+         Netmask  => R.Subnet_Mask,
          Gateway  => R.Gateway,
-         MAC      => R.MAC,
-         Firmware => R.Firmware,
+         MAC      => R.MAC_Address,
+         Firmware => R.Version,
          Date     => R.Date);
    end Get_Controller;
 
@@ -78,12 +78,12 @@ package body Uhppoted.Lib is
       R     := Uhppoted.Lib.Decode.Get_Controller (Reply);
 
       return (
-         ID       => R.ID,
-         Address  => R.Address,
-         Netmask  => R.Netmask,
+         ID       => R.Controller,
+         Address  => R.IP_Address,
+         Netmask  => R.Subnet_Mask,
          Gateway  => R.Gateway,
-         MAC      => R.MAC,
-         Firmware => R.Firmware,
+         MAC      => R.MAC_Address,
+         Firmware => R.Version,
          Date     => R.Date);
    end Get_Controller;
 

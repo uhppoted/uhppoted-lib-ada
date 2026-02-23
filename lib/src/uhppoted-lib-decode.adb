@@ -1,7 +1,14 @@
+with Interfaces;
+with Ada.Strings;
+with Ada.Strings.Fixed;
+with Ada.Strings.Unbounded;
 with Uhppoted.Lib.Replies;
 
 package body Uhppoted.Lib.Decode is
    use Interfaces;
+   use Ada.Strings;
+   use Ada.Strings.Fixed;
+   use Ada.Strings.Unbounded;
    use Uhppoted.Lib.Replies;
 
    --  Translates a BCD coded string in a byte array to a string.
@@ -24,10 +31,17 @@ package body Uhppoted.Lib.Decode is
       return S;
    end BCD_To_String;
 
-   --  Translates a BCD coded version to a string.
-   function Unpack_Version (Bytes : BCD) return String is
+   --  Translates a BCD coded version to a vN.NN formatted string.
+   function Unpack_Version (V : Version_Field) return Unbounded_String is
+      N1 : constant Integer := Integer (Shift_Right (V.Major, 4) and 16#0F#);
+      N2 : constant Integer := Integer (Shift_Right (V.Major, 0) and 16#0F#);
+      N3 : constant Integer := Integer (Shift_Right (V.Minor, 4) and 16#0F#);
+      N4 : constant Integer := Integer (Shift_Right (V.Minor, 0) and 16#0F#);
+
+      Major : constant Integer := N1 * 10 + N2;
+      Minor : constant Integer := N3 * 10 + N4;
    begin
-      return BCD_To_String (Bytes);
+      return To_Unbounded_String ("v" & Trim (Major'Image, Left) & "." & Trim (Minor'Image, Left));
    end Unpack_Version;
 
    --  Translates a BCD coded date to a DateOnly.
@@ -44,13 +58,13 @@ package body Uhppoted.Lib.Decode is
    function Get_Controller (Reply : Packet) return Get_Controller_Response is
       Response : GetControllerResponse with Import, Address => Reply'Address;
    begin
-      return (ID       => Response.Controller,
-              Address  => Response.Address,
-              Netmask  => Response.Netmask,
-              Gateway  => Response.Gateway,
-              MAC      => Response.MAC,
-              Firmware => Unpack_Version (Response.Version),
-              Date     => Unpack_Date (Response.Date));
+      return (Controller  => Response.Controller,
+              IP_Address  => Response.Address,
+              Subnet_Mask => Response.Netmask,
+              Gateway     => Response.Gateway,
+              MAC_Address => Response.MAC,
+              Version     => Unpack_Version (Response.Version),
+              Date        => Unpack_Date (Response.Date));
    end Get_Controller;
 
    --  for Elem of b loop

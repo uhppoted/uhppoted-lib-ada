@@ -9,9 +9,15 @@ import (
 )
 
 var Functions = template.FuncMap{
-	"var":  AdaName,
-	"args": args,
-	"rpad": rpad,
+	"var":    AdaName,
+	"args":   args,
+	"rpad":   rpad,
+	"record": record,
+}
+
+type KV struct {
+	Name  string
+	Value string
 }
 
 func AdaName(s string) string {
@@ -41,6 +47,10 @@ func capitalize(s string) string {
 		runes[0] = unicode.ToUpper(runes[0])
 	}
 
+	if string(runes) == "Ip" {
+		return "IP"
+	}
+
 	return string(runes)
 }
 
@@ -60,4 +70,21 @@ func args(list []any) string {
 	}
 
 	return strings.Join(s, ", ")
+}
+
+func record(fields []KV) string {
+	s := []string{}
+	w := 0
+
+	for _, v := range fields {
+		w = max(w, len(v.Name))
+	}
+
+	format := fmt.Sprintf("         %%-%vv => %%v", w)
+
+	for _, v := range fields {
+		s = append(s, fmt.Sprintf(format, v.Name, v.Value))
+	}
+
+	return fmt.Sprintf("(\n%v)", strings.Join(s, ",\n"))
 }

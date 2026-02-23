@@ -26,7 +26,6 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
 
       Deadline : Time := Clock + 2.5;
    begin
-      Ada.Text_IO.Put_Line(">>>>>> STUB " & Port'Image);
       Bind.Addr := Any_Inet_Addr;
       Bind.Port := Port;
 
@@ -60,7 +59,6 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
                             Timeout      => 5.0);
 
             if Status = Completed then
-               Ada.Text_IO.Put_Line(">>>>>> INCOMING " & Port'Image);
                Receive_Socket (UDP, Buffer, Offset, From);
                Replies := Messages.Get (From_Packet (Buffer));
                for Reply of Replies loop

@@ -1,10 +1,12 @@
 with AUnit.Assertions;
 with GNAT.Sockets;
+with Ada.Strings.Unbounded;
 
 with Uhppoted.Lib.Integration_Tests.Stub;
 
 package body Uhppoted.Lib.Integration_Tests.Default is
    use AUnit.Assertions;
+   use Ada.Strings.Unbounded;
    use GNAT.Sockets;
 
    U : constant UHPPOTE := (
@@ -56,7 +58,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
          Netmask  => [255, 255, 255, 0],
          Gateway  => [192, 168, 1, 1],
          MAC      => [16#00#, 16#12#, 16#23#, 16#34#, 16#45#, 16#56#],
-         Firmware => "0892",
+         Firmware => To_Unbounded_String ("v8.92"),
          Date     => (
             Year  => 2018,
             Month => 11,
@@ -68,7 +70,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
          Netmask  => [255, 255, 255, 0],
          Gateway  => [192, 168, 1, 1],
          MAC      => [16#52#, 16#fd#, 16#fc#, 16#07#, 16#21#, 16#82#],
-         Firmware => "0892",
+         Firmware => To_Unbounded_String ("v8.92"),
          Date     => (
             Year  => 2019,
             Month => 8,
@@ -80,7 +82,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
          Netmask  => [255, 255, 255, 0],
          Gateway  => [192, 168, 1, 1],
          MAC      => [16#52#, 16#fd#, 16#fc#, 16#07#, 16#21#, 16#82#],
-         Firmware => "0662",
+         Firmware => To_Unbounded_String ("v6.62"),
          Date     => (
             Year  => 2020,
             Month => 1,
@@ -104,7 +106,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
          Netmask  => [255, 255, 255, 0],
          Gateway  => [192, 168, 1, 1],
          MAC      => [16#00#, 16#12#, 16#23#, 16#34#, 16#45#, 16#56#],
-         Firmware => "0892",
+         Firmware => To_Unbounded_String ("v8.92"),
          Date     => (
             Year  => 2018,
             Month => 11,
@@ -124,7 +126,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
          Netmask  => [255, 255, 255, 0],
          Gateway  => [192, 168, 1, 1],
          MAC      => [16#00#, 16#12#, 16#23#, 16#34#, 16#45#, 16#56#],
-         Firmware => "0892",
+         Firmware => To_Unbounded_String ("v8.92"),
          Date     => (
             Year  => 2018,
             Month => 11,

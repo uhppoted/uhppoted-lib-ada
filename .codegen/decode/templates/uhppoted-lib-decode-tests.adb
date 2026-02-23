@@ -1,7 +1,9 @@
 with AUnit.Assertions;
+with Ada.Strings.Unbounded;
 
 package body Uhppoted.Lib.Decode.Tests is
    use AUnit.Assertions;
+   use Ada.Strings.Unbounded;
 
    overriding function Name (T : Decoder_Test) return AUnit.Message_String is
    begin
@@ -37,17 +39,7 @@ end Uhppoted.Lib.Decode.Tests;
    procedure Test_Decode_{{ .Name }} (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
 
-      Expected : constant {{ var .Response }}_Response := (
-         ID       => 405419896,
-         Address  => [192, 168, 1, 100],
-         Netmask  => [255, 255, 255, 0],
-         Gateway  => [192, 168, 1, 1],
-         MAC      => [16#00#, 16#12#, 16#23#, 16#34#, 16#45#, 16#56#],
-         Firmware => "0892",
-         Date     => (
-            Year  => 2018,
-            Month => 11,
-            Day   => 5));
+      Expected : constant {{ var .Response }}_Response := {{ record .Expected }};
 
       Reply : constant Packet := [
          {{- range $bytes := .Reply }}

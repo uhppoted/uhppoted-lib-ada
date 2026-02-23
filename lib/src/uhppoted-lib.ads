@@ -13,10 +13,9 @@ package Uhppoted.Lib is
    end record;
 
    type Protocol_Type is (Default, Connected_UDP, TCP);
-
    type Controller is record
       Controller : Interfaces.Unsigned_32;
-      Address    : GNAT.Sockets.Sock_Addr_Type;
+      DestAddr   : GNAT.Sockets.Sock_Addr_Type := GNAT.Sockets.No_Sock_Addr;
       Protocol   : Protocol_Type := Default;
    end record;
 

@@ -6,6 +6,7 @@ with Uhppoted.Lib.Responses;
 
 package body Uhppoted.Lib is
    use Interfaces;
+   use GNAT.Sockets;
    use Uhppoted.Lib.Types;
    use Uhppoted.Lib.Responses;
 
@@ -44,9 +45,10 @@ package body Uhppoted.Lib is
       C : Unsigned_32;
       Timeout : Duration := 2.5
    ) return Controller_Record is
-      Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C);
-      Reply   : constant Packet := Uhppoted.Lib.UDP.Send (U, Request, Timeout);
-      R       : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
+      DestAddr : constant Sock_Addr_Type := U.Broadcast_Addr;
+      Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C);
+      Reply    : constant Packet := Uhppoted.Lib.UDP.SendTo (U, DestAddr, Request, Timeout);
+      R        : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
    begin
       return (
          ID       => R.ID,
@@ -63,10 +65,18 @@ package body Uhppoted.Lib is
       C : Controller;
       Timeout : Duration := 2.5
    ) return Controller_Record is
+      DestAddr : Sock_Addr_Type := U.Broadcast_Addr;
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C.Controller);
-      Reply   : constant Packet := Uhppoted.Lib.UDP.Send (U, Request, Timeout);
-      R       : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
+      Reply   : Packet;
+      R       : Get_Controller_Response;
    begin
+      if C.DestAddr /= No_Sock_Addr then
+         DestAddr := C.DestAddr;
+      end if;
+
+      Reply := Uhppoted.Lib.UDP.SendTo (U, DestAddr, Request, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Controller (Reply);
+
       return (
          ID       => R.ID,
          Address  => R.Address,

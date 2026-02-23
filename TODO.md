@@ -14,6 +14,8 @@
 - [ ] integration tests
     - [x] move listen to stub
     - [x] cleanup listen logic
+    - [x] UDP
+    - [ ] Figure out how to run both test suites
     - [ ] 'Expected' package
     - [ ] search messages list
 
@@ -24,15 +26,9 @@
     - [x] controller ID
     - [x] timeout parameter
     - [x] integration test
-    - [ ] controller struct
+    - [x] controller struct arg
     - [ ] CLI
     - [ ] validate controller ID in response
-
-- [ ] UDP
-    - [x] broadcast timeout parameter
-    - [x] send timeout parameter
-    - [ ] sendto
-    - [ ] controlled types for sockets/selectors
     - [ ] use enums for OpCodes
 ```
 type Hardware_Status is (Off, Standby, On, Error);
@@ -44,6 +40,30 @@ for Hardware_Status use (
    Error   => 16#FF#
 );
 ```
+
+- [ ] Controller utility constructor
+```
+function To_Controller (
+   ID       : Interfaces.Unsigned_32;
+   Dest     : GNAT.Sockets.Sock_Addr_Type := GNAT.Sockets.No_Sock_Addr;
+   Protocol : Protocol_Type               := Default
+) return Controller is
+begin
+   return (
+      Controller => ID,
+      DestAddr   => Dest,
+      Protocol   => Protocol
+   );
+end To_Controller;
+```
+
+- [ ] UDP
+    - [x] broadcast timeout parameter
+    - [x] send timeout parameter
+    - [x] sendto
+    - [ ] controlled types for sockets/selectors
+
+- [ ] TCP
 
 - [ ] CLI
     - [ ] command line args

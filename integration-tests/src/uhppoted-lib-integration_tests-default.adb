@@ -3,7 +3,7 @@ with GNAT.Sockets;
 
 with Uhppoted.Lib.Integration_Tests.Stub;
 
-package body Uhppoted.Lib.Integration_Tests is
+package body Uhppoted.Lib.Integration_Tests.Default is
    use AUnit.Assertions;
    use GNAT.Sockets;
 
@@ -27,35 +27,24 @@ package body Uhppoted.Lib.Integration_Tests is
 
    C : constant Controller := (
       Controller => 405419896,
-      Address    => (Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("127.0.0.1"), Port => 60000),
-      Protocol   => Default);
+      others     => <>);
 
    overriding function Name (T : Integration_Test) return AUnit.Message_String is
    begin
-      return AUnit.Format ("integration tests");
+      return AUnit.Format ("default tests");
    end Name;
 
    overriding procedure Register_Tests (T : in out Integration_Test) is
       use AUnit.Test_Cases.Registration;
    begin
-      Register_Routine (T, Test_Find_Controllers'Access,         "Test Find_Controllers");
-      Register_Routine (T, Test_Get_Controller_By_ID'Access,     "Test Get_Controller (by ID)");
-      Register_Routine (T, Test_Get_Controller_By_Struct'Access, "Test Get_Controller (by struct)");
+      Register_Routine (T, Test_Find_Controllers'Access,         "Find_Controllers");
+      Register_Routine (T, Test_Get_Controller_By_ID'Access,     "Get_Controller (by ID)");
+      Register_Routine (T, Test_Get_Controller_By_Struct'Access, "Get_Controller (by struct)");
    end Register_Tests;
-
-   --  overriding procedure Set_Up (T : in out Integration_Test) is
-   --  begin
-   --     null;
-   --  end Set_Up;
-
-   --  overriding procedure Tear_Down (T : in out Integration_Test) is
-   --  begin
-   --     null;
-   --  end Tear_Down;
 
    task body Listen is
    begin
-      Uhppoted.Lib.Integration_Tests.Stub.Listen;
+      Uhppoted.Lib.Integration_Tests.Stub.Listen (Port => 60005);
    end Listen;
 
    procedure Test_Find_Controllers (T : in out Test_Case'Class) is
@@ -146,4 +135,4 @@ package body Uhppoted.Lib.Integration_Tests is
       Assert (V = C405419896, "invalid 405419896 controller record");
    end Test_Get_Controller_By_Struct;
 
-end Uhppoted.Lib.Integration_Tests;
+end Uhppoted.Lib.Integration_Tests.Default;

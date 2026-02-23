@@ -1,7 +1,7 @@
+with Ada.Text_IO;
 with Ada.Streams;
 with Ada.Calendar;
 with Ada.Unchecked_Conversion;
-with GNAT.Sockets;
 
 with Uhppoted.Lib.Integration_Tests.Stub.Messages;
 
@@ -16,7 +16,7 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
    function To_Stream is new Ada.Unchecked_Conversion (Source => Messages.Reply, Target =>  Packet);
    function From_Packet is new Ada.Unchecked_Conversion (Source => Packet,  Target => Messages.Request);
 
-   procedure Listen is
+   procedure Listen (Port : Port_Type) is
       Bind : Sock_Addr_Type;
 
       Read_Set : Socket_Set_Type;
@@ -26,8 +26,9 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
 
       Deadline : Time := Clock + 2.5;
    begin
+      Ada.Text_IO.Put_Line(">>>>>> STUB " & Port'Image);
       Bind.Addr := Any_Inet_Addr;
-      Bind.Port := 60005;
+      Bind.Port := Port;
 
       Create_Socket (UDP, Family_Inet, Socket_Datagram);
       Bind_Socket (UDP, Bind);
@@ -59,6 +60,7 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
                             Timeout      => 5.0);
 
             if Status = Completed then
+               Ada.Text_IO.Put_Line(">>>>>> INCOMING " & Port'Image);
                Receive_Socket (UDP, Buffer, Offset, From);
                Replies := Messages.Get (From_Packet (Buffer));
                for Reply of Replies loop

@@ -1,4 +1,3 @@
-with GNAT.Sockets;
 with Ada.Streams;
 with Ada.Unchecked_Conversion;
 with Ada.Calendar;
@@ -15,20 +14,20 @@ package body Uhppoted.Lib.UDP is
 
    --  Broadcasts a 64 byte request packet and returns the response (if any).
    function Broadcast (U : UHPPOTE; Request : Packet; Timeout : Duration) return Packet_List is
-      Client  : Socket_Type;
-      Bind    : constant Sock_Addr_Type := U.Bind_Addr;
-      Address : constant Sock_Addr_Type := U.Broadcast_Addr;
-      Offset  : Ada.Streams.Stream_Element_Offset;
+      Client    : Socket_Type;
+      Bind      : constant Sock_Addr_Type := U.Bind_Addr;
+      DestAddr  : constant Sock_Addr_Type := U.Broadcast_Addr;
+      Offset    : Ada.Streams.Stream_Element_Offset;
 
-      Read_Set : Socket_Set_Type;
+      Read_Set  : Socket_Set_Type;
       Write_Set : Socket_Set_Type;
-      Selector : Selector_Type;
-      Status : Selector_Status;
-      Deadline : constant Time := Clock + Timeout;
+      Selector  : Selector_Type;
+      Status    : Selector_Status;
+      Deadline  : constant Time := Clock + Timeout;
 
-      From     : Sock_Addr_Type;
-      Buffer   : Ada.Streams.Stream_Element_Array (1 .. 64);
-      Replies  : Packet_List;
+      From      : Sock_Addr_Type;
+      Buffer    : Ada.Streams.Stream_Element_Array (1 .. 64);
+      Replies   : Packet_List;
    begin
       Replies.Reserve_Capacity (16);
 
@@ -41,7 +40,7 @@ package body Uhppoted.Lib.UDP is
       Set_Socket_Option (Client, Socket_Level, (Broadcast, True));
       Set (Read_Set, Client);
 
-      Send_Socket (Client, To_Stream (Request), Offset, Address);
+      Send_Socket (Client, To_Stream (Request), Offset, DestAddr);
 
       loop
          declare
@@ -76,19 +75,21 @@ package body Uhppoted.Lib.UDP is
       return Replies;
    end Broadcast;
 
-   --  Sends a 64 byte request packet and returns the response (if any).
-   function Send (U : UHPPOTE; Request : Packet; Timeout : Duration) return Packet is
-      Client  : Socket_Type;
-      Bind    : constant Sock_Addr_Type := U.Bind_Addr;
-      Address : constant Sock_Addr_Type := U.Broadcast_Addr;
-      Offset  : Ada.Streams.Stream_Element_Offset;
+   --  Sends a 64 byte request packet to a specific IPv4 address:port and returns the response (if any).
+   function SendTo (U        : UHPPOTE;
+                    DestAddr : Sock_Addr_Type;
+                    Request  : Packet;
+                    Timeout  : Duration) return Packet is
+      Client    : Socket_Type;
+      Bind      : constant Sock_Addr_Type := U.Bind_Addr;
+      Offset    : Ada.Streams.Stream_Element_Offset;
 
-      Read_Set   : Socket_Set_Type;
-      Write_Set  : Socket_Set_Type;
-      Selector   : Selector_Type;
-      Status     : Selector_Status;
-      Deadline   : constant Time := Clock + Timeout;
-      Remaining  : constant Duration := Deadline - Clock;
+      Read_Set  : Socket_Set_Type;
+      Write_Set : Socket_Set_Type;
+      Selector  : Selector_Type;
+      Status    : Selector_Status;
+      Deadline  : constant Time := Clock + Timeout;
+      Remaining : constant Duration := Deadline - Clock;
 
       From   : Sock_Addr_Type;
       Buffer : Ada.Streams.Stream_Element_Array (1 .. 64);
@@ -106,7 +107,7 @@ package body Uhppoted.Lib.UDP is
          Empty (Write_Set);
          Set (Read_Set, Client);
 
-         Send_Socket (Client, To_Stream (Request), Offset, Address);
+         Send_Socket (Client, To_Stream (Request), Offset, DestAddr);
 
          if Remaining <= 0.0 then
             raise Timeout_Error;
@@ -138,6 +139,6 @@ package body Uhppoted.Lib.UDP is
             Close_Socket (Client);
             raise;
       end;
-   end Send;
+   end SendTo;
 
 end Uhppoted.Lib.UDP;

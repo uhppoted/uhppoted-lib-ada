@@ -1,7 +1,8 @@
+with Uhppoted.Lib.Types;
 with Uhppoted.Lib.Encode;
 with Uhppoted.Lib.Decode;
-with Uhppoted.Lib.UDP;
-with Uhppoted.Lib.Types;
+with Uhppoted.Lib.Transport.UDP;
+with Uhppoted.Lib.Transport.TCP;
 with Uhppoted.Lib.Responses;
 
 package body Uhppoted.Lib is
@@ -10,12 +11,18 @@ package body Uhppoted.Lib is
    use Uhppoted.Lib.Types;
    use Uhppoted.Lib.Responses;
 
+   function Dispatch (U        : UHPPOTE;
+                      DestAddr : Sock_Addr_Type;
+                      Request  : Packet;
+                      Protocol : Protocol_Type;
+                      Timeout  : Duration) return Packet;
+
    function Find_Controllers (
       U : UHPPOTE;
       Timeout : Duration := 2.5
    ) return Controller_Record_List is
       Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
-      Replies  : constant Packet_List := Uhppoted.Lib.UDP.Broadcast (U, Request, Timeout);
+      Replies  : constant Packet_List := Uhppoted.Lib.Transport.UDP.Broadcast (U, Request, Timeout);
       Response : Controller_Record_List (1 .. Integer (Replies.Length));
       IX       : Positive := 1;
    begin
@@ -47,7 +54,7 @@ package body Uhppoted.Lib is
    ) return Controller_Record is
       DestAddr : constant Sock_Addr_Type := U.Broadcast_Addr;
       Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C);
-      Reply    : constant Packet := Uhppoted.Lib.UDP.SendTo (U, DestAddr, Request, Timeout);
+      Reply    : constant Packet := Uhppoted.Lib.Transport.UDP.SendTo (U, DestAddr, Request, Timeout);
       R        : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
    begin
       if R.Controller /= C then
@@ -78,7 +85,7 @@ package body Uhppoted.Lib is
          DestAddr := C.DestAddr;
       end if;
 
-      Reply := Uhppoted.Lib.UDP.SendTo (U, DestAddr, Request, Timeout);
+      Reply := Dispatch (U, DestAddr, Request, C.Protocol, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Controller (Reply);
 
       if R.Controller /= C.Controller then
@@ -94,5 +101,18 @@ package body Uhppoted.Lib is
          Firmware => R.Version,
          Date     => R.Date);
    end Get_Controller;
+
+   function Dispatch (U        : UHPPOTE;
+                      DestAddr : Sock_Addr_Type;
+                      Request  : Packet;
+                      Protocol : Protocol_Type;
+                      Timeout  : Duration) return Packet is
+   begin
+      if Protocol = TCP then
+         return Uhppoted.Lib.Transport.TCP.Send (U, DestAddr, Request, Timeout);
+      else
+         return Uhppoted.Lib.Transport.UDP.SendTo (U, DestAddr, Request, Timeout);
+      end if;
+   end Dispatch;
 
 end Uhppoted.Lib;

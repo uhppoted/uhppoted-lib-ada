@@ -1,7 +1,7 @@
 with GNAT.Sockets;
 with Uhppoted.Lib.Types;
 
-package Uhppoted.Lib.UDP is
+package Uhppoted.Lib.Transport.UDP is
    use Uhppoted.Lib.Types;
 
    function Broadcast (U : UHPPOTE; Request : Packet; Timeout : Duration) return Packet_List;
@@ -10,4 +10,4 @@ package Uhppoted.Lib.UDP is
                        Request  : Packet;
                        Timeout  : Duration) return Packet;
 
-end Uhppoted.Lib.UDP;
+end Uhppoted.Lib.Transport.UDP;

@@ -57,19 +57,19 @@ package body Handlers is
    end Find_Controllers;
 
    procedure Get_Controller is
-      C1 : constant Controller_Record := Get_Controller (U, 405419896, Timeout);
+--      C1 : constant Controller_Record := Get_Controller (U, 405419896, Timeout);
       C2 : constant Controller_Record := Get_Controller (U, C, Timeout);
    begin
-      Ada.Text_IO.Put_Line ("--- get-controller");
-      Ada.Text_IO.Put_Line ("controller:" & C1.ID'Image);
-      Ada.Text_IO.Put_Line ("            " & Image (C1.Address));
-      Ada.Text_IO.Put_Line ("            " & Image (C1.Netmask));
-      Ada.Text_IO.Put_Line ("            " & Image (C1.Gateway));
-      Ada.Text_IO.Put_Line ("            " & Image (C1.MAC));
-      Ada.Text_IO.Put_Line ("            " & To_String (C1.Firmware));
-      Ada.Text_IO.Put_Line ("            " & Image (C1.Date));
-
-      Ada.Text_IO.Put_Line ("");
+--      Ada.Text_IO.Put_Line ("--- get-controller");
+--      Ada.Text_IO.Put_Line ("controller:" & C1.ID'Image);
+--      Ada.Text_IO.Put_Line ("            " & Image (C1.Address));
+--      Ada.Text_IO.Put_Line ("            " & Image (C1.Netmask));
+--      Ada.Text_IO.Put_Line ("            " & Image (C1.Gateway));
+--      Ada.Text_IO.Put_Line ("            " & Image (C1.MAC));
+--      Ada.Text_IO.Put_Line ("            " & To_String (C1.Firmware));
+--      Ada.Text_IO.Put_Line ("            " & Image (C1.Date));
+--
+--      Ada.Text_IO.Put_Line ("");
 
       Ada.Text_IO.Put_Line ("--- get-controller");
       Ada.Text_IO.Put_Line ("controller:" & C2.ID'Image);

@@ -12,7 +12,7 @@ package Uhppoted.Lib is
       Debug          : Boolean;
    end record;
 
-   type Protocol_Type is (Default, Connected_UDP, TCP);
+   type Protocol_Type is (Default, UDP, TCP);
 
    type Controller is record
       Controller : Interfaces.Unsigned_32;

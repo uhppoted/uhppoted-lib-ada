@@ -2,7 +2,7 @@ with Ada.Streams;
 with Ada.Unchecked_Conversion;
 with Ada.Calendar;
 
-package body Uhppoted.Lib.UDP is
+package body Uhppoted.Lib.Transport.UDP is
    use GNAT.Sockets;
    use Ada.Calendar;
 
@@ -141,4 +141,4 @@ package body Uhppoted.Lib.UDP is
       end;
    end SendTo;
 
-end Uhppoted.Lib.UDP;
+end Uhppoted.Lib.Transport.UDP;

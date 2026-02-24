@@ -19,7 +19,8 @@ Standalone ADA library for the UHPPOTE access controllers.
 
 The API is documented in the [API.md](API.md) file - for convenience the available functions are listed below:
 
-- [`FindControllers`](API.md#findcontrollers)
+- [`Find_Controllers`](API.md#find_controllers)
+- [`Get_Controller`](API.md#get_controller)
 
 
 ## License

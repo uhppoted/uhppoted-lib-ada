@@ -50,6 +50,10 @@ package body Uhppoted.Lib is
       Reply    : constant Packet := Uhppoted.Lib.UDP.SendTo (U, DestAddr, Request, Timeout);
       R        : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
    begin
+      if R.Controller /= C then
+         raise Invalid_Response_Error;
+      end if;
+
       return (
          ID       => R.Controller,
          Address  => R.IP_Address,
@@ -76,6 +80,10 @@ package body Uhppoted.Lib is
 
       Reply := Uhppoted.Lib.UDP.SendTo (U, DestAddr, Request, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Controller (Reply);
+
+      if R.Controller /= C.Controller then
+         raise Invalid_Response_Error;
+      end if;
 
       return (
          ID       => R.Controller,

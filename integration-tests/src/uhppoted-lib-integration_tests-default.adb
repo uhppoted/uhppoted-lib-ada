@@ -46,7 +46,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
    task body Listen is
    begin
-      Uhppoted.Lib.Integration_Tests.Stub.Listen (Port => 60005);
+      Uhppoted.Lib.Integration_Tests.Stub.ListenUDP (Port => 60005);
    end Listen;
 
    procedure Test_Find_Controllers (T : in out Test_Case'Class) is

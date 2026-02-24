@@ -32,8 +32,11 @@
 
 - [ ] integration tests
     - [x] UDP
+    - [x] TCP
     - [x] search messages list
     - [x] Figure out how to run both test suites
+    - [ ] Fix selector logic for multiple tests
+    - [ ] Fix listen timeout
     - [ ] 'Expected' package
     - [ ] Invalid response test
 
@@ -41,6 +44,8 @@
     - [x] encode unit tests
     - [x] decode unit tests
     - [ ] default integration tests
+    - [ ] UDP integration tests
+    - [ ] TCP integration tests
 
 - [ ] fix _Library_Interface_ in .gpr file
 ```

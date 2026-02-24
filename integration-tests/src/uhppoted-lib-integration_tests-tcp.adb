@@ -4,7 +4,7 @@ with Ada.Strings.Unbounded;
 
 with Uhppoted.Lib.Integration_Tests.Stub;
 
-package body Uhppoted.Lib.Integration_Tests.UDP is
+package body Uhppoted.Lib.Integration_Tests.TCP is
    use AUnit.Assertions;
    use GNAT.Sockets;
    use Ada.Strings.Unbounded;
@@ -29,12 +29,12 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
 
    C : constant Controller := (
       Controller => 405419896,
-      DestAddr   => (Family => Family_Inet, Addr => Inet_Addr ("127.0.0.1"), Port => 60004),
-      Protocol   => Uhppoted.Lib.UDP);
+      DestAddr   => (Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("127.0.0.1"), Port => 60003),
+      Protocol   => Uhppoted.Lib.TCP);
 
    overriding function Name (T : Integration_Test) return AUnit.Message_String is
    begin
-      return AUnit.Format ("UDP tests");
+      return AUnit.Format ("TCP tests");
    end Name;
 
    overriding procedure Register_Tests (T : in out Integration_Test) is
@@ -45,7 +45,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
 
    task body Listen is
    begin
-      Uhppoted.Lib.Integration_Tests.Stub.ListenUDP (Port => 60004);
+      Uhppoted.Lib.Integration_Tests.Stub.ListenTCP (Port => 60003);
    end Listen;
 
    procedure Test_Get_Controller (T : in out Test_Case'Class) is
@@ -68,4 +68,4 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       Assert (V = C405419896, "invalid 405419896 controller record");
    end Test_Get_Controller;
 
-end Uhppoted.Lib.Integration_Tests.UDP;
+end Uhppoted.Lib.Integration_Tests.TCP;

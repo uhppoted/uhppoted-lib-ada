@@ -1,4 +1,3 @@
-with Ada.Text_IO;
 with Ada.Streams;
 with Ada.Calendar;
 with Ada.Unchecked_Conversion;
@@ -9,22 +8,20 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
    use GNAT.Sockets;
    use Ada.Calendar;
 
-   UDP  : Socket_Type;
-
    subtype Packet is Ada.Streams.Stream_Element_Array (1 .. 64);
 
    function To_Stream is new Ada.Unchecked_Conversion (Source => Messages.Reply, Target =>  Packet);
    function From_Packet is new Ada.Unchecked_Conversion (Source => Packet,  Target => Messages.Request);
 
    procedure Listen (Port : Port_Type) is
-      Bind : Sock_Addr_Type;
-
-      Read_Set : Socket_Set_Type;
-      Write_Set : Socket_Set_Type;
-      Selector : Selector_Type;
-      Status : Selector_Status;
-
+      UDP      : Socket_Type;
+      Bind     : Sock_Addr_Type;
       Deadline : Time := Clock + 2.5;
+
+      Read_Set  : Socket_Set_Type;
+      Write_Set : Socket_Set_Type;
+      Selector  : Selector_Type;
+      Status    : Selector_Status;
    begin
       Bind.Addr := Any_Inet_Addr;
       Bind.Port := Port;
@@ -74,10 +71,5 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
       Close_Selector (Selector);
       Close_Socket (UDP);
    end Listen;
-
-   procedure Stop is
-   begin
-      Close_Socket (UDP);
-   end Stop;
 
 end Uhppoted.Lib.Integration_Tests.Stub;

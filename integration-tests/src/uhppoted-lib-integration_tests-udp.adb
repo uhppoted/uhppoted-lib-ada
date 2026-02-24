@@ -1,11 +1,13 @@
 with AUnit.Assertions;
 with GNAT.Sockets;
+with Ada.Strings.Unbounded;
 
 with Uhppoted.Lib.Integration_Tests.Stub;
 
 package body Uhppoted.Lib.Integration_Tests.UDP is
    use AUnit.Assertions;
    use GNAT.Sockets;
+   use Ada.Strings.Unbounded;
 
    U : constant UHPPOTE := (
       Bind_Addr => (
@@ -32,7 +34,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
 
    overriding function Name (T : Integration_Test) return AUnit.Message_String is
    begin
-      return AUnit.Format ("integration tests");
+      return AUnit.Format ("UDP tests");
    end Name;
 
    overriding procedure Register_Tests (T : in out Integration_Test) is
@@ -55,7 +57,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
          Netmask  => [255, 255, 255, 0],
          Gateway  => [192, 168, 1, 1],
          MAC      => [16#00#, 16#12#, 16#23#, 16#34#, 16#45#, 16#56#],
-         Firmware => "0892",
+         Firmware => To_Unbounded_String ("v8.92"),
          Date     => (
             Year  => 2018,
             Month => 11,

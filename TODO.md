@@ -18,6 +18,7 @@
     - [x] broadcast timeout parameter
     - [x] send timeout parameter
     - [x] sendto
+    - [ ] split send/sendto
     - [ ] listen
     - [ ] controlled types for sockets/selectors
 
@@ -32,7 +33,7 @@
 - [ ] integration tests
     - [x] UDP
     - [x] search messages list
-    - [ ] Figure out how to run both test suites
+    - [x] Figure out how to run both test suites
     - [ ] 'Expected' package
     - [ ] Invalid response test
 

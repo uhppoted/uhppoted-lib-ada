@@ -28,3 +28,6 @@ find-controllers: build
 
 get-controller: build
 	cd examples/cli && make get-controller
+
+set-IPv4: build
+	cd examples/cli && make set-IPv4

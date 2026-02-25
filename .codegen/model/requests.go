@@ -7,7 +7,7 @@ import (
 
 var Requests = []types.Request{
 	GetControllerRequest,
-	// SetIPv4Request,
+	SetIPv4Request,
 	// GetStatusRequest,
 	// GetTimeRequest,
 	// SetTimeRequest,

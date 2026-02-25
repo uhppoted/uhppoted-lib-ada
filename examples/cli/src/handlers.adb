@@ -1,9 +1,11 @@
+with Interfaces;
 with GNAT.Sockets;
 with Ada.Text_IO;
 with Ada.Strings.Unbounded;
 with Uhppoted.Lib;
 
 package body Handlers is
+   use Interfaces;
    use Ada.Strings.Unbounded;
    use GNAT.Sockets;
    use Uhppoted.Lib;
@@ -29,7 +31,7 @@ package body Handlers is
    C : constant Controller := (
       Controller => 405419896,
       DestAddr   => (Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("192.168.1.125"), Port => 60000),
-      Protocol   => Default);
+      Protocol   => TCP);
 
    Timeout : constant Duration := 2.5;
 
@@ -82,5 +84,19 @@ package body Handlers is
 
       Ada.Text_IO.Put_Line ("");
    end Get_Controller;
+
+   procedure Set_IPv4 is
+      C       : constant Unsigned_32 := 405419896;
+      Addr    : constant Inet_Addr_Type := Inet_Addr ("192.168.1.125");
+      Netmask : constant Inet_Addr_Type := Inet_Addr ("255.255.255.0");
+      Gateway : constant Inet_Addr_Type := Inet_Addr ("192.168.1.1");
+      R       : constant Boolean := Set_IPv4 (U, C, Addr, Netmask, Gateway, Timeout);
+   begin
+      Ada.Text_IO.Put_Line ("--- set-IPv4");
+      Ada.Text_IO.Put_Line ("controller:" & C'Image);
+      Ada.Text_IO.Put_Line ("            " & R'Image);
+
+      Ada.Text_IO.Put_Line ("");
+   end Set_IPv4;
 
 end Handlers;

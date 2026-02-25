@@ -1,7 +1,9 @@
 with AUnit.Assertions;
+with GNAT.Sockets;
 
 package body Uhppoted.Lib.Encode.Tests is
    use AUnit.Assertions;
+   use GNAT.Sockets;
 
    overriding function Name (T : Encoder_Test) return AUnit.Message_String is
    begin

@@ -2,15 +2,13 @@
 
 - [ ] format
 - [ ] lint
-- [x] find-controllers
 
-- [ ] get-controller
-    - [x] controller ID
-    - [x] timeout parameter
-    - [x] integration test
-    - [x] controller struct arg
+- [x] find-controllers
+- [x] get-controller
+- [ ] set-IPv4
+    - [x] API
+    - [ ] integration test
     - [x] CLI
-    - [x] validate controller ID in response
     - [x] README
     - [x] API.md
 
@@ -39,6 +37,7 @@
     - [ ] Fix listen timeout
     - [ ] 'Expected' package
     - [ ] Invalid response test
+    - [ ] v6.62
 
 - [ ] codegen
     - [x] encode unit tests

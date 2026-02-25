@@ -47,8 +47,12 @@ func capitalize(s string) string {
 		runes[0] = unicode.ToUpper(runes[0])
 	}
 
-	if string(runes) == "Ip" {
+	if strings.ToLower(string(runes)) == "ip" {
 		return "IP"
+	}
+
+	if strings.ToLower(string(runes)) == "ipv4" {
+		return "IPv4"
 	}
 
 	return string(runes)

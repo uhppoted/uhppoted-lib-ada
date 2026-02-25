@@ -2,7 +2,6 @@ with Interfaces;
 with Ada.Strings.Unbounded;
 
 package Uhppoted.Lib.Responses is
-   use Interfaces;
    use Ada.Strings.Unbounded;
 
    type Get_Controller_Response is record
@@ -13,6 +12,11 @@ package Uhppoted.Lib.Responses is
       MAC_Address : Hardware_Addr;
       Version     : Unbounded_String;
       Date        : DateOnly;
+   end record;
+
+   type Set_IPv4_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
    end record;
 
 end Uhppoted.Lib.Responses;

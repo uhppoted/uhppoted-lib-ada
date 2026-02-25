@@ -6,7 +6,6 @@ with Uhppoted.Lib.Transport.TCP;
 with Uhppoted.Lib.Responses;
 
 package body Uhppoted.Lib is
-   use Interfaces;
    use GNAT.Sockets;
    use Uhppoted.Lib.Types;
    use Uhppoted.Lib.Responses;
@@ -17,10 +16,8 @@ package body Uhppoted.Lib is
                       Protocol : Protocol_Type;
                       Timeout  : Duration) return Packet;
 
-   function Find_Controllers (
-      U : UHPPOTE;
-      Timeout : Duration := 2.5
-   ) return Controller_Record_List is
+   function Find_Controllers (U       : UHPPOTE;
+                              Timeout : Duration := 2.5) return Controller_Record_List is
       Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
       Replies  : constant Packet_List := Uhppoted.Lib.Transport.UDP.Broadcast (U, Request, Timeout);
       Response : Controller_Record_List (1 .. Integer (Replies.Length));
@@ -47,11 +44,9 @@ package body Uhppoted.Lib is
       return Response;
    end Find_Controllers;
 
-   function Get_Controller (
-      U : UHPPOTE;
-      C : Unsigned_32;
-      Timeout : Duration := 2.5
-   ) return Controller_Record is
+   function Get_Controller (U : UHPPOTE;
+                            C : Unsigned_32;
+                            Timeout : Duration := 2.5) return Controller_Record is
       DestAddr : constant Sock_Addr_Type := U.Broadcast_Addr;
       Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C);
       Reply    : constant Packet := Uhppoted.Lib.Transport.UDP.SendTo (U, DestAddr, Request, Timeout);
@@ -71,11 +66,9 @@ package body Uhppoted.Lib is
          Date     => R.Date);
    end Get_Controller;
 
-   function Get_Controller (
-      U : UHPPOTE;
-      C : Controller;
-      Timeout : Duration := 2.5
-   ) return Controller_Record is
+   function Get_Controller (U : UHPPOTE;
+                            C : Controller;
+                            Timeout : Duration := 2.5) return Controller_Record is
       DestAddr : Sock_Addr_Type := U.Broadcast_Addr;
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C.Controller);
       Reply   : Packet;
@@ -102,13 +95,56 @@ package body Uhppoted.Lib is
          Date     => R.Date);
    end Get_Controller;
 
+   function Set_IPv4 (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      Addr    : Inet_Addr_Type;
+                      Netmask : Inet_Addr_Type;
+                      Gateway : Inet_Addr_Type;
+                      Timeout : Duration := 2.5) return Boolean is
+      DestAddr : constant Sock_Addr_Type := U.Broadcast_Addr;
+      Request  : constant Packet := Uhppoted.Lib.Encode.Set_IPv4 (C, Addr, Netmask, Gateway);
+      Reply    : constant Packet := Uhppoted.Lib.Transport.UDP.SendTo (U, DestAddr, Request, Timeout);
+      R        : constant Set_IPv4_Response := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
+   begin
+      if R.Controller /= C then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Set_IPv4;
+
+   function Set_IPv4 (U       : UHPPOTE;
+                      C       : Controller;
+                      Addr    : Inet_Addr_Type;
+                      Netmask : Inet_Addr_Type;
+                      Gateway : Inet_Addr_Type;
+                      Timeout : Duration := 2.5) return Boolean is
+      DestAddr : Sock_Addr_Type := U.Broadcast_Addr;
+      Request  : constant Packet := Uhppoted.Lib.Encode.Set_IPv4 (C.Controller, Addr, Netmask, Gateway);
+      Reply    : Packet;
+      R        : Set_IPv4_Response;
+   begin
+      if C.DestAddr /= No_Sock_Addr then
+         DestAddr := C.DestAddr;
+      end if;
+
+      Reply := Dispatch (U, DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
+
+      if R.Controller /= C.Controller then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Set_IPv4;
+
    function Dispatch (U        : UHPPOTE;
                       DestAddr : Sock_Addr_Type;
                       Request  : Packet;
                       Protocol : Protocol_Type;
                       Timeout  : Duration) return Packet is
    begin
-      if Protocol = TCP then
+      if Protocol = TCP and then DestAddr /= No_Sock_Addr then
          return Uhppoted.Lib.Transport.TCP.Send (U, DestAddr, Request, Timeout);
       else
          return Uhppoted.Lib.Transport.UDP.SendTo (U, DestAddr, Request, Timeout);

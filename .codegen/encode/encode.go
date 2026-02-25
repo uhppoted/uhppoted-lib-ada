@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"log"
+	"net/netip"
 	"os"
 	"strings"
 	"text/template"
@@ -116,8 +117,25 @@ func args(t lib.RequestTest) []any {
 	args := []any{}
 
 	for _, a := range t.Args {
-		args = append(args, a.Value)
+		args = append(args, arg(a))
 	}
 
 	return args
+}
+
+func arg(a lib.Arg) any {
+	switch a.Type {
+	case "IPv4":
+		return ipv4(a.Value)
+
+	default:
+		return fmt.Sprintf("%v", a.Value)
+	}
+}
+
+func ipv4(v any) string {
+	s := fmt.Sprintf("%v", v)
+	addr := netip.MustParseAddr(s)
+
+	return fmt.Sprintf(`Inet_Addr("%v")`, addr)
 }

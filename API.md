@@ -1,6 +1,7 @@
 # API
 - [`Find_Controllers`](#find_controllers)
 - [`Get_Controller`](#get_controller)
+- [`Set_IPv4`](#set_ipv4)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -124,21 +125,18 @@ Returns a list of `Controller_Record`:
 **Get_Controller** retrieves the controller information for a single UHPPOTE controller.
 
 ```
-function Get_Controller (U : Uhppoted.Lib.UHPPOTE, C : Unsigned_32; Timeout : Duration) return Uhppoted.Lib.Controller_Record;
+function Get_Controller (U       : UHPPOTE;
+                         C       : Unsigned_32; 
+                         Timeout : Duration) return Controller_Record;
+
+function Get_Controller (U       : Uhppoted.Lib.UHPPOTE;
+                         C       : Controller;
+                         Timeout : Duration) return Controller_Record;
 
 where:
-- U        UHPPOTE      UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc
-- C        Unsigned_32  UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc
-- Timeout  Duration     Operation timeout (defaults to 2.5s).
-```
-
-```
-function Get_Controller (U : Uhppoted.Lib.UHPPOTE, C : Controller; Timeout : Duration) return Uhppoted.Lib.Controller_Record;
-
-where:
-- U        UHPPOTE      UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc
-- C        Controller   Controller record initialised with the controller ID, IPv4 address:port and protocol
-- Timeout  Duration     Operation timeout (defaults to 2.5s).
+- U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C        Unsigned_32     Controller serial number.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
 ```
 
 Returns a `Controller_Record`:
@@ -153,6 +151,43 @@ Returns a `Controller_Record`:
       Date     : DateOnly;
    end record;
 ```
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Set_IPV4`
+
+**Set_IPv4** sets the controller IPv4 address, netmask and gateway.
+
+```
+function Set_IPv4 (U       : UHPPOTE;
+                   C       : Unsigned_32;
+                   Addr    : GNAT.Sockets.Inet_Addr_Type;
+                   Netmask : GNAT.Sockets.Inet_Addr_Type;
+                   Gateway : GNAT.Sockets.Inet_Addr_Type;
+                   Timeout : Duration) return Boolean;
+
+function Set_IPv4 (U       : UHPPOTE;
+                   C       : Controller;
+                   Addr    : GNAT.Sockets.Inet_Addr_Type;
+                   Netmask : GNAT.Sockets.Inet_Addr_Type;
+                   Gateway : GNAT.Sockets.Inet_Addr_Type;
+                   Timeout : Duration) return Boolean;
+
+where:
+- U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C        Unsigned_32     Controller serial number.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+
+- Addr     Inet_Addr_Type  Controller IPv4 address.
+- Netmask  Inet_Addr_Type  Controller IPv4 subnet mask.
+- Gateway  Inet_Addr_Type  Controller IPv4 gateway address.
+- Timeout  Duration        Operation timeout (defaults to 2.5s).
+```
+
+Returns `True`.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

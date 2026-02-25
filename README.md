@@ -21,6 +21,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 
 - [`Find_Controllers`](API.md#find_controllers)
 - [`Get_Controller`](API.md#get_controller)
+- [`Set_IPv4`](API.md#set_ipv4)
 
 
 ## License

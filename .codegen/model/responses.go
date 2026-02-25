@@ -8,7 +8,7 @@ import (
 
 var Responses = []types.Response{
 	GetControllerResponse,
-	// &SetIPv4Response,
+	SetIPv4Response,
 	// &GetStatusResponse,
 	// &GetTimeResponse,
 	// &SetTimeResponse,

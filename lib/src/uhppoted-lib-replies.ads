@@ -19,7 +19,7 @@ package Uhppoted.Lib.Replies is
 
    for Version_Field'Size use 16;
 
-   type GetControllerResponse is record
+   type Get_Controller_Response is record
       SOH        : Unsigned_8 := 16#17#;
       OpCode     : Unsigned_8 := 16#94#;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
@@ -33,7 +33,7 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 32);
    end record;
 
-   for GetControllerResponse use record
+   for Get_Controller_Response use record
       SOH        at 0  range 0 .. 7;
       OpCode     at 1  range 0 .. 7;
       Reserved   at 2  range 0 .. 15;
@@ -47,8 +47,30 @@ package Uhppoted.Lib.Replies is
       Padding    at 32 range 0 .. 255;
    end record;
 
-   for GetControllerResponse'Size use 64 * 8;
-   for GetControllerResponse'Bit_Order use System.Low_Order_First;
-   for GetControllerResponse'Scalar_Storage_Order use System.Low_Order_First;
+   for Get_Controller_Response'Size use 64 * 8;
+   for Get_Controller_Response'Bit_Order use System.Low_Order_First;
+   for Get_Controller_Response'Scalar_Storage_Order use System.Low_Order_First;
+
+   type Set_IPv4_Response is record
+      SOH        : Unsigned_8 := 16#17#;
+      OpCode     : Unsigned_8 := 16#96#;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Ok         : Unsigned_8;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
+   end record;
+
+   for Set_IPv4_Response use record
+      SOH        at 0 range 0 .. 7;
+      OpCode     at 1 range 0 .. 7;
+      Reserved   at 2 range 0 .. 15;
+      Controller at 4 range 0 .. 31;
+      Ok         at 8 range 0 .. 7;
+      Padding    at 9 range 0 .. 439;
+   end record;
+
+   for Set_IPv4_Response'Size use 64 * 8;
+   for Set_IPv4_Response'Bit_Order use System.Low_Order_First;
+   for Set_IPv4_Response'Scalar_Storage_Order use System.Low_Order_First;
 
 end Uhppoted.Lib.Replies;

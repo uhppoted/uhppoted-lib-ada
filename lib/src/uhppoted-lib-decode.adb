@@ -54,9 +54,9 @@ package body Uhppoted.Lib.Decode is
       return (Year => Year, Month => Month, Day => Day);
    end Unpack_Date;
 
-   --  Decodes a 64 byte get-controller response as a Controller_Record record.
-   function Get_Controller (Reply : Packet) return Get_Controller_Response is
-      Response : GetControllerResponse with Import, Address => Reply'Address;
+   --  Decodes a 64 byte get-controller response as a Get_Controller_Response record.
+   function Get_Controller (Reply : Packet) return Responses.Get_Controller_Response is
+      Response : Replies.Get_Controller_Response with Import, Address => Reply'Address;
    begin
       return (Controller  => Response.Controller,
               IP_Address  => Response.Address,
@@ -67,6 +67,15 @@ package body Uhppoted.Lib.Decode is
               Date        => Unpack_Date (Response.Date));
    end Get_Controller;
 
-   --  for Elem of b loop
+   --  Decodes a 64 byte set-IPv4 response as a Set_IPv4_Response record.
+   function Set_IPv4 (Reply : Packet) return Responses.Set_IPv4_Response is
+      Response : Replies.Set_IPv4_Response with Import, Address => Reply'Address;
+   begin
+      if Response.Ok = 1 then
+         return (Controller => Response.Controller, Ok => True);
+      else
+         return (Controller => Response.Controller, Ok => False);
+      end if;
+   end Set_IPv4;
 
 end Uhppoted.Lib.Decode;

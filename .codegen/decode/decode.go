@@ -134,6 +134,9 @@ func name(v lib.Value) string {
 
 func value(v lib.Value) string {
 	switch v.Type {
+	case "bool":
+		return boolean(v.Value)
+
 	case "IPv4":
 		return ipv4(v.Value)
 
@@ -149,6 +152,18 @@ func value(v lib.Value) string {
 	default:
 		return fmt.Sprintf("%v", v.Value)
 	}
+}
+
+func boolean(v any) string {
+	if v == true {
+		return "True"
+	}
+
+	if v == false {
+		return "False"
+	}
+
+	panic(fmt.Sprintf("invalid boolean value (%v)", v))
 }
 
 func ipv4(v any) string {

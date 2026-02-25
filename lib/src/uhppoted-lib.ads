@@ -3,6 +3,7 @@ with GNAT.Sockets;
 with Uhppoted.Types;
 
 package Uhppoted.Lib is
+   use Interfaces;
    use Uhppoted.Types;
 
    type UHPPOTE is record
@@ -15,32 +16,40 @@ package Uhppoted.Lib is
    type Protocol_Type is (Default, UDP, TCP);
 
    type Controller is record
-      Controller : Interfaces.Unsigned_32;
+      Controller : Unsigned_32;
       DestAddr   : GNAT.Sockets.Sock_Addr_Type := GNAT.Sockets.No_Sock_Addr;
       Protocol   : Protocol_Type := Default;
    end record;
 
    Invalid_Response_Error : exception;
 
-   subtype Controller_Record is Uhppoted.Types.Controller_Record;
+   subtype Controller_Record      is Uhppoted.Types.Controller_Record;
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
 
-   function Find_Controllers (
-      U : UHPPOTE;
-      Timeout : Duration := 2.5
-   ) return Controller_Record_List;
+   function Find_Controllers (U : UHPPOTE;
+                              Timeout : Duration := 2.5) return Controller_Record_List;
 
-   function Get_Controller (
-      U : UHPPOTE;
-      C : Interfaces.Unsigned_32;
-      Timeout : Duration := 2.5
-   ) return Controller_Record;
+   function Get_Controller (U : UHPPOTE;
+                            C : Unsigned_32;
+                            Timeout : Duration := 2.5) return Controller_Record;
 
-   function Get_Controller (
-      U : UHPPOTE;
-      C : Controller;
-      Timeout : Duration := 2.5
-   ) return Controller_Record;
+   function Get_Controller (U : UHPPOTE;
+                            C : Controller;
+                            Timeout : Duration := 2.5) return Controller_Record;
+
+   function Set_IPv4 (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      Addr    : GNAT.Sockets.Inet_Addr_Type;
+                      Netmask : GNAT.Sockets.Inet_Addr_Type;
+                      Gateway : GNAT.Sockets.Inet_Addr_Type;
+                      Timeout : Duration := 2.5) return Boolean;
+
+   function Set_IPv4 (U       : UHPPOTE;
+                      C       : Controller;
+                      Addr    : GNAT.Sockets.Inet_Addr_Type;
+                      Netmask : GNAT.Sockets.Inet_Addr_Type;
+                      Gateway : GNAT.Sockets.Inet_Addr_Type;
+                      Timeout : Duration := 2.5) return Boolean;
 
    function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
    function Image (MAC  : Hardware_Addr) return String renames Uhppoted.Types.Image;

@@ -18,6 +18,6 @@ private
 
    type Command_Set is tagged record
       Internal_Map : Command_Maps.Map;
-   end record;   
+   end record;
 
 end Registry;

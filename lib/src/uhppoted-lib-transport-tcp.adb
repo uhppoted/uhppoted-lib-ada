@@ -46,6 +46,20 @@ package body Uhppoted.Lib.Transport.TCP is
 
          Send_Socket (Client, To_Stream (Request), Offset);
 
+         if Request (2) = 16#96# then
+            Close_Selector (Selector);
+            Close_Socket (Client);
+
+            Reply := [
+               Request (1), Request (2), Request (3), Request (4),
+               Request (5), Request (6), Request (7), Request (8),
+               16#01#,
+               others => 16#00#
+            ];
+
+            return Reply;
+         end if;
+
          if Remaining <= 0.0 then
             raise Timeout_Error;
          end if;

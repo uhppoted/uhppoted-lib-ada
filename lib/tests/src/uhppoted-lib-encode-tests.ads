@@ -8,5 +8,6 @@ package Uhppoted.Lib.Encode.Tests is
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Encode_Set_IPv4 (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Encode.Tests;

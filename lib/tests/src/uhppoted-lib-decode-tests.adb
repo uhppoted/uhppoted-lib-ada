@@ -14,6 +14,7 @@ package body Uhppoted.Lib.Decode.Tests is
       use AUnit.Test_Cases.Registration;
    begin
       Register_Routine (T, Test_Decode_Get_Controller'Access, "Test decode Get_Controller response");
+      Register_Routine (T, Test_Decode_Set_IPv4'Access,     "Test decode Set_IPv4 response");
       Register_Routine (T, Test_BCD'Access, "Test BCD");
    end Register_Tests;
 
@@ -40,6 +41,25 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded get-controller response: got" & Response'Image);
    end Test_Decode_Get_Controller;
+
+   procedure Test_Decode_Set_IPv4 (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Set_IPv4_Response := (
+         Controller => 405419896,
+         Ok         => True);
+
+      Reply : constant Packet := [
+         16#17#, 16#96#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Set_IPv4_Response := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded set-ipv4 response: got" & Response'Image);
+   end Test_Decode_Set_IPv4;
 
    procedure Test_BCD (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

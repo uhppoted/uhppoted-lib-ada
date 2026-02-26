@@ -1,13 +1,11 @@
 with AUnit.Assertions;
 with GNAT.Sockets;
-with Ada.Strings.Unbounded;
 
 with Uhppoted.Lib.Integration_Tests.Stub;
+with Uhppoted.Lib.Integration_Tests.Expected;
 
 package body Uhppoted.Lib.Integration_Tests.UDP is
    use AUnit.Assertions;
-   use GNAT.Sockets;
-   use Ada.Strings.Unbounded;
 
    U : constant UHPPOTE := (
       Bind_Addr => (
@@ -41,6 +39,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       use AUnit.Test_Cases.Registration;
    begin
       Register_Routine (T, Test_Get_Controller'Access, "Test Get_Controller");
+      Register_Routine (T, Test_Set_IPv4'Access,       "Set_IPv4");
    end Register_Tests;
 
    task body Listen is
@@ -51,21 +50,20 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Controller (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C405419896 : constant Controller_Record := (
-         ID       => 405419896,
-         Address  => [192, 168, 1, 100],
-         Netmask  => [255, 255, 255, 0],
-         Gateway  => [192, 168, 1, 1],
-         MAC      => [16#00#, 16#12#, 16#23#, 16#34#, 16#45#, 16#56#],
-         Firmware => To_Unbounded_String ("v8.92"),
-         Date     => (
-            Year  => 2018,
-            Month => 11,
-            Day   => 5));
-
       V : constant Controller_Record := Get_Controller (U, C);
    begin
-      Assert (V = C405419896, "invalid 405419896 controller record");
+      Assert (V = Expected.Get_Controller, "invalid controller record");
    end Test_Get_Controller;
+
+   procedure Test_Set_IPv4 (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Addr    : constant Inet_Addr_Type := Inet_Addr ("192.168.1.125");
+      Netmask : constant Inet_Addr_Type := Inet_Addr ("255.255.255.0");
+      Gateway : constant Inet_Addr_Type := Inet_Addr ("192.168.1.1");
+      V       : constant Boolean        := Set_IPv4 (U, C, Addr, Netmask, Gateway);
+   begin
+      Assert (V = Expected.Set_IPv4, "invalid Set_IPv4 response");
+   end Test_Set_IPv4;
 
 end Uhppoted.Lib.Integration_Tests.UDP;

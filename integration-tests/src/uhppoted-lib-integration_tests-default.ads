@@ -6,11 +6,12 @@ package Uhppoted.Lib.Integration_Tests.Default is
    type Integration_Test is new AUnit.Test_Cases.Test_Case with null record;
 
    overriding procedure Register_Tests (T : in out Integration_Test);
-   overriding function Name (T : Integration_Test) return AUnit.Message_String;
+   overriding function  Name           (T : Integration_Test) return AUnit.Message_String;
 
+private
    procedure Test_Find_Controllers (T : in out Test_Case'Class);
-   procedure Test_Get_Controller_By_ID (T : in out Test_Case'Class);
-   procedure Test_Get_Controller_By_Struct (T : in out Test_Case'Class);
+   procedure Test_Get_Controller   (T : in out Test_Case'Class);
+   procedure Test_Set_IPv4         (T : in out Test_Case'Class);
 
    task Listen;
 

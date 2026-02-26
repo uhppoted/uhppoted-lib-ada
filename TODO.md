@@ -8,14 +8,10 @@
 
 - [x] use enums for OpCodes
 - [x] find-controllers
-    - [x] ada-doc
-
 - [x] get-controller
-    - [x] ada-doc
-
-- [ ] set-IPv4
+- [x] set-IPv4
     - [x] API
-    - [ ] integration test
+    - [x] integration test
     - [x] CLI
     - [x] README
     - [x] API.md

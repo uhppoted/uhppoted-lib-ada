@@ -12,5 +12,6 @@ package Uhppoted.Lib.Integration_Tests.TCP is
 
 private
    procedure Test_Get_Controller (T : in out Test_Case'Class);
+   procedure Test_Set_IPv4       (T : in out Test_Case'Class);
 
 end Uhppoted.Lib.Integration_Tests.TCP;

@@ -10,6 +10,7 @@ package Uhppoted.Lib.Integration_Tests.UDP is
 
 private
    procedure Test_Get_Controller (T : in out Test_Case'Class);
+   procedure Test_Set_IPv4       (T : in out Test_Case'Class);
 
    task Listen;
 

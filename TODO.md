@@ -40,10 +40,11 @@
     - [x] TCP
     - [x] search messages list
     - [x] Figure out how to run both test suites
-    - [ ] Fix selector logic for multiple tests
-    - [ ] Fix listen timeout
-    - [ ] 'Expected' package
+    - [x] Fix selector logic for multiple tests
+    - [x] Fix listen timeout
+    - [x] 'Expected' package
     - [ ] Invalid response test
+    - [ ] Timeout test
     - [ ] v6.62
 
 - [ ] codegen

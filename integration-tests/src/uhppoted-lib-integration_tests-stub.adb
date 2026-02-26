@@ -5,8 +5,8 @@ with Ada.Unchecked_Conversion;
 with Uhppoted.Lib.Integration_Tests.Stub.Messages;
 
 package body Uhppoted.Lib.Integration_Tests.Stub is
-   use GNAT.Sockets;
    use Ada.Calendar;
+   use Ada.Streams;
 
    subtype Packet is Ada.Streams.Stream_Element_Array (1 .. 64);
 
@@ -16,7 +16,6 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
    procedure ListenUDP (Port : Port_Type) is
       Socket   : Socket_Type;
       Bind     : Sock_Addr_Type;
-      Deadline : Time := Clock + 2.5;
 
       Read_Set  : Socket_Set_Type;
       Write_Set : Socket_Set_Type;
@@ -30,25 +29,20 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
       Bind_Socket (Socket, Bind);
 
       Create_Selector (Selector);
-      Empty (Read_Set);
-      Empty (Write_Set);
-      Set (Read_Set, Socket);
 
       loop
          declare
-            Remaining  : Duration;
-
             Buffer : Packet;
             Offset : Ada.Streams.Stream_Element_Offset;
             From : Sock_Addr_Type;
             Replies : Messages.Reply_List;
 
          begin
+            Empty (Read_Set);
+            Empty (Write_Set);
+            Set   (Read_Set, Socket);
+
             --  NTS: github workflow hangs indefinitely without a CheckSelector
-            Remaining := Deadline - Clock;
-
-            exit when Remaining <= 0.0;
-
             Check_Selector (Selector,
                             R_Socket_Set => Read_Set,
                             W_Socket_Set => Write_Set,
@@ -61,9 +55,10 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
                for Reply of Replies loop
                   Send_Socket (Socket, To_Stream (Reply), Offset, From);
                end loop;
+            end if;
 
-               --  Reset close timeout
-               Deadline := Clock + 1.0;
+            if Status = Expired then
+               exit;
             end if;
          end;
       end loop;
@@ -73,14 +68,16 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
    end ListenUDP;
 
    procedure ListenTCP (Port : Port_Type) is
+      type Client_Array is array (1 .. 16) of Socket_Type;
+
       Socket   : Socket_Type;
       Bind     : Sock_Addr_Type;
-      Deadline : Time := Clock + 2.5;
 
       Read_Set  : Socket_Set_Type;
       Write_Set : Socket_Set_Type;
       Selector  : Selector_Type;
       Status    : Selector_Status;
+      Clients   : Client_Array := [others => No_Socket];
    begin
       Bind.Addr := Any_Inet_Addr;
       Bind.Port := Port;
@@ -91,57 +88,87 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
       Listen_Socket (Socket);
 
       Create_Selector (Selector);
-      Empty (Read_Set);
-      Empty (Write_Set);
-      Set (Read_Set, Socket);
 
       loop
-         declare
-            Remaining : Duration;
-            Client    : Socket_Type;
+         Empty (Read_Set);
+         Empty (Write_Set);
+         Set   (Read_Set, Socket);
 
-         begin
-            --  NTS: github workflow hangs indefinitely without a CheckSelector
-            Remaining := Deadline - Clock;
-
-            exit when Remaining <= 0.0;
-
-            Check_Selector (Selector,
-                            R_Socket_Set => Read_Set,
-                            W_Socket_Set => Write_Set,
-                            Status       => Status,
-                            Timeout      => 5.0);
-
-            if Status = Completed then
-               if Is_Set (Read_Set, Socket) then
-                  declare
-                     Addr : Sock_Addr_Type;
-                  begin
-                     Accept_Socket (Socket, Client, Addr);
-                     Set (Read_Set, Client);
-                  end;
-               end if;
-               
-               if Client /= No_Socket and then Is_Set (Read_Set, Client) then
-                  declare
-                     Buffer  : Packet;
-                     Offset  : Ada.Streams.Stream_Element_Offset;
-                     Request : Packet;
-                     Replies : Messages.Reply_List;
-                  begin
-                     Receive_Socket (Client, Buffer, Offset);
-
-                     Request := Buffer (Buffer'First .. Offset);
-                     Replies := Messages.Get (From_Packet (Request));
-                     for Reply of Replies loop
-                        Send_Socket (Client, To_Stream (Reply), Offset);
-                     end loop;
-                  end;
-               end if;
-
-               Deadline := Clock + 1.0;
+         for I in Clients'Range loop
+            if Clients (I) /= No_Socket then
+               Set (Read_Set, Clients (I));
             end if;
-         end;
+         end loop;
+
+         --  NTS: github workflow hangs indefinitely without a CheckSelector
+         Check_Selector (Selector,
+                         R_Socket_Set => Read_Set,
+                         W_Socket_Set => Write_Set,
+                         Status       => Status,
+                         Timeout      => 5.0);
+
+         if Status = Completed then
+            if Is_Set (Read_Set, Socket) then
+               declare
+                  Client : Socket_Type;
+                  Addr   : Sock_Addr_Type;
+                  Added  : Boolean := False;
+               begin
+                  Accept_Socket (Socket, Client, Addr);
+
+                  for I in Clients'Range loop
+                     if Clients (I) = No_Socket then
+                        Clients (I) := Client;
+                        Added := True;
+                        exit;
+                     end if;
+                  end loop;
+
+                  if not Added then
+                     Close_Socket (Client);
+                  end if;
+               end;
+            end if;
+
+            for I in Clients'Range loop
+               declare
+                  Client : constant Socket_Type := Clients (I);
+               begin
+                  if Client /= No_Socket and then Is_Set (Read_Set, Client) then
+                     declare
+                        Buffer  : Packet;
+                        Offset  : Ada.Streams.Stream_Element_Offset;
+                        Request : Packet;
+                        Replies : Messages.Reply_List;
+                     begin
+                        Receive_Socket (Client, Buffer, Offset);
+
+                        if Offset = 0 then
+                           Close_Socket (Client);
+                           Clients (I) := No_Socket;
+                        else
+                           Request := Buffer (Buffer'First .. Offset);
+                           Replies := Messages.Get (From_Packet (Request));
+                           for Reply of Replies loop
+                              Send_Socket (Client, To_Stream (Reply), Offset);
+                           end loop;
+                        end if;
+                     end;
+                  end if;
+               end;
+            end loop;
+         end if;
+
+         if Status = Expired then
+            exit;
+         end if;
+
+      end loop;
+
+      for I in Clients'Range loop
+         if Clients (I) /= No_Socket then
+            Close_Socket (Clients (I));
+         end if;
       end loop;
 
       Close_Selector (Selector);

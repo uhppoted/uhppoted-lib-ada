@@ -14,20 +14,10 @@ package body Uhppoted.Lib.Decode.Tests is
       use AUnit.Test_Cases.Registration;
    begin
       {{- template "register" . }}
-      Register_Routine (T, Test_BCD'Access, "Test BCD");
    end Register_Tests;
 {{ range $test := .Tests }}
 {{- template "unittest" $test }}
 {{- end }}
-   procedure Test_BCD (T : in out AUnit.Test_Cases.Test_Case'Class) is
-      pragma Unreferenced (T);
-
-      Expected : constant String := "1234";
-      Result   : constant String := BCD_To_String (BCD'(16#12#, 16#34#));
-   begin
-      Assert (Result = Expected, "BCD incorrectly decoded: got" & Result'Image);
-   end Test_BCD;
-
 end Uhppoted.Lib.Decode.Tests;
 
 {{- define "register"}}

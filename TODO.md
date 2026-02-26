@@ -6,7 +6,7 @@
 - https://github.com/simonjwright/alire-index.mac
 - https://alire.ada.dev/transition_from_gnat_community.html
 
-
+- [x] use enums for OpCodes
 - [x] find-controllers
     - [x] ada-doc
 
@@ -67,17 +67,6 @@
    );
 ```
 
-- [ ] use enums for OpCodes
-```
-type Hardware_Status is (Off, Standby, On, Error);
-
-for Hardware_Status use (
-   Off     => 16#00#,
-   Standby => 16#01#,
-   On      => 16#02#,
-   Error   => 16#FF#
-);
-```
 
 - [ ] Controller utility constructor
 ```

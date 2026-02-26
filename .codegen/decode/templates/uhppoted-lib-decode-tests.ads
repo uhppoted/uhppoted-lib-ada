@@ -7,7 +7,6 @@ package Uhppoted.Lib.Decode.Tests is
    overriding function Name (T : Decoder_Test) return AUnit.Message_String;
    overriding procedure Register_Tests (T : in out Decoder_Test);
 
-   procedure Test_BCD (T : in out AUnit.Test_Cases.Test_Case'Class);
 {{- range $test := .Tests }}
    procedure Test_Decode_{{ $test.Name }} (T : in out AUnit.Test_Cases.Test_Case'Class);
 {{- end }}

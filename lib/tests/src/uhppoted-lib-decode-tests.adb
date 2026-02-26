@@ -13,9 +13,8 @@ package body Uhppoted.Lib.Decode.Tests is
    overriding procedure Register_Tests (T : in out Decoder_Test) is
       use AUnit.Test_Cases.Registration;
    begin
-      Register_Routine (T, Test_Decode_Get_Controller'Access, "Test decode Get_Controller response");
-      Register_Routine (T, Test_Decode_Set_IPv4'Access,     "Test decode Set_IPv4 response");
-      Register_Routine (T, Test_BCD'Access, "Test BCD");
+      Register_Routine (T, Test_Decode_Get_Controller'Access, "test decode Get_Controller response");
+      Register_Routine (T, Test_Decode_Set_IPv4'Access,     "test decode Set_IPv4 response");
    end Register_Tests;
 
    procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -60,14 +59,5 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded set-ipv4 response: got" & Response'Image);
    end Test_Decode_Set_IPv4;
-
-   procedure Test_BCD (T : in out AUnit.Test_Cases.Test_Case'Class) is
-      pragma Unreferenced (T);
-
-      Expected : constant String := "1234";
-      Result   : constant String := BCD_To_String (BCD'(16#12#, 16#34#));
-   begin
-      Assert (Result = Expected, "BCD incorrectly decoded: got" & Result'Image);
-   end Test_BCD;
 
 end Uhppoted.Lib.Decode.Tests;

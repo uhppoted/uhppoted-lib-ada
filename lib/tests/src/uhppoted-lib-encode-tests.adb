@@ -1,9 +1,7 @@
 with AUnit.Assertions;
-with GNAT.Sockets;
 
 package body Uhppoted.Lib.Encode.Tests is
    use AUnit.Assertions;
-   use GNAT.Sockets;
 
    overriding function Name (T : Encoder_Test) return AUnit.Message_String is
    begin
@@ -13,9 +11,9 @@ package body Uhppoted.Lib.Encode.Tests is
    overriding procedure Register_Tests (T : in out Encoder_Test) is
       use AUnit.Test_Cases.Registration;
    begin
-      Register_Routine (T, Test_Encode_Find_Controllers'Access, "Test encode Find_Controllers request");
-      Register_Routine (T, Test_Encode_Get_Controller'Access,   "Test encode Get_Controller request");
-      Register_Routine (T, Test_Encode_Set_IPv4'Access,         "Test encode Set_IPv4 request");
+      Register_Routine (T, Test_Encode_Find_Controllers'Access, "test encode Find_Controllers request");
+      Register_Routine (T, Test_Encode_Get_Controller'Access,   "test encode Get_Controller request");
+      Register_Routine (T, Test_Encode_Set_IPv4'Access,         "test encode Set_IPv4 request");
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -58,7 +56,7 @@ package body Uhppoted.Lib.Encode.Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      Request : constant Packet := Uhppoted.Lib.Encode.Set_IPv4 (405419896, Inet_Addr("192.168.1.125"), Inet_Addr("255.255.255.0"), Inet_Addr("192.168.1.1"));
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_IPv4 (405419896, Inet_Addr ("192.168.1.125"), Inet_Addr ("255.255.255.0"), Inet_Addr ("192.168.1.1"));
    begin
       Assert (Request = Expected, "incorrectly encoded set-ipv4 request: got" & Request'Image);
    end Test_Encode_Set_IPv4;

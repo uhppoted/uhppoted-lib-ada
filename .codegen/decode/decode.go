@@ -93,7 +93,7 @@ func transmogrify(responses []lib.Response) []test {
 		for _, t := range response.Tests {
 			transmogrified = append(transmogrified, test{
 				Name:        fmt.Sprintf("%v", codegen.AdaName(t.Name)),
-				Description: fmt.Sprintf("Test decode %v response", codegen.AdaName(t.Name)),
+				Description: fmt.Sprintf("test decode %v response", codegen.AdaName(t.Name)),
 				Response:    fmt.Sprintf("%v", codegen.KebabCase(strings.TrimSuffix(response.Name, " response"))),
 				Reply:       packet(t.Response),
 				Expected:    expected(t),

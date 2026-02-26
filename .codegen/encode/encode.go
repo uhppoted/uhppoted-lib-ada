@@ -91,7 +91,7 @@ func transmogrify(requests []lib.Request) []test {
 		for _, t := range rq.Tests {
 			transmogrified = append(transmogrified, test{
 				Name:        fmt.Sprintf("%v", codegen.AdaName(t.Name)),
-				Description: fmt.Sprintf("Test encode %v request", codegen.AdaName(t.Name)),
+				Description: fmt.Sprintf("test encode %v request", codegen.AdaName(t.Name)),
 				Request:     fmt.Sprintf("%v", codegen.KebabCase(strings.TrimSuffix(rq.Name, " request"))),
 				Expected:    packet(t.Expected),
 				Args:        args(t),
@@ -137,5 +137,5 @@ func ipv4(v any) string {
 	s := fmt.Sprintf("%v", v)
 	addr := netip.MustParseAddr(s)
 
-	return fmt.Sprintf(`Inet_Addr("%v")`, addr)
+	return fmt.Sprintf(`Inet_Addr ("%v")`, addr)
 }

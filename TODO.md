@@ -2,15 +2,24 @@
 
 - [ ] format
 - [ ] lint
+- [ ] adadoc
+- https://github.com/simonjwright/alire-index.mac
+- https://alire.ada.dev/transition_from_gnat_community.html
+
 
 - [x] find-controllers
+    - [x] ada-doc
+
 - [x] get-controller
+    - [x] ada-doc
+
 - [ ] set-IPv4
     - [x] API
     - [ ] integration test
     - [x] CLI
     - [x] README
     - [x] API.md
+    - [x] ada-doc
 
 - [ ] UDP
     - [x] broadcast timeout parameter
@@ -19,9 +28,11 @@
     - [ ] split send/sendto
     - [ ] listen
     - [ ] controlled types for sockets/selectors
+    - [ ] ada-doc
 
 - [x] TCP
     - [ ] controlled types for sockets/selectors
+    - [ ] ada-doc
 
 - [ ] CLI
     - [ ] command line args

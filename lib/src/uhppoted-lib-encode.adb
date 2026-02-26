@@ -1,9 +1,7 @@
-with Ada.Unchecked_Conversion;
 with GNAT.Sockets;
 with Uhppoted.Lib.Requests;
 
 package body Uhppoted.Lib.Encode is
-   use GNAT.Sockets;
    use Uhppoted.Lib.Requests;
 
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4;

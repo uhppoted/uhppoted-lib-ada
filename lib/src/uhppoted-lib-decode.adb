@@ -1,11 +1,9 @@
-with Interfaces;
 with Ada.Strings;
 with Ada.Strings.Fixed;
 with Ada.Strings.Unbounded;
 with Uhppoted.Lib.Replies;
 
 package body Uhppoted.Lib.Decode is
-   use Interfaces;
    use Ada.Strings;
    use Ada.Strings.Fixed;
    use Ada.Strings.Unbounded;

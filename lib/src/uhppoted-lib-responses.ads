@@ -1,4 +1,3 @@
-with Interfaces;
 with Ada.Strings.Unbounded;
 
 package Uhppoted.Lib.Responses is

@@ -16,10 +16,12 @@ package body Registry is
       return CS;
    end Initialise;
 
-   procedure Execute (Self : Command_Set; Cmd : String) is
+   procedure Execute (Self : Command_Set;
+                      Cmd  : String;
+                      Args : String) is
    begin
          if Self.Internal_Map.Contains (Cmd) then
-            Self.Internal_Map.Element (Cmd).all;
+            Self.Internal_Map.Element (Cmd).all (Args);
          else
             Put_Line ("   *** ERROR: unknown command " & Cmd);
          end if;

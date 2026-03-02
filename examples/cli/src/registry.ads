@@ -2,12 +2,14 @@ with Ada.Containers.Indefinite_Hashed_Maps;
 with Ada.Strings.Hash;
 
 package Registry is
-   type Handler is access procedure;
+   type Handler is access procedure (Args : String);
 
    type Command_Set is tagged private;
 
    function Initialise return Command_Set;
-   procedure Execute (Self : Command_Set; Cmd : String);
+   procedure Execute (Self : Command_Set;
+                      Cmd  : String;
+                      Args : String);
 
 private
    package Command_Maps is new Ada.Containers.Indefinite_Hashed_Maps

@@ -37,7 +37,9 @@ package body Handlers is
 
    Timeout : constant Duration := 2.5;
 
-   procedure Find_Controllers is
+   procedure Find_Controllers (Args : String) is
+      pragma Unreferenced (Args);
+
       Controllers : constant Controller_Record_List := Find_Controllers (U, Timeout);
    begin
       Ada.Text_IO.Put_Line ("--- find-controllers");
@@ -60,7 +62,9 @@ package body Handlers is
       Ada.Text_IO.Put_Line ("");
    end Find_Controllers;
 
-   procedure Get_Controller is
+   procedure Get_Controller (Args : String) is
+      pragma Unreferenced (Args);
+
       C1 : constant Controller_Record := Get_Controller (U, 405419896, Timeout);
       C2 : constant Controller_Record := Get_Controller (U, C, Timeout);
    begin
@@ -87,7 +91,9 @@ package body Handlers is
       Ada.Text_IO.Put_Line ("");
    end Get_Controller;
 
-   procedure Set_IPv4 is
+   procedure Set_IPv4 (Args : String) is
+      pragma Unreferenced (Args);
+
       C       : constant Unsigned_32 := 405419896;
       Addr    : constant Inet_Addr_Type := Inet_Addr ("192.168.1.125");
       Netmask : constant Inet_Addr_Type := Inet_Addr ("255.255.255.0");
@@ -101,7 +107,9 @@ package body Handlers is
       Ada.Text_IO.Put_Line ("");
    end Set_IPv4;
 
-   procedure Get_Time is
+   procedure Get_Time (Args : String) is
+      pragma Unreferenced (Args);
+
       R : constant DateTime := Get_Time (U, 405419896, Timeout);
    begin
       Ada.Text_IO.Put_Line ("--- get-time");

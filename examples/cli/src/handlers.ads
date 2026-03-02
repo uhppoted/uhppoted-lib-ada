@@ -1,6 +1,6 @@
 package Handlers is
-   procedure Find_Controllers;
-   procedure Get_Controller;
-   procedure Set_IPv4;
-   procedure Get_Time;
+   procedure Find_Controllers (Args : String);
+   procedure Get_Controller   (Args : String);
+   procedure Set_IPv4         (Args : String);
+   procedure Get_Time         (Args : String);
 end Handlers;

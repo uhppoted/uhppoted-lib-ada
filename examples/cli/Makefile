@@ -1,8 +1,11 @@
 CLI = ./bin/cli
 
 CONTROLLER ?= 405419896
-UDP ?= 405419896, 192.168.1.125:60000, udp
-TCP ?= 405419896, 192.168.1.125:60000, tcp
+# CONTROLLER ?= 405419896,192.168.1.125:60000,udp
+
+ADDRESS ?= 192.168.1.125
+NETMASK ?= 255.255.255.0
+GATEWAY ?= 192.168.1.1
 
 clean:
 	alr clean
@@ -15,10 +18,9 @@ find-controllers: build
 
 get-controller: build
 	$(CLI) get-controller --controller "$(CONTROLLER)"
-	$(CLI) get-controller --controller "$(CONTROLLER), $(ADDRESS), $(PROTOCOL)"
 
 set-IPv4: build
-	$(CLI) set-IPv4 --controller "$(CONTROLLER)" --address 192.168.1.125 --netmask 255.255.255.0 --gateway 192.168.1.1
+	$(CLI) set-IPv4 --controller "$(CONTROLLER)" --address "$(ADDRESS)" --netmask "$(NETMASK)" --gateway "$(GATEWAY)"
 
 get-time: build
 	$(CLI) get-time --controller "$(CONTROLLER)"

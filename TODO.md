@@ -11,6 +11,8 @@
 - [x] find-controllers
 - [x] get-controller
 - [x] set-IPv4
+- [ ] get-time
+   - [ ] integration tests
 
 - [ ] UDP
     - [x] broadcast timeout parameter

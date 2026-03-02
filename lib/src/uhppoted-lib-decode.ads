@@ -7,8 +7,6 @@ package Uhppoted.Lib.Decode is
 
    function Get_Controller (Reply : Packet) return Get_Controller_Response;
    function Set_IPv4       (Reply : Packet) return Set_IPv4_Response;
-
-private
-   function BCD_To_String (Bytes : BCD) return String;
+   function Get_Time       (Reply : Packet) return Get_Time_Response;
 
 end Uhppoted.Lib.Decode;

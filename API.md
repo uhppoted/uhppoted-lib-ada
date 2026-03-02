@@ -2,6 +2,7 @@
 - [`Find_Controllers`](#find_controllers)
 - [`Get_Controller`](#get_controller)
 - [`Set_IPv4`](#set_ipv4)
+- [`Get_Time`](#get_time)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -192,4 +193,41 @@ Returns `True`.
 Raises:
 - `Timeout_Error` if the controller does not respond
 - `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Get_Time`
+
+**Get_Time** retrieves the controller date/time.
+
+```
+function Get_Time (U       : UHPPOTE;
+                   C       : Unsigned_32; 
+                   Timeout : Duration) return Controller_Record;
+
+function Get_Time (U       : Uhppoted.Lib.UHPPOTE;
+                   C       : Controller;
+                   Timeout : Duration) return Controller_Record;
+
+where:
+- U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C        Unsigned_32     Controller serial number.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
+
+Returns a `DateTime`:
+```
+   type DateTime is record
+      Year   : Unsigned_16;
+      Month  : Unsigned_8;
+      Day    : Unsigned_8;
+      Hour   : Unsigned_8;
+      Minute : Unsigned_8;
+      Second : Unsigned_8;
+   end record;
+```
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
 

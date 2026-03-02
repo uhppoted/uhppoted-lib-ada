@@ -2,8 +2,8 @@ with Interfaces;
 with Ada.Strings.Unbounded;
 
 package Uhppoted.Types is
-   use Interfaces;
    use Ada.Strings.Unbounded;
+   use Interfaces;
 
    type IPv4 is array (1 .. 4) of Interfaces.Unsigned_8;
    type Hardware_Addr is array (1 .. 6) of Unsigned_8;
@@ -13,6 +13,15 @@ package Uhppoted.Types is
       Year  : Unsigned_16;
       Month : Unsigned_8;
       Day   : Unsigned_8;
+   end record;
+
+   type DateTime is record
+      Year   : Unsigned_16;
+      Month  : Unsigned_8;
+      Day    : Unsigned_8;
+      Hour   : Unsigned_8;
+      Minute : Unsigned_8;
+      Second : Unsigned_8;
    end record;
 
    type Controller_Record is record
@@ -29,6 +38,7 @@ package Uhppoted.Types is
 
    function Image (Addr : IPv4) return String;
    function Image (MAC  : Hardware_Addr) return String;
-   function Image (Date : DateOnly) return String;
+   function Image (D    : DateOnly) return String;
+   function Image (DT   : DateTime) return String;
 
 end Uhppoted.Types;

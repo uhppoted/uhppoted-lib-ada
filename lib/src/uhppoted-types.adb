@@ -30,14 +30,27 @@ package body Uhppoted.Types is
       return S (1 .. 17);
    end Image;
 
-   function Image (Date : DateOnly) return String is
+   function Image (D : DateOnly) return String is
       use Ada.Strings.Fixed;
 
-      YYYY : constant String := Trim (Date.Year'Image, Ada.Strings.Both);
-      MM   : constant String := (if Date.Month < 10 then "0" else "") & Trim (Date.Month'Image, Ada.Strings.Both);
-      DD   : constant String := (if Date.Day   < 10 then "0" else "") & Trim (Date.Day'Image, Ada.Strings.Both);
+      YYYY : constant String := Trim (D.Year'Image, Ada.Strings.Both);
+      MM   : constant String := (if D.Month < 10 then "0" else "") & Trim (D.Month'Image, Ada.Strings.Both);
+      DD   : constant String := (if D.Day   < 10 then "0" else "") & Trim (D.Day'Image, Ada.Strings.Both);
    begin
       return YYYY & "-" & MM & "-" & DD;
+   end Image;
+
+   function Image (DT : DateTime) return String is
+      use Ada.Strings.Fixed;
+
+      YYYY    : constant String := Trim (DT.Year'Image, Ada.Strings.Both);
+      MM      : constant String := (if DT.Month  < 10 then "0" else "") & Trim (DT.Month'Image,  Ada.Strings.Both);
+      DD      : constant String := (if DT.Day    < 10 then "0" else "") & Trim (DT.Day'Image,    Ada.Strings.Both);
+      HH      : constant String := (if DT.Hour   < 10 then "0" else "") & Trim (DT.Hour'Image,   Ada.Strings.Both);
+      Minutes : constant String := (if DT.Minute < 10 then "0" else "") & Trim (DT.Minute'Image, Ada.Strings.Both);
+      SS      : constant String := (if DT.Second < 10 then "0" else "") & Trim (DT.Second'Image, Ada.Strings.Both);
+   begin
+      return YYYY & "-" & MM & "-" & DD & " " & HH & ":" & Minutes & ":" & SS;
    end Image;
 
 end Uhppoted.Types;

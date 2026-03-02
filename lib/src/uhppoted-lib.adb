@@ -49,7 +49,7 @@ package body Uhppoted.Lib is
       return Response;
    end Find_Controllers;
 
-   --  Retrieves the information for a single access controller (on the local LAN).
+   --  Retrieves the information for a single access controller. Restricted to the local LAN.
    function Get_Controller (U       : UHPPOTE;
                             C       : Unsigned_32;
                             Timeout : Duration := 2.5) return Controller_Record is
@@ -57,7 +57,7 @@ package body Uhppoted.Lib is
       return Get_Controller (U, To_Controller (C), Timeout);
    end Get_Controller;
 
-   --  Retrieves the information for a single access controller (not restricted to the local LAN).
+   --  Retrieves the information for a single access controller.
    function Get_Controller (U       : UHPPOTE;
                             C       : Controller;
                             Timeout : Duration := 2.5) return Controller_Record is
@@ -113,6 +113,32 @@ package body Uhppoted.Lib is
 
       return R.Ok;
    end Set_IPv4;
+
+   --  Retrieves the access controller date/time. Restricted to the local LAN.
+   function Get_Time (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      Timeout : Duration := 2.5) return DateTime is
+   begin
+      return Get_Time (U, To_Controller (C), Timeout);
+   end Get_Time;
+
+   --  Retrieves the access controller date/time.
+   function Get_Time (U       : UHPPOTE;
+                      C       : Controller;
+                      Timeout : Duration := 2.5) return DateTime is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Time (C.ID);
+      Reply   : Packet;
+      R       : Get_Time_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Time (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Date_Time;
+   end Get_Time;
 
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.

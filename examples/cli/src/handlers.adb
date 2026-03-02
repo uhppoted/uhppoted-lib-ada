@@ -2,12 +2,14 @@ with Interfaces;
 with GNAT.Sockets;
 with Ada.Text_IO;
 with Ada.Strings.Unbounded;
+
 with Uhppoted.Lib;
 
 package body Handlers is
    use Interfaces;
    use Ada.Strings.Unbounded;
    use GNAT.Sockets;
+
    use Uhppoted.Lib;
 
    U : constant UHPPOTE := (
@@ -98,5 +100,15 @@ package body Handlers is
 
       Ada.Text_IO.Put_Line ("");
    end Set_IPv4;
+
+   procedure Get_Time is
+      R : constant DateTime := Get_Time (U, 405419896, Timeout);
+   begin
+      Ada.Text_IO.Put_Line ("--- get-time");
+      Ada.Text_IO.Put_Line ("controller: " & "405419896");
+      Ada.Text_IO.Put_Line ("            " & Image (R));
+
+      Ada.Text_IO.Put_Line ("");
+   end Get_Time;
 
 end Handlers;

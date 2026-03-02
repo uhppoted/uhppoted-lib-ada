@@ -31,3 +31,6 @@ get-controller: build
 
 set-IPv4: build
 	cd examples/cli && make set-IPv4
+
+get-time: build
+	cd examples/cli && make get-time

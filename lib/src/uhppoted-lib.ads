@@ -29,6 +29,7 @@ package Uhppoted.Lib is
 
    subtype Controller_Record      is Uhppoted.Types.Controller_Record;
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
+   subtype DateTime               is Uhppoted.Types.DateTime;
 
    --  Finds all access controllers on the local LAN.
    --
@@ -107,6 +108,34 @@ package Uhppoted.Lib is
                       Gateway : GNAT.Sockets.Inet_Addr_Type;
                       Timeout : Duration := 2.5) return Boolean;
 
+   --  Retrieves the access controller date/time. Restricted to the local LAN.
+   --
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          DateTime with the controller date/time.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Get_Time (U : UHPPOTE;
+                      C : Unsigned_32;
+                      Timeout : Duration := 2.5) return DateTime;
+
+   --  Retrieves the access controller date/time.
+   --
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          DateTime with the controller date/time.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Get_Time (U : UHPPOTE;
+                      C : Controller;
+                      Timeout : Duration := 2.5) return DateTime;
+
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").
    --
    --  @param Addr The IPv4 address to be converted.
@@ -123,9 +152,16 @@ package Uhppoted.Lib is
 
    --  Returns a string representation of the given date in yyyy-mm-dd format (e.g., "2026-02-26").
    --
-   --  @param Date The date address to be converted.
-   --  @return A string containing the formatted date.
+   --  @param D  The date to be converted.
+   --  @return   A string containing the formatted date.
    --  @see Uhppoted.Types.Image
-   function Image (Date : DateOnly) return String renames Uhppoted.Types.Image;
+   function Image (D : DateOnly) return String renames Uhppoted.Types.Image;
+
+   --  Returns a string representation of the given date/time in yyyy-mm-dd HH:mm:ssformat (e.g. "2026-02-26 15:23:45").
+   --
+   --  @param DT  The date/time  to be converted.
+   --  @return    A string containing the formatted date/time.
+   --  @see Uhppoted.Types.Image
+   function Image (DT : DateTime) return String renames Uhppoted.Types.Image;
 
 end Uhppoted.Lib;

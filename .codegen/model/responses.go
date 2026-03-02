@@ -10,7 +10,7 @@ var Responses = []types.Response{
 	GetControllerResponse,
 	SetIPv4Response,
 	// &GetStatusResponse,
-	// &GetTimeResponse,
+	GetTimeResponse,
 	// &SetTimeResponse,
 	// &GetListenerResponse,
 	// &SetListenerResponse,

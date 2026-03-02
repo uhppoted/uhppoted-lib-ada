@@ -33,8 +33,17 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Set_IPv4;
 
-   --  Utility functions
+   --  Encodes a get-time request as a 64 byte array.
+   function Get_Time (Controller : Unsigned_32) return Packet is
+      Request : Get_Time_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
 
+      return Buffer;
+   end Get_Time;
+
+   --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is
       V : constant IPv4 := [
          Unsigned_8 (Addr.Sin_V4 (1)),

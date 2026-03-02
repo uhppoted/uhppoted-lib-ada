@@ -11,6 +11,7 @@ package body Registry is
       CS.Internal_Map.Insert ("find-controllers", Find_Controllers'Access);
       CS.Internal_Map.Insert ("get-controller",   Get_Controller'Access);
       CS.Internal_Map.Insert ("set-IPv4",         Set_IPv4'Access);
+      CS.Internal_Map.Insert ("get-time",         Get_Time'Access);
 
       return CS;
    end Initialise;

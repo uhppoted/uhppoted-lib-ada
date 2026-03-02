@@ -149,6 +149,9 @@ func value(v lib.Value) string {
 	case "date":
 		return date(v.Value)
 
+	case "datetime":
+		return datetime(v.Value)
+
 	default:
 		return fmt.Sprintf("%v", v.Value)
 	}
@@ -190,5 +193,19 @@ func date(v any) string {
 		year, month, day := date.Date()
 
 		return fmt.Sprintf("(Year => %v, Month => %v, Day => %v)", uint16(year), uint8(month), uint8(day))
+	}
+}
+
+func datetime(v any) string {
+	s := fmt.Sprintf("%v", v)
+	if datetime, err := time.ParseInLocation("2006-01-02 15:04:05", s, time.Local); err != nil {
+		panic(fmt.Sprintf("invalid date (%v)", v))
+	} else {
+		year, month, day := datetime.Date()
+
+		return fmt.Sprintf(
+			"(Year => %v, Month => %v, Day => %v, Hour => %v, Minute => %v, Second => %v)",
+			uint16(year), uint8(month), uint8(day),
+			uint8(datetime.Hour()), uint8(datetime.Minute()), uint8(datetime.Second()))
 	}
 }

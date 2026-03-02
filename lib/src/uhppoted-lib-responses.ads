@@ -18,4 +18,9 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   type Get_Time_Response is record
+      Controller  : Unsigned_32;
+      Date_Time   : DateTime;
+   end record;
+
 end Uhppoted.Lib.Responses;

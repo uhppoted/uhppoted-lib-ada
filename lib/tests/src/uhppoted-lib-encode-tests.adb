@@ -14,6 +14,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Find_Controllers'Access, "test encode Find_Controllers request");
       Register_Routine (T, Test_Encode_Get_Controller'Access,   "test encode Get_Controller request");
       Register_Routine (T, Test_Encode_Set_IPv4'Access,         "test encode Set_IPv4 request");
+      Register_Routine (T, Test_Encode_Get_Time'Access,         "test encode Get_Time request");
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -60,5 +61,20 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded set-ipv4 request: got" & Request'Image);
    end Test_Encode_Set_IPv4;
+
+   procedure Test_Encode_Get_Time (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#32#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Time (405419896);
+   begin
+      Assert (Request = Expected, "incorrectly encoded get-time request: got" & Request'Image);
+   end Test_Encode_Get_Time;
 
 end Uhppoted.Lib.Encode.Tests;

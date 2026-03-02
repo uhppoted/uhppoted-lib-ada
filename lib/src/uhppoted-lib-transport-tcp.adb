@@ -3,7 +3,6 @@ with Ada.Unchecked_Conversion;
 with Ada.Calendar;
 
 package body Uhppoted.Lib.Transport.TCP is
-   use GNAT.Sockets;
    use Ada.Calendar;
 
    subtype Stream_Packet is Ada.Streams.Stream_Element_Array (1 .. 64);

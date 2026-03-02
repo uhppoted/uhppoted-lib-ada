@@ -39,7 +39,7 @@ package Uhppoted.Lib is
    function Find_Controllers (U : UHPPOTE;
                               Timeout : Duration := 2.5) return Controller_Record_List;
 
-   --  Retrieves the information for a single access controller (on the local LAN).
+   --  Retrieves the information for a single access controller. Restricted to the local LAN.
    --
    --  @param  U        UHPPOTE configuration.
    --  @param  C        Controller serial number.
@@ -67,7 +67,7 @@ package Uhppoted.Lib is
                             C : Controller;
                             Timeout : Duration := 2.5) return Controller_Record;
 
-   --  Sets the access controller IPv4 address, subnet mask and gateway address (on the local LAN).
+   --  Sets the access controller IPv4 address, subnet mask and gateway address. Restricted to the local LAN.
    --
    --  @param  U        UHPPOTE configuration.
    --  @param  C        Controller serial number.
@@ -120,7 +120,6 @@ package Uhppoted.Lib is
    --  @return A string containing the formatted MAC address.
    --  @see Uhppoted.Types.Image
    function Image (MAC  : Hardware_Addr) return String renames Uhppoted.Types.Image;
-
 
    --  Returns a string representation of the given date in yyyy-mm-dd format (e.g., "2026-02-26").
    --

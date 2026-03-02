@@ -5,7 +5,6 @@ with Uhppoted.Lib.Types;
 with Uhppoted.Lib.Codec;
 
 package Uhppoted.Lib.Replies is
-   use Interfaces;
    use Uhppoted.Lib.Types;
 
    type Version_Field is record

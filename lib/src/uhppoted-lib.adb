@@ -6,16 +6,21 @@ with Uhppoted.Lib.Transport.TCP;
 with Uhppoted.Lib.Responses;
 
 package body Uhppoted.Lib is
-   use GNAT.Sockets;
    use Uhppoted.Lib.Types;
    use Uhppoted.Lib.Responses;
 
+   --  Factory function to convert a controller ID to a Controller record for Dispatch.
+   function To_Controller (ID : Unsigned_32) return Controller is  (Controller'(Controller => ID, others => <>));
+
+   --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
+   --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;
                       DestAddr : Sock_Addr_Type;
                       Request  : Packet;
                       Protocol : Protocol_Type;
                       Timeout  : Duration) return Packet;
 
+   --  Finds all access controllers on the local LAN.
    function Find_Controllers (U       : UHPPOTE;
                               Timeout : Duration := 2.5) return Controller_Record_List is
       Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
@@ -44,41 +49,23 @@ package body Uhppoted.Lib is
       return Response;
    end Find_Controllers;
 
+   --  Retrieves the information for a single access controller (on the local LAN).
    function Get_Controller (U : UHPPOTE;
                             C : Unsigned_32;
                             Timeout : Duration := 2.5) return Controller_Record is
-      DestAddr : constant Sock_Addr_Type := U.Broadcast_Addr;
-      Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C);
-      Reply    : constant Packet := Uhppoted.Lib.Transport.UDP.SendTo (U, DestAddr, Request, Timeout);
-      R        : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
    begin
-      if R.Controller /= C then
-         raise Invalid_Response_Error;
-      end if;
-
-      return (
-         ID       => R.Controller,
-         Address  => R.IP_Address,
-         Netmask  => R.Subnet_Mask,
-         Gateway  => R.Gateway,
-         MAC      => R.MAC_Address,
-         Firmware => R.Version,
-         Date     => R.Date);
+      return Get_Controller (U, To_Controller (C), Timeout);
    end Get_Controller;
 
+   --  Retrieves the information for a single access controller (not restricted to the local LAN).
    function Get_Controller (U : UHPPOTE;
                             C : Controller;
                             Timeout : Duration := 2.5) return Controller_Record is
-      DestAddr : Sock_Addr_Type := U.Broadcast_Addr;
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C.Controller);
       Reply   : Packet;
       R       : Get_Controller_Response;
    begin
-      if C.DestAddr /= No_Sock_Addr then
-         DestAddr := C.DestAddr;
-      end if;
-
-      Reply := Dispatch (U, DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Controller (Reply);
 
       if R.Controller /= C.Controller then
@@ -95,40 +82,29 @@ package body Uhppoted.Lib is
          Date     => R.Date);
    end Get_Controller;
 
+   --  Sets the access controller IPv4 address, subnet mask and gateway address. Restricted to the local LAN.
    function Set_IPv4 (U       : UHPPOTE;
                       C       : Unsigned_32;
                       Addr    : Inet_Addr_Type;
                       Netmask : Inet_Addr_Type;
                       Gateway : Inet_Addr_Type;
                       Timeout : Duration := 2.5) return Boolean is
-      DestAddr : constant Sock_Addr_Type := U.Broadcast_Addr;
-      Request  : constant Packet := Uhppoted.Lib.Encode.Set_IPv4 (C, Addr, Netmask, Gateway);
-      Reply    : constant Packet := Uhppoted.Lib.Transport.UDP.SendTo (U, DestAddr, Request, Timeout);
-      R        : constant Set_IPv4_Response := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
    begin
-      if R.Controller /= C then
-         raise Invalid_Response_Error;
-      end if;
-
-      return R.Ok;
+      return Set_IPv4 (U, To_Controller (C), Addr, Netmask, Gateway, Timeout);
    end Set_IPv4;
 
+   --  Sets the access controller IPv4 address, subnet mask and gateway address (not restricted to the local LAN).
    function Set_IPv4 (U       : UHPPOTE;
                       C       : Controller;
                       Addr    : Inet_Addr_Type;
                       Netmask : Inet_Addr_Type;
                       Gateway : Inet_Addr_Type;
                       Timeout : Duration := 2.5) return Boolean is
-      DestAddr : Sock_Addr_Type := U.Broadcast_Addr;
       Request  : constant Packet := Uhppoted.Lib.Encode.Set_IPv4 (C.Controller, Addr, Netmask, Gateway);
       Reply    : Packet;
       R        : Set_IPv4_Response;
    begin
-      if C.DestAddr /= No_Sock_Addr then
-         DestAddr := C.DestAddr;
-      end if;
-
-      Reply := Dispatch (U, DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
       R     := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
 
       if R.Controller /= C.Controller then
@@ -138,6 +114,8 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Set_IPv4;
 
+   --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
+   --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;
                       DestAddr : Sock_Addr_Type;
                       Request  : Packet;
@@ -146,8 +124,10 @@ package body Uhppoted.Lib is
    begin
       if Protocol = TCP and then DestAddr /= No_Sock_Addr then
          return Uhppoted.Lib.Transport.TCP.Send (U, DestAddr, Request, Timeout);
-      else
+      elsif DestAddr /= No_Sock_Addr then
          return Uhppoted.Lib.Transport.UDP.SendTo (U, DestAddr, Request, Timeout);
+      else
+         return Uhppoted.Lib.Transport.UDP.BroadcastTo (U, Request, Timeout);
       end if;
    end Dispatch;
 

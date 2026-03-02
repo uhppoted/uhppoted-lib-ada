@@ -10,18 +10,12 @@
 - [x] find-controllers
 - [x] get-controller
 - [x] set-IPv4
-    - [x] API
-    - [x] integration test
-    - [x] CLI
-    - [x] README
-    - [x] API.md
-    - [x] ada-doc
 
 - [ ] UDP
     - [x] broadcast timeout parameter
     - [x] send timeout parameter
     - [x] sendto
-    - [ ] split send/sendto
+    - [x] split broadcast-to and send-to
     - [ ] listen
     - [ ] controlled types for sockets/selectors
     - [ ] ada-doc

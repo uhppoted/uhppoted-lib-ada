@@ -26,9 +26,9 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Debug => True);
 
    C : constant Controller := (
-      Controller => 405419896,
-      DestAddr   => (Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("127.0.0.1"), Port => 60003),
-      Protocol   => Uhppoted.Lib.TCP);
+      ID       => 405419896,
+      DestAddr => (Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("127.0.0.1"), Port => 60003),
+      Protocol => Uhppoted.Lib.TCP);
 
    overriding function Name (T : Integration_Test) return AUnit.Message_String is
    begin

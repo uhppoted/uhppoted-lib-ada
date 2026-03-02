@@ -29,9 +29,9 @@ package body Handlers is
       Debug => True);
 
    C : constant Controller := (
-      Controller => 405419896,
-      DestAddr   => (Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("192.168.1.125"), Port => 60000),
-      Protocol   => TCP);
+      ID       => 405419896,
+      DestAddr => (Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("192.168.1.125"), Port => 60000),
+      Protocol => TCP);
 
    Timeout : constant Duration := 2.5;
 

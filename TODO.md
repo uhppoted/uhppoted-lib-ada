@@ -3,6 +3,7 @@
 - [ ] format
 - [ ] lint
 - [ ] adadoc
+- https://github.com/ohenley/awesome-ada
 - https://github.com/simonjwright/alire-index.mac
 - https://alire.ada.dev/transition_from_gnat_community.html
 
@@ -58,22 +59,6 @@
    );
 ```
 
-
-- [ ] Controller utility constructor
-```
-function To_Controller (
-   ID       : Interfaces.Unsigned_32;
-   Dest     : GNAT.Sockets.Sock_Addr_Type := GNAT.Sockets.No_Sock_Addr;
-   Protocol : Protocol_Type               := Default
-) return Controller is
-begin
-   return (
-      Controller => ID,
-      DestAddr   => Dest,
-      Protocol   => Protocol
-   );
-end To_Controller;
-```
 
 - Controlled type
 ```

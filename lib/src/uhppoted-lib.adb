@@ -10,7 +10,7 @@ package body Uhppoted.Lib is
    use Uhppoted.Lib.Responses;
 
    --  Factory function to convert a controller ID to a Controller record for Dispatch.
-   function To_Controller (ID : Unsigned_32) return Controller is  (Controller'(Controller => ID, others => <>));
+   function To_Controller (C : Unsigned_32) return Controller is  (Controller'(ID => C, others => <>));
 
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
@@ -50,25 +50,25 @@ package body Uhppoted.Lib is
    end Find_Controllers;
 
    --  Retrieves the information for a single access controller (on the local LAN).
-   function Get_Controller (U : UHPPOTE;
-                            C : Unsigned_32;
+   function Get_Controller (U       : UHPPOTE;
+                            C       : Unsigned_32;
                             Timeout : Duration := 2.5) return Controller_Record is
    begin
       return Get_Controller (U, To_Controller (C), Timeout);
    end Get_Controller;
 
    --  Retrieves the information for a single access controller (not restricted to the local LAN).
-   function Get_Controller (U : UHPPOTE;
-                            C : Controller;
+   function Get_Controller (U       : UHPPOTE;
+                            C       : Controller;
                             Timeout : Duration := 2.5) return Controller_Record is
-      Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C.Controller);
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (C.ID);
       Reply   : Packet;
       R       : Get_Controller_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Controller (Reply);
 
-      if R.Controller /= C.Controller then
+      if R.Controller /= C.ID then
          raise Invalid_Response_Error;
       end if;
 
@@ -100,14 +100,14 @@ package body Uhppoted.Lib is
                       Netmask : Inet_Addr_Type;
                       Gateway : Inet_Addr_Type;
                       Timeout : Duration := 2.5) return Boolean is
-      Request  : constant Packet := Uhppoted.Lib.Encode.Set_IPv4 (C.Controller, Addr, Netmask, Gateway);
+      Request  : constant Packet := Uhppoted.Lib.Encode.Set_IPv4 (C.ID, Addr, Netmask, Gateway);
       Reply    : Packet;
       R        : Set_IPv4_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
       R     := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
 
-      if R.Controller /= C.Controller then
+      if R.Controller /= C.ID then
          raise Invalid_Response_Error;
       end if;
 

@@ -20,9 +20,9 @@ package Uhppoted.Lib is
    type Protocol_Type is (Default, UDP, TCP);
 
    type Controller is record
-      Controller : Unsigned_32;
-      DestAddr   : Sock_Addr_Type := No_Sock_Addr;
-      Protocol   : Protocol_Type := Default;
+      ID       : Unsigned_32;
+      DestAddr : Sock_Addr_Type := No_Sock_Addr;
+      Protocol : Protocol_Type := Default;
    end record;
 
    Invalid_Response_Error : exception;

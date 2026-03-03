@@ -1,0 +1,231 @@
+package model
+
+import (
+	lib "github.com/uhppoted/uhppoted-codegen/model"
+	"github.com/uhppoted/uhppoted-codegen/model/types"
+)
+
+var API = []types.Function{
+	FindControllers,
+	GetController,
+	SetIPv4,
+	GetTime,
+	// &SetTime,
+	// &GetListener,
+	// &SetListener,
+	// &GetListenerAddrPort,
+	// &SetListenerAddrPort,
+	// &GetDoor,
+	// &SetDoor,
+	// &SetDoorPasscodes,
+	// &OpenDoor,
+	// &GetStatus,
+	// &GetCards,
+	// &GetCard,
+	// &GetCardAtIndex,
+	// &PutCard,
+	// &DeleteCard,
+	// &DeleteAllCards,
+	// &GetEvent,
+	// &GetEventIndex,
+	// &SetEventIndex,
+	// &RecordSpecialEvents,
+	// &GetTimeProfile,
+	// &SetTimeProfile,
+	// &ClearTimeProfiles,
+	// &AddTask,
+	// &RefreshTaskList,
+	// &ClearTaskList,
+	// &SetPCControl,
+	// &SetInterlock,
+	// &ActivateKeypads,
+	// &GetAntiPassback,
+	// &SetAntiPassback,
+	// &RestoreDefaultParameters,
+}
+
+// var UDP = []*types.Function{
+// 	&GetController,
+// 	&SetIPv4,
+// 	&GetTime,
+// 	&SetTime,
+// 	&GetListener,
+// 	&SetListener,
+// 	&GetListenerAddrPort,
+// 	&SetListenerAddrPort,
+// 	&GetDoor,
+// 	&SetDoor,
+// 	&SetDoorPasscodes,
+// 	&OpenDoor,
+// 	&GetStatus,
+// 	&GetCards,
+// 	&GetCard,
+// 	&GetCardAtIndex,
+// 	&PutCard,
+// 	&DeleteCard,
+// 	&DeleteAllCards,
+// 	&GetEvent,
+// 	&GetEventIndex,
+// 	&SetEventIndex,
+// 	&RecordSpecialEvents,
+// 	&GetTimeProfile,
+// 	&SetTimeProfile,
+// 	&ClearTimeProfiles,
+// 	&AddTask,
+// 	&RefreshTaskList,
+// 	&ClearTaskList,
+// 	&SetPCControl,
+// 	&SetInterlock,
+// 	&ActivateKeypads,
+// 	&GetAntiPassback,
+// 	&SetAntiPassback,
+// 	&RestoreDefaultParameters,
+// }
+
+// var TCP = []*types.Function{
+// 	&GetController,
+// 	&SetIPv4,
+// 	&GetTime,
+// 	&SetTime,
+// 	&GetListener,
+// 	&SetListener,
+// 	&GetListenerAddrPort,
+// 	&SetListenerAddrPort,
+// 	&GetDoor,
+// 	&SetDoor,
+// 	&SetDoorPasscodes,
+// 	&OpenDoor,
+// 	&GetStatus,
+// 	&GetCards,
+// 	&GetCard,
+// 	&GetCardAtIndex,
+// 	&PutCard,
+// 	&DeleteCard,
+// 	&DeleteAllCards,
+// 	&GetEvent,
+// 	&GetEventIndex,
+// 	&SetEventIndex,
+// 	&RecordSpecialEvents,
+// 	&GetTimeProfile,
+// 	&SetTimeProfile,
+// 	&ClearTimeProfiles,
+// 	&AddTask,
+// 	&RefreshTaskList,
+// 	&ClearTaskList,
+// 	&SetPCControl,
+// 	&SetInterlock,
+// 	&ActivateKeypads,
+// 	&GetAntiPassback,
+// 	&SetAntiPassback,
+// 	&RestoreDefaultParameters,
+// }
+
+var FindControllers = types.Function{
+	Name: "find-controllers",
+	Description: []string{
+		"FindControllers retrieves a list of all UHPPOTE controllers accessible via UDP broadcast",
+		"on the local LAN.",
+	},
+	Args: []types.Arg{},
+	Tests: []types.FuncTest{
+		{
+			Name: "find-controllers",
+			Args: []types.Arg{},
+			Request: []byte{
+				0x17, 0x94, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+			},
+			Replies: []types.Reply{
+				{
+					Message: []byte{
+						0x17, 0x94, 0x00, 0x00, 0x90, 0x53, 0xfb, 0x0b, 0xc0, 0xa8, 0x01, 0x65, 0xff, 0xff, 0xff, 0x00,
+						0xc0, 0xa8, 0x01, 0x01, 0x52, 0xfd, 0xfc, 0x07, 0x21, 0x82, 0x06, 0x62, 0x20, 0x20, 0x01, 0x01,
+						0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+						0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					},
+					Response: []types.Value{
+						{"controller", "uint32", 201020304},
+						{"ip address", "IPv4", "192.168.1.101"},
+						{"subnet mask", "IPv4", "255.255.255.0"},
+						{"gateway", "IPv4", "192.168.1.1"},
+						{"MAC address", "MAC", "52:fd:fc:07:21:82"},
+						{"version", "version", "v6.62"},
+						{"date", "date", "2020-01-01"},
+					},
+				},
+				{
+					Message: []byte{
+						0x17, 0x94, 0x00, 0x00, 0x41, 0x78, 0x1e, 0x12, 0xc0, 0xa8, 0x01, 0x64, 0xff, 0xff, 0xff, 0x00,
+						0xc0, 0xa8, 0x01, 0x01, 0x52, 0xfd, 0xfc, 0x07, 0x21, 0x82, 0x08, 0x92, 0x20, 0x19, 0x08, 0x15,
+						0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+						0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					},
+					Response: []types.Value{
+						{"controller", "uint32", 303986753},
+						{"ip address", "IPv4", "192.168.1.100"},
+						{"subnet mask", "IPv4", "255.255.255.0"},
+						{"gateway", "IPv4", "192.168.1.1"},
+						{"MAC address", "MAC", "52:fd:fc:07:21:82"},
+						{"version", "version", "v8.92"},
+						{"date", "date", "2019-08-15"},
+					},
+				},
+				{
+					Message: []byte{
+						0x17, 0x94, 0x00, 0x00, 0x78, 0x37, 0x2a, 0x18, 0xc0, 0xa8, 0x01, 0x64, 0xff, 0xff, 0xff, 0x00,
+						0xc0, 0xa8, 0x01, 0x01, 0x00, 0x12, 0x23, 0x34, 0x45, 0x56, 0x08, 0x92, 0x20, 0x18, 0x11, 0x05,
+						0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+						0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					},
+					Response: []types.Value{
+						{"controller", "uint32", 405419896},
+						{"ip address", "IPv4", "192.168.1.100"},
+						{"subnet mask", "IPv4", "255.255.255.0"},
+						{"gateway", "IPv4", "192.168.1.1"},
+						{"MAC address", "MAC", "00:12:23:34:45:56"},
+						{"version", "version", "v8.92"},
+						{"date", "date", "2018-11-05"},
+					},
+				},
+			},
+		},
+	},
+}
+
+var GetController = lib.GetController
+var SetIPv4 = lib.SetIPv4
+var GetTime = lib.GetTime
+var SetTime = lib.SetTime
+var GetListener = lib.GetListener
+var SetListener = lib.SetListener
+var GetListenerAddrPort = lib.GetListenerAddrPort
+var SetListenerAddrPort = lib.SetListenerAddrPort
+var GetDoor = lib.GetDoor
+var SetDoor = lib.SetDoor
+var OpenDoor = lib.OpenDoor
+var SetDoorPasscodes = lib.SetDoorPasscodes
+var GetStatus = lib.GetStatus
+var GetCards = lib.GetCards
+var GetCard = lib.GetCard
+var GetCardAtIndex = lib.GetCardAtIndex
+var PutCard = lib.PutCard
+var DeleteCard = lib.DeleteCard
+var DeleteAllCards = lib.DeleteAllCards
+var GetEvent = lib.GetEvent
+var GetEventIndex = lib.GetEventIndex
+var SetEventIndex = lib.SetEventIndex
+var RecordSpecialEvents = lib.RecordSpecialEvents
+var GetTimeProfile = lib.GetTimeProfile
+var SetTimeProfile = lib.SetTimeProfile
+var ClearTimeProfiles = lib.ClearTimeProfiles
+var AddTask = lib.AddTask
+var RefreshTaskList = lib.RefreshTaskList
+var ClearTaskList = lib.ClearTaskList
+var SetPCControl = lib.SetPCControl
+var SetInterlock = lib.SetInterlock
+var ActivateKeypads = lib.ActivateKeypads
+var GetAntiPassback = lib.GetAntiPassback
+var SetAntiPassback = lib.SetAntiPassback
+var RestoreDefaultParameters = lib.RestoreDefaultParameters

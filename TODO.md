@@ -11,17 +11,16 @@
 - [x] find-controllers
 - [x] get-controller
 - [x] set-IPv4
-- [ ] get-time
-   - [ ] integration tests
+- [x] get-time
 
 - [ ] UDP
     - [x] broadcast timeout parameter
     - [x] send timeout parameter
     - [x] sendto
     - [x] split broadcast-to and send-to
-    - [ ] listen
     - [ ] controlled types for sockets/selectors
     - [ ] ada-doc
+    - [ ] listen
 
 - [x] TCP
     - [ ] controlled types for sockets/selectors

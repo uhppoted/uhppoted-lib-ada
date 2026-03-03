@@ -8,10 +8,11 @@ package Uhppoted.Lib.Integration_Tests.TCP is
    overriding procedure Register_Tests (T : in out Integration_Test);
    overriding function Name (T : Integration_Test) return AUnit.Message_String;
 
+private
    task Listen;
 
-private
    procedure Test_Get_Controller (T : in out Test_Case'Class);
    procedure Test_Set_IPv4       (T : in out Test_Case'Class);
+   procedure Test_Get_Time       (T : in out Test_Case'Class);
 
 end Uhppoted.Lib.Integration_Tests.TCP;

@@ -1,11 +1,9 @@
 with Ada.Streams;
-with Ada.Calendar;
 with Ada.Unchecked_Conversion;
 
 with Uhppoted.Lib.Integration_Tests.Stub.Messages;
 
 package body Uhppoted.Lib.Integration_Tests.Stub is
-   use Ada.Calendar;
    use Ada.Streams;
 
    subtype Packet is Ada.Streams.Stream_Element_Array (1 .. 64);

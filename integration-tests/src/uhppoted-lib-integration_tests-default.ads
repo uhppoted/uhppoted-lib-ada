@@ -12,6 +12,7 @@ private
    procedure Test_Find_Controllers (T : in out Test_Case'Class);
    procedure Test_Get_Controller   (T : in out Test_Case'Class);
    procedure Test_Set_IPv4         (T : in out Test_Case'Class);
+   procedure Test_Get_Time         (T : in out Test_Case'Class);
 
    task Listen;
 

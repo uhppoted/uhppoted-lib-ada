@@ -25,7 +25,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
       Debug => True);
 
-   C : Unsigned_32 := 405419896;
+   C : constant Unsigned_32 := 405419896;
 
    overriding function Name (T : Integration_Test) return AUnit.Message_String is
    begin
@@ -38,6 +38,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Register_Routine (T, Test_Find_Controllers'Access, "Find_Controllers");
       Register_Routine (T, Test_Get_Controller'Access,   "Get_Controller");
       Register_Routine (T, Test_Set_IPv4'Access,         "Set_IPv4");
+      Register_Routine (T, Test_Get_Time'Access,         "Get_Time");
    end Register_Tests;
 
    task body Listen is
@@ -59,7 +60,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
       V : constant Controller_Record := Get_Controller (U, C);
    begin
-      Assert (V = Expected.Get_Controller, "invalid controller record");
+      Assert (V = Expected.Get_Controller, "invalid controller record" & V'Image);
    end Test_Get_Controller;
 
    procedure Test_Set_IPv4 (T : in out Test_Case'Class) is
@@ -72,5 +73,13 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    begin
       Assert (V = Expected.Set_IPv4, "invalid Set_IPv4 response");
    end Test_Set_IPv4;
+
+   procedure Test_Get_Time (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      V : constant DateTime := Get_Time (U, C);
+   begin
+      Assert (V = Expected.Get_Time, "invalid controller date/time" & V'Image);
+   end Test_Get_Time;
 
 end Uhppoted.Lib.Integration_Tests.Default;

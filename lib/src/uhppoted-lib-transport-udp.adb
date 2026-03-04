@@ -4,6 +4,7 @@ with Ada.Calendar;
 
 package body Uhppoted.Lib.Transport.UDP is
    use Ada.Calendar;
+   use Uhppoted.Lib.Types;
 
    subtype Stream_Packet is Ada.Streams.Stream_Element_Array (1 .. 64);
    Timeout_Error : exception;
@@ -11,10 +12,35 @@ package body Uhppoted.Lib.Transport.UDP is
    function To_Stream is new Ada.Unchecked_Conversion (Source => Packet, Target =>  Stream_Packet);
    function To_Packet is new Ada.Unchecked_Conversion (Source => Stream_Packet,  Target => Packet);
 
+   --  Creates the wrapped socket handle.
+   overriding procedure Initialize (E : in out S) is
+   begin
+      Create_Socket (E.Client, Family_Inet, Socket_Datagram);
+   end Initialize;
+
+   --  Closes the wrapped socket handle.
+   overriding procedure Finalize (E : in out S) is
+   begin
+      if E.Client /= GNAT.Sockets.No_Socket then
+         Close_Socket (E.Client);
+         E.Client := No_Socket;
+      end if;
+   end Finalize;
+
+   --  Binds a socket to the bind address and enables SO_BROADCAST.
+   procedure Bind (E         : in out S;
+                   Addr      : Sock_Addr_Type;
+                   Broadcast : Boolean) is
+   begin
+      Bind_Socket (E.Client, Addr);
+      if Broadcast then
+         Set_Socket_Option (E.Client, Socket_Level, (GNAT.Sockets.Broadcast, True));
+      end if;
+   end Bind;
+
    --  Broadcasts a 64 byte request packet and returns the response (if any).
    function Broadcast (U : UHPPOTE; Request : Packet; Timeout : Duration) return Packet_List is
-      Client    : Socket_Type;
-      Bind      : constant Sock_Addr_Type := U.Bind_Addr;
+      BindAddr  : constant Sock_Addr_Type := U.Bind_Addr;
       DestAddr  : constant Sock_Addr_Type := U.Broadcast_Addr;
       Offset    : Ada.Streams.Stream_Element_Offset;
 
@@ -27,6 +53,8 @@ package body Uhppoted.Lib.Transport.UDP is
       From      : Sock_Addr_Type;
       Buffer    : Ada.Streams.Stream_Element_Array (1 .. 64);
       Replies   : Packet_List;
+
+      Sock : S;
    begin
       Replies.Reserve_Capacity (16);
 
@@ -34,12 +62,10 @@ package body Uhppoted.Lib.Transport.UDP is
       Empty (Read_Set);
       Empty (Write_Set);
 
-      Create_Socket (Client, Family_Inet, Socket_Datagram);
-      Bind_Socket (Client, Bind);
-      Set_Socket_Option (Client, Socket_Level, (Broadcast, True));
-      Set (Read_Set, Client);
+      Bind (Sock, BindAddr, True);
+      Set (Read_Set, Sock.Client);
 
-      Send_Socket (Client, To_Stream (Request), Offset, DestAddr);
+      Send_Socket (Sock.Client, To_Stream (Request), Offset, DestAddr);
 
       loop
          declare
@@ -58,7 +84,7 @@ package body Uhppoted.Lib.Transport.UDP is
                             Timeout      => Remaining);
 
             if Status = Completed then
-               Receive_Socket (Client, Buffer, Offset, From);
+               Receive_Socket (Sock.Client, Buffer, Offset, From);
                Reply := To_Packet (Buffer);
                Replies.Append (Reply);
 
@@ -69,7 +95,6 @@ package body Uhppoted.Lib.Transport.UDP is
       end loop;
 
       Close_Selector (Selector);
-      Close_Socket (Client);
 
       return Replies;
    end Broadcast;
@@ -78,8 +103,7 @@ package body Uhppoted.Lib.Transport.UDP is
    function BroadcastTo (U        : UHPPOTE;
                          Request  : Packet;
                          Timeout  : Duration) return Packet is
-      Client    : Socket_Type;
-      Bind      : constant Sock_Addr_Type := U.Bind_Addr;
+      BindAddr  : constant Sock_Addr_Type := U.Bind_Addr;
       Offset    : Ada.Streams.Stream_Element_Offset;
 
       Read_Set  : Socket_Set_Type;
@@ -93,23 +117,21 @@ package body Uhppoted.Lib.Transport.UDP is
       Buffer : Ada.Streams.Stream_Element_Array (1 .. 64);
       Reply  : Packet;
 
+      Sock : S;
    begin
       Create_Selector (Selector);
-      Create_Socket (Client, Family_Inet, Socket_Datagram);
 
       begin
-         Bind_Socket (Client, Bind);
-         Set_Socket_Option (Client, Socket_Level, (Broadcast, True));
+         Bind (Sock, BindAddr, True);
 
          Empty (Read_Set);
          Empty (Write_Set);
-         Set (Read_Set, Client);
+         Set (Read_Set, Sock.Client);
 
-         Send_Socket (Client, To_Stream (Request), Offset, U.Broadcast_Addr);
+         Send_Socket (Sock.Client, To_Stream (Request), Offset, U.Broadcast_Addr);
 
          if Request (2) = 16#96# then
             Close_Selector (Selector);
-            Close_Socket (Client);
 
             Reply := [
                Request (1), Request (2), Request (3), Request (4),
@@ -133,7 +155,7 @@ package body Uhppoted.Lib.Transport.UDP is
 
          case Status is
             when Completed =>
-               Receive_Socket (Client, Buffer, Offset, From);
+               Receive_Socket (Sock.Client, Buffer, Offset, From);
                Reply := To_Packet (Buffer);
 
             when Expired | Aborted =>
@@ -141,14 +163,12 @@ package body Uhppoted.Lib.Transport.UDP is
          end case;
 
          Close_Selector (Selector);
-         Close_Socket (Client);
 
          return Reply;
 
       exception
          when others =>
             Close_Selector (Selector);
-            Close_Socket (Client);
             raise;
       end;
    end BroadcastTo;
@@ -158,8 +178,7 @@ package body Uhppoted.Lib.Transport.UDP is
                     DestAddr : Sock_Addr_Type;
                     Request  : Packet;
                     Timeout  : Duration) return Packet is
-      Client    : Socket_Type;
-      Bind      : constant Sock_Addr_Type := U.Bind_Addr;
+      BindAddr  : constant Sock_Addr_Type := U.Bind_Addr;
       Offset    : Ada.Streams.Stream_Element_Offset;
 
       Read_Set  : Socket_Set_Type;
@@ -173,22 +192,21 @@ package body Uhppoted.Lib.Transport.UDP is
       Buffer : Ada.Streams.Stream_Element_Array (1 .. 64);
       Reply  : Packet;
 
+      Sock : S;
    begin
       Create_Selector (Selector);
-      Create_Socket (Client, Family_Inet, Socket_Datagram);
 
       begin
-         Bind_Socket (Client, Bind);
+         Bind (Sock, BindAddr, False);
 
          Empty (Read_Set);
          Empty (Write_Set);
-         Set (Read_Set, Client);
+         Set (Read_Set, Sock.Client);
 
-         Send_Socket (Client, To_Stream (Request), Offset, DestAddr);
+         Send_Socket (Sock.Client, To_Stream (Request), Offset, DestAddr);
 
          if Request (2) = 16#96# then
             Close_Selector (Selector);
-            Close_Socket (Client);
 
             Reply := [
                Request (1), Request (2), Request (3), Request (4),
@@ -212,7 +230,7 @@ package body Uhppoted.Lib.Transport.UDP is
 
          case Status is
             when Completed =>
-               Receive_Socket (Client, Buffer, Offset, From);
+               Receive_Socket (Sock.Client, Buffer, Offset, From);
                Reply := To_Packet (Buffer);
 
             when Expired | Aborted =>
@@ -220,14 +238,12 @@ package body Uhppoted.Lib.Transport.UDP is
          end case;
 
          Close_Selector (Selector);
-         Close_Socket (Client);
 
          return Reply;
 
       exception
          when others =>
             Close_Selector (Selector);
-            Close_Socket (Client);
             raise;
       end;
    end SendTo;

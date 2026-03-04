@@ -21,10 +21,12 @@
     - [ ] controlled types for sockets/selectors
     - [ ] ada-doc
     - [ ] listen
+    - [ ] fix selector logic
 
 - [x] TCP
     - [ ] controlled types for sockets/selectors
     - [ ] ada-doc
+    - [ ] fix selector logic
 
 - [ ] CLI
     - [ ] command line args

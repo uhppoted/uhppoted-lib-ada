@@ -3,4 +3,5 @@ package Handlers is
    procedure Get_Controller   (Args : String);
    procedure Set_IPv4         (Args : String);
    procedure Get_Time         (Args : String);
+   procedure Set_Time         (Args : String);
 end Handlers;

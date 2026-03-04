@@ -8,6 +8,7 @@ import (
 	"os"
 	"strings"
 	"text/template"
+	"time"
 
 	lib "github.com/uhppoted/uhppoted-codegen/model/types"
 
@@ -26,7 +27,12 @@ type test struct {
 	Description string
 	Request     string
 	Expected    []string
-	Args        []any
+	Args        []arg
+}
+
+type arg struct {
+	Arg   any
+	Comma string
 }
 
 func UnitTests() {
@@ -113,24 +119,28 @@ func packet(p []byte) []string {
 	}
 }
 
-func args(t lib.RequestTest) []any {
-	args := []any{}
+func args(t lib.RequestTest) []arg {
+	args := []arg{}
 
-	for _, a := range t.Args {
-		args = append(args, arg(a))
+	for ix, a := range t.Args {
+		comma := ""
+		if ix+1 < len(t.Args) {
+			comma = ","
+		}
+
+		switch a.Type {
+		case "IPv4":
+			args = append(args, arg{ipv4(a.Value), comma})
+
+		case "datetime":
+			args = append(args, arg{datetime(a.Value), comma})
+
+		default:
+			args = append(args, arg{fmt.Sprintf("%v", a.Value), comma})
+		}
 	}
 
 	return args
-}
-
-func arg(a lib.Arg) any {
-	switch a.Type {
-	case "IPv4":
-		return ipv4(a.Value)
-
-	default:
-		return fmt.Sprintf("%v", a.Value)
-	}
 }
 
 func ipv4(v any) string {
@@ -138,4 +148,18 @@ func ipv4(v any) string {
 	addr := netip.MustParseAddr(s)
 
 	return fmt.Sprintf(`Inet_Addr ("%v")`, addr)
+}
+
+func datetime(v any) string {
+	s := fmt.Sprintf("%v", v)
+	if datetime, err := time.ParseInLocation("2006-01-02 15:04:05", s, time.Local); err != nil {
+		panic(fmt.Sprintf("invalid date (%v)", v))
+	} else {
+		year, month, day := datetime.Date()
+
+		return fmt.Sprintf(
+			"(Year => %v, Month => %v, Day => %v, Hour => %v, Minute => %v, Second => %v)",
+			uint16(year), uint8(month), uint8(day),
+			uint8(datetime.Hour()), uint8(datetime.Minute()), uint8(datetime.Second()))
+	}
 }

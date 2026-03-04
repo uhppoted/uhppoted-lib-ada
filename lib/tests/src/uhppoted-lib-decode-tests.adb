@@ -16,6 +16,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Get_Controller'Access, "test decode Get_Controller response");
       Register_Routine (T, Test_Decode_Set_IPv4'Access,     "test decode Set_IPv4 response");
       Register_Routine (T, Test_Decode_Get_Time'Access,     "test decode Get_Time response");
+      Register_Routine (T, Test_Decode_Set_Time'Access,     "test decode Set_Time response");
    end Register_Tests;
 
    procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -79,5 +80,24 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded get-time response: got" & Response'Image);
    end Test_Decode_Get_Time;
+
+   procedure Test_Decode_Set_Time (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Set_Time_Response := (
+         Controller => 405419896,
+         Date_Time  => (Year => 2025, Month => 11, Day => 1, Hour => 12, Minute => 34, Second => 56));
+
+      Reply : constant Packet := [
+         16#17#, 16#30#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#20#, 16#25#, 16#11#, 16#01#, 16#12#, 16#34#, 16#56#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Set_Time_Response := Uhppoted.Lib.Decode.Set_Time (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded set-time response: got" & Response'Image);
+   end Test_Decode_Set_Time;
 
 end Uhppoted.Lib.Decode.Tests;

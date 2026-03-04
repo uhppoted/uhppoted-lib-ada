@@ -24,3 +24,6 @@ set-IPv4: build
 
 get-time: build
 	$(CLI) get-time --controller "$(CONTROLLER)"
+
+set-time: build
+	$(CLI) set-time --controller "$(CONTROLLER)"

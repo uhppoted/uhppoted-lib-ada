@@ -53,6 +53,14 @@ package body Uhppoted.Lib.Decode is
               Date_Time   => Unpack_Date_Time (Response.Date_Time));
    end Get_Time;
 
+   --  Decodes a 64 byte set-time response as a Set_Time_Response record.
+   function Set_Time (Reply : Packet) return Responses.Set_Time_Response is
+      Response : Replies.Set_Time_Response with Import, Address => Reply'Address;
+   begin
+      return (Controller  => Response.Controller,
+              Date_Time   => Unpack_Date_Time (Response.Date_Time));
+   end Set_Time;
+
    --  Translates a BCD coded version to a vN.NN formatted string.
    function Unpack_Version (V : Version_Field) return Unbounded_String is
       N1 : constant Integer := Integer (Shift_Right (V.Major, 4) and 16#0F#);

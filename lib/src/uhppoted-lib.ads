@@ -136,6 +136,22 @@ package Uhppoted.Lib is
                       C : Controller;
                       Timeout : Duration := 2.5) return DateTime;
 
+   --  Sets the access controller date/time.
+   --
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  DT       Date/time.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          DateTime with the controller date/time.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Set_Time (U  : UHPPOTE;
+                      C  : Controller;
+                      DT : DateTime;
+                      Timeout : Duration := 2.5) return DateTime;
+
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").
    --
    --  @param Addr The IPv4 address to be converted.

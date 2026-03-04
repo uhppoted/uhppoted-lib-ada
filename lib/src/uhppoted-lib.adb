@@ -140,6 +140,34 @@ package body Uhppoted.Lib is
       return R.Date_Time;
    end Get_Time;
 
+   --  Sets the access controller date/time. Restricted to the local LAN.
+   function Set_Time (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      DT      : DateTime;
+                      Timeout : Duration := 2.5) return DateTime is
+   begin
+      return Set_Time (U, To_Controller (C), DT, Timeout);
+   end Set_Time;
+
+   --  Sets the access controller date/time.
+   function Set_Time (U       : UHPPOTE;
+                      C       : Controller;
+                      DT      : DateTime;
+                      Timeout : Duration := 2.5) return DateTime is
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Time (C.ID, DT);
+      Reply   : Packet;
+      R       : Set_Time_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Set_Time (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Date_Time;
+   end Set_Time;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

@@ -34,3 +34,6 @@ set-IPv4: build
 
 get-time: build
 	cd examples/cli && make get-time
+
+set-time: build
+	cd examples/cli && make set-time

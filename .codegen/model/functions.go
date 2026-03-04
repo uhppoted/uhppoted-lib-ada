@@ -10,7 +10,7 @@ var API = []types.Function{
 	GetController,
 	SetIPv4,
 	GetTime,
-	// &SetTime,
+	SetTime,
 	// &GetListener,
 	// &SetListener,
 	// &GetListenerAddrPort,

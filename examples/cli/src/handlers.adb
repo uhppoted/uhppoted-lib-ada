@@ -119,4 +119,17 @@ package body Handlers is
       Ada.Text_IO.Put_Line ("");
    end Get_Time;
 
+   procedure Set_Time (Args : String) is
+      pragma Unreferenced (Args);
+
+      DT : constant DateTime := (2026, 3, 4, 12, 5, 9);
+      R  : constant DateTime := Uhppoted.Lib.Set_Time (U, C, DT, Timeout);
+   begin
+      Ada.Text_IO.Put_Line ("--- set-time");
+      Ada.Text_IO.Put_Line ("controller:" & C.ID'Image);
+      Ada.Text_IO.Put_Line ("            " & Image (R));
+
+      Ada.Text_IO.Put_Line ("");
+   end Set_Time;
+
 end Handlers;

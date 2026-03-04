@@ -2,6 +2,7 @@ with AUnit.Assertions;
 
 package body Uhppoted.Lib.Encode.Tests is
    use AUnit.Assertions;
+   use Uhppoted.Lib.Types;
 
    overriding function Name (T : Encoder_Test) return AUnit.Message_String is
    begin
@@ -32,7 +33,9 @@ end Uhppoted.Lib.Encode.Tests;
          {{ $bytes }}{{ end }}
       ];
 
-      Request : constant Packet := Uhppoted.Lib.Encode.{{ var .Request }} ({{ args .Args }});
+      Request : constant Packet := Uhppoted.Lib.Encode.{{ var .Request }} (
+         {{- range $arg := .Args }}
+         {{ $arg.Arg }}{{ $arg.Comma }}{{ end }});
    begin
       Assert (Request = Expected, "incorrectly encoded {{ .Request }} request: got" & Request'Image);
    end Test_Encode_{{ .Name }};

@@ -5,8 +5,6 @@ with Uhppoted.Lib.Types;
 with Uhppoted.Lib.Codec;
 
 package Uhppoted.Lib.Replies is
-   use Uhppoted.Lib.Types;
-
    type Version_Field is record
       Major : Unsigned_8;
       Minor : Unsigned_8;
@@ -29,7 +27,7 @@ package Uhppoted.Lib.Replies is
       Gateway    : IPv4;
       MAC        : Hardware_Addr;
       Version    : Version_Field;
-      Date       : BCD (1 .. 4);
+      Date       : Uhppoted.Lib.Types.BCD (1 .. 4);
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 32);
    end record;
 
@@ -75,10 +73,10 @@ package Uhppoted.Lib.Replies is
 
    type Get_Time_Response is record
       SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Get_Controller;
+      Opcode     : Codec.Op_Code := Codec.Get_Time;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
-      Date_Time  : BCD (1 .. 7);
+      Date_Time  : Uhppoted.Lib.Types.BCD (1 .. 7);
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
    end record;
 
@@ -94,5 +92,27 @@ package Uhppoted.Lib.Replies is
    for Get_Time_Response'Size use 64 * 8;
    for Get_Time_Response'Bit_Order use System.Low_Order_First;
    for Get_Time_Response'Scalar_Storage_Order use System.Low_Order_First;
+
+   type Set_Time_Response is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      Opcode     : Codec.Op_Code := Codec.Set_Time;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Date_Time  : Uhppoted.Lib.Types.BCD (1 .. 7);
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
+   end record;
+
+   for Set_Time_Response use record
+      SOM        at 0  range 0 .. 7;
+      Opcode     at 1  range 0 .. 7;
+      Reserved   at 2  range 0 .. 15;
+      Controller at 4  range 0 .. 31;
+      Date_Time  at 8  range 0 .. 55;
+      Padding    at 15 range 0 .. 383;
+   end record;
+
+   for Set_Time_Response'Size use 64 * 8;
+   for Set_Time_Response'Bit_Order use System.Low_Order_First;
+   for Set_Time_Response'Scalar_Storage_Order use System.Low_Order_First;
 
 end Uhppoted.Lib.Replies;

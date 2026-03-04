@@ -8,25 +8,33 @@
 - https://alire.ada.dev/transition_from_gnat_community.html
 
 - [x] use enums for OpCodes
+- [ ] check opcode in decode
+
 - [x] find-controllers
 - [x] get-controller
 - [x] set-IPv4
 - [x] get-time
+- [ ] set-time
+    - [ ] integration test
+    - [ ] CLI: set time for _now_
 
 - [ ] UDP
     - [x] broadcast timeout parameter
     - [x] send timeout parameter
     - [x] sendto
     - [x] split broadcast-to and send-to
-    - [ ] controlled types for sockets/selectors
+    - [x] controlled types for sockets
+    - [ ] controlled types for selectors
     - [ ] ada-doc
     - [ ] listen
     - [ ] fix selector logic
+    - [ ] dump
 
 - [x] TCP
     - [ ] controlled types for sockets/selectors
     - [ ] ada-doc
     - [ ] fix selector logic
+    - [ ] dump
 
 - [ ] CLI
     - [ ] command line args

@@ -2,6 +2,7 @@ with AUnit.Assertions;
 
 package body Uhppoted.Lib.Encode.Tests is
    use AUnit.Assertions;
+   use Uhppoted.Lib.Types;
 
    overriding function Name (T : Encoder_Test) return AUnit.Message_String is
    begin
@@ -15,6 +16,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Get_Controller'Access,   "test encode Get_Controller request");
       Register_Routine (T, Test_Encode_Set_IPv4'Access,         "test encode Set_IPv4 request");
       Register_Routine (T, Test_Encode_Get_Time'Access,         "test encode Get_Time request");
+      Register_Routine (T, Test_Encode_Set_Time'Access,         "test encode Set_Time request");
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -27,7 +29,8 @@ package body Uhppoted.Lib.Encode.Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (
+         0);
    begin
       Assert (Request = Expected, "incorrectly encoded get-controller request: got" & Request'Image);
    end Test_Encode_Find_Controllers;
@@ -42,7 +45,8 @@ package body Uhppoted.Lib.Encode.Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (405419896);
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Controller (
+         405419896);
    begin
       Assert (Request = Expected, "incorrectly encoded get-controller request: got" & Request'Image);
    end Test_Encode_Get_Controller;
@@ -57,7 +61,11 @@ package body Uhppoted.Lib.Encode.Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      Request : constant Packet := Uhppoted.Lib.Encode.Set_IPv4 (405419896, Inet_Addr ("192.168.1.125"), Inet_Addr ("255.255.255.0"), Inet_Addr ("192.168.1.1"));
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_IPv4 (
+         405419896,
+         Inet_Addr ("192.168.1.125"),
+         Inet_Addr ("255.255.255.0"),
+         Inet_Addr ("192.168.1.1"));
    begin
       Assert (Request = Expected, "incorrectly encoded set-ipv4 request: got" & Request'Image);
    end Test_Encode_Set_IPv4;
@@ -72,9 +80,27 @@ package body Uhppoted.Lib.Encode.Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      Request : constant Packet := Uhppoted.Lib.Encode.Get_Time (405419896);
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Time (
+         405419896);
    begin
       Assert (Request = Expected, "incorrectly encoded get-time request: got" & Request'Image);
    end Test_Encode_Get_Time;
+
+   procedure Test_Encode_Set_Time (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#30#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#20#, 16#25#, 16#11#, 16#04#, 16#12#, 16#34#, 16#56#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Time (
+         405419896,
+         (Year => 2025, Month => 11, Day => 4, Hour => 12, Minute => 34, Second => 56));
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-time request: got" & Request'Image);
+   end Test_Encode_Set_Time;
 
 end Uhppoted.Lib.Encode.Tests;

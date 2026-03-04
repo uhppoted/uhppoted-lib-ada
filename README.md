@@ -23,6 +23,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Get_Controller`](API.md#get_controller)
 - [`Set_IPv4`](API.md#set_ipv4)
 - [`Get_Time`](API.md#get_time)
+- [`Set_Time`](API.md#set_time)
 
 
 ## License

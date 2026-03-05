@@ -3,11 +3,10 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
    use Uhppoted.Lib.Integration_Tests.Stub.Replies;
 
    Messages : constant Message_List := [
-     (Find_Controllers_Request, Find_Controllers_Reply),
-     (Get_Controller_Request,   Get_Controller_Reply),
-     (Set_IPv4_Request,         Set_IPv4_Reply),
-     (Get_Time_Request,         Get_Time_Reply),
-     (Set_Time_Request,         Set_Time_Reply)
+{{- range $ix,$test := .Tests }}
+{{- if $ix -}},{{ end }}
+{{- template "message" $test }}
+{{- end }}
    ];
 
    None : constant Reply_List := [];
@@ -24,3 +23,6 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
    end Get;
 
 end Uhppoted.Lib.Integration_Tests.Stub.Messages;
+{{- define "message"}}
+     ({{ printf "%v_Request," .Name | rpad 25 }} {{ .Name }}_Reply)
+{{- end }}

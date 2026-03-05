@@ -14,7 +14,7 @@ package Uhppoted.Lib.Integration_Tests.Stub.Replies is
 {{- end }}
 end Uhppoted.Lib.Integration_Tests.Stub.Replies;
 {{- define "reply"}}
-   {{ .Name }} : constant Reply_List := [
+   {{ .Name }}_Reply : constant Reply_List := [
       {{- range $reply := .Replies }}
       {{ $reply.Index }} => [
       {{- range $bytes := $reply.Reply }}

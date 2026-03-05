@@ -36,31 +36,10 @@ func IntegrationTests() {
 	if templates, err := template.New("integration-tests").Funcs(codegen.Functions).ParseFS(templateFS, "templates/*"); err != nil {
 		log.Fatal(err)
 	} else {
-		messagesADS(templates, functions)
 		requestsADS(templates, functions)
 		repliesADS(templates, functions)
-	}
-}
-
-func messagesADS(templates *template.Template, tests []test) {
-	const file = "../integration-tests/src/uhppoted-lib-integration_tests-stub-messages.ads"
-
-	if f, err := os.Create(file); err != nil {
-		log.Fatalf("%v", err)
-	} else {
-		defer f.Close()
-
-		var data = struct {
-			Tests []test
-		}{
-			Tests: tests,
-		}
-
-		if err := templates.ExecuteTemplate(f, "messages.ads", data); err != nil {
-			log.Fatalf("%v", err)
-		}
-
-		log.Printf("... generated %s", file)
+		messagesADS(templates, functions)
+		messagesADB(templates, functions)
 	}
 }
 
@@ -101,6 +80,50 @@ func repliesADS(templates *template.Template, tests []test) {
 		}
 
 		if err := templates.ExecuteTemplate(f, "replies.ads", data); err != nil {
+			log.Fatalf("%v", err)
+		}
+
+		log.Printf("... generated %s", file)
+	}
+}
+
+func messagesADS(templates *template.Template, tests []test) {
+	const file = "../integration-tests/src/uhppoted-lib-integration_tests-stub-messages.ads"
+
+	if f, err := os.Create(file); err != nil {
+		log.Fatalf("%v", err)
+	} else {
+		defer f.Close()
+
+		var data = struct {
+			Tests []test
+		}{
+			Tests: tests,
+		}
+
+		if err := templates.ExecuteTemplate(f, "messages.ads", data); err != nil {
+			log.Fatalf("%v", err)
+		}
+
+		log.Printf("... generated %s", file)
+	}
+}
+
+func messagesADB(templates *template.Template, tests []test) {
+	const file = "../integration-tests/src/uhppoted-lib-integration_tests-stub-messages.adb"
+
+	if f, err := os.Create(file); err != nil {
+		log.Fatalf("%v", err)
+	} else {
+		defer f.Close()
+
+		var data = struct {
+			Tests []test
+		}{
+			Tests: tests,
+		}
+
+		if err := templates.ExecuteTemplate(f, "messages.adb", data); err != nil {
 			log.Fatalf("%v", err)
 		}
 

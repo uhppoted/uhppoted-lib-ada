@@ -27,17 +27,6 @@ package body Uhppoted.Lib.Transport.UDP is
       end if;
    end Finalize;
 
-   --  Binds a socket to the bind address and enables SO_BROADCAST.
-   procedure Bind (E         : in out S;
-                   Addr      : Sock_Addr_Type;
-                   Broadcast : Boolean) is
-   begin
-      Bind_Socket (E.Client, Addr);
-      if Broadcast then
-         Set_Socket_Option (E.Client, Socket_Level, (GNAT.Sockets.Broadcast, True));
-      end if;
-   end Bind;
-
    --  Broadcasts a 64 byte request packet and returns the response (if any).
    function Broadcast (U : UHPPOTE; Request : Packet; Timeout : Duration) return Packet_List is
       BindAddr  : constant Sock_Addr_Type := U.Bind_Addr;
@@ -62,7 +51,8 @@ package body Uhppoted.Lib.Transport.UDP is
       Empty (Read_Set);
       Empty (Write_Set);
 
-      Bind (Sock, BindAddr, True);
+      Bind_Socket (Sock.Client, BindAddr);
+      Set_Socket_Option (Sock.Client, Socket_Level, (GNAT.Sockets.Broadcast, True));
       Set (Read_Set, Sock.Client);
 
       Send_Socket (Sock.Client, To_Stream (Request), Offset, DestAddr);
@@ -122,7 +112,8 @@ package body Uhppoted.Lib.Transport.UDP is
       Create_Selector (Selector);
 
       begin
-         Bind (Sock, BindAddr, True);
+         Bind_Socket (Sock.Client, BindAddr);
+         Set_Socket_Option (Sock.Client, Socket_Level, (GNAT.Sockets.Broadcast, True));
 
          Empty (Read_Set);
          Empty (Write_Set);
@@ -197,7 +188,7 @@ package body Uhppoted.Lib.Transport.UDP is
       Create_Selector (Selector);
 
       begin
-         Bind (Sock, BindAddr, False);
+         Bind_Socket (Sock.Client, BindAddr);
 
          Empty (Read_Set);
          Empty (Write_Set);

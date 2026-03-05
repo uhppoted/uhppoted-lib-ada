@@ -17,7 +17,6 @@ package Uhppoted.Lib.Transport.UDP is
                          Timeout  : Duration) return Uhppoted.Lib.Types.Packet;
 
    type S is tagged limited private;
-   procedure Bind (E : in out S; Addr : Sock_Addr_Type; Broadcast : Boolean);
 
 private
    type S is new Ada.Finalization.Limited_Controlled with

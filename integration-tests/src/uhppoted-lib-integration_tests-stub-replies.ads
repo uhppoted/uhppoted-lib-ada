@@ -10,7 +10,7 @@ package Uhppoted.Lib.Integration_Tests.Stub.Replies is
 
    subtype Reply_List is Reply_Vectors.Vector;
 
-   Find_Controllers : constant Reply_List := [
+   Find_Controllers_Reply : constant Reply_List := [
       1 => [
          16#17#, 16#94#, 16#00#, 16#00#, 16#90#, 16#53#, 16#fb#, 16#0b#,  16#c0#, 16#a8#, 16#01#, 16#65#, 16#ff#, 16#ff#, 16#ff#, 16#00#,
          16#c0#, 16#a8#, 16#01#, 16#01#, 16#52#, 16#fd#, 16#fc#, 16#07#,  16#21#, 16#82#, 16#06#, 16#62#, 16#20#, 16#20#, 16#01#, 16#01#,
@@ -31,7 +31,7 @@ package Uhppoted.Lib.Integration_Tests.Stub.Replies is
       ]
    ];
 
-   Get_Controller : constant Reply_List := [
+   Get_Controller_Reply : constant Reply_List := [
       1 => [
          16#17#, 16#94#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#c0#, 16#a8#, 16#01#, 16#64#, 16#ff#, 16#ff#, 16#ff#, 16#00#,
          16#c0#, 16#a8#, 16#01#, 16#01#, 16#00#, 16#12#, 16#23#, 16#34#,  16#45#, 16#56#, 16#08#, 16#92#, 16#20#, 16#18#, 16#11#, 16#05#,
@@ -40,7 +40,7 @@ package Uhppoted.Lib.Integration_Tests.Stub.Replies is
       ]
    ];
 
-   Set_IPv4 : constant Reply_List := [
+   Set_IPv4_Reply : constant Reply_List := [
       1 => [
          16#17#, 16#96#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
@@ -49,7 +49,7 @@ package Uhppoted.Lib.Integration_Tests.Stub.Replies is
       ]
    ];
 
-   Get_Time : constant Reply_List := [
+   Get_Time_Reply : constant Reply_List := [
       1 => [
          16#17#, 16#32#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#20#, 16#25#, 16#11#, 16#01#, 16#12#, 16#34#, 16#56#, 16#00#,
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
@@ -58,7 +58,7 @@ package Uhppoted.Lib.Integration_Tests.Stub.Replies is
       ]
    ];
 
-   Set_Time : constant Reply_List := [
+   Set_Time_Reply : constant Reply_List := [
       1 => [
          16#17#, 16#30#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#20#, 16#25#, 16#11#, 16#01#, 16#12#, 16#34#, 16#56#, 16#00#,
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,

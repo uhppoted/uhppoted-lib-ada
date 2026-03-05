@@ -1,10 +1,19 @@
+with Interfaces;
 with GNAT.Sockets;
 with Ada.Text_IO;
 with Ada.Strings.Unbounded;
+with Ada.Calendar;
+with Ada.Calendar.Formatting;
+with Ada.Calendar.Time_Zones;
 with Uhppoted.Lib;
 
 package body Handlers is
+   use Interfaces;
    use Ada.Strings.Unbounded;
+   use Ada.Text_IO;
+   use Ada.Calendar;
+   use Ada.Calendar.Formatting;
+   use Ada.Calendar.Time_Zones;
    use GNAT.Sockets;
 
    use Uhppoted.Lib;
@@ -41,33 +50,33 @@ package body Handlers is
          Ada.Text_IO.Put_Line ("No controllers found.");
       else
          for C of Controllers loop
-            Ada.Text_IO.Put_Line ("controller:" & C.ID'Image);
-            Ada.Text_IO.Put_Line ("            " & Image (C.Address));
-            Ada.Text_IO.Put_Line ("            " & Image (C.Netmask));
-            Ada.Text_IO.Put_Line ("            " & Image (C.Gateway));
-            Ada.Text_IO.Put_Line ("            " & Image (C.MAC));
-            Ada.Text_IO.Put_Line ("            " & To_String (C.Firmware));
-            Ada.Text_IO.Put_Line ("            " & Image (C.Date));
-            Ada.Text_IO.Put_Line ("");
+            Put_Line ("controller:" & C.ID'Image);
+            Put_Line ("            " & Image (C.Address));
+            Put_Line ("            " & Image (C.Netmask));
+            Put_Line ("            " & Image (C.Gateway));
+            Put_Line ("            " & Image (C.MAC));
+            Put_Line ("            " & To_String (C.Firmware));
+            Put_Line ("            " & Image (C.Date));
+            Put_Line ("");
          end loop;
       end if;
 
-      Ada.Text_IO.Put_Line ("");
+      Put_Line ("");
    end Find_Controllers;
 
    --  Executes the get-controller command.
    procedure Get_Controller (Args : ArgParse.Args) is
       R : constant Controller_Record := Get_Controller (U, Args.Controller, Timeout);
    begin
-      Ada.Text_IO.Put_Line ("--- get-controller");
-      Ada.Text_IO.Put_Line ("controller:"  & R.ID'Image);
-      Ada.Text_IO.Put_Line ("            " & Image (R.Address));
-      Ada.Text_IO.Put_Line ("            " & Image (R.Netmask));
-      Ada.Text_IO.Put_Line ("            " & Image (R.Gateway));
-      Ada.Text_IO.Put_Line ("            " & Image (R.MAC));
-      Ada.Text_IO.Put_Line ("            " & To_String (R.Firmware));
-      Ada.Text_IO.Put_Line ("            " & Image (R.Date));
-      Ada.Text_IO.Put_Line ("");
+      Put_Line ("--- get-controller");
+      Put_Line ("controller:"  & R.ID'Image);
+      Put_Line ("            " & Image (R.Address));
+      Put_Line ("            " & Image (R.Netmask));
+      Put_Line ("            " & Image (R.Gateway));
+      Put_Line ("            " & Image (R.MAC));
+      Put_Line ("            " & To_String (R.Firmware));
+      Put_Line ("            " & Image (R.Date));
+      Put_Line ("");
    end Get_Controller;
 
    --  Executes the set-IPv4 command.
@@ -77,31 +86,62 @@ package body Handlers is
       Gateway : constant Inet_Addr_Type := Inet_Addr ("192.168.1.1");
       R       : constant Boolean := Set_IPv4 (U, Args.Controller, Addr, Netmask, Gateway, Timeout);
    begin
-      Ada.Text_IO.Put_Line ("--- set-IPv4");
-      Ada.Text_IO.Put_Line ("controller:"  & Args.Controller.ID'Image);
-      Ada.Text_IO.Put_Line ("            " & R'Image);
-      Ada.Text_IO.Put_Line ("");
+      Put_Line ("--- set-IPv4");
+      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("            " & R'Image);
+      Put_Line ("");
    end Set_IPv4;
 
    --  Executes the get-time command.
    procedure Get_Time (Args : ArgParse.Args) is
       R : constant DateTime := Get_Time (U, Args.Controller, Timeout);
    begin
-      Ada.Text_IO.Put_Line ("--- get-time");
-      Ada.Text_IO.Put_Line ("controller:"  & Args.Controller.ID'Image);
-      Ada.Text_IO.Put_Line ("            " & Image (R));
-      Ada.Text_IO.Put_Line ("");
+      Put_Line ("--- get-time");
+      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("            " & Image (R));
+      Put_Line ("");
    end Get_Time;
 
    --  Executes the set-time command.
    procedure Set_Time (Args : ArgParse.Args) is
-      DT : constant DateTime := (2026, 3, 4, 12, 5, 9);
-      R  : constant DateTime := Uhppoted.Lib.Set_Time (U, Args.Controller, DT, Timeout);
+      Now    : constant Time := Clock;
+      Offset : Time_Offset := Local_Time_Offset(Now);
+
+      Year       : Year_Number;
+      Month      : Month_Number;
+      Day        : Day_Number;
+      Seconds    : Day_Duration;
+      Hour       : Hour_Number;
+      Minute     : Minute_Number;
+      Second     : Second_Number;
+      Sub_Second : Second_Duration;
+
+      DT : DateTime;
+      R  : DateTime;
    begin
-      Ada.Text_IO.Put_Line ("--- set-time");
-      Ada.Text_IO.Put_Line ("controller:"  & Args.Controller.ID'Image);
-      Ada.Text_IO.Put_Line ("            " & Image (R));
-      Ada.Text_IO.Put_Line ("");
+      Split (Date       => Now,
+             Year       => Year,
+             Month      => Month,
+             Day        => Day,
+             Hour       => Hour,
+             Minute     => Minute,
+             Second     => Second,
+             Sub_Second => Sub_Second,
+             Time_Zone  => Offset);
+
+      DT := (Year   => Unsigned_16 (Year),
+             Month  => Unsigned_8 (Month),
+             Day    => Unsigned_8 (Day),
+             Hour   => Unsigned_8 (Hour),
+             Minute => Unsigned_8 (Minute),
+             Second => Unsigned_8 (Second));
+
+      R := Uhppoted.Lib.Set_Time (U, Args.Controller, DT, Timeout);
+
+      Put_Line ("--- set-time");
+      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("            " & Image (R));
+      Put_Line ("");
    end Set_Time;
 
 end Handlers;

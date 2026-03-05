@@ -9,14 +9,15 @@
 
 - [x] use enums for OpCodes
 - [ ] check opcode in decode
+- [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 
 - [x] find-controllers
 - [x] get-controller
 - [x] set-IPv4
 - [x] get-time
-- [ ] set-time
+- [x] set-time
     - [x] integration test
-    - [ ] CLI: set time for _now_
+    - [x] CLI: set time for _now_
 
 - [ ] UDP
     - [x] broadcast timeout parameter

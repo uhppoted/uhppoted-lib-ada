@@ -1,12 +1,9 @@
-with Interfaces;
 with GNAT.Sockets;
 with Ada.Text_IO;
 with Ada.Strings.Unbounded;
-
 with Uhppoted.Lib;
 
 package body Handlers is
-   use Interfaces;
    use Ada.Strings.Unbounded;
    use GNAT.Sockets;
 
@@ -30,14 +27,10 @@ package body Handlers is
 
       Debug => True);
 
-   C : constant Controller := (
-      ID       => 405419896,
-      DestAddr => (Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("192.168.1.125"), Port => 60000),
-      Protocol => TCP);
-
    Timeout : constant Duration := 2.5;
 
-   procedure Find_Controllers (Args : String) is
+   --  Executes the find-controllers command.
+   procedure Find_Controllers (Args : ArgParse.Args) is
       pragma Unreferenced (Args);
 
       Controllers : constant Controller_Record_List := Find_Controllers (U, Timeout);
@@ -62,73 +55,52 @@ package body Handlers is
       Ada.Text_IO.Put_Line ("");
    end Find_Controllers;
 
-   procedure Get_Controller (Args : String) is
-      pragma Unreferenced (Args);
-
-      C1 : constant Controller_Record := Get_Controller (U, 405419896, Timeout);
-      C2 : constant Controller_Record := Get_Controller (U, C, Timeout);
+   --  Executes the get-controller command.
+   procedure Get_Controller (Args : ArgParse.Args) is
+      R : constant Controller_Record := Get_Controller (U, Args.Controller, Timeout);
    begin
       Ada.Text_IO.Put_Line ("--- get-controller");
-      Ada.Text_IO.Put_Line ("controller:" & C1.ID'Image);
-      Ada.Text_IO.Put_Line ("            " & Image (C1.Address));
-      Ada.Text_IO.Put_Line ("            " & Image (C1.Netmask));
-      Ada.Text_IO.Put_Line ("            " & Image (C1.Gateway));
-      Ada.Text_IO.Put_Line ("            " & Image (C1.MAC));
-      Ada.Text_IO.Put_Line ("            " & To_String (C1.Firmware));
-      Ada.Text_IO.Put_Line ("            " & Image (C1.Date));
-
-      Ada.Text_IO.Put_Line ("");
-
-      Ada.Text_IO.Put_Line ("--- get-controller");
-      Ada.Text_IO.Put_Line ("controller:" & C2.ID'Image);
-      Ada.Text_IO.Put_Line ("            " & Image (C2.Address));
-      Ada.Text_IO.Put_Line ("            " & Image (C2.Netmask));
-      Ada.Text_IO.Put_Line ("            " & Image (C2.Gateway));
-      Ada.Text_IO.Put_Line ("            " & Image (C2.MAC));
-      Ada.Text_IO.Put_Line ("            " & To_String (C2.Firmware));
-      Ada.Text_IO.Put_Line ("            " & Image (C2.Date));
-
+      Ada.Text_IO.Put_Line ("controller:"  & R.ID'Image);
+      Ada.Text_IO.Put_Line ("            " & Image (R.Address));
+      Ada.Text_IO.Put_Line ("            " & Image (R.Netmask));
+      Ada.Text_IO.Put_Line ("            " & Image (R.Gateway));
+      Ada.Text_IO.Put_Line ("            " & Image (R.MAC));
+      Ada.Text_IO.Put_Line ("            " & To_String (R.Firmware));
+      Ada.Text_IO.Put_Line ("            " & Image (R.Date));
       Ada.Text_IO.Put_Line ("");
    end Get_Controller;
 
-   procedure Set_IPv4 (Args : String) is
-      pragma Unreferenced (Args);
-
-      C       : constant Unsigned_32 := 405419896;
+   --  Executes the set-IPv4 command.
+   procedure Set_IPv4 (Args : ArgParse.Args) is
       Addr    : constant Inet_Addr_Type := Inet_Addr ("192.168.1.125");
       Netmask : constant Inet_Addr_Type := Inet_Addr ("255.255.255.0");
       Gateway : constant Inet_Addr_Type := Inet_Addr ("192.168.1.1");
-      R       : constant Boolean := Set_IPv4 (U, C, Addr, Netmask, Gateway, Timeout);
+      R       : constant Boolean := Set_IPv4 (U, Args.Controller, Addr, Netmask, Gateway, Timeout);
    begin
       Ada.Text_IO.Put_Line ("--- set-IPv4");
-      Ada.Text_IO.Put_Line ("controller:" & C'Image);
+      Ada.Text_IO.Put_Line ("controller:"  & Args.Controller.ID'Image);
       Ada.Text_IO.Put_Line ("            " & R'Image);
-
       Ada.Text_IO.Put_Line ("");
    end Set_IPv4;
 
-   procedure Get_Time (Args : String) is
-      pragma Unreferenced (Args);
-
-      R : constant DateTime := Get_Time (U, 405419896, Timeout);
+   --  Executes the get-time command.
+   procedure Get_Time (Args : ArgParse.Args) is
+      R : constant DateTime := Get_Time (U, Args.Controller, Timeout);
    begin
       Ada.Text_IO.Put_Line ("--- get-time");
-      Ada.Text_IO.Put_Line ("controller: " & "405419896");
+      Ada.Text_IO.Put_Line ("controller:"  & Args.Controller.ID'Image);
       Ada.Text_IO.Put_Line ("            " & Image (R));
-
       Ada.Text_IO.Put_Line ("");
    end Get_Time;
 
-   procedure Set_Time (Args : String) is
-      pragma Unreferenced (Args);
-
+   --  Executes the set-time command.
+   procedure Set_Time (Args : ArgParse.Args) is
       DT : constant DateTime := (2026, 3, 4, 12, 5, 9);
-      R  : constant DateTime := Uhppoted.Lib.Set_Time (U, C, DT, Timeout);
+      R  : constant DateTime := Uhppoted.Lib.Set_Time (U, Args.Controller, DT, Timeout);
    begin
       Ada.Text_IO.Put_Line ("--- set-time");
-      Ada.Text_IO.Put_Line ("controller:" & C.ID'Image);
+      Ada.Text_IO.Put_Line ("controller:"  & Args.Controller.ID'Image);
       Ada.Text_IO.Put_Line ("            " & Image (R));
-
       Ada.Text_IO.Put_Line ("");
    end Set_Time;
 

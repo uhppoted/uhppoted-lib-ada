@@ -1,7 +1,9 @@
+with ArgParse;
+
 package Handlers is
-   procedure Find_Controllers (Args : String);
-   procedure Get_Controller   (Args : String);
-   procedure Set_IPv4         (Args : String);
-   procedure Get_Time         (Args : String);
-   procedure Set_Time         (Args : String);
+   procedure Find_Controllers (Args : ArgParse.Args);
+   procedure Get_Controller   (Args : ArgParse.Args);
+   procedure Set_IPv4         (Args : ArgParse.Args);
+   procedure Get_Time         (Args : ArgParse.Args);
+   procedure Set_Time         (Args : ArgParse.Args);
 end Handlers;

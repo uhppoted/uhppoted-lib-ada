@@ -19,7 +19,7 @@ package body Registry is
 
    procedure Execute (Self : Command_Set;
                       Cmd  : String;
-                      Args : String) is
+                      Args : ArgParse.Args) is
    begin
          if Self.Internal_Map.Contains (Cmd) then
             Self.Internal_Map.Element (Cmd).all (Args);

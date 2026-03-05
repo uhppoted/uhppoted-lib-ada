@@ -71,75 +71,29 @@
    );
 ```
 
-
-- Controlled type
 ```
-with Ada.Finalization;
-with GNAT.Sockets;
+package ArgParse is
+   -- Use a generic name here because the context is provided by the package
+   type Command is (Find_Controllers, Set_IPv4, Get_Time);
 
-package body Uhppoted.Lib.Transport.TCP is
-   use GNAT.Sockets;
+   -- Every command has its own "Context" or "Params"
+   package Params is
+      type IPv4_Data is record
+         Addr : String (1 .. 15);
+      end record;
 
-   -- A helper record to manage the lifecycle of the network resources
-   type Connection_Manager is new Ada.Finalization.Limited_Controlled with record
-      Socket   : Socket_Type := No_Socket;
-      Selector : Selector_Type;
-      Created  : Boolean := False;
+      type Time_Data is record
+         Seconds : Integer;
+      end record;
+   end Params;
+
+   -- Now your variant record is clean
+   type Entry_Record (Kind : Command) is record
+      case Kind is
+         when Set_IPv4 => IP   : Params.IPv4_Data;
+         when Set_Time => Time : Params.Time_Data;
+         when others   => null;
+      end case;
    end record;
-
-   -- Automatically called when Connection_Manager goes out of scope
-   overriding procedure Finalize (Self : in out Connection_Manager) is
-   begin
-      if Self.Created then
-         Close_Selector (Self.Selector);
-      end if;
-      if Self.Socket /= No_Socket then
-         Close_Socket (Self.Socket);
-      end if;
-   end Finalize;
-
-   function Send (U        : UHPPOTE;
-                  DestAddr : Sock_Addr_Type;
-                  Request  : Packet;
-                  Timeout  : Duration) return Packet is
-      
-      -- This object is initialized at the start and finalized at the end
-      Manager : Connection_Manager;
-      Offset  : Ada.Streams.Stream_Element_Offset;
-      Status  : Selector_Status;
-      
-      Read_Set  : Socket_Set_Type;
-      Write_Set : Socket_Set_Type;
-      Buffer    : Ada.Streams.Stream_Element_Array (1 .. 64);
-   begin
-      -- Setup
-      Create_Selector (Manager.Selector);
-      Manager.Created := True;
-      Create_Socket (Manager.Socket);
-
-      -- Networking
-      Bind_Socket (Manager.Socket, U.Bind_Addr);
-      Connect_Socket (Manager.Socket, DestAddr);
-
-      Send_Socket (Manager.Socket, To_Stream (Request), Offset);
-
-      Empty (Read_Set);
-      Empty (Write_Set);
-      Set (Read_Set, Manager.Socket);
-
-      Check_Selector (Manager.Selector, Read_Set, Write_Set, Status, Timeout);
-
-      if Status /= Completed then
-         raise Timeout_Error;
-      end if;
-
-      Receive_Socket (Manager.Socket, Buffer, Offset);
-
-      return To_Packet (Buffer);
-      
-      -- No 'exception' block or manual 'Close' calls needed.
-      -- Ada handles the cleanup of 'Manager' automatically here.
-   end Send;
-
-end Uhppoted.Lib.Transport.TCP;
+end ArgParse;
 ```

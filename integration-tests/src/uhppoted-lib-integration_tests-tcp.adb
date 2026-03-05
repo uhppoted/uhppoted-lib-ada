@@ -41,6 +41,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Get_Controller'Access, "Test Get_Controller");
       Register_Routine (T, Test_Set_IPv4'Access,       "Set_IPv4");
       Register_Routine (T, Test_Get_Time'Access,       "Test Get_Time");
+      Register_Routine (T, Test_Set_Time'Access,       "Set_Time");
    end Register_Tests;
 
    task body Listen is
@@ -74,5 +75,14 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.Get_Time, "invalid controller date/time" & V'Image);
    end Test_Get_Time;
+
+   procedure Test_Set_Time (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      DT : constant DateTime := (2025, 11, 4, 12, 34, 56);
+      V  : constant DateTime := Set_Time (U, C, DT);
+   begin
+      Assert (V = Expected.Set_Time, "invalid controller date/time" & V'Image);
+   end Test_Set_Time;
 
 end Uhppoted.Lib.Integration_Tests.TCP;

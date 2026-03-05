@@ -15,7 +15,7 @@
 - [x] set-IPv4
 - [x] get-time
 - [ ] set-time
-    - [ ] integration test
+    - [x] integration test
     - [ ] CLI: set time for _now_
 
 - [ ] UDP
@@ -51,6 +51,7 @@
     - [x] 'Expected' package
     - [ ] Invalid response test
     - [ ] Timeout test
+    - [ ] `None` response timeout closes stub socket
     - [ ] v6.62
 
 - [ ] codegen

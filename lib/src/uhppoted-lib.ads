@@ -139,6 +139,22 @@ package Uhppoted.Lib is
    --  Sets the access controller date/time.
    --
    --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number.
+   --  @param  DT       Date/time.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          DateTime with the controller date/time.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Set_Time (U  : UHPPOTE;
+                      C  : Unsigned_32;
+                      DT : DateTime;
+                      Timeout : Duration := 2.5) return DateTime;
+
+   --  Sets the access controller date/time.
+   --
+   --  @param  U        UHPPOTE configuration.
    --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
    --  @param  DT       Date/time.
    --  @param  Timeout  Operation timeout (defaults to 2.5s).

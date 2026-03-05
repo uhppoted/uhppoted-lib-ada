@@ -47,5 +47,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
    Set_IPv4 : constant Boolean := True;
 
    Get_Time : constant DateTime := (Year => 2025, Month => 11, Day => 1, Hour => 12, Minute => 34, Second => 56);
+   Set_Time : constant DateTime := (Year => 2025, Month => 11, Day => 1, Hour => 12, Minute => 34, Second => 56);
 
 end Uhppoted.Lib.Integration_Tests.Expected;

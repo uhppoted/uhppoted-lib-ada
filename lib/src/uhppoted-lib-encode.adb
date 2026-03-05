@@ -73,21 +73,21 @@ package body Uhppoted.Lib.Encode is
    function Pack_DateTime (DT : DateTime) return BCD7 is
       V : BCD7 := [others => 0];
 
-      CC : constant Unsigned_16 := DT.Year / 100;
-      YY : constant Unsigned_16 := DT.Year mod 100;
-      MM : constant Unsigned_8  := DT.Month;
-      DD : constant Unsigned_8  := DT.Day;
-      HH : constant Unsigned_8  := DT.Hour;
-      NN : constant Unsigned_8  := DT.Minute;
-      SS : constant Unsigned_8  := DT.Second;
+      CC : constant Unsigned_8 := Unsigned_8 (DT.Year / 100);
+      YY : constant Unsigned_8 := Unsigned_8 (DT.Year mod 100);
+      MM : constant Unsigned_8 := DT.Month;
+      DD : constant Unsigned_8 := DT.Day;
+      HH : constant Unsigned_8 := DT.Hour;
+      NN : constant Unsigned_8 := DT.Minute;
+      SS : constant Unsigned_8 := DT.Second;
    begin
-      V (1) := Unsigned_8 (Shift_Left (CC / 10, 4) + (CC mod 10));
-      V (2) := Unsigned_8 (Shift_Left (YY / 10, 4) + (YY mod 10));
-      V (3) := Unsigned_8 (Shift_Left (MM / 10, 4) + (MM mod 10));
-      V (4) := Unsigned_8 (Shift_Left (DD / 10, 4) + (DD mod 10));
-      V (5) := Unsigned_8 (Shift_Left (HH / 10, 4) + (HH mod 10));
-      V (6) := Unsigned_8 (Shift_Left (NN / 10, 4) + (NN mod 10));
-      V (7) := Unsigned_8 (Shift_Left (SS / 10, 4) + (SS mod 10));
+      V (1) := Shift_Left (CC / 10, 4) + (CC mod 10);
+      V (2) := Shift_Left (YY / 10, 4) + (YY mod 10);
+      V (3) := Shift_Left (MM / 10, 4) + (MM mod 10);
+      V (4) := Shift_Left (DD / 10, 4) + (DD mod 10);
+      V (5) := Shift_Left (HH / 10, 4) + (HH mod 10);
+      V (6) := Shift_Left (NN / 10, 4) + (NN mod 10);
+      V (7) := Shift_Left (SS / 10, 4) + (SS mod 10);
 
       return V;
    end Pack_DateTime;

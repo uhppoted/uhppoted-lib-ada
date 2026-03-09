@@ -1,13 +1,15 @@
 with Ada.Strings.Fixed;
 
 package body Uhppoted.Types is
+   use Ada.Strings;
+
    function Image (Addr : IPv4) return String is
       use Ada.Strings.Fixed;
    begin
-      return Trim (Addr (1)'Image, Ada.Strings.Both) & "." &
-             Trim (Addr (2)'Image, Ada.Strings.Both) & "." &
-             Trim (Addr (3)'Image, Ada.Strings.Both) & "." &
-             Trim (Addr (4)'Image, Ada.Strings.Both);
+      return Trim (Addr (1)'Image, Both) & "." &
+             Trim (Addr (2)'Image, Both) & "." &
+             Trim (Addr (3)'Image, Both) & "." &
+             Trim (Addr (4)'Image, Both);
    end Image;
 
    function Image (MAC : Hardware_Addr) return String is
@@ -34,21 +36,31 @@ package body Uhppoted.Types is
       use Ada.Strings.Fixed;
 
       YYYY : constant String := Trim (D.Year'Image, Ada.Strings.Both);
-      MM   : constant String := (if D.Month < 10 then "0" else "") & Trim (D.Month'Image, Ada.Strings.Both);
-      DD   : constant String := (if D.Day   < 10 then "0" else "") & Trim (D.Day'Image, Ada.Strings.Both);
+      MM   : constant String := (if D.Month < 10 then "0" else "") & Trim (D.Month'Image, Both);
+      DD   : constant String := (if D.Day   < 10 then "0" else "") & Trim (D.Day'Image,   Both);
    begin
       return YYYY & "-" & MM & "-" & DD;
+   end Image;
+
+   function Image (T : TimeOnly) return String is
+      use Ada.Strings.Fixed;
+
+      HH : constant String := (if T.Hour   < 10 then "0" else "") & Trim (T.Hour'Image,   Both);
+      MM : constant String := (if T.Minute < 10 then "0" else "") & Trim (T.Minute'Image, Both);
+      SS : constant String := (if T.Second < 10 then "0" else "") & Trim (T.Second'Image, Both);
+   begin
+      return HH & ":" & MM & ":" & SS;
    end Image;
 
    function Image (DT : DateTime) return String is
       use Ada.Strings.Fixed;
 
       YYYY    : constant String := Trim (DT.Year'Image, Ada.Strings.Both);
-      MM      : constant String := (if DT.Month  < 10 then "0" else "") & Trim (DT.Month'Image,  Ada.Strings.Both);
-      DD      : constant String := (if DT.Day    < 10 then "0" else "") & Trim (DT.Day'Image,    Ada.Strings.Both);
-      HH      : constant String := (if DT.Hour   < 10 then "0" else "") & Trim (DT.Hour'Image,   Ada.Strings.Both);
-      Minutes : constant String := (if DT.Minute < 10 then "0" else "") & Trim (DT.Minute'Image, Ada.Strings.Both);
-      SS      : constant String := (if DT.Second < 10 then "0" else "") & Trim (DT.Second'Image, Ada.Strings.Both);
+      MM      : constant String := (if DT.Month  < 10 then "0" else "") & Trim (DT.Month'Image,  Both);
+      DD      : constant String := (if DT.Day    < 10 then "0" else "") & Trim (DT.Day'Image,    Both);
+      HH      : constant String := (if DT.Hour   < 10 then "0" else "") & Trim (DT.Hour'Image,   Both);
+      Minutes : constant String := (if DT.Minute < 10 then "0" else "") & Trim (DT.Minute'Image, Both);
+      SS      : constant String := (if DT.Second < 10 then "0" else "") & Trim (DT.Second'Image, Both);
    begin
       return YYYY & "-" & MM & "-" & DD & " " & HH & ":" & Minutes & ":" & SS;
    end Image;

@@ -115,4 +115,70 @@ package Uhppoted.Lib.Replies is
    for Set_Time_Response'Bit_Order use System.Low_Order_First;
    for Set_Time_Response'Scalar_Storage_Order use System.Low_Order_First;
 
+   type Get_Status_Response is record
+      SOM                  : Unsigned_8    := Codec.SOM;
+      Opcode               : Codec.Op_Code := Codec.Get_Status;
+      Reserved             : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller           : Unsigned_32;
+      Event_Index          : Unsigned_32;
+      Event_Type           : Unsigned_8;
+      Event_Access_Granted : Unsigned_8;
+      Event_Door           : Unsigned_8;
+      Event_Direction      : Unsigned_8;
+      Event_Card           : Unsigned_32;
+      Event_Timestamp      : Uhppoted.Lib.Types.BCD (1 .. 7);
+      Event_Reason         : Unsigned_8;
+      Door_1_Open          : Unsigned_8;
+      Door_2_Open          : Unsigned_8;
+      Door_3_Open          : Unsigned_8;
+      Door_4_Open          : Unsigned_8;
+      Door_1_Button        : Unsigned_8;
+      Door_2_Button        : Unsigned_8;
+      Door_3_Button        : Unsigned_8;
+      Door_4_Button        : Unsigned_8;
+      System_Error         : Unsigned_8;
+      System_Date          : Uhppoted.Lib.Types.BCD (1 .. 3);
+      System_Time          : Uhppoted.Lib.Types.BCD (1 .. 3);
+      Sequence_No          : Unsigned_32;
+      Special_Info         : Unsigned_8;
+      Relays               : Unsigned_8;
+      Inputs               : Unsigned_8;
+      Padding              : Ada.Streams.Stream_Element_Array (1 .. 10);
+   end record;
+
+   for Get_Status_Response use record
+      SOM                  at 0  range 0 .. 7;
+      Opcode               at 1  range 0 .. 7;
+      Reserved             at 2  range 0 .. 15;
+      Controller           at 4  range 0 .. 31;
+      Event_Index          at 8  range 0 .. 31;
+      Event_Type           at 12 range 0 .. 7;
+      Event_Access_Granted at 13 range 0 .. 7;
+      Event_Door           at 14 range 0 .. 7;
+      Event_Direction      at 15 range 0 .. 7;
+      Event_Card           at 16 range 0 .. 31;
+      Event_Timestamp      at 20 range 0 .. 55;
+      Event_Reason         at 27 range 0 .. 7;
+      Door_1_Open          at 28 range 0 .. 7;
+      Door_2_Open          at 29 range 0 .. 7;
+      Door_3_Open          at 30 range 0 .. 7;
+      Door_4_Open          at 31 range 0 .. 7;
+      Door_1_Button        at 32 range 0 .. 7;
+      Door_2_Button        at 33 range 0 .. 7;
+      Door_3_Button        at 34 range 0 .. 7;
+      Door_4_Button        at 35 range 0 .. 7;
+      System_Error         at 36 range 0 .. 7;
+      System_Time          at 37 range 0 .. 23;
+      Sequence_No          at 40 range 0 .. 31;
+      Special_Info         at 48 range 0 .. 7;
+      Relays               at 49 range 0 .. 7;
+      Inputs               at 50 range 0 .. 7;
+      System_Date          at 51 range 0 .. 23;
+      Padding              at 54 range 0 .. 79;
+   end record;
+
+   for Get_Status_Response'Size use 64 * 8;
+   for Get_Status_Response'Bit_Order use System.Low_Order_First;
+   for Get_Status_Response'Scalar_Storage_Order use System.Low_Order_First;
+
 end Uhppoted.Lib.Replies;

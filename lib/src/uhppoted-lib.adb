@@ -168,6 +168,66 @@ package body Uhppoted.Lib is
       return R.Date_Time;
    end Set_Time;
 
+   --  Retrieves the access controller status. Restricted to the local LAN.
+   function Get_Status (U       : UHPPOTE;
+                        C       : Unsigned_32;
+                        Timeout : Duration := 2.5) return Controller_Status is
+   begin
+      return Get_Status (U, To_Controller (C), Timeout);
+   end Get_Status;
+
+   --  Retrieves the access controller status.
+   function Get_Status (U       : UHPPOTE;
+                        C       : Controller;
+                        Timeout : Duration := 2.5) return Controller_Status is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Status (C.ID);
+      Reply   : Packet;
+      R       : Get_Status_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Status (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (ID               => R.Controller,
+              System_Date_Time => (Year   => R.System_Date.Year,
+                                   Month  => R.System_Date.Month,
+                                   Day    => R.System_Date.Day,
+                                   Hour   => R.System_Time.Hour,
+                                   Minute => R.System_Time.Minute,
+                                   Second => R.System_Time.Second),
+              Doors => [1 => (Open     => R.Door_1_Open,
+                              Button   => R.Door_1_Button,
+                              Unlocked => (R.Relays and 16#01#) = 16#01#),
+                        2 => (Open => R.Door_2_Open,
+                              Button => R.Door_2_Button,
+                              Unlocked => (R.Relays and 16#02#) = 16#02#),
+                        3 => (Open => R.Door_3_Open,
+                              Button => R.Door_3_Button,
+                              Unlocked => (R.Relays and 16#04#) = 16#04#),
+                        4 => (Open => R.Door_4_Open,
+                              Button => R.Door_4_Button,
+                              Unlocked => (R.Relays and 16#08#) = 16#08#)],
+
+              Alarms => (Flags       => Unsigned_8 (R.Inputs),
+                         Fire        => (R.Inputs and 16#01#) = 16#01#,
+                         Lock_Forced => (R.Inputs and 16#02#) = 16#02#),
+
+             System_Error => R.System_Error,
+             Special_Info => R.Special_Info,
+
+             Event => (Index          => R.Event_Index,
+                       Event          => R.Event_Type,
+                       Timestamp      => R.Event_Timestamp,
+                       Door           => R.Event_Door,
+                       Direction      => R.Event_Direction,
+                       Card           => R.Event_Card,
+                       Access_Granted => R.Event_Access_Granted,
+                       Reason         => R.Event_Reason));
+   end Get_Status;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

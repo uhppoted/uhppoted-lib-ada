@@ -146,10 +146,13 @@ func value(v lib.Value) string {
 	case "version":
 		return fmt.Sprintf(`To_Unbounded_String ("%v")`, v.Value)
 
-	case "date":
+	case "date", "shortdate":
 		return date(v.Value)
 
-	case "datetime":
+	case "time":
+		return _time(v.Value)
+
+	case "datetime", "optional datetime":
 		return datetime(v.Value)
 
 	default:
@@ -193,6 +196,17 @@ func date(v any) string {
 		year, month, day := date.Date()
 
 		return fmt.Sprintf("(Year => %v, Month => %v, Day => %v)", uint16(year), uint8(month), uint8(day))
+	}
+}
+
+func _time(v any) string {
+	s := fmt.Sprintf("%v", v)
+	if datetime, err := time.ParseInLocation("15:04:05", s, time.Local); err != nil {
+		panic(fmt.Sprintf("invalid time (%v)", v))
+	} else {
+		return fmt.Sprintf(
+			"(Hour => %v, Minute => %v, Second => %v)",
+			uint8(datetime.Hour()), uint8(datetime.Minute()), uint8(datetime.Second()))
 	}
 }
 

@@ -16,21 +16,26 @@
 - [x] set-IPv4
 - [x] get-time
 - [x] set-time
+- [ ] get-status
+    - [ ] enums for event-type, event-reason, event-direction
+    - [ ] integration tests
+    - [ ] API.md
+    - [ ] README
 
 - [ ] UDP
     - [x] controlled types for sockets
     - [x] controlled types for selectors
-    - [ ] ada-doc
-    - [ ] listen
     - [ ] fix selector logic
+    - [ ] listen
     - [ ] dump
+    - [ ] ada-doc
 
 - [x] TCP
     - [x] controlled types for sockets
     - [x] controlled types for selectors
-    - [ ] ada-doc
     - [ ] fix selector logic
     - [ ] dump
+    - [ ] ada-doc
 
 - [ ] CLI
     - [ ] command line args

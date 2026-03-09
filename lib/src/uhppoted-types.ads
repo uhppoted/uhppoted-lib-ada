@@ -15,6 +15,12 @@ package Uhppoted.Types is
       Day   : Unsigned_8;
    end record;
 
+   type TimeOnly is record
+      Hour   : Unsigned_8;
+      Minute : Unsigned_8;
+      Second : Unsigned_8;
+   end record;
+
    type DateTime is record
       Year   : Unsigned_16;
       Month  : Unsigned_8;
@@ -36,9 +42,45 @@ package Uhppoted.Types is
 
    type Controller_Record_List is array (Positive range <>) of Controller_Record;
 
+   type Door_Type is record
+      Open     : Boolean;
+      Button   : Boolean;
+      Unlocked : Boolean;
+   end record;
+
+   type Doors_Type is array (1 .. 4) of Door_Type;
+
+   type Alarms_Type is record
+      Flags       : Unsigned_8;
+      Fire        : Boolean;
+      Lock_Forced : Boolean;
+   end record;
+
+   type Event_Type is record
+      Index          : Unsigned_32;
+      Event          : Unsigned_8;
+      Timestamp      : DateTime;
+      Door           : Unsigned_8;
+      Direction      : Unsigned_8;
+      Card           : Unsigned_32;
+      Access_Granted : Boolean;
+      Reason         : Unsigned_8;
+   end record;
+
+   type Controller_Status is record
+      ID               : Unsigned_32;
+      System_Date_Time : DateTime;
+      Doors            : Doors_Type;
+      Alarms           : Alarms_Type;
+      System_Error     : Unsigned_8;
+      Special_Info     : Unsigned_8;
+      Event            : Event_Type;
+   end record;
+
    function Image (Addr : IPv4) return String;
    function Image (MAC  : Hardware_Addr) return String;
    function Image (D    : DateOnly) return String;
+   function Image (T    : TimeOnly) return String;
    function Image (DT   : DateTime) return String;
 
 end Uhppoted.Types;

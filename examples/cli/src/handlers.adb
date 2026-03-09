@@ -105,12 +105,11 @@ package body Handlers is
    --  Executes the set-time command.
    procedure Set_Time (Args : ArgParse.Args) is
       Now    : constant Time := Clock;
-      Offset : Time_Offset := Local_Time_Offset(Now);
+      Offset : constant Time_Offset := Local_Time_Offset (Now);
 
       Year       : Year_Number;
       Month      : Month_Number;
       Day        : Day_Number;
-      Seconds    : Day_Duration;
       Hour       : Hour_Number;
       Minute     : Minute_Number;
       Second     : Second_Number;
@@ -143,5 +142,41 @@ package body Handlers is
       Put_Line ("            " & Image (R));
       Put_Line ("");
    end Set_Time;
+
+   --  Executes the get-status command.
+   procedure Get_Status (Args : ArgParse.Args) is
+      R : constant Controller_Status := Get_Status (U, Args.Controller, Timeout);
+   begin
+      Put_Line ("--- get-status");
+      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("  system date/time:        " & Image (R.System_Date_Time));
+      Put_Line ("  door 1 - open:           " & R.Doors (1).Open'Image);
+      Put_Line ("           button pressed: " & R.Doors (1).Button'Image);
+      Put_Line ("           unlocked:       " & R.Doors (1).Unlocked'Image);
+      Put_Line ("  door 2 - open:           " & R.Doors (2).Open'Image);
+      Put_Line ("           button pressed: " & R.Doors (2).Button'Image);
+      Put_Line ("           unlocked:       " & R.Doors (2).Unlocked'Image);
+      Put_Line ("  door 3 - open:           " & R.Doors (3).Open'Image);
+      Put_Line ("           button pressed: " & R.Doors (3).Button'Image);
+      Put_Line ("           unlocked:       " & R.Doors (3).Unlocked'Image);
+      Put_Line ("  door 4 - open:           " & R.Doors (4).Open'Image);
+      Put_Line ("           button pressed: " & R.Doors (4).Button'Image);
+      Put_Line ("           unlocked:       " & R.Doors (4).Unlocked'Image);
+      Put_Line ("  alarms - flags:         " & R.Alarms.Flags'Image);
+      Put_Line ("           fire:           " & R.Alarms.Fire'Image);
+      Put_Line ("           lock forced:    " & R.Alarms.Lock_Forced'Image);
+      Put_Line ("  system error:           " & R.System_Error'Image);
+      Put_Line ("  special info:           " & R.Special_Info'Image);
+      Put_Line ("  event - index:          " & R.Event.Index'Image);
+      Put_Line ("          type:           " & R.Event.Event'Image);
+      Put_Line ("          timestamp:       " & Image (R.Event.Timestamp));
+      Put_Line ("          door:           " & R.Event.Door'Image);
+      Put_Line ("          direction:      " & R.Event.Direction'Image);
+      Put_Line ("          card:           " & R.Event.Card'Image);
+      Put_Line ("          access granted:  " & R.Event.Access_Granted'Image);
+      Put_Line ("          reason:         " & R.Event.Reason'Image);
+
+      Put_Line ("");
+   end Get_Status;
 
 end Handlers;

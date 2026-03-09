@@ -14,4 +14,6 @@ package Uhppoted.Lib.Encode is
    function Set_Time (Controller : Unsigned_32;
                       DT         : Uhppoted.Types.DateTime) return Uhppoted.Lib.Types.Packet;
 
+   function Get_Status (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+
 end Uhppoted.Lib.Encode;

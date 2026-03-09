@@ -8,9 +8,9 @@ import (
 var Requests = []types.Request{
 	GetControllerRequest,
 	SetIPv4Request,
-	// GetStatusRequest,
 	GetTimeRequest,
 	SetTimeRequest,
+	GetStatusRequest,
 	// GetListenerRequest,
 	// SetListenerRequest,
 	// GetListenerAddrPortRequest,

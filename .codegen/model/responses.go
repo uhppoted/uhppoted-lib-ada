@@ -9,9 +9,9 @@ import (
 var Responses = []types.Response{
 	GetControllerResponse,
 	SetIPv4Response,
-	// &GetStatusResponse,
 	GetTimeResponse,
 	SetTimeResponse,
+	GetStatusResponse,
 	// &GetListenerResponse,
 	// &SetListenerResponse,
 	// &GetListenerAddrPortResponse,

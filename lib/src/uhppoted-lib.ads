@@ -29,6 +29,7 @@ package Uhppoted.Lib is
 
    subtype Controller_Record      is Uhppoted.Types.Controller_Record;
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
+   subtype Controller_Status      is Uhppoted.Types.Controller_Status;
    subtype DateTime               is Uhppoted.Types.DateTime;
 
    --  Finds all access controllers on the local LAN.
@@ -167,6 +168,34 @@ package Uhppoted.Lib is
                       C  : Controller;
                       DT : DateTime;
                       Timeout : Duration := 2.5) return DateTime;
+
+   --  Retrieves the access controller status. Restricted to the local LAN.
+   --
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          Controller_Status with the current controller state.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Get_Status (U : UHPPOTE;
+                        C : Unsigned_32;
+                        Timeout : Duration := 2.5) return Controller_Status;
+
+   --  Retrieves the access controller status.
+   --
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          Controller_Status with the current controller state.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Get_Status (U : UHPPOTE;
+                        C : Controller;
+                        Timeout : Duration := 2.5) return Controller_Status;
 
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").
    --

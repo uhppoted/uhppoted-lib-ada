@@ -13,6 +13,7 @@ package body Registry is
       CS.Internal_Map.Insert ("set-IPv4",         Set_IPv4'Access);
       CS.Internal_Map.Insert ("get-time",         Get_Time'Access);
       CS.Internal_Map.Insert ("set-time",         Set_Time'Access);
+      CS.Internal_Map.Insert ("get-status",       Get_Status'Access);
 
       return CS;
    end Initialise;

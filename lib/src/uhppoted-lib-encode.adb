@@ -57,6 +57,16 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Set_Time;
 
+   --  Encodes a get-status request as a 64 byte array.
+   function Get_Status (Controller : Unsigned_32) return Packet is
+      Request : Get_Status_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+
+      return Buffer;
+   end Get_Status;
+
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is
       V : constant IPv4 := [

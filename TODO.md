@@ -7,7 +7,7 @@
 - https://github.com/simonjwright/alire-index.mac
 - https://alire.ada.dev/transition_from_gnat_community.html
 
-- [x] use enums for OpCodes
+- [ ] check SOM in decode
 - [ ] check opcode in decode
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 
@@ -16,23 +16,18 @@
 - [x] set-IPv4
 - [x] get-time
 - [x] set-time
-    - [x] integration test
-    - [x] CLI: set time for _now_
 
 - [ ] UDP
-    - [x] broadcast timeout parameter
-    - [x] send timeout parameter
-    - [x] sendto
-    - [x] split broadcast-to and send-to
     - [x] controlled types for sockets
-    - [ ] controlled types for selectors
+    - [x] controlled types for selectors
     - [ ] ada-doc
     - [ ] listen
     - [ ] fix selector logic
     - [ ] dump
 
 - [x] TCP
-    - [ ] controlled types for sockets/selectors
+    - [x] controlled types for sockets
+    - [x] controlled types for selectors
     - [ ] ada-doc
     - [ ] fix selector logic
     - [ ] dump
@@ -51,6 +46,8 @@
     - [x] Fix listen timeout
     - [x] 'Expected' package
     - [ ] Invalid response test
+        - [ ] invalid SOM
+        - [ ] invalid op-code
     - [ ] Timeout test
     - [ ] `None` response timeout closes stub socket
     - [ ] v6.62
@@ -58,6 +55,8 @@
 - [ ] codegen
     - [x] encode unit tests
     - [x] decode unit tests
+    - [x] integration tests: messages
+    - [ ] integration tests: expected
     - [ ] default integration tests
     - [ ] UDP integration tests
     - [ ] TCP integration tests

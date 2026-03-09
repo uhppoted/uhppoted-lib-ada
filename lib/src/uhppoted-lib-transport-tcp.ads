@@ -9,4 +9,18 @@ package Uhppoted.Lib.Transport.TCP is
                   Request  : Packet;
                   Timeout  : Duration) return Packet;
 
+   type S is tagged limited private;
+
+private
+   type S is new Ada.Finalization.Limited_Controlled with
+   record
+      Client : Socket_Type := GNAT.Sockets.No_Socket;
+   end record;
+
+   overriding
+   procedure Initialize (E : in out S);
+
+   overriding
+   procedure Finalize (E : in out S);
+
 end Uhppoted.Lib.Transport.TCP;

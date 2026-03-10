@@ -11,7 +11,7 @@ jobs:
     steps:
 
     - name: Setup Alire
-        uses: alire-project/setup-alire@v4
+      uses: alire-project/setup-alire@v4
         # with:
         #   version: 2.0.2
 

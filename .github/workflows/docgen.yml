@@ -27,7 +27,8 @@ jobs:
 
     - name: Install Ada
       run: |
-        alr config --global --set interactive.disabled true
+        cd lib
+        # alr config --global --set interactive.disabled true
         alr toolchain
         alr with gnatdoc
         alr list --installed

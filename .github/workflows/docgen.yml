@@ -15,23 +15,14 @@ jobs:
 
     - name: Setup Alire
       uses: alire-project/setup-alire@v4
-        # with:
-        #   version: 2.0.2
 
-    # - name: Set up Alire
-    #   run: |
-    #     mkdir -p /opt/alire
-    #     wget -O /tmp/alire.zip https://github.com/alire-project/alire/releases/download/v2.1.0/alr-2.1.0-bin-x86_64-linux.zip
-    #     unzip /tmp/alire.zip -d /opt/alire
-    #     echo "/opt/alire/bin" >> $GITHUB_PATH
-
-    - name: Install Ada
+    - name: Install Ada tools
       run: |
         cd lib
-        # alr config --global --set interactive.disabled true
-        alr toolchain
         alr with gnatdoc
-        alr list --installed
+        alr toolchain
+        # alr index     --print
+        # alr toolchain --select
 
     - name: Build
       run: |

@@ -14,15 +14,13 @@ jobs:
       uses: actions/checkout@v6
 
     - name: Setup Alire
-      uses: alire-project/setup-alire@v4
+      uses: alire-project/setup-alire@v5
 
     - name: Install Ada tools
       run: |
         cd lib
         alr with gnatdoc
         alr toolchain
-        # alr index     --print
-        # alr toolchain --select
 
     - name: Build
       run: |

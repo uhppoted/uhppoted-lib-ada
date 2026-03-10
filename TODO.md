@@ -17,10 +17,10 @@
 - [x] get-time
 - [x] set-time
 - [ ] get-status
-    - [ ] enums for event-type, event-reason, event-direction
     - [ ] integration tests
-    - [ ] API.md
-    - [ ] README
+    - [x] API.md
+    - [x] README
+    - [ ] enums for event-type, event-reason, event-direction
 
 - [ ] UDP
     - [x] controlled types for sockets

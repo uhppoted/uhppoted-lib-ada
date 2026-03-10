@@ -4,6 +4,7 @@
 - [`Set_IPv4`](#set_ipv4)
 - [`Get_Time`](#get_time)
 - [`Set_Time`](#set_time)
+- [`Get_Status`](#get_status)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -264,6 +265,70 @@ Returns a `DateTime`:
       Hour   : Unsigned_8;
       Minute : Unsigned_8;
       Second : Unsigned_8;
+   end record;
+```
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Get_Status`
+
+**Get_Status** retrieves the controller current state.
+
+```
+function Get_Status (U       : UHPPOTE;
+                     C       : Unsigned_32; 
+                     Timeout : Duration) return Controller_Status;
+
+function Get_Status (U       : Uhppoted.Lib.UHPPOTE;
+                     C       : Controller;
+                     Timeout : Duration) return Controller_Status;
+
+where:
+- U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C        Unsigned_32     Controller serial number.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
+
+Returns a `Controller_Status`:
+```
+   type Controller_Status is record
+      ID               : Unsigned_32;
+      System_Date_Time : DateTime;
+      Doors            : Doors_Type;
+      Alarms           : Alarms_Type;
+      System_Error     : Unsigned_8;
+      Special_Info     : Unsigned_8;
+      Event            : Event_Type;
+   end record;
+
+where:
+
+   type Door_Type is record
+      Open     : Boolean;
+      Button   : Boolean;
+      Unlocked : Boolean;
+   end record;
+
+   type Doors_Type is array (1 .. 4) of Door_Type;
+
+   type Alarms_Type is record
+      Flags       : Unsigned_8;
+      Fire        : Boolean;
+      Lock_Forced : Boolean;
+   end record;
+
+   type Event_Type is record
+      Index          : Unsigned_32;
+      Event          : Unsigned_8;
+      Timestamp      : DateTime;
+      Door           : Unsigned_8;
+      Direction      : Unsigned_8;
+      Card           : Unsigned_32;
+      Access_Granted : Boolean;
+      Reason         : Unsigned_8;
    end record;
 ```
 

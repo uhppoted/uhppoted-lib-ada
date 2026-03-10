@@ -2,9 +2,12 @@ package codegen
 
 import (
 	"fmt"
+	"net"
+	"net/netip"
 	"regexp"
 	"strings"
 	"text/template"
+	"time"
 	"unicode"
 )
 
@@ -30,6 +33,36 @@ func AdaName(s string) string {
 	return strings.Join(tokens, "_")
 }
 
+func AdaValue(t string, v any) string {
+	s := fmt.Sprintf("%v", v)
+
+	switch t {
+	case "IPv4":
+		return IPv4(v)
+
+	case "MAC":
+		return mac(v)
+
+	case "version":
+		return fmt.Sprintf(`To_Unbounded_String ("%v")`, v)
+
+	case "boolean":
+		return capitalize(s)
+
+	case "date", "shortdate":
+		return date(v)
+
+	case "time":
+		return _time(v)
+
+	case "datetime", "optional datetime":
+		return datetime(v)
+
+	default:
+		return s
+	}
+}
+
 func KebabCase(s string) string {
 	tokens := regexp.MustCompile(`\s+`).Split(s, -1)
 
@@ -38,6 +71,58 @@ func KebabCase(s string) string {
 	}
 
 	return strings.Join(tokens, "-")
+}
+
+func IPv4(v any) string {
+	s := fmt.Sprintf("%v", v)
+	addr := netip.MustParseAddr(s).As4()
+
+	return fmt.Sprintf("[%v, %v, %v, %v]", addr[0], addr[1], addr[2], addr[3])
+}
+
+func mac(v any) string {
+	s := fmt.Sprintf("%v", v)
+	if MAC, err := net.ParseMAC(s); err != nil {
+		panic(fmt.Sprintf("invalid MAC address (%v)", v))
+	} else {
+		return fmt.Sprintf("[16#%02x#, 16#%02x#, 16#%02x#, 16#%02x#, 16#%02x#, 16#%02x#]", MAC[0], MAC[1], MAC[2], MAC[3], MAC[4], MAC[5])
+	}
+}
+
+func date(v any) string {
+	s := fmt.Sprintf("%v", v)
+	if date, err := time.ParseInLocation("2006-01-02", s, time.Local); err != nil {
+		panic(fmt.Sprintf("invalid date (%v)", v))
+	} else {
+		year, month, day := date.Date()
+
+		return fmt.Sprintf("(Year => %v, Month => %v, Day => %v)", uint16(year), uint8(month), uint8(day))
+	}
+}
+
+func _time(v any) string {
+	s := fmt.Sprintf("%v", v)
+	if datetime, err := time.ParseInLocation("15:04:05", s, time.Local); err != nil {
+		panic(fmt.Sprintf("invalid time (%v)", v))
+	} else {
+		return fmt.Sprintf(
+			"(Hour => %v, Minute => %v, Second => %v)",
+			uint8(datetime.Hour()), uint8(datetime.Minute()), uint8(datetime.Second()))
+	}
+}
+
+func datetime(v any) string {
+	s := fmt.Sprintf("%v", v)
+	if datetime, err := time.ParseInLocation("2006-01-02 15:04:05", s, time.Local); err != nil {
+		panic(fmt.Sprintf("invalid date (%v)", v))
+	} else {
+		year, month, day := datetime.Date()
+
+		return fmt.Sprintf(
+			"(Year => %v, Month => %v, Day => %v, Hour => %v, Minute => %v, Second => %v)",
+			uint16(year), uint8(month), uint8(day),
+			uint8(datetime.Hour()), uint8(datetime.Minute()), uint8(datetime.Second()))
+	}
 }
 
 func capitalize(s string) string {

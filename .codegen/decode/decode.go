@@ -4,12 +4,9 @@ import (
 	_ "embed"
 	"fmt"
 	"log"
-	"net"
-	"net/netip"
 	"os"
 	"strings"
 	"text/template"
-	"time"
 
 	lib "github.com/uhppoted/uhppoted-codegen/model/types"
 
@@ -137,26 +134,8 @@ func value(v lib.Value) string {
 	case "bool":
 		return boolean(v.Value)
 
-	case "IPv4":
-		return ipv4(v.Value)
-
-	case "MAC":
-		return mac(v.Value)
-
-	case "version":
-		return fmt.Sprintf(`To_Unbounded_String ("%v")`, v.Value)
-
-	case "date", "shortdate":
-		return date(v.Value)
-
-	case "time":
-		return _time(v.Value)
-
-	case "datetime", "optional datetime":
-		return datetime(v.Value)
-
 	default:
-		return fmt.Sprintf("%v", v.Value)
+		return codegen.AdaValue(v.Type, v.Value)
 	}
 }
 
@@ -170,56 +149,4 @@ func boolean(v any) string {
 	}
 
 	panic(fmt.Sprintf("invalid boolean value (%v)", v))
-}
-
-func ipv4(v any) string {
-	s := fmt.Sprintf("%v", v)
-	addr := netip.MustParseAddr(s).As4()
-
-	return fmt.Sprintf("[%v, %v, %v, %v]", addr[0], addr[1], addr[2], addr[3])
-}
-
-func mac(v any) string {
-	s := fmt.Sprintf("%v", v)
-	if MAC, err := net.ParseMAC(s); err != nil {
-		panic(fmt.Sprintf("invalid MAC address (%v)", v))
-	} else {
-		return fmt.Sprintf("[16#%02x#, 16#%02x#, 16#%02x#, 16#%02x#, 16#%02x#, 16#%02x#]", MAC[0], MAC[1], MAC[2], MAC[3], MAC[4], MAC[5])
-	}
-}
-
-func date(v any) string {
-	s := fmt.Sprintf("%v", v)
-	if date, err := time.ParseInLocation("2006-01-02", s, time.Local); err != nil {
-		panic(fmt.Sprintf("invalid date (%v)", v))
-	} else {
-		year, month, day := date.Date()
-
-		return fmt.Sprintf("(Year => %v, Month => %v, Day => %v)", uint16(year), uint8(month), uint8(day))
-	}
-}
-
-func _time(v any) string {
-	s := fmt.Sprintf("%v", v)
-	if datetime, err := time.ParseInLocation("15:04:05", s, time.Local); err != nil {
-		panic(fmt.Sprintf("invalid time (%v)", v))
-	} else {
-		return fmt.Sprintf(
-			"(Hour => %v, Minute => %v, Second => %v)",
-			uint8(datetime.Hour()), uint8(datetime.Minute()), uint8(datetime.Second()))
-	}
-}
-
-func datetime(v any) string {
-	s := fmt.Sprintf("%v", v)
-	if datetime, err := time.ParseInLocation("2006-01-02 15:04:05", s, time.Local); err != nil {
-		panic(fmt.Sprintf("invalid date (%v)", v))
-	} else {
-		year, month, day := datetime.Date()
-
-		return fmt.Sprintf(
-			"(Year => %v, Month => %v, Day => %v, Hour => %v, Minute => %v, Second => %v)",
-			uint16(year), uint8(month), uint8(day),
-			uint8(datetime.Hour()), uint8(datetime.Minute()), uint8(datetime.Second()))
-	}
 }

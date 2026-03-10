@@ -11,7 +11,7 @@ var API = []types.Function{
 	SetIPv4,
 	GetTime,
 	SetTime,
-	GetStatus,
+	// GetStatus,
 	// &GetListener,
 	// &SetListener,
 	// &GetListenerAddrPort,
@@ -126,7 +126,10 @@ var FindControllers = types.Function{
 		"FindControllers retrieves a list of all UHPPOTE controllers accessible via UDP broadcast",
 		"on the local LAN.",
 	},
-	Args: []types.Arg{},
+	Args:     []types.Arg{},
+	Request:  FindControllersRequest.Message,
+	Response: FindControllersResponse.Message,
+
 	Tests: []types.FuncTest{
 		{
 			Name: "find-controllers",

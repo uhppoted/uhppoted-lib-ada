@@ -44,6 +44,12 @@ var Responses = []types.Response{
 	// &RestoreDefaultParametersResponse,
 }
 
+var FindControllersResponse = types.Response{
+	Message: types.Message{
+		Name: "find controllers response",
+	},
+}
+
 var GetControllerResponse = lib.GetControllerResponse
 var SetIPv4Response = lib.SetIPv4Response
 var GetTimeResponse = lib.GetTimeResponse

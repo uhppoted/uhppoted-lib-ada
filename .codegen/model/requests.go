@@ -43,6 +43,8 @@ var Requests = []types.Request{
 	// RestoreDefaultParametersRequest,
 }
 
+var FindControllersRequest = types.Request{}
+
 var GetControllerRequest = lib.GetControllerRequest
 var SetIPv4Request = lib.SetIPv4Request
 var GetTimeRequest = lib.GetTimeRequest

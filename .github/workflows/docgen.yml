@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+    - name: Check out code
+      uses: actions/checkout@v6
+
     - name: Setup Alire
       uses: alire-project/setup-alire@v4
         # with:
@@ -28,9 +31,6 @@ jobs:
         alr toolchain
         alr with gnatdoc
         alr list --installed
-
-    - name: Check out code
-      uses: actions/checkout@v6
 
     - name: Build
       run: |

@@ -21,7 +21,3 @@ jobs:
         cd lib
         alr with gnatdoc
         alr toolchain
-
-    - name: Build
-      run: |
-        make build-all

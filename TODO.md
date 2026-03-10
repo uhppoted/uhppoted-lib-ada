@@ -10,6 +10,7 @@
 - [ ] check SOM in decode
 - [ ] check opcode in decode
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
+- [ ] enums for event-type, event-reason, event-direction
 
 - [x] find-controllers
 - [x] get-controller
@@ -17,10 +18,9 @@
 - [x] get-time
 - [x] set-time
 - [ ] get-status
-    - [ ] integration tests
     - [x] API.md
     - [x] README
-    - [ ] enums for event-type, event-reason, event-direction
+    - [ ] integration tests
 
 - [ ] UDP
     - [x] controlled types for sockets

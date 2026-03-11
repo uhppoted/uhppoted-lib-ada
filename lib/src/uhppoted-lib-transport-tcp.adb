@@ -29,7 +29,7 @@ package body Uhppoted.Lib.Transport.TCP is
       Offset : Stream_Element_Offset;
 
       Sock   : S;
-      From   : Sock_Addr_Type;
+      From   : Sock_Addr_Type (Family_Inet);
       Buffer : Ada.Streams.Stream_Element_Array (1 .. 64);
       Reply  : Packet;
 
@@ -75,6 +75,10 @@ package body Uhppoted.Lib.Transport.TCP is
          when Completed =>
             Receive_Socket (Sock.Client, Buffer, Offset, From);
             Reply := To_Packet (Buffer);
+
+            if U.Debug then
+               Dump (DestAddr, Reply, Uhppoted.Lib.TCP);
+            end if;
 
          when Expired | Aborted =>
             raise Timeout_Error;

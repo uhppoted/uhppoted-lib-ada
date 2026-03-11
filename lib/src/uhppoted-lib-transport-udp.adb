@@ -70,6 +70,9 @@ package body Uhppoted.Lib.Transport.UDP is
                Reply := To_Packet (Buffer);
                Replies.Append (Reply);
 
+               if U.Debug then
+                  Dump (From, Reply, Uhppoted.Lib.UDP);
+               end if;
             elsif Status = Expired then
                exit;
             end if;
@@ -134,6 +137,10 @@ package body Uhppoted.Lib.Transport.UDP is
             Receive_Socket (Sock.Client, Buffer, Offset, From);
             Reply := To_Packet (Buffer);
 
+            if U.Debug then
+               Dump (From, Reply, Uhppoted.Lib.UDP);
+            end if;
+
          when Expired | Aborted =>
             raise Timeout_Error;
       end case;
@@ -195,6 +202,10 @@ package body Uhppoted.Lib.Transport.UDP is
          when Completed =>
             Receive_Socket (Sock.Client, Buffer, Offset, From);
             Reply := To_Packet (Buffer);
+
+            if U.Debug then
+               Dump (From, Reply, Uhppoted.Lib.UDP);
+            end if;
 
          when Expired | Aborted =>
             raise Timeout_Error;

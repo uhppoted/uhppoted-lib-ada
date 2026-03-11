@@ -18,16 +18,15 @@
 - [x] get-time
 - [x] set-time
 - [x] get-status
-    - [x] API.md
-    - [x] README
-    - [x] integration tests
 
 - [ ] UDP
     - [x] controlled types for sockets
     - [x] controlled types for selectors
     - [x] fix selector logic
-    - [ ] listen
     - [ ] dump
+       - [x] received
+       - [ ] send
+    - [ ] listen
     - [ ] ada-doc
 
 - [x] TCP
@@ -35,6 +34,8 @@
     - [x] controlled types for selectors
     - [x] ~~fix selector logic~~
     - [ ] dump
+       - [x] received
+       - [ ] send
     - [ ] ada-doc
 
 - [ ] CLI
@@ -61,7 +62,7 @@
     - [x] encode unit tests
     - [x] decode unit tests
     - [x] integration tests: messages
-    - [ ] integration tests: expected
+    - [x] integration tests: expected
     - [ ] default integration tests
     - [ ] UDP integration tests
     - [ ] TCP integration tests

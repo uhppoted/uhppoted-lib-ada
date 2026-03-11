@@ -17,10 +17,10 @@
 - [x] set-IPv4
 - [x] get-time
 - [x] set-time
-- [ ] get-status
+- [x] get-status
     - [x] API.md
     - [x] README
-    - [ ] integration tests
+    - [x] integration tests
 
 - [ ] UDP
     - [x] controlled types for sockets

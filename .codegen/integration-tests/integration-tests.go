@@ -58,6 +58,7 @@ func IntegrationTests() {
 
 	funcs["field"] = field
 	funcs["value"] = value
+	funcs["get"] = get
 
 	if templates, err := templates.Funcs(funcs).ParseFS(templateFS, "templates/*"); err != nil {
 		log.Fatal(err)
@@ -223,11 +224,11 @@ func response(f lib.Function, t lib.FuncTest) returns {
 
 		case "Controller_Record":
 			r.Template = "controller"
-			r.Value = t.Replies[0]
+			r.Value = t.Replies[0].Response
 
 		case "Controller_Status":
 			r.Template = "status"
-			r.Value = t.Replies[0]
+			r.Value = t.Replies[0].Response
 		}
 	}
 
@@ -339,4 +340,14 @@ func value(t string, v any) string {
 	default:
 		return codegen.AdaValue(t, v)
 	}
+}
+
+func get(values []lib.Value, key string) any {
+	for _, v := range values {
+		if v.Name == key {
+			return value(v.Type, v.Value)
+		}
+	}
+
+	panic(fmt.Sprintf("unknown field (%v)", key))
 }

@@ -9,11 +9,13 @@ package Uhppoted.Lib.Integration_Tests.Default is
    overriding function  Name           (T : Integration_Test) return AUnit.Message_String;
 
 private
-   procedure Test_Find_Controllers (T : in out Test_Case'Class);
-   procedure Test_Get_Controller   (T : in out Test_Case'Class);
-   procedure Test_Set_IPv4         (T : in out Test_Case'Class);
-   procedure Test_Get_Time         (T : in out Test_Case'Class);
-   procedure Test_Set_Time         (T : in out Test_Case'Class);
+   procedure Test_Find_Controllers    (T : in out Test_Case'Class);
+   procedure Test_Get_Controller      (T : in out Test_Case'Class);
+   procedure Test_Set_IPv4            (T : in out Test_Case'Class);
+   procedure Test_Get_Time            (T : in out Test_Case'Class);
+   procedure Test_Set_Time            (T : in out Test_Case'Class);
+   procedure Test_Get_Status          (T : in out Test_Case'Class);
+   procedure Test_Get_Status_No_Event (T : in out Test_Case'Class);
 
    task Listen;
 

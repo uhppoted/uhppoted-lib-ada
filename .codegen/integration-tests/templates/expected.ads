@@ -17,13 +17,41 @@ end Uhppoted.Lib.Integration_Tests.Expected;
 {{- define "boolean"    }}{{ .Returns.Value }}{{ end }}
 {{- define "datetime"   }}{{ .Returns.Value }}{{ end }}
 
-{{- define "controller" }}({{ range $ix,$v := .Returns.Value.Response }}{{if $ix}},{{end}}
-      {{ field $v.Name | rpad 8 }} => {{ value $v.Type $v.Value }}{{end}}){{ end }}
-
 {{- define "controllers" }}[{{  range $ix,$v := .Returns.Value }}{{if $ix}},{{end}}
       ({{ range $jx,$vv := $v.Response }}{{if $jx}},{{end}}
         {{ field $vv.Name | rpad 8 }} => {{ value $vv.Type $vv.Value }}{{end}}){{ end }}
      ]{{- end }}
 
-{{- define "status" }}({{ range $ix,$v := .Returns.Value }}{{if $ix}},{{end}}
-        {{ field $v.Name | rpad 8 }} => {{ value $v.Type $v.Value }}{{end}}){{ end }}
+{{- define "controller" }}({{ range $ix,$v := .Returns.Value }}{{if $ix}},{{end}}
+      {{ field $v.Name | rpad 8 }} => {{ value $v.Type $v.Value }}{{end}}){{ end }}
+
+{{- define "statusxx" }}({{ .Returns.Value }}{{ end }}
+
+{{- define "status" }}({{ with $v := .Returns.Value }}
+        ID               => {{ get $v "controller" }},
+        System_Date_Time => {{ get $v "system.datetime"}},
+        Doors => [1 => (Open     => {{ get $v "door-1.open"     }},
+                        Button   => {{ get $v "door-1.button"   }},
+                        Unlocked => {{ get $v "door-1.unlocked" }}),
+                  2 => (Open     => {{ get $v "door-2.open"     }},
+                        Button   => {{ get $v "door-2.button"   }},
+                        Unlocked => {{ get $v "door-2.unlocked" }}),
+                  3 => (Open     => {{ get $v "door-3.open"     }},
+                        Button   => {{ get $v "door-3.button"   }},
+                        Unlocked => {{ get $v "door-3.unlocked" }}),
+                  4 => (Open     => {{ get $v "door-4.open"     }},
+                        Button   => {{ get $v "door-4.button"   }},
+                        Unlocked => {{ get $v "door-4.unlocked" }})],
+        Alarms => (Flags       => {{ get $v "inputs" }},
+                   Fire        => {{ get $v "alarms.fire" }},
+                   Lock_Forced => {{ get $v "alarms.lock-forced" }}),
+        System_Error => {{ get $v "system.error" }},
+        Special_Info => {{ get $v "system.special-info" }},
+        Event => (Index          => {{ get $v "event.index"          }},
+                  Event          => {{ get $v "event.type"           }},
+                  Timestamp      => {{ get $v "event.timestamp"      }},
+                  Door           => {{ get $v "event.door"           }},
+                  Direction      => {{ get $v "event.direction"      }},
+                  Card           => {{ get $v "event.card"           }},
+                  Access_Granted => {{ get $v "event.access-granted" }},
+                  Reason         => {{ get $v "event.reason"         }}){{end}}){{ end }}

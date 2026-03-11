@@ -36,27 +36,30 @@ func AdaName(s string) string {
 func AdaValue(t string, v any) string {
 	s := fmt.Sprintf("%v", v)
 
-	switch t {
-	case "IPv4":
+	switch {
+	case t == "IPv4":
 		return IPv4(v)
 
-	case "MAC":
+	case t == "MAC":
 		return mac(v)
 
-	case "version":
+	case t == "version":
 		return fmt.Sprintf(`To_Unbounded_String ("%v")`, v)
 
-	case "boolean":
-		return capitalize(s)
-
-	case "date", "shortdate":
+	case t == "date" || t == "shortdate":
 		return date(v)
 
-	case "time":
+	case t == "time":
 		return _time(v)
 
-	case "datetime", "optional datetime":
+	case t == "datetime" || t == "optional datetime":
 		return datetime(v)
+
+	case t == "bool" && v == true:
+		return "True"
+
+	case t == "bool" && v == false:
+		return "False"
 
 	default:
 		return s
@@ -113,7 +116,10 @@ func _time(v any) string {
 
 func datetime(v any) string {
 	s := fmt.Sprintf("%v", v)
-	if datetime, err := time.ParseInLocation("2006-01-02 15:04:05", s, time.Local); err != nil {
+
+	if s == "" {
+		return fmt.Sprintf("(Year => %v, Month => %v, Day => %v, Hour => %v, Minute => %v, Second => %v)", 0, 0, 0, 0, 0, 0)
+	} else if datetime, err := time.ParseInLocation("2006-01-02 15:04:05", s, time.Local); err != nil {
 		panic(fmt.Sprintf("invalid date (%v)", v))
 	} else {
 		year, month, day := datetime.Date()

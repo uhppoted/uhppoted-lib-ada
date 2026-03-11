@@ -38,10 +38,12 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    overriding procedure Register_Tests (T : in out Integration_Test) is
       use AUnit.Test_Cases.Registration;
    begin
-      Register_Routine (T, Test_Get_Controller'Access, "Test Get_Controller");
-      Register_Routine (T, Test_Set_IPv4'Access,       "Set_IPv4");
-      Register_Routine (T, Test_Get_Time'Access,       "Test Get_Time");
-      Register_Routine (T, Test_Set_Time'Access,       "Set_Time");
+      Register_Routine (T, Test_Get_Controller'Access,      "Test Get_Controller");
+      Register_Routine (T, Test_Set_IPv4'Access,            "Set_IPv4");
+      Register_Routine (T, Test_Get_Time'Access,            "Test Get_Time");
+      Register_Routine (T, Test_Set_Time'Access,            "Set_Time");
+      Register_Routine (T, Test_Get_Status'Access,          "Get_Status");
+      Register_Routine (T, Test_Get_Status_No_Event'Access, "Get_Status (no event)");
    end Register_Tests;
 
    task body Listen is
@@ -84,5 +86,27 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.Set_Time, "invalid controller date/time" & V'Image);
    end Test_Set_Time;
+
+   procedure Test_Get_Status (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      V : constant Controller_Status := Get_Status (U, C);
+   begin
+      Assert (V = Expected.Get_Status, "invalid controller status" & V'Image);
+   end Test_Get_Status;
+
+   procedure Test_Get_Status_No_Event (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419897,
+                                  DestAddr => (Family => Family_Inet, 
+                                               Addr => Inet_Addr ("127.0.0.1"), 
+                                               Port => 60003),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Controller_Status := Get_Status (U, c);
+   begin
+      Assert (V = Expected.Get_Status_No_Event, "invalid controller status" & V'Image);
+   end Test_Get_Status_No_Event;
 
 end Uhppoted.Lib.Integration_Tests.TCP;

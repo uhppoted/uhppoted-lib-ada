@@ -43,10 +43,6 @@ package body Uhppoted.Lib.Transport.UDP is
       Bind_Socket (Sock.Client, BindAddr);
       Set_Socket_Option (Sock.Client, Socket_Level, (Broadcast, True));
 
-      Empty (Read_Set);
-      Empty (Write_Set);
-      Set   (Read_Set, Sock.Client);
-
       Send_Socket (Sock.Client, To_Stream (Request), Offset, DestAddr);
 
       loop
@@ -58,6 +54,10 @@ package body Uhppoted.Lib.Transport.UDP is
             Remaining := Deadline - Now;
 
             exit when Remaining <= 0.0;
+
+            Empty (Read_Set);
+            Empty (Write_Set);
+            Set   (Read_Set, Sock.Client);
 
             Check_Selector (Selector.Selector,
                             R_Socket_Set => Read_Set,

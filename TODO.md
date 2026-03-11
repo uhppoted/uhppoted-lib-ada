@@ -25,7 +25,7 @@
 - [ ] UDP
     - [x] controlled types for sockets
     - [x] controlled types for selectors
-    - [ ] fix selector logic
+    - [x] fix selector logic
     - [ ] listen
     - [ ] dump
     - [ ] ada-doc
@@ -33,7 +33,7 @@
 - [x] TCP
     - [x] controlled types for sockets
     - [x] controlled types for selectors
-    - [ ] fix selector logic
+    - [x] ~~fix selector logic~~
     - [ ] dump
     - [ ] ada-doc
 

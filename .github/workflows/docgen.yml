@@ -24,5 +24,6 @@ jobs:
 
     - name: Generate doc
       run: |
-        cd lib
-        alr exec -- gnatdoc -P uhppoted_lib_ada.gpr
+        find / -name "gnatdoc" -type f
+        # cd lib
+        # alr exec -- gnatdoc -P uhppoted_lib_ada.gpr

@@ -18,6 +18,7 @@ jobs:
 
     - name: Setup gnatdoc
       uses: alire-project/alr-install@v2
+      with:
         crates: gnatdoc
 
     # - name: Install gnatdoc

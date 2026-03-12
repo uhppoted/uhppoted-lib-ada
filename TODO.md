@@ -32,6 +32,7 @@
     - [ ] dump
        - [x] received
        - [ ] send
+    - [ ] Connect
     - [ ] send loop
     - [ ] listen
     - [ ] ada-doc

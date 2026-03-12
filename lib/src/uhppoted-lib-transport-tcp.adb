@@ -49,6 +49,9 @@ package body Uhppoted.Lib.Transport.TCP is
       Set   (Read_Set, Sock.Client);
 
       Send_Socket (Sock.Client, To_Stream (Request), Offset);
+      if U.Debug then
+         Dump ("... sent to " & Image (DestAddr) & " (TCP)", Request);
+      end if;
 
       if Request (2) = 16#96# then
          Reply := [
@@ -77,7 +80,7 @@ package body Uhppoted.Lib.Transport.TCP is
             Reply := To_Packet (Buffer);
 
             if U.Debug then
-               Dump (DestAddr, Reply, Uhppoted.Lib.TCP);
+               Dump ("... received from " & Image (DestAddr) & " (TCP)", Reply);
             end if;
 
          when Expired | Aborted =>

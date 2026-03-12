@@ -29,9 +29,9 @@
     - [x] controlled types for sockets
     - [x] controlled types for selectors
     - [x] fix selector logic
-    - [ ] dump
+    - [x] dump
        - [x] received
-       - [ ] send
+       - [x] send
     - [ ] Connect
     - [ ] send loop
     - [ ] listen
@@ -41,9 +41,9 @@
     - [x] controlled types for sockets
     - [x] controlled types for selectors
     - [x] ~~fix selector logic~~
-    - [ ] dump
+    - [x] dump
        - [x] received
-       - [ ] send
+       - [x] send
     - [ ] send loop
     - [ ] ada-doc
 

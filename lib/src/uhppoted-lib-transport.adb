@@ -19,9 +19,9 @@ package body Uhppoted.Lib.Transport is
    end Finalize;
 
    --  Prints out a hex dump of a 64 byte packet.
-   procedure Dump (Addr : Sock_Addr_Type; P : Uhppoted.Lib.Types.Packet; T : Protocol_Type) is
+   procedure Dump (Msg : String; P : Uhppoted.Lib.Types.Packet) is
    begin
-      Put_Line ("... received from " & Image(Addr) & " (" & T'Image & ")");
+      Put_Line (Msg);
       for I in P'Range loop
          begin
             case I is

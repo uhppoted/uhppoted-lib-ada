@@ -35,6 +35,6 @@ private
    overriding procedure Finalize (E : in out H);
 
    --  Prints out a hex dump of a 64 byte packet.
-   procedure Dump (Addr : GNAT.Sockets.Sock_Addr_Type; P : Uhppoted.Lib.Types.Packet; T : Uhppoted.Lib.Protocol_Type);
+   procedure Dump (Msg : String; P : Uhppoted.Lib.Types.Packet);
 
 end Uhppoted.Lib.Transport;

@@ -44,6 +44,9 @@ package body Uhppoted.Lib.Transport.UDP is
       Set_Socket_Option (Sock.Client, Socket_Level, (Broadcast, True));
 
       Send_Socket (Sock.Client, To_Stream (Request), Offset, DestAddr);
+      if U.Debug then
+         Dump ("... sent to " & Image (DestAddr) & " (UDP)", Request);
+      end if;
 
       loop
          declare
@@ -71,7 +74,7 @@ package body Uhppoted.Lib.Transport.UDP is
                Replies.Append (Reply);
 
                if U.Debug then
-                  Dump (From, Reply, Uhppoted.Lib.UDP);
+                  Dump ("... received from " & Image (From) & " (UDP)", Reply);
                end if;
             elsif Status = Expired then
                exit;
@@ -110,6 +113,9 @@ package body Uhppoted.Lib.Transport.UDP is
       Set   (Read_Set, Sock.Client);
 
       Send_Socket (Sock.Client, To_Stream (Request), Offset, U.Broadcast_Addr);
+      if U.Debug then
+         Dump ("... sent to " & Image (U.Broadcast_Addr) & " (UDP)", Request);
+      end if;
 
       if Request (2) = 16#96# then
          Reply := [
@@ -138,7 +144,7 @@ package body Uhppoted.Lib.Transport.UDP is
             Reply := To_Packet (Buffer);
 
             if U.Debug then
-               Dump (From, Reply, Uhppoted.Lib.UDP);
+               Dump ("... received from " & Image (From) & " (UDP)", Reply);
             end if;
 
          when Expired | Aborted =>
@@ -176,6 +182,9 @@ package body Uhppoted.Lib.Transport.UDP is
       Set (Read_Set, Sock.Client);
 
       Send_Socket (Sock.Client, To_Stream (Request), Offset, DestAddr);
+      if U.Debug then
+         Dump ("... sent to " & Image (DestAddr) & " (UDP)", Request);
+      end if;
 
       if Request (2) = 16#96# then
          Reply := [
@@ -204,7 +213,7 @@ package body Uhppoted.Lib.Transport.UDP is
             Reply := To_Packet (Buffer);
 
             if U.Debug then
-               Dump (From, Reply, Uhppoted.Lib.UDP);
+               Dump ("... received from " & Image (From) & " (UDP)", Reply);
             end if;
 
          when Expired | Aborted =>

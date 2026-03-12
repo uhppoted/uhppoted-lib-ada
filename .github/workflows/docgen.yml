@@ -21,9 +21,11 @@ jobs:
         cd lib
         alr with gnatdoc
         alr toolchain
+        alr version
+        alr install --info
 
-    - name: Generate doc
-      run: |
-        find / -name "gnatdoc" -type f
-        # cd lib
-        # alr exec -- gnatdoc -P uhppoted_lib_ada.gpr
+    # - name: Generate doc
+    #   run: |
+    #     find /home/runner -name "gnatdoc" -type f
+    #     # cd lib
+    #     # alr exec -- gnatdoc -P uhppoted_lib_ada.gpr

@@ -19,7 +19,7 @@ jobs:
     - name: Install Ada tools
       run: |
         cd lib
-        alr with gnatdoc
+        alr toolchain --install gnatdoc
         alr toolchain
         alr version
         alr install --info

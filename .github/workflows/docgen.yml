@@ -24,8 +24,9 @@ jobs:
         alr version
         alr install --info
 
-    # - name: Generate doc
-    #   run: |
-    #     find /home/runner -name "gnatdoc" -type f
+    - name: Generate doc
+      run: |
+        ls -la /home/runner
+        find /home/runner -name "gnatdoc" -type f
     #     # cd lib
     #     # alr exec -- gnatdoc -P uhppoted_lib_ada.gpr

@@ -21,3 +21,8 @@ jobs:
         cd lib
         alr with gnatdoc
         alr toolchain
+
+    - name: Generate doc
+      run: |
+        cd lib
+        gnatdoc -P uhppoted_lib_ada.gpr

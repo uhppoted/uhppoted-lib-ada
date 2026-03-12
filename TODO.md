@@ -26,24 +26,14 @@
      - [ ] Listener_Record => Listener_Type
 
 - [ ] UDP
-    - [x] controlled types for sockets
-    - [x] controlled types for selectors
-    - [x] fix selector logic
     - [x] dump
-       - [x] received
-       - [x] send
     - [ ] Connect
     - [ ] send loop
     - [ ] listen
     - [ ] ada-doc
 
 - [x] TCP
-    - [x] controlled types for sockets
-    - [x] controlled types for selectors
-    - [x] ~~fix selector logic~~
     - [x] dump
-       - [x] received
-       - [x] send
     - [ ] send loop
     - [ ] ada-doc
 

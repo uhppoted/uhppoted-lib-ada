@@ -57,6 +57,16 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Set_Time;
 
+   --  Encodes a get-listener request as a 64 byte array.
+   function Get_Listener (Controller : Unsigned_32) return Packet is
+      Request : Get_Listener_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+
+      return Buffer;
+   end Get_Listener;
+
    --  Encodes a get-status request as a 64 byte array.
    function Get_Status (Controller : Unsigned_32) return Packet is
       Request : Get_Status_Request;

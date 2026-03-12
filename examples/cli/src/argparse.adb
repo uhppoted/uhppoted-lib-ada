@@ -1,3 +1,4 @@
+with Interfaces;
 with GNAT.Command_Line;
 with GNAT.Sockets;
 
@@ -8,6 +9,8 @@ package body ArgParse is
    use Uhppoted.Lib;
 
    function Parse (Cmd : String) return Args is
+      pragma Unreferenced (Cmd);
+
       Config     : Command_Line_Configuration;
       Controller : aliased Integer := 0;
    begin
@@ -65,4 +68,3 @@ end ArgParse;
 --     Put_Line ("Output file: " & Output.all);
 --     GNAT.Strings.Free (Output);   -- free when done
 --  end if;
-

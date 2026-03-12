@@ -28,7 +28,6 @@ end Uhppoted.Lib.Integration_Tests.Expected;
 {{- define "statusxx" }}({{ .Returns.Value }}{{ end }}
 
 {{- define "status" }}({{ with $v := .Returns.Value }}
-        ID               => {{ get $v "controller" }},
         System_Date_Time => {{ get $v "system.datetime"}},
         Doors => [1 => (Open     => {{ get $v "door-1.open"     }},
                         Button   => {{ get $v "door-1.button"   }},

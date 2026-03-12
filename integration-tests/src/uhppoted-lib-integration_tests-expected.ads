@@ -46,7 +46,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
    Set_Time : constant DateTime := (Year => 2025, Month => 11, Day => 1, Hour => 12, Minute => 34, Second => 56);
 
    Get_Status : constant Controller_Status := (
-        ID               => 405419896,
         System_Date_Time => (Year => 2022, Month => 8, Day => 23, Hour => 9, Minute => 49, Second => 39),
         Doors => [1 => (Open     => False,
                         Button   => False,
@@ -75,7 +74,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
                   Reason         => 44));
 
    Get_Status_No_Event : constant Controller_Status := (
-        ID               => 405419897,
         System_Date_Time => (Year => 2025, Month => 11, Day => 23, Hour => 14, Minute => 37, Second => 53),
         Doors => [1 => (Open     => True,
                         Button   => True,

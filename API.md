@@ -4,6 +4,7 @@
 - [`Set_IPv4`](#set_ipv4)
 - [`Get_Time`](#get_time)
 - [`Set_Time`](#set_time)
+- [`Get_Listener`](#get_listener)
 - [`Get_Status`](#get_status)
 
 ---
@@ -273,6 +274,38 @@ Raises:
 - `Invalid_Response_Error` if the returned response is incorrect
 
 
+### `Listener`
+
+**Get_Listener** retrieves the controller event listener address:port and auto-send interval.
+
+```
+function Get_Listener (U       : UHPPOTE;
+                       C       : Unsigned_32; 
+                       Timeout : Duration) return Listener_Record;
+
+function Get_Listener (U       : Uhppoted.Lib.UHPPOTE;
+                       C       : Controller;
+                       Timeout : Duration) return Listener_Record;
+
+where:
+- U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C        Unsigned_32     Controller serial number.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
+
+Returns a `Listener_Record`:
+```
+   type Listener_Record is record
+      AddrPort : GNAT.Sockets.Sock_Addr_Type;
+      Interval : Unsigned_8;
+   end record;
+```
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
 ### `Get_Status`
 
 **Get_Status** retrieves the controller current state.
@@ -295,7 +328,6 @@ where:
 Returns a `Controller_Status`:
 ```
    type Controller_Status is record
-      ID               : Unsigned_32;
       System_Date_Time : DateTime;
       Doors            : Doors_Type;
       Alarms           : Alarms_Type;
@@ -335,5 +367,4 @@ where:
 Raises:
 - `Timeout_Error` if the controller does not respond
 - `Invalid_Response_Error` if the returned response is incorrect
-
 

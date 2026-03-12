@@ -238,11 +238,6 @@ var GetStatusRecord = types.Function{
 					},
 					Response: []types.Value{
 						{
-							Name:  "controller",
-							Type:  "uint32",
-							Value: 405419896,
-						},
-						{
 							Name:  "system.datetime",
 							Type:  "datetime",
 							Value: "2022-08-23 09:49:39",

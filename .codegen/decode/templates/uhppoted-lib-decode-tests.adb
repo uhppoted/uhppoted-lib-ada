@@ -5,6 +5,9 @@ package body Uhppoted.Lib.Decode.Tests is
    use AUnit.Assertions;
    use Ada.Strings.Unbounded;
 
+   use Uhppoted.Lib.Types;
+   use Uhppoted.Lib.Responses;
+
    overriding function Name (T : Decoder_Test) return AUnit.Message_String is
    begin
       return AUnit.Format ("decoder tests");

@@ -28,6 +28,13 @@ package Uhppoted.Lib.Responses is
       Date_Time   : DateTime;
    end record;
 
+   type Get_Listener_Response is record
+      Controller : Unsigned_32;
+      Address    : IPv4;
+      Port       : Unsigned_16;
+      Interval   : Unsigned_8;
+   end record;
+
    type Relay_State  is mod 256;
    type Inputs_State is mod 256;
 

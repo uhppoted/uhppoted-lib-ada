@@ -1,36 +1,16 @@
 with Ada.Strings;
 with Ada.Strings.Fixed;
-with Ada.Strings.Unbounded;
-with Uhppoted.Lib.Replies;
 
 package body Uhppoted.Lib.Decode is
    use Ada.Strings;
    use Ada.Strings.Fixed;
    use Ada.Strings.Unbounded;
+
+   use Uhppoted.Lib.Types;
    use Uhppoted.Lib.Replies;
+   use Uhppoted.Lib.Responses;
 
-   --  Translates a BCD coded string in a byte array to a string.
-   function BCD_To_String (Bytes : BCD) return String;
-
-   --  Translates a BCD coded version to a vN.NN formatted string.
-   function Unpack_Version (V : Version_Field) return Unbounded_String;
-
-   --  Translates an Unsigned_8 into a Boolean.
-   function Unpack_Boolean (B : Unsigned_8) return Boolean;
-
-   --  Translates a BCD coded date to a DateOnly.
-   function Unpack_Date (Bytes : BCD) return DateOnly;
-
-   --  Translates a BCD coded YYMMDD date to a DateOnly.
-   function Unpack_Short_Date (Bytes : BCD) return DateOnly;
-
-   --  Translates a BCD coded time to a TimeOnly.
-   function Unpack_Time (Bytes : BCD) return TimeOnly;
-
-   --  Translates a BCD coded date/time to a DateTime.
-   function Unpack_Date_Time (Bytes : BCD) return DateTime;
-
-   --  Decodes a 64 byte get-controller response as a Get_Controller_Response record.
+   --  Decodes a 64 byte get-controller reply as a Get_Controller_Response record.
    function Get_Controller (Reply : Packet) return Responses.Get_Controller_Response is
       R : Replies.Get_Controller_Response with Import, Address => Reply'Address;
    begin
@@ -43,7 +23,7 @@ package body Uhppoted.Lib.Decode is
               Date        => Unpack_Date (R.Date));
    end Get_Controller;
 
-   --  Decodes a 64 byte set-IPv4 response as a Set_IPv4_Response record.
+   --  Decodes a 64 byte set-IPv4 reply as a Set_IPv4_Response record.
    function Set_IPv4 (Reply : Packet) return Responses.Set_IPv4_Response is
       R : Replies.Set_IPv4_Response with Import, Address => Reply'Address;
    begin
@@ -51,7 +31,7 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Set_IPv4;
 
-   --  Decodes a 64 byte get-time response as a Get_Time_Response record.
+   --  Decodes a 64 byte get-time reply as a Get_Time_Response record.
    function Get_Time (Reply : Packet) return Responses.Get_Time_Response is
       R : Replies.Get_Time_Response with Import, Address => Reply'Address;
    begin
@@ -59,7 +39,17 @@ package body Uhppoted.Lib.Decode is
               Date_Time   => Unpack_Date_Time (R.Date_Time));
    end Get_Time;
 
-   --  Decodes a 64 byte set-time response as a Set_Time_Response record.
+   --  Decodes a 64 byte get-time reply as a Get_Time_Response record.
+   function Get_Listener (Reply : Packet) return Responses.Get_Listener_Response is
+      R : Replies.Get_Listener_Response with Import, Address => Reply'Address;
+   begin
+      return (Controller => R.Controller,
+              Address    => R.Address,
+              Port       => R.Port,
+              Interval   => R.Interval);
+   end Get_Listener;
+
+   --  Decodes a 64 byte set-time reply as a Set_Time_Response record.
    function Set_Time (Reply : Packet) return Responses.Set_Time_Response is
       R : Replies.Set_Time_Response with Import, Address => Reply'Address;
    begin
@@ -67,7 +57,7 @@ package body Uhppoted.Lib.Decode is
               Date_Time   => Unpack_Date_Time (R.Date_Time));
    end Set_Time;
 
-   --  Decodes a 64 byte get-status response as a Get_Status_Response record.
+   --  Decodes a 64 byte get-status reply as a Get_Status_Response record.
    function Get_Status (Reply : Packet) return Responses.Get_Status_Response is
       R : Replies.Get_Status_Response with Import, Address => Reply'Address;
    begin

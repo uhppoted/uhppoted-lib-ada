@@ -11,6 +11,7 @@ package Uhppoted.Lib.Encode.Tests is
    procedure Test_Encode_Set_IPv4 (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Get_Time (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Set_Time (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Encode_Get_Listener (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Get_Status (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Encode.Tests;

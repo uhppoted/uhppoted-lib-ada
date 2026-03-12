@@ -6,6 +6,7 @@ package Uhppoted.Lib.Requests is
 
    type BCD7 is array (1 .. 7) of Unsigned_8;
 
+   --  Message definition for a get-controller request.
    type Get_Controller_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Controller;
@@ -26,6 +27,7 @@ package Uhppoted.Lib.Requests is
    for Get_Controller_Request'Bit_Order use System.Low_Order_First;
    for Get_Controller_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a set-IPv4 request.
    type Set_IPv4_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_IPv4;
@@ -54,6 +56,7 @@ package Uhppoted.Lib.Requests is
    for Set_IPv4_Request'Bit_Order use System.Low_Order_First;
    for Set_IPv4_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a get-time request.
    type Get_Time_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Time;
@@ -74,6 +77,7 @@ package Uhppoted.Lib.Requests is
    for Get_Time_Request'Bit_Order use System.Low_Order_First;
    for Get_Time_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a set-time request.
    type Set_Time_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Time;
@@ -96,6 +100,28 @@ package Uhppoted.Lib.Requests is
    for Set_Time_Request'Bit_Order use System.Low_Order_First;
    for Set_Time_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a get-listener request.
+   type Get_Listener_Request is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Get_Listener;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
+   end record;
+
+   for Get_Listener_Request use record
+      SOM        at 0 range 0 .. 7;
+      OpCode     at 1 range 0 .. 7;
+      Reserved   at 2 range 0 .. 15;
+      Controller at 4 range 0 .. 31;
+      Padding    at 8 range 0 .. 447;
+   end record;
+
+   for Get_Listener_Request'Size use 64 * 8;
+   for Get_Listener_Request'Bit_Order use System.Low_Order_First;
+   for Get_Listener_Request'Scalar_Storage_Order use System.Low_Order_First;
+
+   --  Message definition for a get-status request.
    type Get_Status_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Status;

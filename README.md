@@ -24,6 +24,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Set_IPv4`](API.md#set_ipv4)
 - [`Get_Time`](API.md#get_time)
 - [`Set_Time`](API.md#set_time)
+- [`Get_Listener`](API.md#get_listener)
 - [`Get_Status`](API.md#get_status)
 
 

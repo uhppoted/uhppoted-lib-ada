@@ -1,5 +1,6 @@
 with Interfaces;
 with Ada.Strings.Unbounded;
+with GNAT.Sockets;
 
 package Uhppoted.Types is
    use Ada.Strings.Unbounded;
@@ -42,6 +43,11 @@ package Uhppoted.Types is
 
    type Controller_Record_List is array (Positive range <>) of Controller_Record;
 
+   type Listener_Record is record
+      AddrPort : GNAT.Sockets.Sock_Addr_Type;
+      Interval : Unsigned_8;
+   end record;
+
    type Door_Type is record
       Open     : Boolean;
       Button   : Boolean;
@@ -68,7 +74,6 @@ package Uhppoted.Types is
    end record;
 
    type Controller_Status is record
-      ID               : Unsigned_32;
       System_Date_Time : DateTime;
       Doors            : Doors_Type;
       Alarms           : Alarms_Type;

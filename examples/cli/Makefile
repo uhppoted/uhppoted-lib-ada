@@ -28,6 +28,9 @@ get-time: build
 set-time: build
 	$(CLI) set-time --controller "$(CONTROLLER)"
 
+get-listener: build
+	$(CLI) get-listener --controller "$(CONTROLLER)"
+
 get-status: build
 	$(CLI) get-status --controller "$(CONTROLLER)"
 

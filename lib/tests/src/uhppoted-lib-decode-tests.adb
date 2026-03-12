@@ -5,6 +5,9 @@ package body Uhppoted.Lib.Decode.Tests is
    use AUnit.Assertions;
    use Ada.Strings.Unbounded;
 
+   use Uhppoted.Lib.Types;
+   use Uhppoted.Lib.Responses;
+
    overriding function Name (T : Decoder_Test) return AUnit.Message_String is
    begin
       return AUnit.Format ("decoder tests");
@@ -17,6 +20,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Set_IPv4'Access,     "test decode Set_IPv4 response");
       Register_Routine (T, Test_Decode_Get_Time'Access,     "test decode Get_Time response");
       Register_Routine (T, Test_Decode_Set_Time'Access,     "test decode Set_Time response");
+      Register_Routine (T, Test_Decode_Get_Listener'Access, "test decode Get_Listener response");
       Register_Routine (T, Test_Decode_Get_Status'Access,   "test decode Get_Status response");
    end Register_Tests;
 
@@ -100,6 +104,27 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded set-time response: got" & Response'Image);
    end Test_Decode_Set_Time;
+
+   procedure Test_Decode_Get_Listener (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Get_Listener_Response := (
+         Controller => 405419896,
+         Address    => [192, 168, 1, 100],
+         Port       => 60001,
+         Interval   => 17);
+
+      Reply : constant Packet := [
+         16#17#, 16#92#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#c0#, 16#a8#, 16#01#, 16#64#, 16#61#, 16#ea#, 16#11#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Get_Listener_Response := Uhppoted.Lib.Decode.Get_Listener (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded get-listener response: got" & Response'Image);
+   end Test_Decode_Get_Listener;
 
    procedure Test_Decode_Get_Status (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

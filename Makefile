@@ -38,5 +38,8 @@ get-time: build
 set-time: build
 	cd examples/cli && make set-time
 
+get-listener: build
+	cd examples/cli && make get-listener
+
 get-status: build
 	cd examples/cli && make get-status

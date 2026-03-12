@@ -143,6 +143,17 @@ package body Handlers is
       Put_Line ("");
    end Set_Time;
 
+   --  Executes the get-listener command.
+   procedure Get_Listener (Args : ArgParse.Args) is
+      R : constant Listener_Record := Get_Listener (U, Args.Controller, Timeout);
+   begin
+      Put_Line ("--- get-listener");
+      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("  address:port: " & Image (R.AddrPort));
+      Put_Line ("  interval:    " & R.Interval'Image);
+      Put_Line ("");
+   end Get_Listener;
+
    --  Executes the get-status command.
    procedure Get_Status (Args : ArgParse.Args) is
       R : constant Controller_Status := Get_Status (U, Args.Controller, Timeout);

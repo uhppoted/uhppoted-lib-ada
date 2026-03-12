@@ -7,17 +7,23 @@
 - https://github.com/simonjwright/alire-index.mac
 - https://alire.ada.dev/transition_from_gnat_community.html
 
-- [ ] check SOM in decode
-- [ ] check opcode in decode
-- [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
-- [ ] enums for event-type, event-reason, event-direction
-
 - [x] find-controllers
 - [x] get-controller
 - [x] set-IPv4
 - [x] get-time
 - [x] set-time
 - [x] get-status
+- [ ] get-listener
+    - [ ] integration tests
+
+- [ ] check SOM in decode
+- [ ] check opcode in decode
+- [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
+- [ ] enums for event-type, event-reason, event-direction
+- [ ] rename
+     - [ ] Controller_Record => Controller_Type
+     - [ ] Controller_Status => Status_Type
+     - [ ] Listener_Record => Listener_Type
 
 - [ ] UDP
     - [x] controlled types for sockets
@@ -26,6 +32,7 @@
     - [ ] dump
        - [x] received
        - [ ] send
+    - [ ] send loop
     - [ ] listen
     - [ ] ada-doc
 
@@ -36,6 +43,7 @@
     - [ ] dump
        - [x] received
        - [ ] send
+    - [ ] send loop
     - [ ] ada-doc
 
 - [ ] CLI
@@ -44,13 +52,6 @@
     - [ ] pretty print
 
 - [ ] integration tests
-    - [x] UDP
-    - [x] TCP
-    - [x] search messages list
-    - [x] Figure out how to run both test suites
-    - [x] Fix selector logic for multiple tests
-    - [x] Fix listen timeout
-    - [x] 'Expected' package
     - [ ] Invalid response test
         - [ ] invalid SOM
         - [ ] invalid op-code
@@ -59,10 +60,6 @@
     - [ ] v6.62
 
 - [ ] codegen
-    - [x] encode unit tests
-    - [x] decode unit tests
-    - [x] integration tests: messages
-    - [x] integration tests: expected
     - [ ] default integration tests
     - [ ] UDP integration tests
     - [ ] TCP integration tests

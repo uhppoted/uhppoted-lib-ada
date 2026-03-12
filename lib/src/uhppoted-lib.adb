@@ -168,6 +168,33 @@ package body Uhppoted.Lib is
       return R.Date_Time;
    end Set_Time;
 
+   --  Retrieves the access controller listener address:port and auto-send interval. Restricted to the local LAN.
+   function Get_Listener (U : UHPPOTE;
+                          C : Unsigned_32;
+                          Timeout : Duration := 2.5) return Listener_Record is
+   begin
+      return Get_Listener (U, To_Controller (C), Timeout);
+   end Get_Listener;
+
+   --  Retrieves the access controller listener address:port and auto-send interval.
+   function Get_Listener (U : UHPPOTE;
+                          C : Controller;
+                          Timeout : Duration := 2.5) return Listener_Record is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Listener (C.ID);
+      Reply   : Packet;
+      R       : Get_Listener_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Listener (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (AddrPort => Network_Socket_Address (Addr => Inet_Addr (Image (R.Address)), Port => Port_Type (R.Port)),
+              Interval => R.Interval);
+   end Get_Listener;
+
    --  Retrieves the access controller status. Restricted to the local LAN.
    function Get_Status (U       : UHPPOTE;
                         C       : Unsigned_32;
@@ -191,8 +218,7 @@ package body Uhppoted.Lib is
          raise Invalid_Response_Error;
       end if;
 
-      return (ID               => R.Controller,
-              System_Date_Time => (Year   => R.System_Date.Year,
+      return (System_Date_Time => (Year   => R.System_Date.Year,
                                    Month  => R.System_Date.Month,
                                    Day    => R.System_Date.Day,
                                    Hour   => R.System_Time.Hour,

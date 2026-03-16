@@ -1,5 +1,6 @@
 with Uhppoted.Lib.Decode.Tests;
 with Uhppoted.Lib.Encode.Tests;
+with Uhppoted.Lib.Decode.Invalid_SOM_Tests;
 
 package body Uhppoted.Lib.Test_Suite is
    use AUnit.Test_Suites;
@@ -7,11 +8,13 @@ package body Uhppoted.Lib.Test_Suite is
    Result : aliased AUnit.Test_Suites.Test_Suite;
    DecoderTest : aliased Uhppoted.Lib.Decode.Tests.Decoder_Test;
    EncoderTest : aliased Uhppoted.Lib.Encode.Tests.Encoder_Test;
+   SOMTest     : aliased Uhppoted.Lib.Decode.Invalid_SOM_Tests.SOM_Test;
 
    function Suite return Access_Test_Suite is
    begin
       Add_Test (Result'Access, EncoderTest'Access);
       Add_Test (Result'Access, DecoderTest'Access);
+      Add_Test (Result'Access, SOMTest'Access);
 
       return Result'Access;
    end Suite;

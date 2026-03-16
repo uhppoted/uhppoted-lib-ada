@@ -1,7 +1,7 @@
 package decode
 
 import (
-	_ "embed"
+	"embed"
 	"fmt"
 	"log"
 	"os"
@@ -14,11 +14,8 @@ import (
 	"codegen/model"
 )
 
-//go:embed templates/uhppoted-lib-decode-tests.ads
-var ads string
-
-//go:embed templates/uhppoted-lib-decode-tests.adb
-var adb string
+//go:embed templates/*
+var templateFS embed.FS
 
 type test struct {
 	Name        string
@@ -31,38 +28,33 @@ type test struct {
 func UnitTests() {
 	log.Println("   ... generating decode unit tests")
 
-	tests := transmogrify(model.Responses)
+	templates := template.New("decoder-tests")
+	funcs := codegen.Functions
 
-	decodeTestsADS(tests)
-	decodeTestsADB(tests)
-}
-
-func decodeTestsADS(tests []test) {
-	const file = "../lib/tests/src/uhppoted-lib-decode-tests.ads"
-
-	if f, err := os.Create(file); err != nil {
-		log.Fatalf("%v", err)
+	if templates, err := templates.Funcs(funcs).ParseFS(templateFS, "templates/*"); err != nil {
+		log.Fatal(err)
 	} else {
-		defer f.Close()
+		tests := transmogrify(model.Responses)
 
-		var data = struct {
-			Tests []test
-		}{
-			Tests: tests,
-		}
-
-		tmpl := template.Must(template.New("decode-tests").Funcs(codegen.Functions).Parse(ads))
-		if err := tmpl.Execute(f, data); err != nil {
-			log.Fatalf("%v", err)
-		}
-
-		log.Printf("... generated %s", file)
+		decodeTestsADS(templates, tests)
+		decodeTestsADB(templates, tests)
+		invalidSOMADS(templates, tests)
 	}
 }
 
-func decodeTestsADB(tests []test) {
-	const file = "../lib/tests/src/uhppoted-lib-decode-tests.adb"
+func decodeTestsADS(templates *template.Template, tests []test) {
+	generate(templates, tests, "uhppoted-lib-decode-tests.ads", "../lib/tests/src/uhppoted-lib-decode-tests.ads")
+}
 
+func decodeTestsADB(templates *template.Template, tests []test) {
+	generate(templates, tests, "uhppoted-lib-decode-tests.adb", "../lib/tests/src/uhppoted-lib-decode-tests.adb")
+}
+
+func invalidSOMADS(templates *template.Template, tests []test) {
+	generate(templates, tests, "invalid-SOM-tests.ads", "../lib/tests/src/uhppoted-lib-decode-invalid_SOM_tests.ads")
+}
+
+func generate(templates *template.Template, tests []test, template string, file string) {
 	if f, err := os.Create(file); err != nil {
 		log.Fatalf("%v", err)
 	} else {
@@ -74,8 +66,7 @@ func decodeTestsADB(tests []test) {
 			Tests: tests,
 		}
 
-		tmpl := template.Must(template.New("decode-tests").Funcs(codegen.Functions).Parse(adb))
-		if err := tmpl.Execute(f, data); err != nil {
+		if err := templates.ExecuteTemplate(f, template, data); err != nil {
 			log.Fatalf("%v", err)
 		}
 

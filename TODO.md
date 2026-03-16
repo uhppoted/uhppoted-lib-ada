@@ -55,6 +55,8 @@
     - [ ] default integration tests
     - [ ] UDP integration tests
     - [ ] TCP integration tests
+    - [ ] invalid SOM unit test
+    - [ ] invalid op-code unit test
 
 - [ ] fix _Library_Interface_ in .gpr file
 ```

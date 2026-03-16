@@ -8,6 +8,7 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
      (Set_IPv4_Request,         Set_IPv4_Reply),
      (Get_Time_Request,         Get_Time_Reply),
      (Set_Time_Request,         Set_Time_Reply),
+     (Get_Listener_Request,     Get_Listener_Reply),
      (Get_Status_Request,       Get_Status_Reply),
      (Get_Status_No_Event_Request, Get_Status_No_Event_Reply)
    ];

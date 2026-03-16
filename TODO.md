@@ -13,8 +13,8 @@
 - [x] get-time
 - [x] set-time
 - [x] get-status
-- [ ] get-listener
-    - [ ] integration tests
+- [x] get-listener
+    - [x] integration tests
 
 - [ ] check SOM in decode
 - [ ] check opcode in decode

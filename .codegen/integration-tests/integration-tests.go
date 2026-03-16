@@ -44,6 +44,7 @@ var translations = map[string]string{
 	"get time response":         "DateTime",
 	"set time response":         "DateTime",
 	"get status response":       "Controller_Status",
+	"get listener response":     "Listener_Record",
 }
 
 func IntegrationTests() {
@@ -59,6 +60,7 @@ func IntegrationTests() {
 	funcs["field"] = field
 	funcs["value"] = value
 	funcs["get"] = get
+	funcs["gets"] = gets
 
 	if templates, err := templates.Funcs(funcs).ParseFS(templateFS, "templates/*"); err != nil {
 		log.Fatal(err)
@@ -70,6 +72,7 @@ func IntegrationTests() {
 		messagesADS(templates, functions)
 		messagesADB(templates, functions)
 		expectedADS(templates, functions)
+		defaultADS(templates, functions)
 	}
 }
 
@@ -140,25 +143,15 @@ func messagesADS(templates *template.Template, tests []test) {
 }
 
 func messagesADB(templates *template.Template, tests []test) {
-	const file = "../integration-tests/src/uhppoted-lib-integration_tests-stub-messages.adb"
+	generate(templates, tests, "messages.adb", "../integration-tests/src/uhppoted-lib-integration_tests-stub-messages.adb")
+}
 
-	if f, err := os.Create(file); err != nil {
-		log.Fatalf("%v", err)
-	} else {
-		defer f.Close()
+func expectedADS(templates *template.Template, tests []test) {
+	generate(templates, tests, "expected.ads", "../integration-tests/src/uhppoted-lib-integration_tests-expected.ads")
+}
 
-		var data = struct {
-			Tests []test
-		}{
-			Tests: tests,
-		}
-
-		if err := templates.ExecuteTemplate(f, "messages.adb", data); err != nil {
-			log.Fatalf("%v", err)
-		}
-
-		log.Printf("... generated %s", file)
-	}
+func defaultADS(templates *template.Template, tests []test) {
+	generate(templates, tests, "default.ads", "../integration-tests/src/uhppoted-lib-integration_tests-default.ads")
 }
 
 func transmogrify(functions []lib.Function) []test {
@@ -226,6 +219,10 @@ func response(f lib.Function, t lib.FuncTest) returns {
 			r.Template = "controller"
 			r.Value = t.Replies[0].Response
 
+		case "Listener_Record":
+			r.Template = "listener"
+			r.Value = t.Replies[0].Response
+
 		case "Controller_Status":
 			r.Template = "status"
 			r.Value = t.Replies[0].Response
@@ -233,10 +230,6 @@ func response(f lib.Function, t lib.FuncTest) returns {
 	}
 
 	return r
-}
-
-func expectedADS(templates *template.Template, tests []test) {
-	generate(templates, tests, "expected.ads", "../integration-tests/src/uhppoted-lib-integration_tests-expected.ads")
 }
 
 func generate(templates *template.Template, tests []test, template string, file string) {
@@ -319,23 +312,23 @@ func field(v string) string {
 
 func value(t string, v any) string {
 	switch v {
-	case "controller":
-		return "ID"
+	// case "controller":
+	// 	return "ID"
 
-	case "ip address":
-		return "Address"
+	// case "ip address":
+	// 	return "Address"
 
-	case "subnet mask":
-		return "Netmask"
+	// case "subnet mask":
+	// 	return "Netmask"
 
-	case "gateway":
-		return "Gateway"
+	// case "gateway":
+	// 	return "Gateway"
 
-	case "MAC address":
-		return "MAC"
+	// case "MAC address":
+	// 	return "MAC"
 
-	case "version":
-		return "Firmware"
+	// case "version":
+	// 	return "Firmware"
 
 	default:
 		return codegen.AdaValue(t, v)
@@ -346,6 +339,16 @@ func get(values []lib.Value, key string) any {
 	for _, v := range values {
 		if v.Name == key {
 			return value(v.Type, v.Value)
+		}
+	}
+
+	panic(fmt.Sprintf("unknown field (%v)", key))
+}
+
+func gets(values []lib.Value, key string) string {
+	for _, v := range values {
+		if v.Name == key {
+			return fmt.Sprintf("%v", v.Value)
 		}
 	}
 

@@ -12,9 +12,8 @@ var API = []types.Function{
 	SetIPv4,
 	GetTime,
 	SetTime,
-	// GetStatus,
+	GetListener,
 	GetStatusRecord,
-	// &GetListener,
 	// &SetListener,
 	// &GetListenerAddrPort,
 	// &SetListenerAddrPort,
@@ -45,6 +44,9 @@ var API = []types.Function{
 	// &SetAntiPassback,
 	// &RestoreDefaultParameters,
 }
+
+// -- not implemented --
+// GetStatus,
 
 // var UDP = []*types.Function{
 // 	&GetController,

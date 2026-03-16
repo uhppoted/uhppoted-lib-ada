@@ -23,11 +23,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
          Addr => Inet_Addr ("0.0.0.0"),
          Port => 60001),
 
-      Debug => True);
+      Debug => False);
 
    C : constant Controller := (ID       => 405419896,
-                               DestAddr => (Family => Family_Inet, 
-                                            Addr => Inet_Addr ("127.0.0.1"), 
+                               DestAddr => (Family => Family_Inet,
+                                            Addr => Inet_Addr ("127.0.0.1"),
                                             Port => 60004),
                                Protocol => Uhppoted.Lib.UDP);
 
@@ -43,6 +43,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       Register_Routine (T, Test_Set_IPv4'Access,            "Set_IPv4");
       Register_Routine (T, Test_Get_Time'Access,            "Test Get_Time");
       Register_Routine (T, Test_Set_Time'Access,            "Set_Time");
+      Register_Routine (T, Test_Get_Listener'Access,        "Get_Listener");
       Register_Routine (T, Test_Get_Status'Access,          "Get_Status");
       Register_Routine (T, Test_Get_Status_No_Event'Access, "Get_Status (no event)");
    end Register_Tests;
@@ -88,6 +89,14 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       Assert (V = Expected.Set_Time, "invalid controller date/time" & V'Image);
    end Test_Set_Time;
 
+   procedure Test_Get_Listener (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      V : constant Listener_Record := Get_Listener (U, C);
+   begin
+      Assert (V = Expected.Get_Listener, "invalid controller listener" & V'Image);
+   end Test_Get_Listener;
+
    procedure Test_Get_Status (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
@@ -100,12 +109,12 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       pragma Unreferenced (T);
 
       C : constant Controller := (ID       => 405419897,
-                                  DestAddr => (Family => Family_Inet, 
-                                               Addr => Inet_Addr ("127.0.0.1"), 
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
                                                Port => 60004),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Controller_Status := Get_Status (U, c);
+      V : constant Controller_Status := Get_Status (U, C);
    begin
       Assert (V = Expected.Get_Status_No_Event, "invalid controller status" & V'Image);
    end Test_Get_Status_No_Event;

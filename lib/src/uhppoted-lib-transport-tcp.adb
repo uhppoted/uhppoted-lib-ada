@@ -37,15 +37,10 @@ package body Uhppoted.Lib.Transport.TCP is
       Write_Set : Socket_Set_Type;
       Status    : Selector_Status;
       Deadline  : constant Time := Clock + Timeout;
-      Remaining : constant Duration := Deadline - Clock;
 
    begin
       Bind_Socket    (Sock.Client, Bind);
       Connect_Socket (Sock.Client, DestAddr);
-
-      Empty (Read_Set);
-      Empty (Write_Set);
-      Set   (Read_Set, Sock.Client);
 
       Send_Socket (Sock.Client, To_Stream (Request), Offset);
       if U.Debug then
@@ -63,30 +58,45 @@ package body Uhppoted.Lib.Transport.TCP is
          return Reply;
       end if;
 
-      if Remaining <= 0.0 then
-         raise Timeout_Error;
-      end if;
+      loop
+         declare
+            Remaining : Duration;
 
-      Check_Selector (Selector.Selector,
-                      R_Socket_Set => Read_Set,
-                      W_Socket_Set => Write_Set,
-                      Status       => Status,
-                      Timeout      => Remaining);
+         begin
+            Remaining := Deadline - Clock;
 
-      case Status is
-         when Completed =>
-            Receive_Socket (Sock.Client, Buffer, Offset);
-            Reply := To_Packet (Buffer);
-
-            if U.Debug then
-               Dump ("... received from " & Image (DestAddr) & " (TCP)", Reply);
+            if Remaining <= 0.0 then
+               raise Timeout_Error;
             end if;
 
-         when Expired | Aborted =>
-            raise Timeout_Error;
-      end case;
+            Empty (Read_Set);
+            Empty (Write_Set);
+            Set   (Read_Set, Sock.Client);
 
-      return Reply;
+            Check_Selector (Selector.Selector,
+                            R_Socket_Set => Read_Set,
+                            W_Socket_Set => Write_Set,
+                            Status       => Status,
+                            Timeout      => Remaining);
+
+            case Status is
+               when Completed =>
+                  Receive_Socket (Sock.Client, Buffer, Offset);
+                  if Offset = 64 then
+                     Reply := To_Packet (Buffer);
+
+                     if U.Debug then
+                        Dump ("... received from " & Image (DestAddr) & " (TCP)", Reply);
+                     end if;
+
+                     return Reply;
+                  end if;
+
+               when Expired | Aborted =>
+                  raise Timeout_Error;
+            end case;
+         end;
+      end loop;
    end Send;
 
 end Uhppoted.Lib.Transport.TCP;

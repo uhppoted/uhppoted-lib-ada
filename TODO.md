@@ -28,13 +28,14 @@
 - [ ] UDP
     - [x] dump
     - [x] connect
-    - [ ] send loop
+    - [x] send loop
     - [ ] listen
     - [ ] ada-doc
 
 - [x] TCP
     - [x] dump
-    - [ ] send loop
+    - [x] send loop
+    - [ ] non-blocking connect
     - [ ] ada-doc
 
 - [ ] CLI

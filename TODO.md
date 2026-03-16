@@ -16,8 +16,8 @@
 - [x] get-listener
     - [x] integration tests
 
-- [ ] check SOM in decode
-- [ ] check opcode in decode
+- [x] check SOM in decode
+- [x] check opcode in decode
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 - [ ] enums for event-type, event-reason, event-direction
 - [ ] rename

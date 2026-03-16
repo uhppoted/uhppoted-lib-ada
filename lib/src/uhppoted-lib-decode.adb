@@ -1,5 +1,6 @@
 with Ada.Strings;
 with Ada.Strings.Fixed;
+with Uhppoted.Lib.Codec;
 
 package body Uhppoted.Lib.Decode is
    use Ada.Strings;
@@ -7,6 +8,7 @@ package body Uhppoted.Lib.Decode is
    use Ada.Strings.Unbounded;
 
    use Uhppoted.Lib.Types;
+   use Uhppoted.Lib.Codec;
    use Uhppoted.Lib.Replies;
    use Uhppoted.Lib.Responses;
 
@@ -14,6 +16,14 @@ package body Uhppoted.Lib.Decode is
    function Get_Controller (Reply : Packet) return Responses.Get_Controller_Response is
       R : Replies.Get_Controller_Response with Import, Address => Reply'Address;
    begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Controller then
+         raise Invalid_Response_Error;
+      end if;
+
       return (Controller  => R.Controller,
               IP_Address  => R.Address,
               Subnet_Mask => R.Netmask,
@@ -27,6 +37,14 @@ package body Uhppoted.Lib.Decode is
    function Set_IPv4 (Reply : Packet) return Responses.Set_IPv4_Response is
       R : Replies.Set_IPv4_Response with Import, Address => Reply'Address;
    begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Set_IPv4 then
+         raise Invalid_Response_Error;
+      end if;
+
       return (Controller => R.Controller,
               Ok         => Unpack_Boolean (R.Ok));
    end Set_IPv4;
@@ -35,6 +53,14 @@ package body Uhppoted.Lib.Decode is
    function Get_Time (Reply : Packet) return Responses.Get_Time_Response is
       R : Replies.Get_Time_Response with Import, Address => Reply'Address;
    begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Time then
+         raise Invalid_Response_Error;
+      end if;
+
       return (Controller  => R.Controller,
               Date_Time   => Unpack_Date_Time (R.Date_Time));
    end Get_Time;
@@ -43,6 +69,14 @@ package body Uhppoted.Lib.Decode is
    function Get_Listener (Reply : Packet) return Responses.Get_Listener_Response is
       R : Replies.Get_Listener_Response with Import, Address => Reply'Address;
    begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Listener then
+         raise Invalid_Response_Error;
+      end if;
+
       return (Controller => R.Controller,
               Address    => R.Address,
               Port       => R.Port,
@@ -53,6 +87,14 @@ package body Uhppoted.Lib.Decode is
    function Set_Time (Reply : Packet) return Responses.Set_Time_Response is
       R : Replies.Set_Time_Response with Import, Address => Reply'Address;
    begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Set_Time then
+         raise Invalid_Response_Error;
+      end if;
+
       return (Controller  => R.Controller,
               Date_Time   => Unpack_Date_Time (R.Date_Time));
    end Set_Time;
@@ -61,6 +103,14 @@ package body Uhppoted.Lib.Decode is
    function Get_Status (Reply : Packet) return Responses.Get_Status_Response is
       R : Replies.Get_Status_Response with Import, Address => Reply'Address;
    begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Status then
+         raise Invalid_Response_Error;
+      end if;
+
       return (Controller           => R.Controller,
               System_Date          => Unpack_Short_Date (R.System_Date),
               System_Time          => Unpack_Time (R.System_Time),

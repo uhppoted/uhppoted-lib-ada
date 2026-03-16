@@ -27,7 +27,7 @@
 
 - [ ] UDP
     - [x] dump
-    - [ ] Connect
+    - [x] connect
     - [ ] send loop
     - [ ] listen
     - [ ] ada-doc

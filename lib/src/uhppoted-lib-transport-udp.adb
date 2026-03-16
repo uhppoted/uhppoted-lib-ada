@@ -1,3 +1,4 @@
+with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Streams;
 with Ada.Calendar;
 
@@ -175,13 +176,14 @@ package body Uhppoted.Lib.Transport.UDP is
       Remaining : constant Duration := Deadline - Clock;
 
    begin
-      Bind_Socket (Sock.Client, BindAddr);
+      Bind_Socket    (Sock.Client, BindAddr);
+      Connect_Socket (Sock.Client, DestAddr);
 
       Empty (Read_Set);
       Empty (Write_Set);
       Set (Read_Set, Sock.Client);
 
-      Send_Socket (Sock.Client, To_Stream (Request), Offset, DestAddr);
+      Send_Socket (Sock.Client, To_Stream (Request), Offset);
       if U.Debug then
          Dump ("... sent to " & Image (DestAddr) & " (UDP)", Request);
       end if;

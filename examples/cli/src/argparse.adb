@@ -43,21 +43,19 @@ package body ArgParse is
 
       if Cmd = "set-listener" then
          Define_Switch (Config,
-                        Section => "set-listener",
                         Output      => Listener_Addr'Access,
                         Long_Switch => "--listener:",
                         Help        => "event listener IPv4 address:port",
                         Argument    => "ADDRESS");
 
          Define_Switch (Config,
-                        Section => "set-listener",
                         Output      => Listener_Interval'Access,
                         Long_Switch => "--interval:",
                         Help        => "auto-send interval (seconds)",
                         Argument    => "SECONDS");
       end if;
 
-      Getopt (Config, Section => Cmd, Concatenate => True);
+      Getopt (Config, Concatenate => True);
 
       --  get controller address
       if Controller_Addr /= null and then Controller_Addr.all /= "" then

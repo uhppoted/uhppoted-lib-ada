@@ -65,7 +65,23 @@ package body Uhppoted.Lib.Decode is
               Date_Time   => Unpack_Date_Time (R.Date_Time));
    end Get_Time;
 
-   --  Decodes a 64 byte get-time reply as a Get_Time_Response record.
+   --  Decodes a 64 byte set-time reply as a Set_Time_Response record.
+   function Set_Time (Reply : Packet) return Responses.Set_Time_Response is
+      R : Replies.Set_Time_Response with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Set_Time then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller  => R.Controller,
+              Date_Time   => Unpack_Date_Time (R.Date_Time));
+   end Set_Time;
+
+   --  Decodes a 64 byte get-listener reply as a Get_Listener_Response record.
    function Get_Listener (Reply : Packet) return Responses.Get_Listener_Response is
       R : Replies.Get_Listener_Response with Import, Address => Reply'Address;
    begin
@@ -83,21 +99,21 @@ package body Uhppoted.Lib.Decode is
               Interval   => R.Interval);
    end Get_Listener;
 
-   --  Decodes a 64 byte set-time reply as a Set_Time_Response record.
-   function Set_Time (Reply : Packet) return Responses.Set_Time_Response is
-      R : Replies.Set_Time_Response with Import, Address => Reply'Address;
+   --  Decodes a 64 byte set-listener reply as a Get_Time_Response record.
+   function Set_Listener (Reply : Packet) return Responses.Set_Listener_Response is
+      R : Replies.Set_Listener_Response with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_Time then
+      if R.Opcode /= Codec.Set_Listener then
          raise Invalid_Response_Error;
       end if;
 
-      return (Controller  => R.Controller,
-              Date_Time   => Unpack_Date_Time (R.Date_Time));
-   end Set_Time;
+      return (Controller => R.Controller,
+              Ok         => R.Ok);
+   end Set_Listener;
 
    --  Decodes a 64 byte get-status reply as a Get_Status_Response record.
    function Get_Status (Reply : Packet) return Responses.Get_Status_Response is

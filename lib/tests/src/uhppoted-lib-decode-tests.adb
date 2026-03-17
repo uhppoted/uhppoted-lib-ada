@@ -21,6 +21,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Get_Time'Access,     "test decode Get_Time response");
       Register_Routine (T, Test_Decode_Set_Time'Access,     "test decode Set_Time response");
       Register_Routine (T, Test_Decode_Get_Listener'Access, "test decode Get_Listener response");
+      Register_Routine (T, Test_Decode_Set_Listener'Access, "test decode Set_Listener response");
       Register_Routine (T, Test_Decode_Get_Status'Access,   "test decode Get_Status response");
    end Register_Tests;
 
@@ -125,6 +126,25 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded get-listener response: got" & Response'Image);
    end Test_Decode_Get_Listener;
+
+   procedure Test_Decode_Set_Listener (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Set_Listener_Response := (
+         Controller => 405419896,
+         Ok         => True);
+
+      Reply : constant Packet := [
+         16#17#, 16#90#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Set_Listener_Response := Uhppoted.Lib.Decode.Set_Listener (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded set-listener response: got" & Response'Image);
+   end Test_Decode_Set_Listener;
 
    procedure Test_Decode_Get_Status (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

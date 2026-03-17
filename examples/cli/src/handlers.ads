@@ -7,5 +7,6 @@ package Handlers is
    procedure Get_Time         (Args : ArgParse.Args);
    procedure Set_Time         (Args : ArgParse.Args);
    procedure Get_Listener     (Args : ArgParse.Args);
+   procedure Set_Listener     (Args : ArgParse.Args);
    procedure Get_Status       (Args : ArgParse.Args);
 end Handlers;

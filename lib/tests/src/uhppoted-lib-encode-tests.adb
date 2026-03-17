@@ -18,6 +18,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Get_Time'Access,         "test encode Get_Time request");
       Register_Routine (T, Test_Encode_Set_Time'Access,         "test encode Set_Time request");
       Register_Routine (T, Test_Encode_Get_Listener'Access,     "test encode Get_Listener request");
+      Register_Routine (T, Test_Encode_Set_Listener'Access,     "test encode Set_Listener request");
       Register_Routine (T, Test_Encode_Get_Status'Access,       "test encode Get_Status request");
    end Register_Tests;
 
@@ -120,6 +121,25 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded get-listener request: got" & Request'Image);
    end Test_Encode_Get_Listener;
+
+   procedure Test_Encode_Set_Listener (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#90#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#c0#, 16#a8#, 16#01#, 16#64#, 16#61#, 16#ea#, 16#11#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Listener (
+         405419896,
+         Inet_Addr ("192.168.1.100"),
+         60001,
+         17);
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-listener request: got" & Request'Image);
+   end Test_Encode_Set_Listener;
 
    procedure Test_Encode_Get_Status (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

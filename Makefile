@@ -1,3 +1,10 @@
+CONTROLLER ?= 405419896
+DEST ?= ""
+PROTOCOL ?= default
+
+LISTENER ?= 192.168.1.125:60001
+INTERVAL ?= 0
+
 clean:
 	cd lib && make clean
 
@@ -40,6 +47,9 @@ set-time: build
 
 get-listener: build
 	cd examples/cli && make get-listener
+
+set-listener: build
+	cd examples/cli && make set-listener CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)" LISTENER="$(LISTENER)" INTERVAL="$(INTERVAL)"
 
 get-status: build
 	cd examples/cli && make get-status

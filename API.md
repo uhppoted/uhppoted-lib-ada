@@ -5,6 +5,7 @@
 - [`Get_Time`](#get_time)
 - [`Set_Time`](#set_time)
 - [`Get_Listener`](#get_listener)
+- [`Set_Listener`](#set_listener)
 - [`Get_Status`](#get_status)
 
 ---
@@ -274,7 +275,7 @@ Raises:
 - `Invalid_Response_Error` if the returned response is incorrect
 
 
-### `Listener`
+### `Get_Listener`
 
 **Get_Listener** retrieves the controller event listener address:port and auto-send interval.
 
@@ -300,6 +301,38 @@ Returns a `Listener_Record`:
       Interval : Unsigned_8;
    end record;
 ```
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Set_Listener`
+
+**Set_Listener** set the controller event listener address:port and auto-send interval.
+
+```
+function Set_Listener (U        : UHPPOTE;
+                       C        : Unsigned_32; 
+                       Listener : GNAT.Sockets.Sock_Addr_Type;
+                       Interval : Unsigned_8;
+                       Timeout  : Duration) return Listener_Record;
+
+function Set_Listener (U        : Uhppoted.Lib.UHPPOTE;
+                       C        : Controller;
+                       Listener : GNAT.Sockets.Sock_Addr_Type;
+                       Interval : Unsigned_8;
+                       Timeout  : Duration) return Listener_Record;
+
+where:
+- U         UHPPOTE                      UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C         Unsigned_32                  Controller serial number.
+- C         Controller                   Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Listener  GNAT.Sockets.Sock_Addr_Type  Event listener IPv4 address:port.
+- Interval  Unsigned_8                   Auto-send interval (seconds). 0 for no auto-send.
+```
+
+Returns `True` if the controller event listener and auto-send interval were configured.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

@@ -14,6 +14,7 @@ package body Registry is
       CS.Internal_Map.Insert ("get-time",         Get_Time'Access);
       CS.Internal_Map.Insert ("set-time",         Set_Time'Access);
       CS.Internal_Map.Insert ("get-listener",     Get_Listener'Access);
+      CS.Internal_Map.Insert ("set-listener",     Set_Listener'Access);
       CS.Internal_Map.Insert ("get-status",       Get_Status'Access);
 
       return CS;

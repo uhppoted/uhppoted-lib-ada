@@ -154,6 +154,16 @@ package body Handlers is
       Put_Line ("");
    end Get_Listener;
 
+   --  Executes the set-listener command.
+   procedure Set_Listener (Args : ArgParse.Args) is
+      R : constant Boolean := Set_Listener (U, Args.Controller, Args.Listener, Args.Interval, Timeout);
+   begin
+      Put_Line ("--- set-listener");
+      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("        ok: " & R'Image);
+      Put_Line ("");
+   end Set_Listener;
+
    --  Executes the get-status command.
    procedure Get_Status (Args : ArgParse.Args) is
       R : constant Controller_Status := Get_Status (U, Args.Controller, Timeout);

@@ -3,6 +3,7 @@ with Ada.Strings.Unbounded;
 package Uhppoted.Lib.Responses is
    use Ada.Strings.Unbounded;
 
+   --  Message definition for a get-controller response.
    type Get_Controller_Response is record
       Controller  : Unsigned_32;
       IP_Address  : IPv4;
@@ -13,21 +14,25 @@ package Uhppoted.Lib.Responses is
       Date        : DateOnly;
    end record;
 
+   --  Message definition for a set-IPv4 response.
    type Set_IPv4_Response is record
       Controller : Unsigned_32;
       Ok         : Boolean;
    end record;
 
+   --  Message definition for a get-time response.
    type Get_Time_Response is record
       Controller  : Unsigned_32;
       Date_Time   : DateTime;
    end record;
 
+   --  Message definition for a set-time response.
    type Set_Time_Response is record
       Controller  : Unsigned_32;
       Date_Time   : DateTime;
    end record;
 
+   --  Message definition for a get-listener response.
    type Get_Listener_Response is record
       Controller : Unsigned_32;
       Address    : IPv4;
@@ -35,6 +40,13 @@ package Uhppoted.Lib.Responses is
       Interval   : Unsigned_8;
    end record;
 
+   --  Message definition for a set-listener response.
+   type Set_Listener_Response is record
+      Controller : Unsigned_32;
+      OK         : Boolean;
+   end record;
+
+   --  Message definition for a get-status response.
    type Relay_State  is mod 256;
    type Inputs_State is mod 256;
 

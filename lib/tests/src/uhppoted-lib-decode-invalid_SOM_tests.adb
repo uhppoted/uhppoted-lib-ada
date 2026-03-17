@@ -117,6 +117,25 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
       Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
    end Test_Get_Listener_Invalid_SOM;
 
+   procedure Test_Set_Listener_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#13#, 16#90#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#c0#, 16#a8#, 16#01#, 16#64#, 16#61#, 16#ea#, 16#11#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      procedure Exec is
+         Unused : constant Set_Listener_Response := Uhppoted.Lib.Decode.Set_Listener (Reply);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+   end Test_Set_Listener_Invalid_SOM;
+
    procedure Test_Get_Status_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
 

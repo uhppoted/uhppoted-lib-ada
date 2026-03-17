@@ -8,6 +8,9 @@ ADDRESS ?= 192.168.1.125
 NETMASK ?= 255.255.255.0
 GATEWAY ?= 192.168.1.1
 
+LISTENER ?= 192.168.1.125:60001
+INTERVAL ?= 0
+
 clean:
 	alr clean
 
@@ -31,6 +34,9 @@ set-time: build
 
 get-listener: build
 	$(CLI) get-listener --controller "$(CONTROLLER)"
+
+set-listener: build
+	$(CLI) set-listener --controller "$(CONTROLLER)" --dest "$(DEST)" --protocol "$(PROTOCOL)" --listener "$(LISTENER)" --interval "$(INTERVAL)"
 
 get-status: build
 	$(CLI) get-status --controller "$(CONTROLLER)"

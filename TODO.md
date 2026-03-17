@@ -14,7 +14,11 @@
 - [x] set-time
 - [x] get-status
 - [x] get-listener
-    - [x] integration tests
+- [ ] set-listener
+   - [x] API
+   - [x] CLI
+   - [x] README
+   - [ ] integration tests
 
 - [x] check SOM in decode
 - [x] check opcode in decode
@@ -39,7 +43,7 @@
     - [ ] ada-doc
 
 - [ ] CLI
-    - [ ] command line args
+    - [x] command line args
     - [ ] handle exceptions
     - [ ] pretty print
 

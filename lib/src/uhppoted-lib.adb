@@ -195,6 +195,36 @@ package body Uhppoted.Lib is
               Interval => R.Interval);
    end Get_Listener;
 
+   --  Sets the access controller listener address:port and auto-send interval. Restricted to the local LAN.
+   function Set_Listener (U        : UHPPOTE;
+                          C        : Unsigned_32;
+                          Listener : GNAT.Sockets.Sock_Addr_Type;
+                          Interval : Unsigned_8;
+                          Timeout  : Duration := 2.5) return Boolean is
+   begin
+      return Set_Listener (U, To_Controller (C), Listener, Interval, Timeout);
+   end Set_Listener;
+
+   --  Sets the access controller listener address:port and auto-send interval.
+   function Set_Listener (U        : UHPPOTE;
+                          C        : Controller;
+                          Listener : GNAT.Sockets.Sock_Addr_Type;
+                          Interval : Unsigned_8;
+                          Timeout  : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Listener (C.ID, Listener.Addr, Unsigned_16 (Listener.Port), Interval);
+      Reply   : Packet;
+      R       : Set_Listener_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Set_Listener (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Set_Listener;
+
    --  Retrieves the access controller status. Restricted to the local LAN.
    function Get_Status (U       : UHPPOTE;
                         C       : Unsigned_32;

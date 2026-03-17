@@ -1,11 +1,8 @@
-with Interfaces;
 with GNAT.Command_Line;
 with GNAT.Regpat;
-with GNAT.Sockets;
 with GNAT.Strings;
 
 package body ArgParse is
-   use Interfaces;
    use GNAT.Command_Line;
    use GNAT.Regpat;
    use GNAT.Sockets;
@@ -14,12 +11,13 @@ package body ArgParse is
    use Uhppoted.Lib;
 
    function Parse (Cmd : String) return Args is
-      pragma Unreferenced (Cmd);
-
       Config               : Command_Line_Configuration;
-      Controller_ID        : aliased Integer                    := 0;
-      Controller_Addr      : aliased GNAT.Strings.String_Access := null;
-      Controller_Transport : aliased GNAT.Strings.String_Access := null;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+
+      Listener_Addr        : aliased String_Access := null;
+      Listener_Interval    : aliased Integer       := 0;
 
       DestAddr  : Sock_Addr_Type := No_Sock_Addr;
       Transport : Protocol_Type  := Default;
@@ -43,7 +41,23 @@ package body ArgParse is
                      Help        => "controller protocol ('udp' or 'tcp')",
                      Argument    => "[UDP | TCP]");
 
-      Getopt (Config);
+      if Cmd = "set-listener" then
+         Define_Switch (Config,
+                        Section => "set-listener",
+                        Output      => Listener_Addr'Access,
+                        Long_Switch => "--listener:",
+                        Help        => "event listener IPv4 address:port",
+                        Argument    => "ADDRESS");
+
+         Define_Switch (Config,
+                        Section => "set-listener",
+                        Output      => Listener_Interval'Access,
+                        Long_Switch => "--interval:",
+                        Help        => "auto-send interval (seconds)",
+                        Argument    => "SECONDS");
+      end if;
+
+      Getopt (Config, Section => Cmd, Concatenate => True);
 
       --  get controller address
       if Controller_Addr /= null and then Controller_Addr.all /= "" then
@@ -73,7 +87,39 @@ package body ArgParse is
          Transport := TCP;
       end if;
 
-      return (T          => ArgParse.Find_Controllers_Args,
+      --  return command specific args
+      if Cmd = "set-listener" then
+         declare
+            Re      : constant Pattern_Matcher := Compile ("^([0-9.]+)(:([0-9]+))?$");
+            Matches : Match_Array (0 .. 3);
+            S       : String renames Listener_Addr.all;
+
+            AddrPort  : Sock_Addr_Type := (Family => Family_Inet,
+                                           Addr   => Inet_Addr ("192.168.1.100"),
+                                           Port   => 60001);
+         begin
+            Match (Re, S, Matches);
+
+            if Matches (1) /= No_Match and then Matches (3) /= No_Match then
+               AddrPort := (Family => Family_Inet,
+                            Addr   => Inet_Addr (S (Matches (1).First .. Matches (1).Last)),
+                            Port   => Port_Type'Value (S (Matches (3).First .. Matches (3).Last)));
+            elsif Matches (1) /= No_Match then
+               AddrPort := (Family => Family_Inet,
+                            Addr   => Inet_Addr (S (Matches (1).First .. Matches (1).Last)),
+                            Port   => 60001);
+            end if;
+
+            return (T          => ArgParse.Set_Listener_Args,
+                    Controller => (ID       => Unsigned_32 (Controller_ID),
+                                   DestAddr => DestAddr,
+                                   Protocol => Transport),
+                    Listener   => AddrPort,
+                    Interval   => Unsigned_8 (Listener_Interval));
+         end;
+      end if;
+
+      return (T          => ArgParse.General_Args,
               Controller => (ID       => Unsigned_32 (Controller_ID),
                              DestAddr => DestAddr,
                              Protocol => Transport));

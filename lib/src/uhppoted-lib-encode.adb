@@ -67,6 +67,22 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Get_Listener;
 
+   --  Encodes a set-listener request as a 64 byte array.
+   function Set_Listener (Controller : Unsigned_32;
+                          Addr       : GNAT.Sockets.Inet_Addr_Type;
+                          Port       : Unsigned_16;
+                          Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet is
+      Request : Set_Listener_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Addr       := Pack_IPv4 (Addr);
+      Request.Port       := Port;
+      Request.Interval   := Interval;
+
+      return Buffer;
+   end Set_Listener;
+
    --  Encodes a get-status request as a 64 byte array.
    function Get_Status (Controller : Unsigned_32) return Packet is
       Request : Get_Status_Request;

@@ -201,6 +201,24 @@ package Uhppoted.Lib is
    --  Sets the access controller listener address:port and auto-send interval.
    --
    --  @param  U         UHPPOTE configuration.
+   --  @param  C         Controller serial number.
+   --  @param  Listener  Event listener address:port.
+   --  @param  Interval  Auto-send interval (seconds). 0 for none.
+   --  @param  Timeout   Operation timeout (defaults to 2.5s).
+   --
+   --  @return           True if the controller event listener and auto-send interval were configured.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Set_Listener (U        : UHPPOTE;
+                          C        : Unsigned_32;
+                          Listener : GNAT.Sockets.Sock_Addr_Type;
+                          Interval : Unsigned_8;
+                          Timeout  : Duration := 2.5) return Boolean;
+
+   --  Sets the access controller listener address:port and auto-send interval.
+   --
+   --  @param  U         UHPPOTE configuration.
    --  @param  C         Controller serial number, IPv4 address and (optional) procotol.
    --  @param  Listener  Event listener address:port.
    --  @param  Interval  Auto-send interval (seconds). 0 for none.

@@ -19,10 +19,12 @@ import (
 var templateFS embed.FS
 
 type test struct {
-	Name    string
-	Request []string
-	Replies []reply
-	Returns returns
+	Name     string
+	Function string
+	Args     []any
+	Request  []string
+	Replies  []reply
+	Returns  returns
 }
 
 type reply struct {
@@ -38,13 +40,14 @@ type returns struct {
 }
 
 var translations = map[string]string{
-	"find controllers response": "Controller_Record_List",
-	"get controller response":   "Controller_Record",
-	"set IPv4 response":         "Boolean",
-	"get time response":         "DateTime",
-	"set time response":         "DateTime",
-	"get status response":       "Controller_Status",
-	"get listener response":     "Listener_Record",
+	"find controllers response":       "Controller_Record_List",
+	"get controller response":         "Controller_Record",
+	"set IPv4 response":               "Boolean",
+	"get time response":               "DateTime",
+	"set time response":               "DateTime",
+	"get listener response":           "Listener_Record",
+	"set listener addr:port response": "Boolean",
+	"get status response":             "Controller_Status",
 }
 
 func IntegrationTests() {
@@ -73,6 +76,7 @@ func IntegrationTests() {
 		messagesADB(templates, functions)
 		expectedADS(templates, functions)
 		defaultADS(templates, functions)
+		defaultADB(templates, functions)
 	}
 }
 
@@ -121,25 +125,7 @@ func repliesADS(templates *template.Template, tests []test) {
 }
 
 func messagesADS(templates *template.Template, tests []test) {
-	const file = "../integration-tests/src/uhppoted-lib-integration_tests-stub-messages.ads"
-
-	if f, err := os.Create(file); err != nil {
-		log.Fatalf("%v", err)
-	} else {
-		defer f.Close()
-
-		var data = struct {
-			Tests []test
-		}{
-			Tests: tests,
-		}
-
-		if err := templates.ExecuteTemplate(f, "messages.ads", data); err != nil {
-			log.Fatalf("%v", err)
-		}
-
-		log.Printf("... generated %s", file)
-	}
+	generate(templates, tests, "messages.ads", "../integration-tests/src/uhppoted-lib-integration_tests-stub-messages.ads")
 }
 
 func messagesADB(templates *template.Template, tests []test) {
@@ -154,21 +140,51 @@ func defaultADS(templates *template.Template, tests []test) {
 	generate(templates, tests, "default.ads", "../integration-tests/src/uhppoted-lib-integration_tests-default.ads")
 }
 
+func defaultADB(templates *template.Template, tests []test) {
+	generate(templates, tests, "default.adb", "../integration-tests/src/uhppoted-lib-integration_tests-default.adb")
+}
+
 func transmogrify(functions []lib.Function) []test {
 	transmogrified := []test{}
 
 	for _, f := range functions {
 		for _, t := range f.Tests {
+			println(">>>", t.Name)
 			transmogrified = append(transmogrified, test{
-				Name:    fmt.Sprintf("%v", codegen.AdaName(t.Name)),
-				Request: packet(t.Request),
-				Replies: replies(t),
-				Returns: response(f, t),
+				Name:     codegen.AdaName(t.Name),
+				Function: codegen.AdaName(f.Name),
+				Args:     args(t),
+				Request:  packet(t.Request),
+				Replies:  replies(t),
+				Returns:  response(f, t),
 			})
 		}
 	}
 
 	return transmogrified
+}
+
+func args(t lib.FuncTest) []any {
+	args := []any{}
+
+	for _, v := range t.Args {
+		println(v.Type)
+		switch v.Type {
+		case "IPv4":
+			args = append(args, fmt.Sprintf(`Inet_Addr ("%v")`, v.Value))
+
+		case "address:port":
+			args = append(args, fmt.Sprintf(`(Family_Inet, Inet_Addr ("192.168.1.100"), 60001)`))
+
+		case "datetime":
+			args = append(args, datetime(v.Value))
+
+		default:
+			args = append(args, v.Value)
+		}
+	}
+
+	return args
 }
 
 func replies(t lib.FuncTest) []reply {
@@ -206,6 +222,7 @@ func response(f lib.Function, t lib.FuncTest) returns {
 		case "Boolean":
 			r.Template = "boolean"
 			r.Value = codegen.AdaValue(v, t.Replies[0].Response[1].Value)
+			fmt.Printf(">>>>>>>>>>>>>>> %v %v\n", v, r.Value)
 
 		case "DateTime":
 			r.Template = "datetime"
@@ -311,28 +328,7 @@ func field(v string) string {
 }
 
 func value(t string, v any) string {
-	switch v {
-	// case "controller":
-	// 	return "ID"
-
-	// case "ip address":
-	// 	return "Address"
-
-	// case "subnet mask":
-	// 	return "Netmask"
-
-	// case "gateway":
-	// 	return "Gateway"
-
-	// case "MAC address":
-	// 	return "MAC"
-
-	// case "version":
-	// 	return "Firmware"
-
-	default:
-		return codegen.AdaValue(t, v)
-	}
+	return codegen.AdaValue(t, v)
 }
 
 func get(values []lib.Value, key string) any {

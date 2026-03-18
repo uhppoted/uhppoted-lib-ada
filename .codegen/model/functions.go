@@ -13,10 +13,9 @@ var API = []types.Function{
 	GetTime,
 	SetTime,
 	GetListener,
+	SetListenerAddrPort,
 	GetStatusRecord,
-	// &SetListener,
-	// &GetListenerAddrPort,
-	// &SetListenerAddrPort,
+	// GetListenerAddrPort,
 	// &GetDoor,
 	// &SetDoor,
 	// &SetDoorPasscodes,
@@ -47,6 +46,7 @@ var API = []types.Function{
 
 // -- not implemented --
 // GetStatus,
+// SetListener,
 
 // var UDP = []*types.Function{
 // 	&GetController,

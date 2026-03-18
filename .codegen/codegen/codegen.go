@@ -26,6 +26,10 @@ type KV struct {
 func AdaName(s string) string {
 	tokens := regexp.MustCompile(`[ \-:]+`).Split(s, -1)
 
+	if s == "set listener addr:port" || s == "set-listener-addr-port" {
+		return "Set_Listener"
+	}
+
 	for i, token := range tokens {
 		tokens[i] = capitalize(token)
 	}
@@ -59,6 +63,12 @@ func AdaValue(t string, v any) string {
 		return "True"
 
 	case t == "bool" && v == false:
+		return "False"
+
+	case t == "Boolean" && v == true:
+		return "True"
+
+	case t == "Boolean" && v == false:
 		return "False"
 
 	default:

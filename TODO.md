@@ -14,11 +14,11 @@
 - [x] set-time
 - [x] get-status
 - [x] get-listener
-- [ ] set-listener
+- [x] set-listener
    - [x] API
    - [x] CLI
    - [x] README
-   - [ ] integration tests
+   - [x] integration tests
 
 - [x] check SOM in decode
 - [x] check opcode in decode
@@ -46,6 +46,7 @@
     - [x] command line args
     - [ ] handle exceptions
     - [ ] pretty print
+    - https://learnxbyexample.com/ada/command-line-flags/
 
 - [ ] integration tests
     - [ ] Invalid response test

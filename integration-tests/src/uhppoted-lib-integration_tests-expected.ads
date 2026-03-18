@@ -39,7 +39,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
       Firmware => To_Unbounded_String ("v8.92"),
       Date     => (Year => 2018, Month => 11, Day => 5));
 
-   Set_IPv4 : constant Boolean := true;
+   Set_IPv4 : constant Boolean := True;
 
    Get_Time : constant DateTime := (Year => 2025, Month => 11, Day => 1, Hour => 12, Minute => 34, Second => 56);
 
@@ -48,6 +48,8 @@ package Uhppoted.Lib.Integration_Tests.Expected is
    Get_Listener : constant Listener_Record := (
      AddrPort => Network_Socket_Address (Addr => Inet_Addr ("192.168.1.100"), Port => Port_Type (60001)),
      Interval => 13);
+
+   Set_Listener : constant Boolean := True;
 
    Get_Status : constant Controller_Status := (
      System_Date_Time => (Year => 2022, Month => 8, Day => 23, Hour => 9, Minute => 49, Second => 39),

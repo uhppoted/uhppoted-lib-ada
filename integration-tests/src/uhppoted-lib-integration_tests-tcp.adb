@@ -43,6 +43,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Get_Time'Access,            "Test Get_Time");
       Register_Routine (T, Test_Set_Time'Access,            "Set_Time");
       Register_Routine (T, Test_Get_Listener'Access,        "Get_Listener");
+      Register_Routine (T, Test_Set_Listener'Access,        "Set_Listener");
       Register_Routine (T, Test_Get_Status'Access,          "Get_Status");
       Register_Routine (T, Test_Get_Status_No_Event'Access, "Get_Status (no event)");
    end Register_Tests;
@@ -95,6 +96,20 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.Get_Listener, "invalid controller listener" & V'Image);
    end Test_Get_Listener;
+
+   procedure Test_Set_Listener (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419897,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 60003),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Boolean := Set_Listener (U, C, (Family_Inet, Inet_Addr ("192.168.1.100"), 60001), 17);
+   begin
+      Assert (V = Expected.Set_Listener, "invalid result" & V'Image);
+   end Test_Set_Listener;
 
    procedure Test_Get_Status (T : in out Test_Case'Class) is
       pragma Unreferenced (T);

@@ -15,6 +15,7 @@ private
    procedure Test_Get_Time            (T : in out Test_Case'Class);
    procedure Test_Set_Time            (T : in out Test_Case'Class);
    procedure Test_Get_Listener        (T : in out Test_Case'Class);
+   procedure Test_Set_Listener        (T : in out Test_Case'Class);
    procedure Test_Get_Status          (T : in out Test_Case'Class);
    procedure Test_Get_Status_No_Event (T : in out Test_Case'Class);
 

@@ -23,6 +23,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Get_Listener'Access, "test decode Get_Listener response");
       Register_Routine (T, Test_Decode_Set_Listener'Access, "test decode Set_Listener response");
       Register_Routine (T, Test_Decode_Get_Status'Access,   "test decode Get_Status response");
+      Register_Routine (T, Test_Decode_Get_Door'Access,     "test decode Get_Door response");
    end Register_Tests;
 
    procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -186,5 +187,26 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded get-status response: got" & Response'Image);
    end Test_Decode_Get_Status;
+
+   procedure Test_Decode_Get_Door (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Get_Door_Response := (
+         Controller => 405419896,
+         Door       => 3,
+         Mode       => 2,
+         OpenDelay  => 7);
+
+      Reply : constant Packet := [
+         16#17#, 16#82#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#03#, 16#02#, 16#07#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Get_Door_Response := Uhppoted.Lib.Decode.Get_Door (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded get-door response: got" & Response'Image);
+   end Test_Decode_Get_Door;
 
 end Uhppoted.Lib.Decode.Tests;

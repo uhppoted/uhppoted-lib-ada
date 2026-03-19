@@ -211,7 +211,10 @@ package body Uhppoted.Lib is
                           Listener : GNAT.Sockets.Sock_Addr_Type;
                           Interval : Unsigned_8;
                           Timeout  : Duration := 2.5) return Boolean is
-      Request : constant Packet := Uhppoted.Lib.Encode.Set_Listener (C.ID, Listener.Addr, Unsigned_16 (Listener.Port), Interval);
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Listener (C.ID,
+                                                                     Listener.Addr,
+                                                                     Unsigned_16 (Listener.Port),
+                                                                     Interval);
       Reply   : Packet;
       R       : Set_Listener_Response;
    begin
@@ -283,6 +286,36 @@ package body Uhppoted.Lib is
                        Access_Granted => R.Event_Access_Granted,
                        Reason         => R.Event_Reason));
    end Get_Status;
+
+   --  Retrieves a door control mode and open delay. Restricted to the local LAN.
+   function Get_Door (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      Door    : Unsigned_8;
+                      Timeout : Duration := 2.5) return Door_Record is
+   begin
+      return Get_Door (U, To_Controller (C), Door, Timeout);
+   end Get_Door;
+
+   --  Retrieves a door control mode and open delay.
+   function Get_Door (U       : UHPPOTE;
+                      C       : Controller;
+                      Door    : Unsigned_8;
+                      Timeout : Duration := 2.5) return Door_Record is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Door (C.ID, Door);
+      Reply   : Packet;
+      R       : Get_Door_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Door (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Mode      => R.Mode,
+              OpenDelay => R.OpenDelay);
+   end Get_Door;
+
 
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.

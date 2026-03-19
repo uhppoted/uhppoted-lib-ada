@@ -11,6 +11,8 @@ GATEWAY ?= 192.168.1.1
 LISTENER ?= 192.168.1.125:60001
 INTERVAL ?= 0
 
+DOOR ?= 3
+
 clean:
 	alr clean
 
@@ -41,3 +43,5 @@ set-listener: build
 get-status: build
 	$(CLI) get-status --controller "$(CONTROLLER)"
 
+get-door: build
+	$(CLI) get-door --controller "$(CONTROLLER)" --dest "$(DEST)" --protocol "$(PROTOCOL)" --door "$(DOOR)"

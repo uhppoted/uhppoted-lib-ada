@@ -23,6 +23,8 @@ type test struct {
 	Response    string
 	Reply       []string
 	Expected    []codegen.KV
+
+	InvalidSOM []string
 }
 
 func UnitTests() {
@@ -36,22 +38,19 @@ func UnitTests() {
 	} else {
 		tests := transmogrify(model.Responses)
 
-		decodeTestsADS(templates, tests)
-		decodeTestsADB(templates, tests)
-		invalidSOMADS(templates, tests)
+		decodeTests(templates, tests)
+		invalidSOMTests(templates, tests)
 	}
 }
 
-func decodeTestsADS(templates *template.Template, tests []test) {
-	generate(templates, tests, "uhppoted-lib-decode-tests.ads", "../lib/tests/src/uhppoted-lib-decode-tests.ads")
+func decodeTests(templates *template.Template, tests []test) {
+	generate(templates, tests, "decode-tests.ads", "../lib/tests/src/uhppoted-lib-decode-tests.ads")
+	generate(templates, tests, "decode-tests.adb", "../lib/tests/src/uhppoted-lib-decode-tests.adb")
 }
 
-func decodeTestsADB(templates *template.Template, tests []test) {
-	generate(templates, tests, "uhppoted-lib-decode-tests.adb", "../lib/tests/src/uhppoted-lib-decode-tests.adb")
-}
-
-func invalidSOMADS(templates *template.Template, tests []test) {
+func invalidSOMTests(templates *template.Template, tests []test) {
 	generate(templates, tests, "invalid-SOM-tests.ads", "../lib/tests/src/uhppoted-lib-decode-invalid_SOM_tests.ads")
+	generate(templates, tests, "invalid-SOM-tests.adb", "../lib/tests/src/uhppoted-lib-decode-invalid_SOM_tests.adb")
 }
 
 func generate(templates *template.Template, tests []test, template string, file string) {
@@ -79,12 +78,16 @@ func transmogrify(responses []lib.Response) []test {
 
 	for _, response := range responses {
 		for _, t := range response.Tests {
+			invalidSOM := append([]byte{0x13}, t.Response[1:]...)
+
 			transmogrified = append(transmogrified, test{
 				Name:        fmt.Sprintf("%v", codegen.AdaName(t.Name)),
 				Description: fmt.Sprintf("test decode %v response", codegen.AdaName(t.Name)),
 				Response:    fmt.Sprintf("%v", codegen.KebabCase(strings.TrimSuffix(response.Name, " response"))),
 				Reply:       packet(t.Response),
 				Expected:    expected(t),
+
+				InvalidSOM: packet(invalidSOM),
 			})
 		}
 	}

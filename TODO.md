@@ -14,11 +14,16 @@
 - [x] set-time
 - [x] get-status
 - [x] get-listener
+   - [ ] use encode/decode GetListenerAddrPort
 - [x] set-listener
+   - [ ] use encode/decode SetListenerAddrPort
+
+- [ ] get-door
    - [x] API
    - [x] CLI
    - [x] README
-   - [x] integration tests
+   - [ ] integration tests
+   - [ ] ControlMode enums
 
 - [x] check SOM in decode
 - [x] check opcode in decode
@@ -28,6 +33,7 @@
      - [ ] Controller_Record => Controller_Type
      - [ ] Controller_Status => Status_Type
      - [ ] Listener_Record => Listener_Type
+     - [ ] Door_Record => Door_Type
 
 - [ ] UDP
     - [x] dump
@@ -57,10 +63,10 @@
     - [ ] v6.62
 
 - [ ] codegen
-    - [ ] default integration tests
+    - [x] invalid SOM unit test
+    - [x] default integration tests
     - [ ] UDP integration tests
     - [ ] TCP integration tests
-    - [ ] invalid SOM unit test
     - [ ] invalid op-code unit test
 
 - [ ] fix _Library_Interface_ in .gpr file

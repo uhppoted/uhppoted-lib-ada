@@ -82,6 +82,11 @@ package Uhppoted.Types is
       Event            : Event_Type;
    end record;
 
+   type Door_Record is record
+      Mode      : Unsigned_8;
+      OpenDelay : Unsigned_8;
+   end record;
+
    function Image (Addr : IPv4) return String;
    function Image (MAC  : Hardware_Addr) return String;
    function Image (D    : DateOnly) return String;

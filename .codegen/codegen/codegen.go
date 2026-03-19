@@ -30,6 +30,11 @@ func AdaName(s string) string {
 		return "Set_Listener"
 	}
 
+	// 'delay' is a reserved word in Ada
+	if s == "delay" {
+		return "OpenDelay"
+	}
+
 	for i, token := range tokens {
 		tokens[i] = capitalize(token)
 	}

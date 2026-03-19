@@ -32,6 +32,7 @@ package Uhppoted.Lib is
    subtype Controller_Status      is Uhppoted.Types.Controller_Status;
    subtype DateTime               is Uhppoted.Types.DateTime;
    subtype Listener_Record        is Uhppoted.Types.Listener_Record;
+   subtype Door_Record            is Uhppoted.Types.Door_Record;
 
    --  Finds all access controllers on the local LAN.
    --
@@ -261,6 +262,37 @@ package Uhppoted.Lib is
    function Get_Status (U : UHPPOTE;
                         C : Controller;
                         Timeout : Duration := 2.5) return Controller_Status;
+
+   --  Retrieves a door control mode and open delay. Restricted to the local LAN.
+   --
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number.
+   --  @param  Door     Door ID ([1..4]).
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          Door_Record with the control mode and open delay.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Get_Door (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      Door    : Unsigned_8;
+                      Timeout : Duration := 2.5) return Door_Record;
+
+   --  Retrieves a door control mode and open delay.
+   --
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          Door_Record with the control mode and open delay.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Get_Door (U       : UHPPOTE;
+                      C       : Controller;
+                      Door    : Unsigned_8;
+                      Timeout : Duration := 2.5) return Door_Record;
 
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").
    --

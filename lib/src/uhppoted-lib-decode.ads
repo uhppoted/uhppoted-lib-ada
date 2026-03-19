@@ -26,6 +26,9 @@ package Uhppoted.Lib.Decode is
    --  Decodes a 64 byte get-status reply as a Get_Status_Response record.
    function Get_Status (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Status_Response;
 
+   --  Decodes a 64 byte get-door reply as a Get_Door_Response record.
+   function Get_Door (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Door_Response;
+
 private
    --  Translates a BCD coded string in a byte array to a string.
    function BCD_To_String (Bytes : Uhppoted.Lib.Types.BCD) return String;

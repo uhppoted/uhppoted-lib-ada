@@ -4,6 +4,7 @@ PROTOCOL ?= default
 
 LISTENER ?= 192.168.1.125:60001
 INTERVAL ?= 0
+DOOR     ?= 3
 
 clean:
 	cd lib && make clean
@@ -53,3 +54,6 @@ set-listener: build
 
 get-status: build
 	cd examples/cli && make get-status
+
+get-door: build
+	cd examples/cli && make get-door CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)" DOOR="$(DOOR)"

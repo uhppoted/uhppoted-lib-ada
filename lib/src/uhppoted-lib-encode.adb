@@ -93,6 +93,17 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Get_Status;
 
+   --  Encodes a get-door request as a 64 byte array.
+   function Get_Door (Controller : Unsigned_32; Door : Unsigned_8) return Packet is
+      Request : Get_Door_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Door        := Door;
+
+      return Buffer;
+   end Get_Door;
+
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is
       V : constant IPv4 := [

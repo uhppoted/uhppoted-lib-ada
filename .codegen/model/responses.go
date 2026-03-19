@@ -16,7 +16,7 @@ var Responses = []types.Response{
 	GetStatusResponse,
 	// &GetListenerAddrPortResponse,
 	// &SetListenerAddrPortResponse,
-	// &GetDoorResponse,
+	GetDoorResponse,
 	// &SetDoorResponse,
 	// &SetDoorPasscodesResponse,
 	// &OpenDoorResponse,

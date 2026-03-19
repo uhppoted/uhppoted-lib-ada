@@ -153,6 +153,24 @@ package body Uhppoted.Lib.Decode is
               Sequence_No          => R.Sequence_No);
    end Get_Status;
 
+   --  Decodes a 64 byte get-door reply as a Get_Door_Response record.
+   function Get_Door (Reply : Packet) return Responses.Get_Door_Response is
+      R : Replies.Get_Door_Response with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Door then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Door       => R.Door,
+              Mode       => R.Mode,
+              OpenDelay  => R.OpenDelay);
+   end Get_Door;
+
    --  Translates a BCD coded version to a vN.NN formatted string.
    function Unpack_Version (V : Version_Field) return Unbounded_String is
       N1 : constant Integer := Integer (Shift_Right (V.Major, 4) and 16#0F#);

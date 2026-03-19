@@ -200,4 +200,15 @@ package body Handlers is
       Put_Line ("");
    end Get_Status;
 
+   --  Executes the get-door command.
+   procedure Get_Door (Args : ArgParse.Args) is
+      R : constant Door_Record := Get_Door (U, Args.Controller, Args.Door, Timeout);
+   begin
+      Put_Line ("--- get-door");
+      Put_Line ("controller:" & Args.Controller.ID'Image);
+      Put_Line ("      mode:" & R.Mode'Image);
+      Put_Line ("     delay:" & R.OpenDelay'Image);
+      Put_Line ("");
+   end Get_Door;
+
 end Handlers;

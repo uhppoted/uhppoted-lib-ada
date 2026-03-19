@@ -43,7 +43,7 @@ package Uhppoted.Lib.Responses is
    --  Message definition for a set-listener response.
    type Set_Listener_Response is record
       Controller : Unsigned_32;
-      OK         : Boolean;
+      Ok         : Boolean;
    end record;
 
    --  Message definition for a get-status response.
@@ -75,6 +75,14 @@ package Uhppoted.Lib.Responses is
       Event_Timestamp      : DateTime;
       Event_Reason         : Unsigned_8;
       Sequence_No          : Unsigned_32;
+   end record;
+
+   --  Message definition for a get-door response.
+   type Get_Door_Response is record
+      Controller : Unsigned_32;
+      Door       : Unsigned_8;
+      Mode       : Unsigned_8;
+      OpenDelay  : Unsigned_8;
    end record;
 
 end Uhppoted.Lib.Responses;

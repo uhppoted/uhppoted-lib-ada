@@ -1,9 +1,14 @@
 with Interfaces;
 with GNAT.Sockets;
+with GNAT.Command_Line;
+with GNAT.Strings;
 with Uhppoted.Lib;
 
 package ArgParse is
    use Interfaces;
+   use GNAT.Command_Line;
+   use GNAT.Strings;
+   use GNAT.Sockets;
 
    type Args_Type is (
       General_Args,
@@ -23,7 +28,7 @@ package ArgParse is
 
       case T is
          when Set_Listener_Args =>
-            Listener : GNAT.Sockets.Sock_Addr_Type;
+            Listener : Sock_Addr_Type;
             Interval : Unsigned_8;
 
          when Get_Door_Args =>
@@ -37,6 +42,16 @@ package ArgParse is
    function Parse (Cmd : String) return Args;
 
 private
+   procedure Add_Controller_Switches (Config               : in out Command_Line_Configuration;
+                                      Controller_ID        : access Integer;
+                                      Controller_Addr      : access String_Access;
+                                      Controller_Transport : access String_Access);
+
+   procedure Extract_Controller_Args (Controller_ID        : Integer;
+                                      Controller_Addr      : String_Access;
+                                      Controller_Transport : String_Access;
+                                      C                    : out Uhppoted.Lib.Controller);
+
    function Parse_Set_Listener  return Args;
    function Parse_Get_Door     return Args;
 

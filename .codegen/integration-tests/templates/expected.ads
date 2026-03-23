@@ -58,5 +58,5 @@ end Uhppoted.Lib.Integration_Tests.Expected;
                Reason         => {{ get $v "event.reason"         }}){{ end }}){{ end }}
 
 {{- define "door" }}({{ with $v := .Returns.Value }}
-     Mode      => {{ get $v "mode"}},
+     Mode      => To_Control_Mode ({{ get $v "mode"}}),
      OpenDelay => {{ get $v "delay"}}{{ end }}){{ end }}

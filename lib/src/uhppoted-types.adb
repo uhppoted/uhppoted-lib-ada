@@ -3,6 +3,16 @@ with Ada.Strings.Fixed;
 package body Uhppoted.Types is
    use Ada.Strings;
 
+   function To_Control_Mode (V : Unsigned_8) return Control_Mode is
+   begin
+      case V is
+         when 1 => return Normally_Open;
+         when 2 => return Normally_Closed;
+         when 3 => return Controlled;
+         when others => raise Constraint_Error with "Invalid Control Mode: " & V'Image;
+      end case;
+   end To_Control_Mode;
+
    function Image (Addr : IPv4) return String is
       use Ada.Strings.Fixed;
    begin

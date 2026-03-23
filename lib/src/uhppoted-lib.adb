@@ -312,10 +312,9 @@ package body Uhppoted.Lib is
          raise Invalid_Response_Error;
       end if;
 
-      return (Mode      => R.Mode,
+      return (Mode      => To_Control_Mode (R.Mode),
               OpenDelay => R.OpenDelay);
    end Get_Door;
-
 
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.

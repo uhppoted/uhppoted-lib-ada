@@ -108,7 +108,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
                Reason         => 0));
 
    Get_Door : constant Door_Record := (
-     Mode      => 3,
+     Mode      => To_Control_Mode (3),
      OpenDelay => 7);
 
 end Uhppoted.Lib.Integration_Tests.Expected;

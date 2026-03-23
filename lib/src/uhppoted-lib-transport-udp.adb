@@ -153,19 +153,19 @@ package body Uhppoted.Lib.Transport.UDP is
                   Receive_Socket (Sock.Client, Buffer, Offset, From);
 
                   if Offset = 64 then
-                      Reply := To_Packet (Buffer);
-                      if U.Debug then
-                         Dump ("... received from " & Image (From) & " (UDP)", Reply);
-                      end if;
+                     Reply := To_Packet (Buffer);
+                     if U.Debug then
+                        Dump ("... received from " & Image (From) & " (UDP)", Reply);
+                     end if;
 
-                      return Reply;
+                     return Reply;
                   end if;
 
                when Expired | Aborted =>
                   raise Timeout_Error;
             end case;
          end;
-      end loop;   
+      end loop;
 
    end BroadcastTo;
 

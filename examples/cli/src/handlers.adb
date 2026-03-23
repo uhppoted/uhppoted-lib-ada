@@ -206,7 +206,7 @@ package body Handlers is
    begin
       Put_Line ("--- get-door");
       Put_Line ("controller:" & Args.Controller.ID'Image);
-      Put_Line ("      mode:" & R.Mode'Image);
+      Put_Line ("      mode: " & R.Mode'Image);
       Put_Line ("     delay:" & R.OpenDelay'Image);
       Put_Line ("");
    end Get_Door;

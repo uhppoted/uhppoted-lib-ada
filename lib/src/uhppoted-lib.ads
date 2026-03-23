@@ -34,6 +34,8 @@ package Uhppoted.Lib is
    subtype Listener_Record        is Uhppoted.Types.Listener_Record;
    subtype Door_Record            is Uhppoted.Types.Door_Record;
 
+   subtype Control_Mode           is Uhppoted.Types.Control_Mode;
+
    --  Finds all access controllers on the local LAN.
    --
    --  @param  U        UHPPOTE configuration.

@@ -82,10 +82,19 @@ package Uhppoted.Types is
       Event            : Event_Type;
    end record;
 
+   type Control_Mode is (Normally_Open, Normally_Closed, Controlled);
+
+   for Control_Mode use (
+      Normally_Open   => 1,
+      Normally_Closed => 2,
+      Controlled      => 3);
+
    type Door_Record is record
-      Mode      : Unsigned_8;
+      Mode      : Control_Mode;
       OpenDelay : Unsigned_8;
    end record;
+
+   function To_Control_Mode (V : Unsigned_8) return Control_Mode;
 
    function Image (Addr : IPv4) return String;
    function Image (MAC  : Hardware_Addr) return String;

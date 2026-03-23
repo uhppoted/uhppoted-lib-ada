@@ -39,14 +39,14 @@
     - [x] dump
     - [x] connect
     - [x] send loop
+    - [x] ada-doc
     - [ ] listen
-    - [ ] ada-doc
 
 - [x] TCP
     - [x] dump
     - [x] send loop
+    - [x] ada-doc
     - [ ] non-blocking connect
-    - [ ] ada-doc
 
 - [ ] CLI
     - [x] command line args

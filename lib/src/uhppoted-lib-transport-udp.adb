@@ -89,7 +89,7 @@ package body Uhppoted.Lib.Transport.UDP is
       return Replies;
    end Broadcast;
 
-   --  Sends a 64 byte request packet to a specific controller over UDP broadcast and returns the response (if any).
+   --  Broadcasts a 64 byte request packet to a specific controller and returns the response (if any).
    function BroadcastTo (U        : UHPPOTE;
                          Request  : Packet;
                          Timeout  : Duration) return Packet is
@@ -169,7 +169,7 @@ package body Uhppoted.Lib.Transport.UDP is
 
    end BroadcastTo;
 
-   --  Sends a 64 byte request packet to a specific IPv4 address:port and returns the response (if any).
+   --  Sends a 64 byte request packet to a specific controller over 'connectedf UDP' and returns the response (if any).
    function SendTo (U        : UHPPOTE;
                     DestAddr : Sock_Addr_Type;
                     Request  : Packet;

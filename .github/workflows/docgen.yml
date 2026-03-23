@@ -21,6 +21,9 @@ jobs:
       with:
         crates: gnatdoc
 
+    - name: Generate doc
+      run: gnatdoc --help
+
     # - name: Install gnatdoc
     #   run: |
     #     alr get gnatdoc

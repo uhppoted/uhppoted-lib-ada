@@ -30,3 +30,9 @@ jobs:
         mkdir -p adadoc
         cd lib && alr exec -- gnatdoc -P uhppoted_lib_ada.gpr -O ../adadoc
         ls -la ../adadoc
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v6
+      with:
+        path: adadoc
+        name: uhppoted-lib-ada-adadoc

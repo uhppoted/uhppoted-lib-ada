@@ -55,4 +55,8 @@ end Uhppoted.Lib.Integration_Tests.Expected;
                Direction      => {{ get $v "event.direction"      }},
                Card           => {{ get $v "event.card"           }},
                Access_Granted => {{ get $v "event.access-granted" }},
-               Reason         => {{ get $v "event.reason"         }}){{end}}){{ end }}
+               Reason         => {{ get $v "event.reason"         }}){{ end }}){{ end }}
+
+{{- define "door" }}({{ with $v := .Returns.Value }}
+     Mode      => {{ get $v "mode"}},
+     OpenDelay => {{ get $v "delay"}}{{ end }}){{ end }}

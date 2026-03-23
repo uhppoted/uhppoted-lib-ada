@@ -22,7 +22,7 @@
    - [x] API
    - [x] CLI
    - [x] README
-   - [ ] integration tests
+   - [x] integration tests
    - [ ] ControlMode enums
 
 - [x] check SOM in decode
@@ -65,8 +65,8 @@
 - [ ] codegen
     - [x] invalid SOM unit test
     - [x] default integration tests
-    - [ ] UDP integration tests
-    - [ ] TCP integration tests
+    - [x] UDP integration tests
+    - [x] TCP integration tests
     - [ ] invalid op-code unit test
 
 - [ ] fix _Library_Interface_ in .gpr file

@@ -48,6 +48,7 @@ var translations = map[string]string{
 	"get listener response":           "Listener_Record",
 	"set listener addr:port response": "Boolean",
 	"get status response":             "Controller_Status",
+	"get door response":               "Door_Record",
 }
 
 func IntegrationTests() {
@@ -69,79 +70,49 @@ func IntegrationTests() {
 		log.Fatal(err)
 	} else {
 		functions := transmogrify(model.API)
+		udp := transmogrify(model.API[1:])
+		tcp := transmogrify(model.API[1:])
 
 		requestsADS(templates, functions)
 		repliesADS(templates, functions)
-		messagesADS(templates, functions)
-		messagesADB(templates, functions)
-		expectedADS(templates, functions)
-		defaultADS(templates, functions)
-		defaultADB(templates, functions)
+		messages(templates, functions)
+		expected(templates, functions)
+		defaultTests(templates, functions)
+		udpTests(templates, udp)
+		tcpTests(templates, tcp)
 	}
 }
 
 func requestsADS(templates *template.Template, tests []test) {
-	const file = "../integration-tests/src/uhppoted-lib-integration_tests-stub-requests.ads"
-
-	if f, err := os.Create(file); err != nil {
-		log.Fatalf("%v", err)
-	} else {
-		defer f.Close()
-
-		var data = struct {
-			Tests []test
-		}{
-			Tests: tests,
-		}
-
-		if err := templates.ExecuteTemplate(f, "requests.ads", data); err != nil {
-			log.Fatalf("%v", err)
-		}
-
-		log.Printf("... generated %s", file)
-	}
+	generate(templates, tests, "requests.ads", "../integration-tests/src/uhppoted-lib-integration_tests-stub-requests.ads")
 }
 
 func repliesADS(templates *template.Template, tests []test) {
-	const file = "../integration-tests/src/uhppoted-lib-integration_tests-stub-replies.ads"
-
-	if f, err := os.Create(file); err != nil {
-		log.Fatalf("%v", err)
-	} else {
-		defer f.Close()
-
-		var data = struct {
-			Tests []test
-		}{
-			Tests: tests,
-		}
-
-		if err := templates.ExecuteTemplate(f, "replies.ads", data); err != nil {
-			log.Fatalf("%v", err)
-		}
-
-		log.Printf("... generated %s", file)
-	}
+	generate(templates, tests, "replies.ads", "../integration-tests/src/uhppoted-lib-integration_tests-stub-replies.ads")
 }
 
-func messagesADS(templates *template.Template, tests []test) {
+func messages(templates *template.Template, tests []test) {
 	generate(templates, tests, "messages.ads", "../integration-tests/src/uhppoted-lib-integration_tests-stub-messages.ads")
-}
-
-func messagesADB(templates *template.Template, tests []test) {
 	generate(templates, tests, "messages.adb", "../integration-tests/src/uhppoted-lib-integration_tests-stub-messages.adb")
 }
 
-func expectedADS(templates *template.Template, tests []test) {
+func expected(templates *template.Template, tests []test) {
 	generate(templates, tests, "expected.ads", "../integration-tests/src/uhppoted-lib-integration_tests-expected.ads")
 }
 
-func defaultADS(templates *template.Template, tests []test) {
+func defaultTests(templates *template.Template, tests []test) {
 	generate(templates, tests, "default.ads", "../integration-tests/src/uhppoted-lib-integration_tests-default.ads")
+	generate(templates, tests, "default.adb", "../integration-tests/src/uhppoted-lib-integration_tests-default.adb")
 }
 
-func defaultADB(templates *template.Template, tests []test) {
-	generate(templates, tests, "default.adb", "../integration-tests/src/uhppoted-lib-integration_tests-default.adb")
+func udpTests(templates *template.Template, tests []test) {
+	generate(templates, tests, "udp.ads", "../integration-tests/src/uhppoted-lib-integration_tests-udp.ads")
+	generate(templates, tests, "udp.adb", "../integration-tests/src/uhppoted-lib-integration_tests-udp.adb")
+}
+
+func tcpTests(templates *template.Template, tests []test) {
+	generate(templates, tests, "tcp.ads", "../integration-tests/src/uhppoted-lib-integration_tests-tcp.ads")
+	generate(templates, tests, "tcp.adb", "../integration-tests/src/uhppoted-lib-integration_tests-tcp.adb")
 }
 
 func transmogrify(functions []lib.Function) []test {
@@ -149,7 +120,6 @@ func transmogrify(functions []lib.Function) []test {
 
 	for _, f := range functions {
 		for _, t := range f.Tests {
-			println(">>>", t.Name)
 			transmogrified = append(transmogrified, test{
 				Name:     codegen.AdaName(t.Name),
 				Function: codegen.AdaName(f.Name),
@@ -168,7 +138,6 @@ func args(t lib.FuncTest) []any {
 	args := []any{}
 
 	for _, v := range t.Args {
-		println(v.Type)
 		switch v.Type {
 		case "IPv4":
 			args = append(args, fmt.Sprintf(`Inet_Addr ("%v")`, v.Value))
@@ -222,7 +191,6 @@ func response(f lib.Function, t lib.FuncTest) returns {
 		case "Boolean":
 			r.Template = "boolean"
 			r.Value = codegen.AdaValue(v, t.Replies[0].Response[1].Value)
-			fmt.Printf(">>>>>>>>>>>>>>> %v %v\n", v, r.Value)
 
 		case "DateTime":
 			r.Template = "datetime"
@@ -242,6 +210,10 @@ func response(f lib.Function, t lib.FuncTest) returns {
 
 		case "Controller_Status":
 			r.Template = "status"
+			r.Value = t.Replies[0].Response
+
+		case "Door_Record":
+			r.Template = "door"
 			r.Value = t.Replies[0].Response
 		}
 	}

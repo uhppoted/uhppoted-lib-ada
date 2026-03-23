@@ -11,7 +11,8 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
      (Get_Listener_Request,     Get_Listener_Reply),
      (Set_Listener_Request,     Set_Listener_Reply),
      (Get_Status_Request,       Get_Status_Reply),
-     (Get_Status_No_Event_Request, Get_Status_No_Event_Reply)
+     (Get_Status_No_Event_Request, Get_Status_No_Event_Reply),
+     (Get_Door_Request,         Get_Door_Reply)
    ];
 
    None : constant Reply_List := [];

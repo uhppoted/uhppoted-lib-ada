@@ -25,11 +25,6 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
 
       Debug => False);
 
-   C : constant Controller := (
-      ID       => 405419896,
-      DestAddr => (Family => GNAT.Sockets.Family_Inet, Addr => Inet_Addr ("127.0.0.1"), Port => 60003),
-      Protocol => Uhppoted.Lib.TCP);
-
    overriding function Name (T : Integration_Test) return AUnit.Message_String is
    begin
       return AUnit.Format ("TCP tests");
@@ -38,14 +33,15 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    overriding procedure Register_Tests (T : in out Integration_Test) is
       use AUnit.Test_Cases.Registration;
    begin
-      Register_Routine (T, Test_Get_Controller'Access,      "Test Get_Controller");
+      Register_Routine (T, Test_Get_Controller'Access,      "Get_Controller");
       Register_Routine (T, Test_Set_IPv4'Access,            "Set_IPv4");
-      Register_Routine (T, Test_Get_Time'Access,            "Test Get_Time");
+      Register_Routine (T, Test_Get_Time'Access,            "Get_Time");
       Register_Routine (T, Test_Set_Time'Access,            "Set_Time");
       Register_Routine (T, Test_Get_Listener'Access,        "Get_Listener");
       Register_Routine (T, Test_Set_Listener'Access,        "Set_Listener");
       Register_Routine (T, Test_Get_Status'Access,          "Get_Status");
-      Register_Routine (T, Test_Get_Status_No_Event'Access, "Get_Status (no event)");
+      Register_Routine (T, Test_Get_Status_No_Event'Access, "Get_Status_No_Event");
+      Register_Routine (T, Test_Get_Door'Access,            "Get_Door");
    end Register_Tests;
 
    task body Listen is
@@ -56,45 +52,71 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    procedure Test_Get_Controller (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 60003),
+                                  Protocol => Uhppoted.Lib.TCP);
+
       V : constant Controller_Record := Get_Controller (U, C);
    begin
-      Assert (V = Expected.Get_Controller, "invalid controller record" & V'Image);
+      Assert (V = Expected.Get_Controller, "invalid result" & V'Image);
    end Test_Get_Controller;
 
    procedure Test_Set_IPv4 (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      Addr    : constant Inet_Addr_Type := Inet_Addr ("192.168.1.125");
-      Netmask : constant Inet_Addr_Type := Inet_Addr ("255.255.255.0");
-      Gateway : constant Inet_Addr_Type := Inet_Addr ("192.168.1.1");
-      V       : constant Boolean        := Set_IPv4 (U, C, Addr, Netmask, Gateway);
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 60003),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Boolean := Set_IPv4 (U, C, Inet_Addr ("192.168.1.125"), Inet_Addr ("255.255.255.0"), Inet_Addr ("192.168.1.1"));
    begin
-      Assert (V = Expected.Set_IPv4, "invalid Set_IPv4 response");
+      Assert (V = Expected.Set_IPv4, "invalid result" & V'Image);
    end Test_Set_IPv4;
 
    procedure Test_Get_Time (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 60003),
+                                  Protocol => Uhppoted.Lib.TCP);
+
       V : constant DateTime := Get_Time (U, C);
    begin
-      Assert (V = Expected.Get_Time, "invalid controller date/time" & V'Image);
+      Assert (V = Expected.Get_Time, "invalid result" & V'Image);
    end Test_Get_Time;
 
    procedure Test_Set_Time (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      DT : constant DateTime := (2025, 11, 4, 12, 34, 56);
-      V  : constant DateTime := Set_Time (U, C, DT);
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 60003),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant DateTime := Set_Time (U, C, (Year => 2025, Month => 11, Day => 4, Hour => 12, Minute => 34, Second => 56));
    begin
-      Assert (V = Expected.Set_Time, "invalid controller date/time" & V'Image);
+      Assert (V = Expected.Set_Time, "invalid result" & V'Image);
    end Test_Set_Time;
 
    procedure Test_Get_Listener (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 60003),
+                                  Protocol => Uhppoted.Lib.TCP);
+
       V : constant Listener_Record := Get_Listener (U, C);
    begin
-      Assert (V = Expected.Get_Listener, "invalid controller listener" & V'Image);
+      Assert (V = Expected.Get_Listener, "invalid result" & V'Image);
    end Test_Get_Listener;
 
    procedure Test_Set_Listener (T : in out Test_Case'Class) is
@@ -114,9 +136,15 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    procedure Test_Get_Status (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 60003),
+                                  Protocol => Uhppoted.Lib.TCP);
+
       V : constant Controller_Status := Get_Status (U, C);
    begin
-      Assert (V = Expected.Get_Status, "invalid controller status" & V'Image);
+      Assert (V = Expected.Get_Status, "invalid result" & V'Image);
    end Test_Get_Status;
 
    procedure Test_Get_Status_No_Event (T : in out Test_Case'Class) is
@@ -130,7 +158,21 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
 
       V : constant Controller_Status := Get_Status (U, C);
    begin
-      Assert (V = Expected.Get_Status_No_Event, "invalid controller status" & V'Image);
+      Assert (V = Expected.Get_Status_No_Event, "invalid result" & V'Image);
    end Test_Get_Status_No_Event;
+
+   procedure Test_Get_Door (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 60003),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Door_Record := Get_Door (U, C, 4);
+   begin
+      Assert (V = Expected.Get_Door, "invalid result" & V'Image);
+   end Test_Get_Door;
 
 end Uhppoted.Lib.Integration_Tests.TCP;

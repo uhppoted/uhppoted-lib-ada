@@ -30,4 +30,4 @@ jobs:
         gnatdoc --help
         ls -la .
         ls -la lib
-        # cd lib && gnatdoc -P uhppoted_lib_ada.gpr
+        gnatdoc -P lib/uhppoted_lib_ada.gpr

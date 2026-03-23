@@ -21,7 +21,13 @@ jobs:
       with:
         crates: gnatdoc
 
+    - name: Build project
+      run: |
+        cd lib && alr build
+
     - name: Generate doc
       run: |
         gnatdoc --help
-        cd lib && gnatdoc -P uhppoted_lib_ada.gpr
+        ls -la .
+        ls -la lib
+        # cd lib && gnatdoc -P uhppoted_lib_ada.gpr

@@ -20,7 +20,8 @@ jobs:
       uses: alire-project/alr-install@v2
       with:
         crates: gnatdoc
-      run: gnatdoc --help
 
     - name: Generate doc
-      run: gnatdoc -P ./lib/uhppoted_lib_ada.gpr
+      run: |
+        gnatdoc --help
+        gnatdoc -P ./lib/uhppoted_lib_ada.gpr

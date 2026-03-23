@@ -24,4 +24,4 @@ jobs:
     - name: Generate doc
       run: |
         gnatdoc --help
-        gnatdoc -P ./lib/uhppoted_lib_ada.gpr
+        cd lib && gnatdoc -P ./lib/uhppoted_lib_ada.gpr

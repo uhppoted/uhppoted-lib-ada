@@ -30,10 +30,10 @@
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 - [ ] enums for event-type, event-reason, event-direction
 - [ ] rename
-     - [ ] Controller_Record => Controller_Type
-     - [ ] Controller_Status => Status_Type
-     - [ ] Listener_Record => Listener_Type
-     - [ ] Door_Record => Door_Type
+     - (?) Controller_Record => Controller_Type
+     - (?) Controller_Status => Status_Type
+     - (?) Listener_Record => Listener_Type
+     - (?) Door_Record => Door_Type
 
 - [ ] UDP
     - [x] dump

@@ -20,27 +20,7 @@ jobs:
       uses: alire-project/alr-install@v2
       with:
         crates: gnatdoc
-
-    - name: Generate doc
       run: gnatdoc --help
 
-    # - name: Install gnatdoc
-    #   run: |
-    #     alr get gnatdoc
-    #     cd gnatdoc_* && alr build
-    #     echo "$PWD/bin" >> $GITHUB_PATH
-
-    # - name: Install Ada tools
-    #   run: |
-    #     cd lib
-    #     alr toolchain --install gnatdoc
-    #     alr toolchain
-    #     alr version
-    #     alr install --info
-
-    # - name: Generate doc
-    #   run: |
-    #     ls -la /home/runner
-    #     find /home/runner -name "gnatdoc" -type f
-    # #     # cd lib
-    # #     # alr exec -- gnatdoc -P uhppoted_lib_ada.gpr
+    - name: Generate doc
+      run: gnatdoc -P ./lib/uhppoted_lib_ada.gpr

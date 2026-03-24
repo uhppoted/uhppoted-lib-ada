@@ -1,5 +1,9 @@
 --  Package: Uhppoted_Lib
+--  @summary
 --  API library for the UHPPOTE access controllers.
+--
+--  @description
+--  Implements the functions to manage UHPPOTE controllers over UDP or TCP/IP.
 
 with Interfaces;
 with GNAT.Sockets;

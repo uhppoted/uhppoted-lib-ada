@@ -30,7 +30,7 @@ jobs:
     - name: Generate doc
       run: |
         mkdir -p adadoc
-        cd lib && alr exec -- gnatdoc -P uhppoted_lib_ada.gpr -O ../adadoc
+        cd lib && alr exec -- gnatdoc -l -P uhppoted_lib_ada.gpr -O ../adadoc
         ls -la ../adadoc
 
     - name: Upload artifact

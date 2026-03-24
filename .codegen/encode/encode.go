@@ -128,12 +128,16 @@ func args(t lib.RequestTest) []arg {
 			comma = ","
 		}
 
+		println(">>>>>>", a.Type)
 		switch a.Type {
 		case "IPv4":
 			args = append(args, arg{ipv4(a.Value), comma})
 
 		case "datetime":
 			args = append(args, arg{datetime(a.Value), comma})
+
+		case "mode":
+			args = append(args, arg{fmt.Sprintf("To_Control_Mode(%v)", a.Value), comma})
 
 		default:
 			args = append(args, arg{fmt.Sprintf("%v", a.Value), comma})

@@ -34,4 +34,10 @@ package Uhppoted.Lib.Encode is
    --  Encodes a get-door request as a 64 byte array.
    function Get_Door (Controller : Unsigned_32; Door : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a set-door request as a 64 byte array.
+   function Set_Door (Controller : Unsigned_32;
+                      Door       : Unsigned_8;
+                      Mode       : Uhppoted.Lib.Control_Mode;
+                      OpenDelay  : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+
 end Uhppoted.Lib.Encode;

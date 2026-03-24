@@ -12,6 +12,8 @@ LISTENER ?= 192.168.1.125:60001
 INTERVAL ?= 0
 
 DOOR ?= 3
+MODE     ?= controlled
+DELAY    ?= 5
 
 clean:
 	alr clean
@@ -45,3 +47,6 @@ get-status: build
 
 get-door: build
 	$(CLI) get-door --controller "$(CONTROLLER)" --dest "$(DEST)" --protocol "$(PROTOCOL)" --door "$(DOOR)"
+
+set-door: build
+	$(CLI) set-door --controller "$(CONTROLLER)" --dest "$(DEST)" --protocol "$(PROTOCOL)" --door "$(DOOR)" --mode "$(MODE)" --delay "$(DELAY)"

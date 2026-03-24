@@ -28,6 +28,8 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Set_Listener`](API.md#set_listener)
 - [`Get_Status`](API.md#get_status)
 - [`Get_Door`](API.md#get_door)
+- [`Set_Door`](API.md#set_door)
+
 
 ## License
 

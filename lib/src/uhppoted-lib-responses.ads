@@ -85,4 +85,12 @@ package Uhppoted.Lib.Responses is
       OpenDelay  : Unsigned_8;
    end record;
 
+   --  Message definition for a set-door response.
+   type Set_Door_Response is record
+      Controller : Unsigned_32;
+      Door       : Unsigned_8;
+      Mode       : Unsigned_8;
+      OpenDelay  : Unsigned_8;
+   end record;
+
 end Uhppoted.Lib.Responses;

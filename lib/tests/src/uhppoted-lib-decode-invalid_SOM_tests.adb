@@ -23,6 +23,7 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
       Register_Routine (T, Test_Set_Listener_Invalid_SOM'Access,    "test Set_Listener invalid SOM decode");
       Register_Routine (T, Test_Get_Status_Invalid_SOM'Access,      "test Get_Status invalid SOM decode");
       Register_Routine (T, Test_Get_Door_Invalid_SOM'Access,        "test Get_Door invalid SOM decode");
+      Register_Routine (T, Test_Set_Door_Invalid_SOM'Access,        "test Set_Door invalid SOM decode");
    end Register_Tests;
 
    procedure Test_Get_Controller_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -176,5 +177,24 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
    begin
       Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
    end Test_Get_Door_Invalid_SOM;
+
+   procedure Test_Set_Door_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#13#, 16#80#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#03#, 16#02#, 16#07#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      procedure Exec is
+         Unused : constant Set_Door_Response := Uhppoted.Lib.Decode.Set_Door (Reply);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+   end Test_Set_Door_Invalid_SOM;
 
 end Uhppoted.Lib.Decode.Invalid_SOM_Tests;

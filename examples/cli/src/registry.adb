@@ -17,6 +17,7 @@ package body Registry is
       CS.Internal_Map.Insert ("set-listener",     Set_Listener'Access);
       CS.Internal_Map.Insert ("get-status",       Get_Status'Access);
       CS.Internal_Map.Insert ("get-door",         Get_Door'Access);
+      CS.Internal_Map.Insert ("set-door",         Set_Door'Access);
 
       return CS;
    end Initialise;

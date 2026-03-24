@@ -8,6 +8,7 @@
 - [`Set_Listener`](#set_listener)
 - [`Get_Status`](#get_status)
 - [`Get_Door`](#get_door)
+- [`Set_Door`](#set_door)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -423,6 +424,47 @@ where:
 - C        Unsigned_32     Controller serial number.
 - C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
 - Door     Unsigned_8      Door ID [1..4].
+```
+
+Returns a `Door_Record`:
+```
+   type Door_Record is record
+      Mode      : Unsigned_8;
+      OpenDelay : Unsigned_8;
+   end record;
+```
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Set_Door`
+
+**Set_Door** sets a door control mode and open delay.
+
+```
+function Set_Door (U         : UHPPOTE;
+                   C         : Unsigned_32; 
+                   Door      : Unsigned_8;
+                   Mode      : Control_Mode;
+                   OpenDelay : Unsigned_8;
+                   Timeout   : Duration) return Listener_Record;
+
+function Set_Door (U         : Uhppoted.Lib.UHPPOTE;
+                   C         : Controller;
+                   Door      : Unsigned_8;
+                   Mode      : Control_Mode;
+                   OpenDelay : Unsigned_8;
+                   Timeout   : Duration) return Listener_Record;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Door       Unsigned_8      Door ID [1..4].
+- Mode       Control_Mode    Normally_Open, Normally_Closed or Controlled.
+- OpenDelay  Unsigned_8      Door unlocked delay (seconds).
 ```
 
 Returns a `Door_Record`:

@@ -211,4 +211,15 @@ package body Handlers is
       Put_Line ("");
    end Get_Door;
 
+   --  Executes the set-door command.
+   procedure Set_Door (Args : ArgParse.Args) is
+      R : constant Door_Record := Set_Door (U, Args.Controller, Args.Door, Args.Mode, Args.OpenDelay, Timeout);
+   begin
+      Put_Line ("--- set-door");
+      Put_Line ("controller:" & Args.Controller.ID'Image);
+      Put_Line ("      mode: " & R.Mode'Image);
+      Put_Line ("     delay:" & R.OpenDelay'Image);
+      Put_Line ("");
+   end Set_Door;
+
 end Handlers;

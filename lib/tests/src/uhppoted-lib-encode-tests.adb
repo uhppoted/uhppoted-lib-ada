@@ -21,6 +21,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Set_Listener'Access,     "test encode Set_Listener request");
       Register_Routine (T, Test_Encode_Get_Status'Access,       "test encode Get_Status request");
       Register_Routine (T, Test_Encode_Get_Door'Access,         "test encode Get_Door request");
+      Register_Routine (T, Test_Encode_Set_Door'Access,         "test encode Set_Door request");
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -174,5 +175,24 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded get-door request: got" & Request'Image);
    end Test_Encode_Get_Door;
+
+   procedure Test_Encode_Set_Door (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#80#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#03#, 16#02#, 16#11#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Door (
+         405419896,
+         3,
+         To_Control_Mode(2),
+         17);
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-door request: got" & Request'Image);
+   end Test_Encode_Set_Door;
 
 end Uhppoted.Lib.Encode.Tests;

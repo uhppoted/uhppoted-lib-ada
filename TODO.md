@@ -17,13 +17,13 @@
    - [ ] use encode/decode GetListenerAddrPort
 - [x] set-listener
    - [ ] use encode/decode SetListenerAddrPort
-
 - [x] get-door
+
+- [ ] set-door
    - [x] API
    - [x] CLI
    - [x] README
-   - [x] integration tests
-   - [x] ControlMode enums
+   - [ ] integration tests
 
 - [x] check SOM in decode
 - [x] check opcode in decode

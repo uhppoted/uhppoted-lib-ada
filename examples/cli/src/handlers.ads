@@ -10,4 +10,5 @@ package Handlers is
    procedure Set_Listener     (Args : ArgParse.Args);
    procedure Get_Status       (Args : ArgParse.Args);
    procedure Get_Door         (Args : ArgParse.Args);
+   procedure Set_Door         (Args : ArgParse.Args);
 end Handlers;

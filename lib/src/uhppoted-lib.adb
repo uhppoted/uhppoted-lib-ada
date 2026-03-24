@@ -316,6 +316,39 @@ package body Uhppoted.Lib is
               OpenDelay => R.OpenDelay);
    end Get_Door;
 
+   --  Sets a door control mode and open delay. Restricted to the local LAN.
+   function Set_Door (U         : UHPPOTE;
+                      C         : Unsigned_32;
+                      Door      : Unsigned_8;
+                      Mode      : Control_Mode;
+                      OpenDelay : Unsigned_8;
+                      Timeout   : Duration := 2.5) return Door_Record is
+   begin
+      return Set_Door (U, To_Controller (C), Door, Mode, OpenDelay, Timeout);
+   end Set_Door;
+
+   --  Sets a door control mode and open delay.
+   function Set_Door (U         : UHPPOTE;
+                      C         : Controller;
+                      Door      : Unsigned_8;
+                      Mode      : Control_Mode;
+                      OpenDelay : Unsigned_8;
+                      Timeout   : Duration := 2.5) return Door_Record is
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Door (C.ID, Door, Mode, OpenDelay);
+      Reply   : Packet;
+      R       : Set_Door_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Set_Door (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Mode      => To_Control_Mode (R.Mode),
+              OpenDelay => R.OpenDelay);
+   end Set_Door;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

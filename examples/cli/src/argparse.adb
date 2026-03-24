@@ -22,11 +22,18 @@ package body ArgParse is
          return Parse_Get_Door;
       end if;
 
+      if Cmd = "set-door" then
+         return Parse_Set_Door;
+      end if;
+
+      --  default to general command
       Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
       Getopt (Config, Concatenate => True);
       Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
 
-      return (T => ArgParse.General_Args, Controller => C);
+      return (T          => ArgParse.General_Args,
+              Controller => C,
+              Door       => 0);
    end Parse;
 
    procedure Add_Controller_Switches (Config               : in out Command_Line_Configuration;
@@ -142,6 +149,7 @@ package body ArgParse is
 
       return (T          => ArgParse.Set_Listener_Args,
               Controller => C,
+              Door       => 0,
               Listener   => AddrPort,
               Interval   => Unsigned_8 (Listener_Interval));
 
@@ -173,5 +181,61 @@ package body ArgParse is
               Door       => Unsigned_8 (Door));
 
    end Parse_Get_Door;
+
+   function Parse_Set_Door return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Door                 : aliased Integer       := 0;
+      Mode                 : aliased String_Access := null;
+      OpenDelay            : aliased Integer       := 0;
+
+      C : Controller;
+      M : Control_Mode := Controlled;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Door'Access,
+                     Long_Switch => "--door:",
+                     Help        => "door ID [1..4]",
+                     Argument    => "[1..4]");
+
+      Define_Switch (Config,
+                     Output      => Mode'Access,
+                     Long_Switch => "--mode:",
+                     Help        => "door control mode",
+                     Argument    => " [controlled | normally-open | normally-closed]");
+
+      Define_Switch (Config,
+                     Output      => OpenDelay'Access,
+                     Long_Switch => "--delay:",
+                     Help        => "door open delay",
+                     Argument    => "SECONDS");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return set-door command specific args
+      declare
+         S : String renames Mode.all;
+      begin
+         if S = "normally-open" then
+            M := Normally_Open;
+         elsif S = "normally-closed" then
+            M := Normally_Closed;
+         elsif S = "controlled" then
+            M := Controlled;
+         end if;
+      end;
+
+      return (T          => ArgParse.Set_Door_Args,
+              Controller => C,
+              Door       => Unsigned_8 (Door),
+              Mode       => M,
+              OpenDelay  => Unsigned_8 (OpenDelay));
+
+   end Parse_Set_Door;
 
 end ArgParse;

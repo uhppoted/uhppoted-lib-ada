@@ -20,11 +20,13 @@ package ArgParse is
       Get_Listener_Args,
       Set_Listener_Args,
       Get_Status_Args,
-      Get_Door_Args);
+      Get_Door_Args,
+      Set_Door_Args);
 
    type Args (T : Args_Type) is
    record
       Controller : Uhppoted.Lib.Controller;
+            Door : Unsigned_8;
 
       case T is
          when Set_Listener_Args =>
@@ -32,7 +34,11 @@ package ArgParse is
             Interval : Unsigned_8;
 
          when Get_Door_Args =>
-            Door : Unsigned_8;
+            null;
+
+         when Set_Door_Args =>
+            Mode      : Uhppoted.Lib.Control_Mode;
+            OpenDelay : Unsigned_8;
 
          when others =>
             null;
@@ -54,5 +60,6 @@ private
 
    function Parse_Set_Listener  return Args;
    function Parse_Get_Door     return Args;
+   function Parse_Set_Door     return Args;
 
 end ArgParse;

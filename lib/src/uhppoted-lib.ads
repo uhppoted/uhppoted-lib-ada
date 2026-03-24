@@ -36,6 +36,10 @@ package Uhppoted.Lib is
 
    subtype Control_Mode           is Uhppoted.Types.Control_Mode;
 
+   Normally_Open   : Control_Mode renames Uhppoted.Types.Normally_Open;
+   Normally_Closed : Control_Mode renames Uhppoted.Types.Normally_Closed;
+   Controlled      : Control_Mode renames Uhppoted.Types.Controlled;
+
    --  Finds all access controllers on the local LAN.
    --
    --  @param  U        UHPPOTE configuration.
@@ -285,6 +289,7 @@ package Uhppoted.Lib is
    --
    --  @param  U        UHPPOTE configuration.
    --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Door     Door ID ([1..4]).
    --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
    --  @return          Door_Record with the control mode and open delay.
@@ -295,6 +300,46 @@ package Uhppoted.Lib is
                       C       : Controller;
                       Door    : Unsigned_8;
                       Timeout : Duration := 2.5) return Door_Record;
+
+   --  Sets a door control mode and open delay. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Door       Door ID ([1..4]).
+   --  @param  Mode       Door control mode (Controlled, Normally_Open or Normally_Closed).
+   --  @param  OpenDelay  Time  (seconds) door remains unlocked after swipe.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return          Door_Record with the control mode and open delay.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Set_Door (U         : UHPPOTE;
+                      C         : Unsigned_32;
+                      Door      : Unsigned_8;
+                      Mode      : Uhppoted.Lib.Control_Mode;
+                      OpenDelay : Unsigned_8;
+                      Timeout   : Duration := 2.5) return Door_Record;
+
+   --  Sets a door control mode and open delay.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Door       Door ID ([1..4]).
+   --  @param  Mode       Door control mode (Controlled, Normally_Open or Normally_Closed).
+   --  @param  OpenDelay  Time  (seconds) door remains unlocked after swipe.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Door_Record with the control mode and open delay.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   function Set_Door (U         : UHPPOTE;
+                      C         : Controller;
+                      Door      : Unsigned_8;
+                      Mode      : Uhppoted.Lib.Control_Mode;
+                      OpenDelay : Unsigned_8;
+                      Timeout   : Duration := 2.5) return Door_Record;
 
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").
    --

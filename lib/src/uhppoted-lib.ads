@@ -1,14 +1,13 @@
+with Interfaces;
+with GNAT.Sockets;
+with Uhppoted.Types;
+
 --  Package: Uhppoted_Lib
 --  @summary
 --  API library for the UHPPOTE access controllers.
 --
 --  @description
 --  Implements the functions to manage UHPPOTE controllers over UDP or TCP/IP.
-
-with Interfaces;
-with GNAT.Sockets;
-with Uhppoted.Types;
-
 package Uhppoted.Lib is
    use Interfaces;
    use GNAT.Sockets;
@@ -55,13 +54,13 @@ package Uhppoted.Lib is
 
    --  Retrieves the information for a single access controller. Restricted to the local LAN.
    --
-   --  @param U        UHPPOTE configuration.
-   --  @param C        Controller serial number.
-   --  @param Timeout  Operation timeout (defaults to 2.5s).
+   --  @param U UHPPOTE configuration.
+   --  @param C Controller serial number.
+   --  @param Timeout Operation timeout (defaults to 2.5s).
    --
    --  @return Controller_Record with the controller information.
    --
-   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Timeout_Error if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    function Get_Controller (U : UHPPOTE;
                             C : Unsigned_32;
@@ -69,13 +68,13 @@ package Uhppoted.Lib is
 
    --  Retrieves the information for a single access controller.
    --
-   --  @param U        UHPPOTE configuration.
-   --  @param C        Controller serial number, IPv4 address and (optional) procotol.
-   --  @param Timeout  Operation timeout (defaults to 2.5s).
+   --  @param U UHPPOTE configuration.
+   --  @param C Controller serial number, IPv4 address and (optional) procotol.
+   --  @param Timeout Operation timeout (defaults to 2.5s).
    --
    --  @return Controller_Record with the controller information.
    --
-   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Timeout_Error if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    function Get_Controller (U : UHPPOTE;
                             C : Controller;
@@ -83,16 +82,16 @@ package Uhppoted.Lib is
 
    --  Sets the access controller IPv4 address, subnet mask and gateway address. Restricted to the local LAN.
    --
-   --  @param U        UHPPOTE configuration.
-   --  @param C        Controller serial number.
-   --  @param Addr     IPv4 address assigned to the controller.
-   --  @param Netmask  Network IPv4 subnet mask for the controller.
-   --  @param Gateway  Network gateway IPv4 address
-   --  @param Timeout  Operation timeout (defaults to 2.5s).
+   --  @param U UHPPOTE configuration.
+   --  @param C Controller serial number.
+   --  @param Addr IPv4 address assigned to the controller.
+   --  @param Netmask Network IPv4 subnet mask for the controller.
+   --  @param Gateway Network gateway IPv4 address
+   --  @param Timeout Operation timeout (defaults to 2.5s).
    --
-   --  @return          Controller_Record with the controller information.
+   --  @return Controller_Record with the controller information.
    --
-   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Timeout_Error if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    function Set_IPv4 (U       : UHPPOTE;
                       C       : Unsigned_32;
@@ -103,12 +102,12 @@ package Uhppoted.Lib is
 
    --  Sets the access controller IPv4 address, subnet mask and gateway address.
    --
-   --  @param  U        UHPPOTE configuration.
-   --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
-   --  @param  Addr     IPv4 address assigned to the controller.
-   --  @param  Netmask  Network IPv4 subnet mask for the controller.
-   --  @param  Gateway  Network gateway IPv4 address
-   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --  @param U UHPPOTE configuration.
+   --  @param C Controller serial number, IPv4 address and (optional) procotol.
+   --  @param Addr IPv4 address assigned to the controller.
+   --  @param Netmask Network IPv4 subnet mask for the controller.
+   --  @param Gateway Network gateway IPv4 address
+   --  @param Timeout Operation timeout (defaults to 2.5s).
    --
    --  @return          True if the controller network configuration was updated.
    --

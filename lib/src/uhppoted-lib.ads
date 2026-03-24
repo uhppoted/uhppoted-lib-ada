@@ -2,12 +2,11 @@ with Interfaces;
 with GNAT.Sockets;
 with Uhppoted.Types;
 
---  Package: Uhppoted_Lib
 --  @summary
 --  API library for the UHPPOTE access controllers.
 --
 --  @description
---  Implements the functions to manage UHPPOTE controllers over UDP or TCP/IP.
+--  Implements the functions required to manage UHPPOTE controllers over UDP or TCP/IP.
 package Uhppoted.Lib is
    use Interfaces;
    use GNAT.Sockets;
@@ -43,99 +42,86 @@ package Uhppoted.Lib is
    Normally_Closed : Control_Mode renames Uhppoted.Types.Normally_Closed;
    Controlled      : Control_Mode renames Uhppoted.Types.Controlled;
 
-   --  Finds all access controllers on the local LAN.
-   --
-   --  @param U UHPPOTE configuration.
-   --  @param Timeout Operation timeout (defaults to 2.5s).
-   --
-   --  @return List of Controller_Record.
-   function Find_Controllers (U : UHPPOTE;
+   function Find_Controllers (U       : UHPPOTE;
                               Timeout : Duration := 2.5) return Controller_Record_List;
    --  Finds all access controllers on the local LAN.
    --
-   --  @param U UHPPOTE configuration.
-   --  @param Timeout Operation timeout (defaults to 2.5s).
+   --  @param  U        UHPPOTE configuration.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return List of Controller_Record.
-
-   --  Retrieves the information for a single access controller. Restricted to the local LAN.
-   --
-   --  @param U UHPPOTE configuration.
-   --  @param C Controller serial number.
-   --  @param Timeout Operation timeout (defaults to 2.5s).
-   --
-   --  @return Controller_Record with the controller information.
-   --
-   --  @exception Timeout_Error if the controller did not respond.
-   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   --  @return          List of Controller_Record.
+   
    function Get_Controller (U : UHPPOTE;
                             C : Unsigned_32;
                             Timeout : Duration := 2.5) return Controller_Record;
    --  Retrieves the information for a single access controller. Restricted to the local LAN.
    --
-   --  @param U UHPPOTE configuration.
-   --  @param C Controller serial number.
-   --  @param Timeout Operation timeout (defaults to 2.5s).
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return Controller_Record with the controller information.
+   --  @return          Controller_Record with the controller information.
    --
-   --  @exception Timeout_Error if the controller did not respond.
+   --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
-   --  Retrieves the information for a single access controller.
-   --
-   --  @param U UHPPOTE configuration.
-   --  @param C Controller serial number, IPv4 address and (optional) procotol.
-   --  @param Timeout Operation timeout (defaults to 2.5s).
-   --
-   --  @return Controller_Record with the controller information.
-   --
-   --  @exception Timeout_Error if the controller did not respond.
-   --  @exception Invalid_Response_Error if the response did not match the requested controller.
    function Get_Controller (U : UHPPOTE;
                             C : Controller;
                             Timeout : Duration := 2.5) return Controller_Record;
-
-   --  Sets the access controller IPv4 address, subnet mask and gateway address. Restricted to the local LAN.
+   --  Retrieves the information for a single access controller.
    --
-   --  @param U UHPPOTE configuration.
-   --  @param C Controller serial number.
-   --  @param Addr IPv4 address assigned to the controller.
-   --  @param Netmask Network IPv4 subnet mask for the controller.
-   --  @param Gateway Network gateway IPv4 address
-   --  @param Timeout Operation timeout (defaults to 2.5s).
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return Controller_Record with the controller information.
+   --  @return          Controller_Record with the controller information.
    --
-   --  @exception Timeout_Error if the controller did not respond.
+   --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Set_IPv4 (U       : UHPPOTE;
                       C       : Unsigned_32;
                       Addr    : GNAT.Sockets.Inet_Addr_Type;
                       Netmask : GNAT.Sockets.Inet_Addr_Type;
                       Gateway : GNAT.Sockets.Inet_Addr_Type;
                       Timeout : Duration := 2.5) return Boolean;
-
-   --  Sets the access controller IPv4 address, subnet mask and gateway address.
+   --  Sets the access controller IPv4 address, subnet mask and gateway address. Restricted to the local LAN.
    --
-   --  @param U UHPPOTE configuration.
-   --  @param C Controller serial number, IPv4 address and (optional) procotol.
-   --  @param Addr IPv4 address assigned to the controller.
-   --  @param Netmask Network IPv4 subnet mask for the controller.
-   --  @param Gateway Network gateway IPv4 address
-   --  @param Timeout Operation timeout (defaults to 2.5s).
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number.
+   --  @param  Addr     IPv4 address assigned to the controller.
+   --  @param  Netmask  Network IPv4 subnet mask for the controller.
+   --  @param  Gateway  Network gateway IPv4 address
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return          True if the controller network configuration was updated.
+   --  @return          Controller_Record with the controller information.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Set_IPv4 (U       : UHPPOTE;
                       C       : Controller;
                       Addr    : GNAT.Sockets.Inet_Addr_Type;
                       Netmask : GNAT.Sockets.Inet_Addr_Type;
                       Gateway : GNAT.Sockets.Inet_Addr_Type;
                       Timeout : Duration := 2.5) return Boolean;
+   --  Sets the access controller IPv4 address, subnet mask and gateway address.
+   --
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Addr     IPv4 address assigned to the controller.
+   --  @param  Netmask  Network IPv4 subnet mask for the controller.
+   --  @param  Gateway  Network gateway IPv4 address
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          True if the controller network configuration was updated.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
+   function Get_Time (U : UHPPOTE;
+                      C : Unsigned_32;
+                      Timeout : Duration := 2.5) return DateTime;
    --  Retrieves the access controller date/time. Restricted to the local LAN.
    --
    --  @param  U        UHPPOTE configuration.
@@ -146,10 +132,10 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Time (U : UHPPOTE;
-                      C : Unsigned_32;
-                      Timeout : Duration := 2.5) return DateTime;
 
+   function Get_Time (U : UHPPOTE;
+                      C : Controller;
+                      Timeout : Duration := 2.5) return DateTime;
    --  Retrieves the access controller date/time.
    --
    --  @param  U        UHPPOTE configuration.
@@ -160,10 +146,11 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Time (U : UHPPOTE;
-                      C : Controller;
-                      Timeout : Duration := 2.5) return DateTime;
 
+   function Set_Time (U  : UHPPOTE;
+                      C  : Unsigned_32;
+                      DT : DateTime;
+                      Timeout : Duration := 2.5) return DateTime;
    --  Sets the access controller date/time.
    --
    --  @param  U        UHPPOTE configuration.
@@ -175,11 +162,11 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Set_Time (U  : UHPPOTE;
-                      C  : Unsigned_32;
+                      C  : Controller;
                       DT : DateTime;
                       Timeout : Duration := 2.5) return DateTime;
-
    --  Sets the access controller date/time.
    --
    --  @param  U        UHPPOTE configuration.
@@ -191,11 +178,10 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Time (U  : UHPPOTE;
-                      C  : Controller;
-                      DT : DateTime;
-                      Timeout : Duration := 2.5) return DateTime;
 
+   function Get_Listener (U : UHPPOTE;
+                          C : Unsigned_32;
+                          Timeout : Duration := 2.5) return Listener_Record;
    --  Retrieves the access controller listener address:port and auto-send interval. Restricted to the local LAN.
    --
    --  @param  U        UHPPOTE configuration.
@@ -206,10 +192,10 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Listener (U : UHPPOTE;
-                          C : Unsigned_32;
-                          Timeout : Duration := 2.5) return Listener_Record;
 
+   function Get_Listener (U : UHPPOTE;
+                          C : Controller;
+                          Timeout : Duration := 2.5) return Listener_Record;
    --  Retrieves the access controller listener address:port and auto-send interval.
    --
    --  @param  U        UHPPOTE configuration.
@@ -220,10 +206,12 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Listener (U : UHPPOTE;
-                          C : Controller;
-                          Timeout : Duration := 2.5) return Listener_Record;
 
+   function Set_Listener (U        : UHPPOTE;
+                          C        : Unsigned_32;
+                          Listener : GNAT.Sockets.Sock_Addr_Type;
+                          Interval : Unsigned_8;
+                          Timeout  : Duration := 2.5) return Boolean;
    --  Sets the access controller listener address:port and auto-send interval.
    --
    --  @param  U         UHPPOTE configuration.
@@ -236,12 +224,12 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Set_Listener (U        : UHPPOTE;
-                          C        : Unsigned_32;
+                          C        : Controller;
                           Listener : GNAT.Sockets.Sock_Addr_Type;
                           Interval : Unsigned_8;
                           Timeout  : Duration := 2.5) return Boolean;
-
    --  Sets the access controller listener address:port and auto-send interval.
    --
    --  @param  U         UHPPOTE configuration.
@@ -254,12 +242,10 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Listener (U        : UHPPOTE;
-                          C        : Controller;
-                          Listener : GNAT.Sockets.Sock_Addr_Type;
-                          Interval : Unsigned_8;
-                          Timeout  : Duration := 2.5) return Boolean;
 
+   function Get_Status (U : UHPPOTE;
+                        C : Unsigned_32;
+                        Timeout : Duration := 2.5) return Controller_Status;
    --  Retrieves the access controller status. Restricted to the local LAN.
    --
    --  @param  U        UHPPOTE configuration.
@@ -270,10 +256,10 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Status (U : UHPPOTE;
-                        C : Unsigned_32;
-                        Timeout : Duration := 2.5) return Controller_Status;
 
+   function Get_Status (U : UHPPOTE;
+                        C : Controller;
+                        Timeout : Duration := 2.5) return Controller_Status;
    --  Retrieves the access controller status.
    --
    --  @param  U        UHPPOTE configuration.
@@ -284,10 +270,11 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Status (U : UHPPOTE;
-                        C : Controller;
-                        Timeout : Duration := 2.5) return Controller_Status;
 
+   function Get_Door (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      Door    : Unsigned_8;
+                      Timeout : Duration := 2.5) return Door_Record;
    --  Retrieves a door control mode and open delay. Restricted to the local LAN.
    --
    --  @param  U        UHPPOTE configuration.
@@ -299,11 +286,11 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Get_Door (U       : UHPPOTE;
-                      C       : Unsigned_32;
+                      C       : Controller;
                       Door    : Unsigned_8;
                       Timeout : Duration := 2.5) return Door_Record;
-
    --  Retrieves a door control mode and open delay.
    --
    --  @param  U        UHPPOTE configuration.
@@ -315,11 +302,13 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Door (U       : UHPPOTE;
-                      C       : Controller;
-                      Door    : Unsigned_8;
-                      Timeout : Duration := 2.5) return Door_Record;
 
+   function Set_Door (U         : UHPPOTE;
+                      C         : Unsigned_32;
+                      Door      : Unsigned_8;
+                      Mode      : Uhppoted.Lib.Control_Mode;
+                      OpenDelay : Unsigned_8;
+                      Timeout   : Duration := 2.5) return Door_Record;
    --  Sets a door control mode and open delay. Restricted to the local LAN.
    --
    --  @param  U          UHPPOTE configuration.
@@ -333,13 +322,13 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Set_Door (U         : UHPPOTE;
-                      C         : Unsigned_32;
+                      C         : Controller;
                       Door      : Unsigned_8;
                       Mode      : Uhppoted.Lib.Control_Mode;
                       OpenDelay : Unsigned_8;
                       Timeout   : Duration := 2.5) return Door_Record;
-
    --  Sets a door control mode and open delay.
    --
    --  @param  U          UHPPOTE configuration.
@@ -353,39 +342,33 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Door (U         : UHPPOTE;
-                      C         : Controller;
-                      Door      : Unsigned_8;
-                      Mode      : Uhppoted.Lib.Control_Mode;
-                      OpenDelay : Unsigned_8;
-                      Timeout   : Duration := 2.5) return Door_Record;
 
+   function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").
    --
    --  @param Addr The IPv4 address to be converted.
    --  @return A string containing the formatted IP address.
    --  @see Uhppoted.Types.Image
-   function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
 
+   function Image (MAC  : Hardware_Addr) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given MAC address in hexadecimal format (e.g., "12:34:56:78:9a:bc").
    --
    --  @param MAC The MAC address to be converted.
    --  @return A string containing the formatted MAC address.
    --  @see Uhppoted.Types.Image
-   function Image (MAC  : Hardware_Addr) return String renames Uhppoted.Types.Image;
 
+   function Image (D : DateOnly) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given date in yyyy-mm-dd format (e.g., "2026-02-26").
    --
    --  @param D  The date to be converted.
    --  @return   A string containing the formatted date.
    --  @see Uhppoted.Types.Image
-   function Image (D : DateOnly) return String renames Uhppoted.Types.Image;
 
+   function Image (DT : DateTime) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given date/time in yyyy-mm-dd HH:mm:ssformat (e.g. "2026-02-26 15:23:45").
    --
    --  @param DT  The date/time  to be converted.
    --  @return    A string containing the formatted date/time.
    --  @see Uhppoted.Types.Image
-   function Image (DT : DateTime) return String renames Uhppoted.Types.Image;
 
 end Uhppoted.Lib;

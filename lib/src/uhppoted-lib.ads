@@ -46,20 +46,20 @@ package Uhppoted.Lib is
 
    --  Finds all access controllers on the local LAN.
    --
-   --  @param  U        UHPPOTE configuration.
-   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --  @param U        UHPPOTE configuration.
+   --  @param Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return          List of Controller_Record.
+   --  @return List of Controller_Record.
    function Find_Controllers (U : UHPPOTE;
                               Timeout : Duration := 2.5) return Controller_Record_List;
 
    --  Retrieves the information for a single access controller. Restricted to the local LAN.
    --
-   --  @param  U        UHPPOTE configuration.
-   --  @param  C        Controller serial number.
-   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --  @param U        UHPPOTE configuration.
+   --  @param C        Controller serial number.
+   --  @param Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return          Controller_Record with the controller information.
+   --  @return Controller_Record with the controller information.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
@@ -69,11 +69,11 @@ package Uhppoted.Lib is
 
    --  Retrieves the information for a single access controller.
    --
-   --  @param  U        UHPPOTE configuration.
-   --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
-   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --  @param U        UHPPOTE configuration.
+   --  @param C        Controller serial number, IPv4 address and (optional) procotol.
+   --  @param Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return          Controller_Record with the controller information.
+   --  @return Controller_Record with the controller information.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
@@ -83,12 +83,12 @@ package Uhppoted.Lib is
 
    --  Sets the access controller IPv4 address, subnet mask and gateway address. Restricted to the local LAN.
    --
-   --  @param  U        UHPPOTE configuration.
-   --  @param  C        Controller serial number.
-   --  @param  Addr     IPv4 address assigned to the controller.
-   --  @param  Netmask  Network IPv4 subnet mask for the controller.
-   --  @param  Gateway  Network gateway IPv4 address
-   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --  @param U        UHPPOTE configuration.
+   --  @param C        Controller serial number.
+   --  @param Addr     IPv4 address assigned to the controller.
+   --  @param Netmask  Network IPv4 subnet mask for the controller.
+   --  @param Gateway  Network gateway IPv4 address
+   --  @param Timeout  Operation timeout (defaults to 2.5s).
    --
    --  @return          Controller_Record with the controller information.
    --

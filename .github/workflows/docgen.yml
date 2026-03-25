@@ -18,15 +18,10 @@ jobs:
     - name: Setup Alire
       uses: alire-project/setup-alire@v5
 
-    - name: Setup gnatdoc
+    - name: Setup gnatdoc and gnatpp
       uses: alire-project/alr-install@v2
       with:
-        crates: gnatdoc
-
-    - name: Setup gnatpp
-      uses: alire-project/alr-install@v2
-      with:
-        crates: gnatpp
+        crates: gnatdoc libadalang_tools
 
     - name: Build project
       run: |

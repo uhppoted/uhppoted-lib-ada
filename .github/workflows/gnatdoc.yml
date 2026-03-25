@@ -1,4 +1,4 @@
-name: docgen
+name: gnatdoc
 
 on:
   workflow_dispatch:
@@ -18,10 +18,10 @@ jobs:
     - name: Setup Alire
       uses: alire-project/setup-alire@v5
 
-    - name: Setup gnatdoc and gnatpp
+    - name: Setup gnatdoc
       uses: alire-project/alr-install@v2
       with:
-        crates: gnatdoc libadalang_tools
+        crates: gnatdoc
 
     - name: Build project
       run: |
@@ -38,14 +38,3 @@ jobs:
       with:
         path: adadoc
         name: uhppoted-lib-ada-adadoc
-
-    - name: Format source
-      run: |
-        cd lib && alr exec -- gnatpp -P uhppoted_lib_ada.gpr
-        ls -la ../adadoc
-
-    - name: Upload formatted source
-      uses: actions/upload-artifact@v6
-      with:
-        path: lib/src
-        name: uhppoted-lib-ada-src

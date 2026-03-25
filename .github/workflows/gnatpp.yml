@@ -1,0 +1,39 @@
+name: gnatpp
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+
+  build:
+    name: docgen
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Check out code
+      uses: actions/checkout@v6
+
+    - name: Setup Alire
+      uses: alire-project/setup-alire@v5
+
+    - name: Setup gnatpp
+      uses: alire-project/alr-install@v2
+      with:
+        crates: libadalang_tools
+
+    - name: Build project
+      run: |
+        cd lib && alr build
+
+    - name: Format source
+      run: |
+        cd lib && alr exec -- gnatpp -P uhppoted_lib_ada.gpr
+        ls -la ../adadoc
+
+    - name: Upload formatted source
+      uses: actions/upload-artifact@v6
+      with:
+        path: lib/src
+        name: uhppoted-lib-ada-src

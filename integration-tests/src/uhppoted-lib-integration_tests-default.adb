@@ -134,7 +134,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Set_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Door_Record := Set_Door (U, 405419896, 4, To_Control_Mode(2), 17);
+      V : constant Door_Record := Set_Door (U, 405419896, 4, To_Control_Mode (2), 17);
    begin
       Assert (V = Expected.Set_Door, "invalid result" & V'Image);
    end Test_Set_Door;

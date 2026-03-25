@@ -46,7 +46,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
    Set_Time : constant DateTime := (Year => 2025, Month => 11, Day => 1, Hour => 12, Minute => 34, Second => 56);
 
    Get_Listener : constant Listener_Record := (
-     AddrPort => Network_Socket_Address (Addr => Inet_Addr ("192.168.1.100"), Port => Port_Type (60001)),
+     Listener => Network_Socket_Address (Addr => Inet_Addr ("192.168.1.100"), Port => Port_Type (60001)),
      Interval => 13);
 
    Set_Listener : constant Boolean := True;

@@ -20,6 +20,8 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Get_Listener'Access,     "test encode Get_Listener request");
       Register_Routine (T, Test_Encode_Set_Listener'Access,     "test encode Set_Listener request");
       Register_Routine (T, Test_Encode_Get_Status'Access,       "test encode Get_Status request");
+      Register_Routine (T, Test_Encode_Get_Listener_Addr_Port'Access, "test encode Get_Listener_Addr_Port request");
+      Register_Routine (T, Test_Encode_Set_Listener_Addrport'Access, "test encode Set_Listener_Addrport request");
       Register_Routine (T, Test_Encode_Get_Door'Access,         "test encode Get_Door request");
       Register_Routine (T, Test_Encode_Set_Door'Access,         "test encode Set_Door request");
    end Register_Tests;
@@ -159,6 +161,40 @@ package body Uhppoted.Lib.Encode.Tests is
       Assert (Request = Expected, "incorrectly encoded get-status request: got" & Request'Image);
    end Test_Encode_Get_Status;
 
+   procedure Test_Encode_Get_Listener_Addr_Port (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#92#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Listener_Addr_Port (
+         405419896);
+   begin
+      Assert (Request = Expected, "incorrectly encoded get-listener-addr-port request: got" & Request'Image);
+   end Test_Encode_Get_Listener_Addr_Port;
+
+   procedure Test_Encode_Set_Listener_Addrport (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#90#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#c0#, 16#a8#, 16#01#, 16#64#, 16#61#, 16#ea#, 16#11#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Listener_Addr_Port (
+         405419896,
+         Network_Socket_Address (Addr => Inet_Addr ("192.168.1.100"), Port => Port_Type (60001)),
+         17);
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-listener-addr:port request: got" & Request'Image);
+   end Test_Encode_Set_Listener_Addrport;
+
    procedure Test_Encode_Get_Door (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
 
@@ -189,7 +225,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Request : constant Packet := Uhppoted.Lib.Encode.Set_Door (
          405419896,
          3,
-         To_Control_Mode(2),
+         To_Control_Mode (2),
          17);
    begin
       Assert (Request = Expected, "incorrectly encoded set-door request: got" & Request'Image);

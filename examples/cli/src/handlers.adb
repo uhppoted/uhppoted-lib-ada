@@ -149,8 +149,8 @@ package body Handlers is
    begin
       Put_Line ("--- get-listener");
       Put_Line ("controller:"  & Args.Controller.ID'Image);
-      Put_Line ("  address:port: " & Image (R.AddrPort));
-      Put_Line ("  interval:    " & R.Interval'Image);
+      Put_Line ("  listener: " & Image (R.Listener));
+      Put_Line ("  interval:" & R.Interval'Image);
       Put_Line ("");
    end Get_Listener;
 

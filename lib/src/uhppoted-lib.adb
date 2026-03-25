@@ -180,18 +180,18 @@ package body Uhppoted.Lib is
    function Get_Listener (U : UHPPOTE;
                           C : Controller;
                           Timeout : Duration := 2.5) return Listener_Record is
-      Request : constant Packet := Uhppoted.Lib.Encode.Get_Listener (C.ID);
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Listener_Addr_Port (C.ID);
       Reply   : Packet;
-      R       : Get_Listener_Response;
+      R       : Get_Listener_Addr_Port_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Listener (Reply);
+      R     := Uhppoted.Lib.Decode.Get_Listener_Addr_Port (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
       end if;
 
-      return (AddrPort => Network_Socket_Address (Addr => Inet_Addr (Image (R.Address)), Port => Port_Type (R.Port)),
+      return (Listener => R.Listener,
               Interval => R.Interval);
    end Get_Listener;
 
@@ -211,15 +211,12 @@ package body Uhppoted.Lib is
                           Listener : GNAT.Sockets.Sock_Addr_Type;
                           Interval : Unsigned_8;
                           Timeout  : Duration := 2.5) return Boolean is
-      Request : constant Packet := Uhppoted.Lib.Encode.Set_Listener (C.ID,
-                                                                     Listener.Addr,
-                                                                     Unsigned_16 (Listener.Port),
-                                                                     Interval);
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Listener_Addr_Port (C.ID, Listener, Interval);
       Reply   : Packet;
-      R       : Set_Listener_Response;
+      R       : Set_Listener_Addr_Port_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_Listener (Reply);
+      R     := Uhppoted.Lib.Decode.Set_Listener_Addr_Port (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;

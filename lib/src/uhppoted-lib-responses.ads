@@ -40,8 +40,21 @@ package Uhppoted.Lib.Responses is
       Interval   : Unsigned_8;
    end record;
 
+   --  Message definition for a get-listener-addrport response.
+   type Get_Listener_Addr_Port_Response is record
+      Controller : Unsigned_32;
+      Listener   : GNAT.Sockets.Sock_Addr_Type;
+      Interval   : Unsigned_8;
+   end record;
+
    --  Message definition for a set-listener response.
    type Set_Listener_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
+   --  Message definition for a set-listener response.
+   type Set_Listener_Addr_Port_Response is record
       Controller : Unsigned_32;
       Ok         : Boolean;
    end record;

@@ -185,7 +185,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                                Port => 60003),
                                   Protocol => Uhppoted.Lib.TCP);
 
-      V : constant Door_Record := Set_Door (U, C, 4, To_Control_Mode(2), 17);
+      V : constant Door_Record := Set_Door (U, C, 4, To_Control_Mode (2), 17);
    begin
       Assert (V = Expected.Set_Door, "invalid result" & V'Image);
    end Test_Set_Door;

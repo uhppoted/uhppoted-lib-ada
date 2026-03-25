@@ -99,6 +99,23 @@ package body Uhppoted.Lib.Decode is
               Interval   => R.Interval);
    end Get_Listener;
 
+   --  Decodes a 64 byte get-listener reply as a Get_Listener_Addr_Port_Response record.
+   function Get_Listener_Addr_Port (Reply : Packet) return Responses.Get_Listener_Addr_Port_Response is
+      R : Replies.Get_Listener_Addr_Port_Response with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Listener then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Listener   => Network_Socket_Address (Addr => Inet_Addr (Image (R.Address)), Port => Port_Type (R.Port)),
+              Interval   => R.Interval);
+   end Get_Listener_Addr_Port;
+
    --  Decodes a 64 byte set-listener reply as a Get_Time_Response record.
    function Set_Listener (Reply : Packet) return Responses.Set_Listener_Response is
       R : Replies.Set_Listener_Response with Import, Address => Reply'Address;
@@ -114,6 +131,22 @@ package body Uhppoted.Lib.Decode is
       return (Controller => R.Controller,
               Ok         => R.Ok);
    end Set_Listener;
+
+   --  Decodes a 64 byte set-listener reply as a Get_Time_Response record.
+   function Set_Listener_Addr_Port (Reply : Packet) return Responses.Set_Listener_Addr_Port_Response is
+      R : Replies.Set_Listener_Addr_Port_Response with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Set_Listener then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => R.Ok);
+   end Set_Listener_Addr_Port;
 
    --  Decodes a 64 byte get-status reply as a Get_Status_Response record.
    function Get_Status (Reply : Packet) return Responses.Get_Status_Response is

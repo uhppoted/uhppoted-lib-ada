@@ -136,7 +136,15 @@ func args(t lib.RequestTest) []arg {
 			args = append(args, arg{datetime(a.Value), comma})
 
 		case "mode":
-			args = append(args, arg{fmt.Sprintf("To_Control_Mode(%v)", a.Value), comma})
+			args = append(args, arg{fmt.Sprintf("To_Control_Mode (%v)", a.Value), comma})
+
+		case "address:port":
+			{
+				addrPort := netip.MustParseAddrPort(fmt.Sprintf("%v", a.Value))
+				address := fmt.Sprintf(`Network_Socket_Address (Addr => Inet_Addr ("%v"), Port => Port_Type (%v))`, addrPort.Addr(), addrPort.Port())
+
+				args = append(args, arg{address, comma})
+			}
 
 		default:
 			args = append(args, arg{fmt.Sprintf("%v", a.Value), comma})

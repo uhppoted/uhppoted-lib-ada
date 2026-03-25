@@ -20,8 +20,15 @@ package Uhppoted.Lib.Decode is
    --  Decodes a 64 byte get-listener reply as a Get_Listener_Response record.
    function Get_Listener (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Listener_Response;
 
+   --  Decodes a 64 byte get-listener reply as a Get_Listener_Addr_Port_Response record.
+   function Get_Listener_Addr_Port (Reply : Uhppoted.Lib.Types.Packet) 
+      return Uhppoted.Lib.Responses.Get_Listener_Addr_Port_Response;
+
    --  Decodes a 64 byte set-listener reply as a Set_Listener_Response record.
    function Set_Listener (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Listener_Response;
+
+   --  Decodes a 64 byte set-listener reply as a Set_Listener_Response record.
+   function Set_Listener_Addr_Port (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Listener_Addr_Port_Response;
 
    --  Decodes a 64 byte get-status reply as a Get_Status_Response record.
    function Get_Status (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Status_Response;

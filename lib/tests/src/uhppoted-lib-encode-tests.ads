@@ -14,6 +14,8 @@ package Uhppoted.Lib.Encode.Tests is
    procedure Test_Encode_Get_Listener (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Set_Listener (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Get_Status (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Encode_Get_Listener_Addr_Port (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Encode_Set_Listener_Addrport (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Get_Door (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Set_Door (T : in out AUnit.Test_Cases.Test_Case'Class);
 

@@ -146,7 +146,34 @@ package Uhppoted.Lib.Replies is
    for Get_Listener_Response'Bit_Order use System.Low_Order_First;
    for Get_Listener_Response'Scalar_Storage_Order use System.Low_Order_First;
 
-   --  Message definition for a get-listener reply.
+   --  Message definition for a get-listener-addrport reply.
+   type Get_Listener_Addr_Port_Response is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      Opcode     : Codec.Op_Code := Codec.Get_Listener;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Address    : IPv4;
+      Port       : Unsigned_16;
+      Interval   : Unsigned_8;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
+   end record;
+
+   for Get_Listener_Addr_Port_Response use record
+      SOM        at 0  range 0 .. 7;
+      Opcode     at 1  range 0 .. 7;
+      Reserved   at 2  range 0 .. 15;
+      Controller at 4  range 0 .. 31;
+      Address    at 8  range 0 .. 31;
+      Port       at 12 range 0 .. 15;
+      Interval   at 14 range 0 .. 7;
+      Padding    at 15 range 0 .. 383;
+   end record;
+
+   for Get_Listener_Addr_Port_Response'Size use 64 * 8;
+   for Get_Listener_Addr_Port_Response'Bit_Order use System.Low_Order_First;
+   for Get_Listener_Addr_Port_Response'Scalar_Storage_Order use System.Low_Order_First;
+
+   --  Message definition for a set-listener reply.
    type Set_Listener_Response is record
       SOM        : Unsigned_8    := Codec.SOM;
       Opcode     : Codec.Op_Code := Codec.Set_Listener;
@@ -168,6 +195,29 @@ package Uhppoted.Lib.Replies is
    for Set_Listener_Response'Size use 64 * 8;
    for Set_Listener_Response'Bit_Order use System.Low_Order_First;
    for Set_Listener_Response'Scalar_Storage_Order use System.Low_Order_First;
+
+   --  Message definition for a set-listener reply.
+   type Set_Listener_Addr_Port_Response is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      Opcode     : Codec.Op_Code := Codec.Set_Listener;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
+   end record;
+
+   for Set_Listener_Addr_Port_Response use record
+      SOM        at 0 range 0 .. 7;
+      Opcode     at 1 range 0 .. 7;
+      Reserved   at 2 range 0 .. 15;
+      Controller at 4 range 0 .. 31;
+      Ok         at 8 range 0 .. 7;
+      Padding    at 9 range 0 .. 439;
+   end record;
+
+   for Set_Listener_Addr_Port_Response'Size use 64 * 8;
+   for Set_Listener_Addr_Port_Response'Bit_Order use System.Low_Order_First;
+   for Set_Listener_Addr_Port_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-status reply.
    type Get_Status_Response is record

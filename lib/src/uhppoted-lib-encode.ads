@@ -22,11 +22,19 @@ package Uhppoted.Lib.Encode is
    --  Encodes a get-listener request as a 64 byte array.
    function Get_Listener (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a get-listener request as a 64 byte array.
+   function Get_Listener_Addr_Port (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+
    --  Encodes a set-listener request as a 64 byte array.
    function Set_Listener (Controller : Unsigned_32;
                           Addr       : GNAT.Sockets.Inet_Addr_Type;
                           Port       : Unsigned_16;
                           Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+
+   --  Encodes a set-listener request as a 64 byte array.
+   function Set_Listener_Addr_Port (Controller : Unsigned_32;
+                                    Listener   : GNAT.Sockets.Sock_Addr_Type;
+                                    Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a get-status request as a 64 byte array.
    function Get_Status (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;

@@ -76,6 +76,13 @@ func AdaValue(t string, v any) string {
 	case t == "Boolean" && v == false:
 		return "False"
 
+	case t == "address:port":
+		{
+			address := netip.MustParseAddrPort(fmt.Sprintf("%v", v))
+
+			return fmt.Sprintf(`Network_Socket_Address (Addr => Inet_Addr ("%v"), Port => Port_Type (%v))`, address.Addr(), address.Port())
+		}
+
 	default:
 		return s
 	}

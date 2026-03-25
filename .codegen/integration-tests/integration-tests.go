@@ -150,7 +150,7 @@ func args(t lib.FuncTest) []any {
 			args = append(args, datetime(v.Value))
 
 		case "mode":
-			args = append(args, fmt.Sprintf("To_Control_Mode(%v)", v.Value))
+			args = append(args, fmt.Sprintf("To_Control_Mode (%v)", v.Value))
 
 		default:
 			args = append(args, v.Value)

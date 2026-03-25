@@ -26,7 +26,7 @@ end Uhppoted.Lib.Integration_Tests.Expected;
       {{ field $v.Name | rpad 8 }} => {{ value $v.Type $v.Value }}{{end}}){{ end }}
 
 {{- define "listener" }}({{ with $v := .Returns.Value }}
-     AddrPort => Network_Socket_Address (Addr => Inet_Addr ("{{ gets $v "address"}}"), Port => Port_Type ({{ get $v "port"}})),
+     Listener => Network_Socket_Address (Addr => Inet_Addr ("{{ gets $v "address"}}"), Port => Port_Type ({{ get $v "port"}})),
      Interval => {{ get $v "interval" }}{{end}}){{ end }}
 
 {{- define "status" }}({{ with $v := .Returns.Value }}

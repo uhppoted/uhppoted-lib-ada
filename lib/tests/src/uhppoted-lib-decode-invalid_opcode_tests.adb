@@ -21,6 +21,8 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       Register_Routine (T, Test_Get_Listener_Invalid_OpCode'Access,    "test decode Get_Listener with invalid opcode");
       Register_Routine (T, Test_Set_Listener_Invalid_OpCode'Access,    "test decode Set_Listener with invalid opcode");
       Register_Routine (T, Test_Get_Status_Invalid_OpCode'Access,      "test decode Get_Status with invalid opcode");
+      Register_Routine (T, Test_Get_Listener_Address_Port_Invalid_OpCode'Access, "test decode Get_Listener_Address_Port with invalid opcode");
+      Register_Routine (T, Test_Set_Listener_Address_Port_Invalid_OpCode'Access, "test decode Set_Listener_Address_Port with invalid opcode");
       Register_Routine (T, Test_Get_Door_Invalid_OpCode'Access,        "test decode Get_Door with invalid opcode");
       Register_Routine (T, Test_Set_Door_Invalid_OpCode'Access,        "test decode Set_Door with invalid opcode");
    end Register_Tests;
@@ -157,6 +159,44 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
    begin
       Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
    end Test_Get_Status_Invalid_OpCode;
+
+   procedure Test_Get_Listener_Address_Port_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#17#, 16#93#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#c0#, 16#a8#, 16#01#, 16#64#, 16#61#, 16#ea#, 16#11#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      procedure Exec is
+         Unused : constant Get_Listener_Addr_Port_Response := Uhppoted.Lib.Decode.Get_Listener_Addr_Port (Reply);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+   end Test_Get_Listener_Address_Port_Invalid_OpCode;
+
+   procedure Test_Set_Listener_Address_Port_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#17#, 16#91#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      procedure Exec is
+         Unused : constant Set_Listener_Addr_Port_Response := Uhppoted.Lib.Decode.Set_Listener_Addr_Port (Reply);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+   end Test_Set_Listener_Address_Port_Invalid_OpCode;
 
    procedure Test_Get_Door_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

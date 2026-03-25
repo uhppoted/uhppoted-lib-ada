@@ -1,11 +1,12 @@
 # TODO
 
+- https://github.com/ohenley/awesome-ada
+- https://github.com/simonjwright/alire-index.mac
+- https://alire.ada.dev/transition_from_gnat_community.html
+
 - [ ] format
 - [ ] lint
 - [ ] adadoc
-    - https://github.com/ohenley/awesome-ada
-    - https://github.com/simonjwright/alire-index.mac
-    - https://alire.ada.dev/transition_from_gnat_community.html
     - [ ] exceptions
     - [ ] types
     - [ ] codec
@@ -17,9 +18,7 @@
 - [x] set-time
 - [x] get-status
 - [x] get-listener
-   - [ ] use encode/decode GetListenerAddrPort
 - [x] set-listener
-   - [ ] use encode/decode SetListenerAddrPort
 - [x] get-door
 - [x] set-door
    - [x] API
@@ -54,7 +53,6 @@
     - [x] command line args
     - [ ] handle exceptions
     - [ ] pretty print
-    - https://learnxbyexample.com/ada/command-line-flags/
 
 - [ ] integration tests
     - [ ] Invalid response test

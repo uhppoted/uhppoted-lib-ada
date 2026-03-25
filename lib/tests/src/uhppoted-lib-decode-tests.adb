@@ -23,6 +23,8 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Get_Listener'Access, "test decode Get_Listener response");
       Register_Routine (T, Test_Decode_Set_Listener'Access, "test decode Set_Listener response");
       Register_Routine (T, Test_Decode_Get_Status'Access,   "test decode Get_Status response");
+      Register_Routine (T, Test_Decode_Get_Listener_Address_Port'Access, "test decode Get_Listener_Address_Port response");
+      Register_Routine (T, Test_Decode_Set_Listener_Address_Port'Access, "test decode Set_Listener_Address_Port response");
       Register_Routine (T, Test_Decode_Get_Door'Access,     "test decode Get_Door response");
       Register_Routine (T, Test_Decode_Set_Door'Access,     "test decode Set_Door response");
    end Register_Tests;
@@ -188,6 +190,45 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded get-status response: got" & Response'Image);
    end Test_Decode_Get_Status;
+
+   procedure Test_Decode_Get_Listener_Address_Port (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Get_Listener_Addr_Port_Response := (
+         Controller => 405419896,
+         Listener   => Network_Socket_Address (Addr => Inet_Addr ("192.168.1.100"), Port => Port_Type (60001)),
+         Interval   => 17);
+
+      Reply : constant Packet := [
+         16#17#, 16#92#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#c0#, 16#a8#, 16#01#, 16#64#, 16#61#, 16#ea#, 16#11#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Get_Listener_Addr_Port_Response := Uhppoted.Lib.Decode.Get_Listener_Addr_Port (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded get-listener-addr:port response: got" & Response'Image);
+   end Test_Decode_Get_Listener_Address_Port;
+
+   procedure Test_Decode_Set_Listener_Address_Port (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Set_Listener_Addr_Port_Response := (
+         Controller => 405419896,
+         Ok         => True);
+
+      Reply : constant Packet := [
+         16#17#, 16#90#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Set_Listener_Addr_Port_Response := Uhppoted.Lib.Decode.Set_Listener_Addr_Port (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded set-listener-addr:port response: got" & Response'Image);
+   end Test_Decode_Set_Listener_Address_Port;
 
    procedure Test_Decode_Get_Door (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

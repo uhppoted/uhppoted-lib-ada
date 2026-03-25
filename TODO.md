@@ -64,12 +64,12 @@
     - [ ] `None` response timeout closes stub socket
     - [ ] v6.62
 
-- [ ] codegen
+- [x] codegen
     - [x] invalid SOM unit test
     - [x] default integration tests
     - [x] UDP integration tests
     - [x] TCP integration tests
-    - [ ] invalid op-code unit test
+    - [x] invalid op-code unit test
 
 - [ ] fix _Library_Interface_ in .gpr file
 ```

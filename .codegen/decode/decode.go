@@ -24,7 +24,8 @@ type test struct {
 	Reply       []string
 	Expected    []codegen.KV
 
-	InvalidSOM []string
+	InvalidSOM    []string
+	InvalidOpCode []string
 }
 
 func UnitTests() {
@@ -40,6 +41,7 @@ func UnitTests() {
 
 		decodeTests(templates, tests)
 		invalidSOMTests(templates, tests)
+		invalidOpCodeTests(templates, tests)
 	}
 }
 
@@ -51,6 +53,11 @@ func decodeTests(templates *template.Template, tests []test) {
 func invalidSOMTests(templates *template.Template, tests []test) {
 	generate(templates, tests, "invalid-SOM-tests.ads", "../lib/tests/src/uhppoted-lib-decode-invalid_SOM_tests.ads")
 	generate(templates, tests, "invalid-SOM-tests.adb", "../lib/tests/src/uhppoted-lib-decode-invalid_SOM_tests.adb")
+}
+
+func invalidOpCodeTests(templates *template.Template, tests []test) {
+	generate(templates, tests, "invalid-opcode-tests.ads", "../lib/tests/src/uhppoted-lib-decode-invalid_opcode_tests.ads")
+	generate(templates, tests, "invalid-opcode-tests.adb", "../lib/tests/src/uhppoted-lib-decode-invalid_opcode_tests.adb")
 }
 
 func generate(templates *template.Template, tests []test, template string, file string) {
@@ -79,6 +86,7 @@ func transmogrify(responses []lib.Response) []test {
 	for _, response := range responses {
 		for _, t := range response.Tests {
 			invalidSOM := append([]byte{0x13}, t.Response[1:]...)
+			invalidOpCode := append([]byte{0x17, t.Response[1] + 1}, t.Response[2:]...)
 
 			transmogrified = append(transmogrified, test{
 				Name:        fmt.Sprintf("%v", codegen.AdaName(t.Name)),
@@ -87,7 +95,8 @@ func transmogrify(responses []lib.Response) []test {
 				Reply:       packet(t.Response),
 				Expected:    expected(t),
 
-				InvalidSOM: packet(invalidSOM),
+				InvalidSOM:    packet(invalidSOM),
+				InvalidOpCode: packet(invalidOpCode),
 			})
 		}
 	}

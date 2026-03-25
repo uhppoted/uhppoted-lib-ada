@@ -24,8 +24,6 @@ func main() {
 
 	if len(os.Args) > 1 {
 		for _, arg := range os.Args[1:] {
-			fmt.Printf(">>>> %v\n", arg)
-
 			switch arg {
 			case "--encode":
 				args.encode = true

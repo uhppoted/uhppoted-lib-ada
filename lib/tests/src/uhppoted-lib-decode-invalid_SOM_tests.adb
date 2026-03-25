@@ -15,15 +15,15 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
       use AUnit.Test_Cases.Registration;
    begin
 
-      Register_Routine (T, Test_Get_Controller_Invalid_SOM'Access,  "test Get_Controller invalid SOM decode");
-      Register_Routine (T, Test_Set_IPv4_Invalid_SOM'Access,        "test Set_IPv4 invalid SOM decode");
-      Register_Routine (T, Test_Get_Time_Invalid_SOM'Access,        "test Get_Time invalid SOM decode");
-      Register_Routine (T, Test_Set_Time_Invalid_SOM'Access,        "test Set_Time invalid SOM decode");
-      Register_Routine (T, Test_Get_Listener_Invalid_SOM'Access,    "test Get_Listener invalid SOM decode");
-      Register_Routine (T, Test_Set_Listener_Invalid_SOM'Access,    "test Set_Listener invalid SOM decode");
-      Register_Routine (T, Test_Get_Status_Invalid_SOM'Access,      "test Get_Status invalid SOM decode");
-      Register_Routine (T, Test_Get_Door_Invalid_SOM'Access,        "test Get_Door invalid SOM decode");
-      Register_Routine (T, Test_Set_Door_Invalid_SOM'Access,        "test Set_Door invalid SOM decode");
+      Register_Routine (T, Test_Get_Controller_Invalid_SOM'Access,  "test decode Get_Controller with invalid SOM");
+      Register_Routine (T, Test_Set_IPv4_Invalid_SOM'Access,        "test decode Set_IPv4 with invalid SOM");
+      Register_Routine (T, Test_Get_Time_Invalid_SOM'Access,        "test decode Get_Time with invalid SOM");
+      Register_Routine (T, Test_Set_Time_Invalid_SOM'Access,        "test decode Set_Time with invalid SOM");
+      Register_Routine (T, Test_Get_Listener_Invalid_SOM'Access,    "test decode Get_Listener with invalid SOM");
+      Register_Routine (T, Test_Set_Listener_Invalid_SOM'Access,    "test decode Set_Listener with invalid SOM");
+      Register_Routine (T, Test_Get_Status_Invalid_SOM'Access,      "test decode Get_Status with invalid SOM");
+      Register_Routine (T, Test_Get_Door_Invalid_SOM'Access,        "test decode Get_Door with invalid SOM");
+      Register_Routine (T, Test_Set_Door_Invalid_SOM'Access,        "test decode Set_Door with invalid SOM");
    end Register_Tests;
 
    procedure Test_Get_Controller_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is

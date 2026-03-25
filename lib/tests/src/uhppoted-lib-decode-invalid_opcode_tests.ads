@@ -8,12 +8,13 @@ package Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
    overriding procedure Register_Tests (T : in out OpCode_Test);
 
    procedure Test_Get_Controller_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
-   --  procedure Test_Set_IPv4_Invalid_SOM       (T : in out AUnit.Test_Cases.Test_Case'Class);
-   --  procedure Test_Get_Time_Invalid_SOM       (T : in out AUnit.Test_Cases.Test_Case'Class);
-   --  procedure Test_Set_Time_Invalid_SOM       (T : in out AUnit.Test_Cases.Test_Case'Class);
-   --  procedure Test_Get_Listener_Invalid_SOM   (T : in out AUnit.Test_Cases.Test_Case'Class);
-   --  procedure Test_Set_Listener_Invalid_SOM   (T : in out AUnit.Test_Cases.Test_Case'Class);
-   --  procedure Test_Get_Status_Invalid_SOM     (T : in out AUnit.Test_Cases.Test_Case'Class);
-   --  procedure Test_Get_Door_Invalid_SOM       (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Set_IPv4_Invalid_OpCode       (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Get_Time_Invalid_OpCode       (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Set_Time_Invalid_OpCode       (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Get_Listener_Invalid_OpCode   (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Set_Listener_Invalid_OpCode   (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Get_Status_Invalid_OpCode     (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Get_Door_Invalid_OpCode       (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Set_Door_Invalid_OpCode       (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

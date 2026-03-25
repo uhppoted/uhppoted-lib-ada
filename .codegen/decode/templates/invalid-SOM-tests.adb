@@ -15,7 +15,7 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
       use AUnit.Test_Cases.Registration;
    begin
 {{ range $test := .Tests }}
-      Register_Routine (T, {{ printf "Test_%v_Invalid_SOM'Access," .Name | rpad 40 }} "test {{ .Name }} invalid SOM decode");
+      Register_Routine (T, {{ printf "Test_%v_Invalid_SOM'Access," .Name | rpad 40 }} "test decode {{ .Name }} with invalid SOM");
 {{- end }}
    end Register_Tests;
 {{ range $test := .Tests }}

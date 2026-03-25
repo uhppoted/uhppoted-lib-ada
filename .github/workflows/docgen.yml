@@ -21,9 +21,12 @@ jobs:
     - name: Setup gnatdoc
       uses: alire-project/alr-install@v2
       with:
-        crates: |
-          gnatdoc
-          gnatpp
+        crates: gnatdoc
+
+    - name: Setup gnatpp
+      uses: alire-project/alr-install@v2
+      with:
+        crates: gnatpp
 
     - name: Build project
       run: |

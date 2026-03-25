@@ -33,8 +33,19 @@ jobs:
         cd lib && alr exec -- gnatdoc -l -P uhppoted_lib_ada.gpr -O ../adadoc
         ls -la ../adadoc
 
-    - name: Upload artifact
+    - name: Upload Ada doc artifact
       uses: actions/upload-artifact@v6
       with:
         path: adadoc
         name: uhppoted-lib-ada-adadoc
+
+    - name: Format source
+      run: |
+        cd lib && alr exec -- gnatpp -P uhppoted_lib_ada.gpr
+        ls -la ../adadoc
+
+    - name: Upload formatted source
+      uses: actions/upload-artifact@v6
+      with:
+        path: lib/src
+        name: uhppoted-lib-ada-src

@@ -3,9 +3,12 @@
 - [ ] format
 - [ ] lint
 - [ ] adadoc
-- https://github.com/ohenley/awesome-ada
-- https://github.com/simonjwright/alire-index.mac
-- https://alire.ada.dev/transition_from_gnat_community.html
+    - https://github.com/ohenley/awesome-ada
+    - https://github.com/simonjwright/alire-index.mac
+    - https://alire.ada.dev/transition_from_gnat_community.html
+    - [ ] exceptions
+    - [ ] types
+    - [ ] codec
 
 - [x] find-controllers
 - [x] get-controller
@@ -18,12 +21,11 @@
 - [x] set-listener
    - [ ] use encode/decode SetListenerAddrPort
 - [x] get-door
-
-- [ ] set-door
+- [x] set-door
    - [x] API
    - [x] CLI
    - [x] README
-   - [ ] integration tests
+   - [x] integration tests
 
 - [x] check SOM in decode
 - [x] check opcode in decode

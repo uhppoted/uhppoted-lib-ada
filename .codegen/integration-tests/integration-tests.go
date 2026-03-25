@@ -49,6 +49,7 @@ var translations = map[string]string{
 	"set listener addr:port response": "Boolean",
 	"get status response":             "Controller_Status",
 	"get door response":               "Door_Record",
+	"set door response":               "Door_Record",
 }
 
 func IntegrationTests() {
@@ -147,6 +148,9 @@ func args(t lib.FuncTest) []any {
 
 		case "datetime":
 			args = append(args, datetime(v.Value))
+
+		case "mode":
+			args = append(args, fmt.Sprintf("To_Control_Mode(%v)", v.Value))
 
 		default:
 			args = append(args, v.Value)

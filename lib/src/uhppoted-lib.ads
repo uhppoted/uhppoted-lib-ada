@@ -2,11 +2,7 @@ with Interfaces;
 with GNAT.Sockets;
 with Uhppoted.Types;
 
---  @summary
 --  API library for the UHPPOTE access controllers.
---
---  @description
---  Implements the functions required to manage UHPPOTE controllers over UDP or TCP/IP.
 package Uhppoted.Lib is
    use Interfaces;
    use GNAT.Sockets;
@@ -51,8 +47,8 @@ package Uhppoted.Lib is
    --
    --  @return          List of Controller_Record.
    
-   function Get_Controller (U : UHPPOTE;
-                            C : Unsigned_32;
+   function Get_Controller (U       : UHPPOTE;
+                            C       : Unsigned_32;
                             Timeout : Duration := 2.5) return Controller_Record;
    --  Retrieves the information for a single access controller. Restricted to the local LAN.
    --
@@ -279,7 +275,7 @@ package Uhppoted.Lib is
    --
    --  @param  U        UHPPOTE configuration.
    --  @param  C        Controller serial number.
-   --  @param  Door     Door ID ([1..4]).
+   --  @param  Door     Door ID [1..4].
    --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
    --  @return          Door_Record with the control mode and open delay.
@@ -295,7 +291,7 @@ package Uhppoted.Lib is
    --
    --  @param  U        UHPPOTE configuration.
    --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
-   --  @param  Door     Door ID ([1..4]).
+   --  @param  Door     Door ID [1..4].
    --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
    --  @return          Door_Record with the control mode and open delay.
@@ -313,7 +309,7 @@ package Uhppoted.Lib is
    --
    --  @param  U          UHPPOTE configuration.
    --  @param  C          Controller serial number.
-   --  @param  Door       Door ID ([1..4]).
+   --  @param  Door       Door ID [1..4].
    --  @param  Mode       Door control mode (Controlled, Normally_Open or Normally_Closed).
    --  @param  OpenDelay  Time  (seconds) door remains unlocked after swipe.
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
@@ -333,7 +329,7 @@ package Uhppoted.Lib is
    --
    --  @param  U          UHPPOTE configuration.
    --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
-   --  @param  Door       Door ID ([1..4]).
+   --  @param  Door       Door ID [1..4].
    --  @param  Mode       Door control mode (Controlled, Normally_Open or Normally_Closed).
    --  @param  OpenDelay  Time  (seconds) door remains unlocked after swipe.
    --  @param  Timeout    Operation timeout (defaults to 2.5s).

@@ -42,6 +42,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       Register_Routine (T, Test_Get_Status'Access,          "Get_Status");
       Register_Routine (T, Test_Get_Status_No_Event'Access, "Get_Status_No_Event");
       Register_Routine (T, Test_Get_Door'Access,            "Get_Door");
+      Register_Routine (T, Test_Set_Door'Access,            "Set_Door");
    end Register_Tests;
 
    task body Listen is
@@ -174,5 +175,19 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    begin
       Assert (V = Expected.Get_Door, "invalid result" & V'Image);
    end Test_Get_Door;
+
+   procedure Test_Set_Door (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 60004),
+                                  Protocol => Uhppoted.Lib.UDP);
+
+      V : constant Door_Record := Set_Door (U, C, 4, To_Control_Mode(2), 17);
+   begin
+      Assert (V = Expected.Set_Door, "invalid result" & V'Image);
+   end Test_Set_Door;
 
 end Uhppoted.Lib.Integration_Tests.UDP;

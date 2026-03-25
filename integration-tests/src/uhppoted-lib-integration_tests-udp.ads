@@ -18,6 +18,7 @@ private
    procedure Test_Get_Status          (T : in out Test_Case'Class);
    procedure Test_Get_Status_No_Event (T : in out Test_Case'Class);
    procedure Test_Get_Door            (T : in out Test_Case'Class);
+   procedure Test_Set_Door            (T : in out Test_Case'Class);
 
    task Listen;
 

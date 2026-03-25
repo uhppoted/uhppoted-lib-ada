@@ -16,7 +16,7 @@ var API = []types.Function{
 	SetListenerAddrPort,
 	GetStatusRecord,
 	GetDoor,
-	// SetDoor,
+	SetDoor,
 	// &SetDoorPasscodes,
 	// &OpenDoor,
 	// &GetCards,

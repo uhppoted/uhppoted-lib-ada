@@ -24,6 +24,8 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Set_Listener_Addrport'Access, "test encode Set_Listener_Addrport request");
       Register_Routine (T, Test_Encode_Get_Door'Access,         "test encode Get_Door request");
       Register_Routine (T, Test_Encode_Set_Door'Access,         "test encode Set_Door request");
+      Register_Routine (T, Test_Encode_Set_Door_Passcodes'Access, "test encode Set_Door_Passcodes request");
+      Register_Routine (T, Test_Encode_Set_Door_Passcodes_With_Invalid_Passcode'Access, "test encode Set_Door_Passcodes_With_Invalid_Passcode request");
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -230,5 +232,47 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded set-door request: got" & Request'Image);
    end Test_Encode_Set_Door;
+
+   procedure Test_Encode_Set_Door_Passcodes (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#8c#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#03#, 16#00#, 16#00#, 16#00#, 16#40#, 16#e2#, 16#01#, 16#00#,
+         16#47#, 16#94#, 16#03#, 16#00#, 16#4e#, 16#46#, 16#05#, 16#00#,  16#55#, 16#f8#, 16#06#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Door_Passcodes (
+         405419896,
+         3,
+         123456,
+         234567,
+         345678,
+         456789);
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-door-passcodes request: got" & Request'Image);
+   end Test_Encode_Set_Door_Passcodes;
+
+   procedure Test_Encode_Set_Door_Passcodes_With_Invalid_Passcode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#8c#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#03#, 16#00#, 16#00#, 16#00#, 16#40#, 16#e2#, 16#01#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#4e#, 16#46#, 16#05#, 16#00#,  16#55#, 16#f8#, 16#06#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Door_Passcodes (
+         405419896,
+         3,
+         123456,
+         1234567,
+         345678,
+         456789);
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-door-passcodes request: got" & Request'Image);
+   end Test_Encode_Set_Door_Passcodes_With_Invalid_Passcode;
 
 end Uhppoted.Lib.Encode.Tests;

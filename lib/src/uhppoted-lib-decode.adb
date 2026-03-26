@@ -116,7 +116,7 @@ package body Uhppoted.Lib.Decode is
               Interval   => R.Interval);
    end Get_Listener_Addr_Port;
 
-   --  Decodes a 64 byte set-listener reply as a Get_Time_Response record.
+   --  Decodes a 64 byte set-listener reply as a Set_Listener_Response record.
    function Set_Listener (Reply : Packet) return Responses.Set_Listener_Response is
       R : Replies.Set_Listener_Response with Import, Address => Reply'Address;
    begin
@@ -132,7 +132,7 @@ package body Uhppoted.Lib.Decode is
               Ok         => R.Ok);
    end Set_Listener;
 
-   --  Decodes a 64 byte set-listener reply as a Get_Time_Response record.
+   --  Decodes a 64 byte set-listener reply as a Set_Listener_Addr_Port_Response record.
    function Set_Listener_Addr_Port (Reply : Packet) return Responses.Set_Listener_Addr_Port_Response is
       R : Replies.Set_Listener_Addr_Port_Response with Import, Address => Reply'Address;
    begin
@@ -234,6 +234,22 @@ package body Uhppoted.Lib.Decode is
    begin
       return To_Unbounded_String ("v" & Trim (Major'Image, Left) & "." & Trim (Minor'Image, Left));
    end Unpack_Version;
+
+   --  Decodes a 64 byte set-door-passcodes reply as a Get_Door_Passcodes_Response record.
+   function Set_Door_Passcodes (Reply : Packet) return Responses.Set_Door_Passcodes_Response is
+      R : Replies.Set_Door_Passcodes_Response with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Set_Door_Passcodes then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => R.Ok);
+   end Set_Door_Passcodes;
 
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
    function Unpack_Boolean (B : Unsigned_8) return Boolean is

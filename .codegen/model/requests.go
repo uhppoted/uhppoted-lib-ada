@@ -17,7 +17,7 @@ var Requests = []types.Request{
 	SetListenerAddrPortRequest,
 	GetDoorRequest,
 	SetDoorRequest,
-	// SetDoorPasscodesRequest,
+	SetDoorPasscodesRequest,
 	// OpenDoorRequest,
 	// GetCardsRequest,
 	// GetCardRequest,

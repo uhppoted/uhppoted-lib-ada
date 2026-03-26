@@ -35,5 +35,4 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
    end Test_{{ .Name }}_Invalid_OpCode;
 {{ end }}
-
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

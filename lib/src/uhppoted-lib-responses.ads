@@ -106,4 +106,10 @@ package Uhppoted.Lib.Responses is
       OpenDelay  : Unsigned_8;
    end record;
 
+   --  Message definition for a set-door-passcodes response.
+   type Set_Door_Passcodes_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
 end Uhppoted.Lib.Responses;

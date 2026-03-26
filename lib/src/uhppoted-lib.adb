@@ -346,6 +346,58 @@ package body Uhppoted.Lib is
               OpenDelay => R.OpenDelay);
    end Set_Door;
 
+   --  Sets the supervisor override passcodes for a door. Restricted to the local LAN.
+   function Set_Door_Passcodes (U         : UHPPOTE;
+                                C         : Unsigned_32;
+                                Door      : Unsigned_8;
+                                Passcodes : Passcodes_List;
+                                Timeout   : Duration := 2.5) return Boolean is
+   begin
+      return Set_Door_Passcodes (U, To_Controller (C), Door, Passcodes, Timeout);
+   end Set_Door_Passcodes;
+
+   --  Sets the supervisor override passcodes for a door.
+   function Set_Door_Passcodes (U         : UHPPOTE;
+                                C         : Controller;
+                                Door      : Unsigned_8;
+                                Passcodes : Passcodes_List;
+                                Timeout   : Duration := 2.5) return Boolean is
+      Request   : Packet;
+      Reply     : Packet;
+      R         : Set_Door_Passcodes_Response;
+
+      Passcode1 : Unsigned_32 := 0;
+      Passcode2 : Unsigned_32 := 0;
+      Passcode3 : Unsigned_32 := 0;
+      Passcode4 : Unsigned_32 := 0;
+   begin
+      if Passcodes'Length > 0 then
+         Passcode1 := Passcodes (Passcodes'First);
+      end if;
+
+      if Passcodes'Length > 1 then
+         Passcode2 := Passcodes (Passcodes'First + 1);
+      end if;
+
+      if Passcodes'Length > 2 then
+         Passcode3 := Passcodes (Passcodes'First + 2);
+      end if;
+
+      if Passcodes'Length > 3 then
+         Passcode4 := Passcodes (Passcodes'First + 3);
+      end if;
+
+      Request := Uhppoted.Lib.Encode.Set_Door_Passcodes (C.ID, Door, Passcode1, Passcode2, Passcode3, Passcode4);
+      Reply   := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R       := Uhppoted.Lib.Decode.Set_Door_Passcodes (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Set_Door_Passcodes;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

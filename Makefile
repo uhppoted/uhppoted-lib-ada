@@ -2,11 +2,12 @@ CONTROLLER ?= 405419896
 DEST ?= ""
 PROTOCOL ?= default
 
-LISTENER ?= 192.168.1.125:60001
-INTERVAL ?= 0
-DOOR     ?= 3
-MODE     ?= controlled
-DELAY    ?= 5
+LISTENER  ?= 192.168.1.125:60001
+INTERVAL  ?= 0
+DOOR      ?= 3
+MODE      ?= controlled
+DELAY     ?= 5
+PASSCODES ?= 7531,12345,54321
 
 clean:
 	cd lib && make clean
@@ -62,3 +63,6 @@ get-door: build
 
 set-door: build
 	cd examples/cli && make set-door CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)" DOOR="$(DOOR)" MODE="$(MODE)" DELAY="$(DELAY)"
+
+set-door-passcodes: build
+	cd examples/cli && make set-door-passcodes CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)" DOOR="$(DOOR)" PASSCODES="$(PASSCODES)"

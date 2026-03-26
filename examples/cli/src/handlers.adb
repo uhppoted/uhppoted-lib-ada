@@ -206,6 +206,7 @@ package body Handlers is
    begin
       Put_Line ("--- get-door");
       Put_Line ("controller:" & Args.Controller.ID'Image);
+      Put_Line ("      door:" & Args.Door'Image);
       Put_Line ("      mode: " & R.Mode'Image);
       Put_Line ("     delay:" & R.OpenDelay'Image);
       Put_Line ("");
@@ -217,9 +218,21 @@ package body Handlers is
    begin
       Put_Line ("--- set-door");
       Put_Line ("controller:" & Args.Controller.ID'Image);
+      Put_Line ("      door:" & Args.Door'Image);
       Put_Line ("      mode: " & R.Mode'Image);
       Put_Line ("     delay:" & R.OpenDelay'Image);
       Put_Line ("");
    end Set_Door;
+
+   --  Executes the set-door-passcodes command.
+   procedure Set_Door_Passcodes (Args : ArgParse.Args) is
+      R : constant Boolean := Set_Door_Passcodes (U, Args.Controller, Args.Door, Args.Passcodes, Timeout);
+   begin
+      Put_Line ("--- set-door-passcodes");
+      Put_Line ("controller:" & Args.Controller.ID'Image);
+      Put_Line ("      door:" & Args.Door'Image);
+      Put_Line ("        ok: " & R'Image);
+      Put_Line ("");
+   end Set_Door_Passcodes;
 
 end Handlers;

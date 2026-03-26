@@ -219,4 +219,37 @@ package Uhppoted.Lib.Requests is
    for Set_Door_Request'Bit_Order use System.Low_Order_First;
    for Set_Door_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a set-door-passcodes request.
+   type Set_Door_Passcodes_Request is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Set_Door_Passcodes;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Door       : Unsigned_8;
+      Reserved2  : Ada.Streams.Stream_Element_Array (1 .. 3) := [others => 0];
+      Passcode1  : Unsigned_32 := 0;
+      Passcode2  : Unsigned_32 := 0;
+      Passcode3  : Unsigned_32 := 0;
+      Passcode4  : Unsigned_32 := 0;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 36) := [others => 0];
+   end record;
+
+   for Set_Door_Passcodes_Request use record
+      SOM        at 0  range 0 .. 7;
+      OpCode     at 1  range 0 .. 7;
+      Reserved   at 2  range 0 .. 15;
+      Controller at 4  range 0 .. 31;
+      Door       at 8  range 0 .. 7;
+      Reserved2  at 9  range 0 .. 23;
+      Passcode1  at 12 range 0 .. 31;
+      Passcode2  at 16 range 0 .. 31;
+      Passcode3  at 20 range 0 .. 31;
+      Passcode4  at 24 range 0 .. 31;
+      Padding    at 28 range 0 .. 287;
+   end record;
+
+   for Set_Door_Passcodes_Request'Size use 64 * 8;
+   for Set_Door_Passcodes_Request'Bit_Order use System.Low_Order_First;
+   for Set_Door_Passcodes_Request'Scalar_Storage_Order use System.Low_Order_First;
+
 end Uhppoted.Lib.Requests;

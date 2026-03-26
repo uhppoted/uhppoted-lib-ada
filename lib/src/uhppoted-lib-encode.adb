@@ -1,3 +1,4 @@
+with Ada.Text_IO; use Ada.Text_IO;
 with GNAT.Sockets;
 with Uhppoted.Lib.Requests;
 
@@ -144,6 +145,42 @@ package body Uhppoted.Lib.Encode is
 
       return Buffer;
    end Set_Door;
+
+   --  Encodes a set-door-passcodes request as a 64 byte array.
+   function Set_Door_Passcodes (Controller : Unsigned_32;
+                                Door       : Unsigned_8;
+                                Passcode1  : Unsigned_32;
+                                Passcode2  : Unsigned_32;
+                                Passcode3  : Unsigned_32;
+                                Passcode4  : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Set_Door_Passcodes_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Door       := Door;
+      Request.Passcode1  := 0;
+      Request.Passcode2  := 0;
+      Request.Passcode3  := 0;
+      Request.Passcode4  := 0;
+
+      if Passcode1 <= 999999 then
+         Request.Passcode1 := Passcode1;
+      end if;
+      
+      if Passcode2 <= 999999 then
+         Request.Passcode2  := Passcode2;
+      end if;
+
+      if Passcode3 <= 999999 then
+         Request.Passcode3  := Passcode3;
+      end if;
+
+      if Passcode4 <= 999999 then
+         Request.Passcode4  := Passcode4;
+      end if;
+
+      return Buffer;
+   end Set_Door_Passcodes;
 
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is

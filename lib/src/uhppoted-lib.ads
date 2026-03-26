@@ -31,8 +31,8 @@ package Uhppoted.Lib is
    subtype DateTime               is Uhppoted.Types.DateTime;
    subtype Listener_Record        is Uhppoted.Types.Listener_Record;
    subtype Door_Record            is Uhppoted.Types.Door_Record;
-
    subtype Control_Mode           is Uhppoted.Types.Control_Mode;
+   subtype Passcodes_List         is Uhppoted.Types.Passcodes_List;
 
    Normally_Open   : Control_Mode renames Uhppoted.Types.Normally_Open;
    Normally_Closed : Control_Mode renames Uhppoted.Types.Normally_Closed;
@@ -46,7 +46,7 @@ package Uhppoted.Lib is
    --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
    --  @return          List of Controller_Record.
-   
+
    function Get_Controller (U       : UHPPOTE;
                             C       : Unsigned_32;
                             Timeout : Duration := 2.5) return Controller_Record;
@@ -335,6 +335,42 @@ package Uhppoted.Lib is
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
    --
    --  @return            Door_Record with the control mode and open delay.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Set_Door_Passcodes (U         : UHPPOTE;
+                                C         : Unsigned_32;
+                                Door      : Unsigned_8;
+                                Passcodes : Uhppoted.Lib.Passcodes_List;
+                                Timeout   : Duration := 2.5) return Boolean;
+   --  Sets the supervisor override passcodes for a door. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Door       Door ID [1..4].
+   --  @param  Passcodes  List of up to 4 passcodes ([0..999999]).
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Boolean if the passcodes were accepted.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Set_Door_Passcodes (U         : UHPPOTE;
+                                C         : Controller;
+                                Door      : Unsigned_8;
+                                Passcodes : Uhppoted.Lib.Passcodes_List;
+                                Timeout   : Duration := 2.5) return Boolean;
+   --  Sets the supervisor override passcodes for a door.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Door       Door ID [1..4].
+   --  @param  Passcodes  List of up to 4 passcodes ([0..999999]).
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Boolean if the passcodes were accepted.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.

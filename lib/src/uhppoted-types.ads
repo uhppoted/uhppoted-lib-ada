@@ -96,6 +96,8 @@ package Uhppoted.Types is
 
    function To_Control_Mode (V : Unsigned_8) return Control_Mode;
 
+   type Passcodes_List is array (Positive range <>) of Unsigned_32;
+
    function Image (Addr : IPv4) return String;
    function Image (MAC  : Hardware_Addr) return String;
    function Image (D    : DateOnly) return String;

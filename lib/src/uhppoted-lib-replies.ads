@@ -340,4 +340,28 @@ package Uhppoted.Lib.Replies is
    for Set_Door_Response'Bit_Order use System.Low_Order_First;
    for Set_Door_Response'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a set-door-passcodes reply.
+   type Set_Door_Passcodes_Response is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      Opcode     : Codec.Op_Code := Codec.Set_Door_Passcodes;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
+   end record;
+
+   for Set_Door_Passcodes_Response use record
+      SOM        at 0 range 0 .. 7;
+      Opcode     at 1 range 0 .. 7;
+      Reserved   at 2 range 0 .. 15;
+      Controller at 4 range 0 .. 31;
+      Ok         at 8 range 0 .. 7;
+      Padding    at 9 range 0 .. 439;
+   end record;
+
+   for Set_Door_Passcodes_Response'Size use 64 * 8;
+   for Set_Door_Passcodes_Response'Bit_Order use System.Low_Order_First;
+   for Set_Door_Passcodes_Response'Scalar_Storage_Order use System.Low_Order_First;
+
+
 end Uhppoted.Lib.Replies;

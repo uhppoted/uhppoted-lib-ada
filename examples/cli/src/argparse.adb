@@ -1,3 +1,4 @@
+with Ada.Strings.Fixed;
 with GNAT.Regpat;
 
 package body ArgParse is
@@ -24,6 +25,10 @@ package body ArgParse is
 
       if Cmd = "set-door" then
          return Parse_Set_Door;
+      end if;
+
+      if Cmd = "set-door-passcodes" then
+         return Parse_Set_Door_Passcodes;
       end if;
 
       --  default to general command
@@ -206,7 +211,7 @@ package body ArgParse is
                      Output      => Mode'Access,
                      Long_Switch => "--mode:",
                      Help        => "door control mode",
-                     Argument    => " [controlled | normally-open | normally-closed]");
+                     Argument    => "[controlled | normally-open | normally-closed]");
 
       Define_Switch (Config,
                      Output      => OpenDelay'Access,
@@ -237,5 +242,61 @@ package body ArgParse is
               OpenDelay  => Unsigned_8 (OpenDelay));
 
    end Parse_Set_Door;
+
+   function Parse_Set_Door_Passcodes return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Door                 : aliased Integer       := 0;
+      Passcodes            : aliased String_Access := null;
+
+      C     : Controller;
+      Codes : Passcodes_List (1 .. 4) := [0, 0, 0, 0];
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Door'Access,
+                     Long_Switch => "--door:",
+                     Help        => "door ID [1..4]",
+                     Argument    => "[1..4]");
+
+      Define_Switch (Config,
+                     Output      => Passcodes'Access,
+                     Long_Switch => "--passcodes:",
+                     Help        => "supervisor override passcodes",
+                     Argument    => "<passcode>,...");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return set-door-passcodes command specific args
+      declare
+         S     : String renames Passcodes.all;
+         First : Natural  := S'First;
+         Last  : Natural  := 0;
+         I     : Positive := 1;
+      begin
+         for I in 1 .. 4 loop
+            exit when First > S'Last;
+            
+            Last := Ada.Strings.Fixed.Index (S (First .. S'Last), ",");
+            if Last = 0 then
+               Codes (I) := Unsigned_32'Value (S (First .. S'Last));
+               exit;
+            else
+               Codes (I) := Unsigned_32'Value (S (First .. Last - 1));
+               First := Last + 1;
+            end if;
+         end loop;
+      end;
+
+      return (T          => ArgParse.Set_Door_Passcodes_Args,
+              Controller => C,
+              Door       => Unsigned_8 (Door),
+              Passcodes  => Codes);
+
+   end Parse_Set_Door_Passcodes;
 
 end ArgParse;

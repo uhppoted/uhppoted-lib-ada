@@ -18,5 +18,6 @@ package Uhppoted.Lib.Decode.Invalid_SOM_Tests is
    procedure Test_Set_Listener_Address_Port_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Get_Door_Invalid_SOM       (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Set_Door_Invalid_SOM       (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Set_Door_Passcodes_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Decode.Invalid_SOM_Tests;

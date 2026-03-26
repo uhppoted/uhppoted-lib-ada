@@ -4,6 +4,7 @@
 - https://github.com/simonjwright/alire-index.mac
 - https://alire.ada.dev/transition_from_gnat_community.html
 
+- [x] codegen
 - [ ] format
 - [ ] lint
 - [ ] adadoc
@@ -21,10 +22,11 @@
 - [x] set-listener
 - [x] get-door
 - [x] set-door
+- [ ] set-door-passcodes
    - [x] API
    - [x] CLI
    - [x] README
-   - [x] integration tests
+   - [ ] integration tests
 
 - [x] check SOM in decode
 - [x] check opcode in decode
@@ -61,13 +63,6 @@
     - [ ] Timeout test
     - [ ] `None` response timeout closes stub socket
     - [ ] v6.62
-
-- [x] codegen
-    - [x] invalid SOM unit test
-    - [x] default integration tests
-    - [x] UDP integration tests
-    - [x] TCP integration tests
-    - [x] invalid op-code unit test
 
 - [ ] fix _Library_Interface_ in .gpr file
 ```

@@ -48,4 +48,12 @@ package Uhppoted.Lib.Encode is
                       Mode       : Uhppoted.Lib.Control_Mode;
                       OpenDelay  : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a set-door-passcodes request as a 64 byte array.
+   function Set_Door_Passcodes (Controller : Unsigned_32;
+                                Door       : Unsigned_8;
+                                Passcode1  : Unsigned_32;
+                                Passcode2  : Unsigned_32;
+                                Passcode3  : Unsigned_32;
+                                Passcode4  : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+
 end Uhppoted.Lib.Encode;

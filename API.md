@@ -9,6 +9,7 @@
 - [`Get_Status`](#get_status)
 - [`Get_Door`](#get_door)
 - [`Set_Door`](#set_door)
+- [`Set_Door_Passcodes`](#set_door_passcodes)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -474,6 +475,38 @@ Returns a `Door_Record`:
       OpenDelay : Unsigned_8;
    end record;
 ```
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Set_Door_Passcodes`
+
+**Set_Door_Passcodes** sets the supervisor override codes for a door.
+
+```
+function Set_Door_Passcodes (U         : UHPPOTE;
+                             C         : Unsigned_32; 
+                             Door      : Unsigned_8;
+                             Passcodes : Passcodes_List;
+                             Timeout   : Duration) return Listener_Record;
+
+function Set_Door_Passcodes (U         : Uhppoted.Lib.UHPPOTE;
+                             C         : Controller;
+                             Door      : Unsigned_8;
+                             Passcodes : Passcodes_List;
+                             Timeout   : Duration) return Listener_Record;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Door       Unsigned_8      Door ID [1..4].
+- Passcodes  Passcodes_List  List of up to 4 supervisor passcodes (in the range [0..999999]).
+```
+
+Returns `True` if the supervisor passcodes were accepted.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

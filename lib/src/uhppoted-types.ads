@@ -6,6 +6,13 @@ package Uhppoted.Types is
    use Ada.Strings.Unbounded;
    use Interfaces;
 
+   --  Custom exception for invalid response errors.
+   Invalid_Response_Error : exception;
+
+   --  Custom exception for timeout errors.
+   Timeout_Error : exception;
+
+
    type IPv4 is array (1 .. 4) of Interfaces.Unsigned_8;
    type Hardware_Addr is array (1 .. 6) of Unsigned_8;
    subtype Firmware_Version is String (1 .. 5);

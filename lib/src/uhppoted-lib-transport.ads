@@ -18,9 +18,6 @@ package Uhppoted.Lib.Transport is
    --  Converts a Stream_Packet to a Packet.
    function To_Packet is new Ada.Unchecked_Conversion (Source => Stream_Packet,  Target => Uhppoted.Lib.Types.Packet);
 
-   --  Custom exception for timeout errors.
-   Timeout_Error : exception;
-
 private
    --  Controlled Type for a socket selector.
    type H is new Ada.Finalization.Limited_Controlled with

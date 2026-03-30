@@ -23,7 +23,8 @@ package Uhppoted.Lib is
       Protocol : Protocol_Type := Default;
    end record;
 
-   Invalid_Response_Error : exception;
+   Invalid_Response_Error : exception renames Uhppoted.Types.Invalid_Response_Error;
+   Timeout_Error          : exception renames Uhppoted.Types.Timeout_Error;
 
    subtype Controller_Record      is Uhppoted.Types.Controller_Record;
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;

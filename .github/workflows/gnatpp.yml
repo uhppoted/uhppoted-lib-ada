@@ -29,16 +29,17 @@ jobs:
 
     - name: Format source
       run: |
-        cd lib && alr exec -- gnatpp -P uhppoted_lib_ada.gpr
+        cd lib          && alr exec -- gnatpp -P uhppoted_lib_ada.gpr
+        cd examples/cli && alr exec -- gnatpp -P cli.gpr
 
-    - name: (debug)
-      run: |
-        ls -la
-        ls -la lib
-        ls -la lib/src
-
-    - name: Upload formatted source
+    - name: Upload formatted lib source
       uses: actions/upload-artifact@v6
       with:
         path: lib/src
         name: uhppoted-lib-ada-src
+
+    - name: Upload formatted CLI source
+      uses: actions/upload-artifact@v6
+      with:
+        path: examples/cli/src
+        name: uhppoted-lib-ada-cli-src

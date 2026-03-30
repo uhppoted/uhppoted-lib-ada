@@ -115,4 +115,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Mode      => To_Control_Mode (2),
      OpenDelay => 17);
 
+   Set_Door_Passcodes : constant Boolean := True;
+
 end Uhppoted.Lib.Integration_Tests.Expected;

@@ -44,6 +44,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Register_Routine (T, Test_Get_Status_No_Event'Access, "Get_Status_No_Event");
       Register_Routine (T, Test_Get_Door'Access,            "Get_Door");
       Register_Routine (T, Test_Set_Door'Access,            "Set_Door");
+      Register_Routine (T, Test_Set_Door_Passcodes'Access,  "Set_Door_Passcodes");
    end Register_Tests;
 
    task body Listen is
@@ -138,5 +139,15 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    begin
       Assert (V = Expected.Set_Door, "invalid result" & V'Image);
    end Test_Set_Door;
+
+   procedure Test_Set_Door_Passcodes (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := (1 => 12345, 2 => 54321, 3 => 999999, 4 => 0);
+
+      V : constant Boolean := Set_Door_Passcodes (U, 405419896, 4, Passcodes);
+   begin
+      Assert (V = Expected.Set_Door_Passcodes, "invalid result" & V'Image);
+   end Test_Set_Door_Passcodes;
 
 end Uhppoted.Lib.Integration_Tests.Default;

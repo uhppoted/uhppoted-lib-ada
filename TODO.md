@@ -22,11 +22,11 @@
 - [x] set-listener
 - [x] get-door
 - [x] set-door
-- [ ] set-door-passcodes
+- [x] set-door-passcodes
    - [x] API
    - [x] CLI
    - [x] README
-   - [ ] integration tests
+   - [x] integration tests
 
 - [x] check SOM in decode
 - [x] check opcode in decode

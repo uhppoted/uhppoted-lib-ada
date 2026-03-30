@@ -50,7 +50,9 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Addr => Inet_Addr ("127.0.0.1"),
                                                Port => 60004),
                                   Protocol => Uhppoted.Lib.UDP);
-
+{{ range $var := .Vars }}
+      {{ $var }}
+{{ end }}
       V : constant {{ .Returns.Type }} := {{ .Function }} (U, C{{ range $arg := (slice .Args  1) }}, {{ $arg }}{{ end }});
    begin
       Assert (V = Expected.{{ .Name }}, "invalid result" & V'Image);

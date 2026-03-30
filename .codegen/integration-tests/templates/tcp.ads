@@ -9,9 +9,10 @@ package Uhppoted.Lib.Integration_Tests.TCP is
    overriding function Name (T : Integration_Test) return AUnit.Message_String;
 
 private
-{{-  range $ix,$test := .Tests }}
-   procedure Test_{{ printf "%v" .Name | rpad 19 }} (T : in out Test_Case'Class);{{end}}
+   Passcodes : Uhppoted.Lib.Passcodes_List (1 .. 4);
 
    task Listen;
+{{  range $ix,$test := .Tests }}
+   procedure Test_{{ printf "%v" .Name | rpad 19 }} (T : in out Test_Case'Class);{{end}}
 
 end Uhppoted.Lib.Integration_Tests.TCP;

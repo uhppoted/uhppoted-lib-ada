@@ -21,6 +21,7 @@ var templateFS embed.FS
 type test struct {
 	Name     string
 	Function string
+	Vars     []any
 	Args     []any
 	Request  []string
 	Replies  []reply
@@ -50,6 +51,7 @@ var translations = map[string]string{
 	"get status response":             "Controller_Status",
 	"get door response":               "Door_Record",
 	"set door response":               "Door_Record",
+	"set door passcodes response":     "Boolean",
 }
 
 func IntegrationTests() {
@@ -124,6 +126,7 @@ func transmogrify(functions []lib.Function) []test {
 			transmogrified = append(transmogrified, test{
 				Name:     codegen.AdaName(t.Name),
 				Function: codegen.AdaName(f.Name),
+				Vars:     vars(t),
 				Args:     args(t),
 				Request:  packet(t.Request),
 				Replies:  replies(t),
@@ -135,26 +138,62 @@ func transmogrify(functions []lib.Function) []test {
 	return transmogrified
 }
 
+func vars(t lib.FuncTest) []any {
+	m := []any{}
+	passcodes := map[uint8]any{}
+
+	for _, v := range t.Args {
+		switch {
+		case t.Name == "set-door-passcodes" && v.Name == "passcode 1":
+			passcodes[1] = v.Value
+
+		case t.Name == "set-door-passcodes" && v.Name == "passcode 2":
+			passcodes[2] = v.Value
+
+		case t.Name == "set-door-passcodes" && v.Name == "passcode 3":
+			passcodes[3] = v.Value
+
+		case t.Name == "set-door-passcodes" && v.Name == "passcode 4":
+			passcodes[4] = v.Value
+		}
+	}
+
+	if t.Name == "set-door-passcodes" {
+		m = append(m, fmt.Sprintf("Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := (1 => %v, 2 => %v, 3 => %v, 4 => %v);", passcodes[1], passcodes[2], passcodes[3], passcodes[4]))
+	}
+
+	return m
+}
+
 func args(t lib.FuncTest) []any {
 	args := []any{}
 
 	for _, v := range t.Args {
-		switch v.Type {
-		case "IPv4":
+		switch {
+		case v.Type == "IPv4":
 			args = append(args, fmt.Sprintf(`Inet_Addr ("%v")`, v.Value))
 
-		case "address:port":
+		case v.Type == "address:port":
 			args = append(args, fmt.Sprintf(`(Family_Inet, Inet_Addr ("192.168.1.100"), 60001)`))
 
-		case "datetime":
+		case v.Type == "datetime":
 			args = append(args, datetime(v.Value))
 
-		case "mode":
+		case v.Type == "mode":
 			args = append(args, fmt.Sprintf("To_Control_Mode (%v)", v.Value))
+
+		case t.Name == "set-door-passcodes" && v.Name == "passcode 1":
+		case t.Name == "set-door-passcodes" && v.Name == "passcode 2":
+		case t.Name == "set-door-passcodes" && v.Name == "passcode 3":
+		case t.Name == "set-door-passcodes" && v.Name == "passcode 4":
 
 		default:
 			args = append(args, v.Value)
 		}
+	}
+
+	if t.Name == "set-door-passcodes" {
+		args = append(args, "Passcodes")
 	}
 
 	return args

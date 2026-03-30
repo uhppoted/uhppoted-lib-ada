@@ -44,7 +44,9 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 {{ range $ix,$test := .Tests }}
    procedure Test_{{ printf "%v" .Name }} (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
-
+{{ range $var := .Vars }}
+      {{ $var }}
+{{ end }}
       V : constant {{ .Returns.Type }} := {{ .Function }} (U{{ range $arg := .Args }}, {{ $arg }}{{ end }});
    begin
       Assert (V = Expected.{{ .Name }}, "invalid result" & V'Image);

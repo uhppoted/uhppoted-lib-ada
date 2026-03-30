@@ -23,7 +23,7 @@ jobs:
       with:
         crates: libadalang_tools
 
-    - name: Build project
+    - name: Build lib
       run: |
         cd lib && alr build
 
@@ -36,6 +36,10 @@ jobs:
       with:
         path: lib/src
         name: uhppoted-lib-ada-src
+
+    - name: Build CLI
+      run: |
+        cd examples/cli && alr build
 
     - name: Format CLI source
       run: |

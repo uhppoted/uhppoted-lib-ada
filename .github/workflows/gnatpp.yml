@@ -57,7 +57,7 @@ jobs:
 
     - name: Format integration tests source
       run: |
-        cd integration-tests && alr exec -- gnatpp -P integration-tests.gpr
+        cd integration-tests && alr exec -- gnatpp -P integration_tests.gpr
 
     - name: Upload formatted integration tests source
       uses: actions/upload-artifact@v6

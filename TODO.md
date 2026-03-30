@@ -6,6 +6,8 @@
 
 - [ ] format
 - [ ] lint
+    - [ ] gnatcheck
+    - [ ] adacontrol
 - [ ] adadoc
     - [ ] exceptions
     - [ ] types

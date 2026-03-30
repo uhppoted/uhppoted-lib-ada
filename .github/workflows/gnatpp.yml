@@ -8,7 +8,7 @@ on:
 jobs:
 
   build:
-    name: docgen
+    name: reformat
     runs-on: ubuntu-latest
     steps:
 
@@ -33,7 +33,11 @@ jobs:
         ls -la ../adadoc
 
     - name: Upload formatted source
-      uses: actions/upload-artifact@v6
-      with:
-        path: lib/src
-        name: uhppoted-lib-ada-src
+      run: |
+      ls -la
+
+    # - name: Upload formatted source
+    #   uses: actions/upload-artifact@v6
+    #   with:
+    #     path: lib/src
+    #     name: uhppoted-lib-ada-src

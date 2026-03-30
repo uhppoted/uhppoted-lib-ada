@@ -43,4 +43,11 @@ project Uhppoted_Lib_Ada is
       for Artifacts (".") use ("share");
    end Install;
 
+   package Pretty_Printer is
+      for Default_Switches ("Ada") use (
+         "-M120",
+         "-n"
+      );
+   end Pretty_Printer;
+
 end Uhppoted_Lib_Ada;

@@ -6,8 +6,8 @@ package body Uhppoted.Lib.Encode is
    use Uhppoted.Lib.Types;
    use Uhppoted.Lib.Requests;
 
-   function Pack_IPv4     (Addr : Inet_Addr_Type) return IPv4;
-   function Pack_DateTime (DT   : DateTime) return BCD7;
+   function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4;
+   function Pack_DateTime (DT : DateTime) return BCD7;
 
    --  Encodes a get-controller request as a 64 byte array.
    function Get_Controller (Controller : Unsigned_32) return Packet is
@@ -31,7 +31,7 @@ package body Uhppoted.Lib.Encode is
       Request.Addr       := Pack_IPv4 (Addr);
       Request.Netmask    := Pack_IPv4 (Netmask);
       Request.Gateway    := Pack_IPv4 (Gateway);
-      Request.MagicWord  := 16#55AAAA55#;
+      Request.MagicWord  := 16#55AA_AA55#;
 
       return Buffer;
    end Set_IPv4;
@@ -163,20 +163,20 @@ package body Uhppoted.Lib.Encode is
       Request.Passcode3  := 0;
       Request.Passcode4  := 0;
 
-      if Passcode1 <= 999999 then
+      if Passcode1 <= 999_999 then
          Request.Passcode1 := Passcode1;
       end if;
-      
-      if Passcode2 <= 999999 then
-         Request.Passcode2  := Passcode2;
+
+      if Passcode2 <= 999_999 then
+         Request.Passcode2 := Passcode2;
       end if;
 
-      if Passcode3 <= 999999 then
-         Request.Passcode3  := Passcode3;
+      if Passcode3 <= 999_999 then
+         Request.Passcode3 := Passcode3;
       end if;
 
-      if Passcode4 <= 999999 then
-         Request.Passcode4  := Passcode4;
+      if Passcode4 <= 999_999 then
+         Request.Passcode4 := Passcode4;
       end if;
 
       return Buffer;

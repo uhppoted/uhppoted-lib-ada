@@ -34,4 +34,10 @@ project Integration_Tests is
       for Artifacts (".") use ("share");
    end Install;
 
+   package Pretty_Printer is
+      for Default_Switches ("Ada") use (
+         "-M120"
+      );
+   end Pretty_Printer;
+
 end Integration_Tests;

@@ -16,10 +16,10 @@ package Uhppoted.Lib.Requests is
    end record;
 
    for Get_Controller_Request use record
-      SOM        at 0 range 0 .. 7;
-      OpCode     at 1 range 0 .. 7;
-      Reserved   at 2 range 0 .. 15;
-      Controller at 4 range 0 .. 31;
+      SOM        at 0 range 0 ..   7;
+      OpCode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
       Padding    at 8 range 0 .. 447;
    end record;
 
@@ -41,14 +41,14 @@ package Uhppoted.Lib.Requests is
    end record;
 
    for Set_IPv4_Request use record
-      SOM        at 0  range 0 .. 7;
-      OpCode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Addr       at 8  range 0 .. 31;
-      Netmask    at 12 range 0 .. 31;
-      Gateway    at 16 range 0 .. 31;
-      MagicWord  at 20 range 0 .. 31;
+      SOM        at  0 range 0 ..   7;
+      OpCode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Addr       at  8 range 0 ..  31;
+      Netmask    at 12 range 0 ..  31;
+      Gateway    at 16 range 0 ..  31;
+      MagicWord  at 20 range 0 ..  31;
       Padding    at 24 range 0 .. 319;
    end record;
 
@@ -66,10 +66,10 @@ package Uhppoted.Lib.Requests is
    end record;
 
    for Get_Time_Request use record
-      SOM        at 0 range 0 .. 7;
-      OpCode     at 1 range 0 .. 7;
-      Reserved   at 2 range 0 .. 15;
-      Controller at 4 range 0 .. 31;
+      SOM        at 0 range 0 ..   7;
+      OpCode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
       Padding    at 8 range 0 .. 447;
    end record;
 
@@ -88,11 +88,11 @@ package Uhppoted.Lib.Requests is
    end record;
 
    for Set_Time_Request use record
-      SOM        at 0  range 0 .. 7;
-      OpCode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Date_Time  at 8  range 0 .. 55;
+      SOM        at  0 range 0 ..   7;
+      OpCode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Date_Time  at  8 range 0 ..  55;
       Padding    at 15 range 0 .. 391;
    end record;
 
@@ -110,10 +110,10 @@ package Uhppoted.Lib.Requests is
    end record;
 
    for Get_Listener_Request use record
-      SOM        at 0 range 0 .. 7;
-      OpCode     at 1 range 0 .. 7;
-      Reserved   at 2 range 0 .. 15;
-      Controller at 4 range 0 .. 31;
+      SOM        at 0 range 0 ..   7;
+      OpCode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
       Padding    at 8 range 0 .. 447;
    end record;
 
@@ -134,13 +134,13 @@ package Uhppoted.Lib.Requests is
    end record;
 
    for Set_Listener_Request use record
-      SOM        at 0  range 0 .. 7;
-      OpCode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Addr       at 8  range 0 .. 31;
-      Port       at 12 range 0 .. 15;
-      Interval   at 14 range 0 .. 7;
+      SOM        at  0 range 0 ..   7;
+      OpCode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Addr       at  8 range 0 ..  31;
+      Port       at 12 range 0 ..  15;
+      Interval   at 14 range 0 ..   7;
       Padding    at 15 range 0 .. 391;
    end record;
 
@@ -158,10 +158,10 @@ package Uhppoted.Lib.Requests is
    end record;
 
    for Get_Status_Request use record
-      SOM        at 0 range 0 .. 7;
-      OpCode     at 1 range 0 .. 7;
-      Reserved   at 2 range 0 .. 15;
-      Controller at 4 range 0 .. 31;
+      SOM        at 0 range 0 ..   7;
+      OpCode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
       Padding    at 8 range 0 .. 447;
    end record;
 
@@ -180,11 +180,11 @@ package Uhppoted.Lib.Requests is
    end record;
 
    for Get_Door_Request use record
-      SOM        at 0 range 0 .. 7;
-      OpCode     at 1 range 0 .. 7;
-      Reserved   at 2 range 0 .. 15;
-      Controller at 4 range 0 .. 31;
-      Door       at 8 range 0 .. 7;
+      SOM        at 0 range 0 ..   7;
+      OpCode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Door       at 8 range 0 ..   7;
       Padding    at 9 range 0 .. 439;
    end record;
 
@@ -205,13 +205,13 @@ package Uhppoted.Lib.Requests is
    end record;
 
    for Set_Door_Request use record
-      SOM        at 0  range 0 .. 7;
-      OpCode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Door       at 8  range 0 .. 7;
-      Mode       at 9  range 0 .. 7;
-      OpenDelay  at 10 range 0 .. 7;
+      SOM        at  0 range 0 ..   7;
+      OpCode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Door       at  8 range 0 ..   7;
+      Mode       at  9 range 0 ..   7;
+      OpenDelay  at 10 range 0 ..   7;
       Padding    at 11 range 0 .. 423;
    end record;
 
@@ -235,16 +235,16 @@ package Uhppoted.Lib.Requests is
    end record;
 
    for Set_Door_Passcodes_Request use record
-      SOM        at 0  range 0 .. 7;
-      OpCode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Door       at 8  range 0 .. 7;
-      Reserved2  at 9  range 0 .. 23;
-      Passcode1  at 12 range 0 .. 31;
-      Passcode2  at 16 range 0 .. 31;
-      Passcode3  at 20 range 0 .. 31;
-      Passcode4  at 24 range 0 .. 31;
+      SOM        at  0 range 0 ..   7;
+      OpCode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Door       at  8 range 0 ..   7;
+      Reserved2  at  9 range 0 ..  23;
+      Passcode1  at 12 range 0 ..  31;
+      Passcode2  at 16 range 0 ..  31;
+      Passcode3  at 20 range 0 ..  31;
+      Passcode4  at 24 range 0 ..  31;
       Padding    at 28 range 0 .. 287;
    end record;
 

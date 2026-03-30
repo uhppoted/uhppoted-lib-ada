@@ -24,10 +24,9 @@ package ArgParse is
       Set_Door_Args,
       Set_Door_Passcodes_Args);
 
-   type Args (T : Args_Type) is
-   record
+   type Args (T : Args_Type) is record
       Controller : Uhppoted.Lib.Controller;
-            Door : Unsigned_8;
+      Door       : Unsigned_8;
 
       case T is
          when Set_Listener_Args =>
@@ -62,9 +61,9 @@ private
                                       Controller_Transport : String_Access;
                                       C                    : out Uhppoted.Lib.Controller);
 
-   function Parse_Set_Listener       return Args;
-   function Parse_Get_Door           return Args;
-   function Parse_Set_Door           return Args;
+   function Parse_Set_Listener return Args;
+   function Parse_Get_Door return Args;
+   function Parse_Set_Door return Args;
    function Parse_Set_Door_Passcodes return Args;
 
 end ArgParse;

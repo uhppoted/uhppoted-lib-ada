@@ -19,8 +19,7 @@ package Uhppoted.Lib.Transport.TCP is
 
 private
    --  Controlled_Type wrapper for GNAT.Socket.
-   type S is new Ada.Finalization.Limited_Controlled with
-   record
+   type S is new Ada.Finalization.Limited_Controlled with record
       Client : Socket_Type := GNAT.Sockets.No_Socket;
    end record;
 

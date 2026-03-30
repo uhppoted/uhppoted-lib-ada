@@ -22,13 +22,13 @@ begin
          Commands.Execute (Cmd, Args);
       exception
          when Uhppoted.Lib.Timeout_Error =>
-            Put_Line("    *** ERROR timeout waiting for response");
+            Put_Line ("    *** ERROR timeout waiting for response");
 
          when Uhppoted.Lib.Invalid_Response_Error =>
-            Put_Line("    *** ERROR invalid response from controller");
+            Put_Line ("    *** ERROR invalid response from controller");
 
          when E : others =>
-            Put_Line("    *** ERROR " & Exception_Name(E) & "  " & Exception_Message(E));
+            Put_Line ("    *** ERROR " & Exception_Name (E) & "  " & Exception_Message (E));
       end;
    end if;
 

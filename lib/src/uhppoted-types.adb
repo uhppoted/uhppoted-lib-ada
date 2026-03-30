@@ -6,10 +6,14 @@ package body Uhppoted.Types is
    function To_Control_Mode (V : Unsigned_8) return Control_Mode is
    begin
       case V is
-         when 1 => return Normally_Open;
-         when 2 => return Normally_Closed;
-         when 3 => return Controlled;
-         when others => raise Constraint_Error with "Invalid Control Mode: " & V'Image;
+         when 1 =>
+            return Normally_Open;
+         when 2 =>
+            return Normally_Closed;
+         when 3 =>
+            return Controlled;
+         when others =>
+            raise Constraint_Error with "Invalid Control Mode: " & V'Image;
       end case;
    end To_Control_Mode;
 
@@ -25,17 +29,17 @@ package body Uhppoted.Types is
    function Image (MAC : Hardware_Addr) return String is
       Hex : constant String := "0123456789abcdef";
       S   : String (1 .. 18);
-      I   : Positive := 1;
+      I   : Positive        := 1;
    begin
       for B of MAC loop
          declare
             MSB : constant Integer := Integer (Shift_Right (B, 4));
             LSB : constant Integer := Integer (B and 16#0F#);
          begin
-            S (I) := Hex (MSB + 1);
+            S (I)     := Hex (MSB + 1);
             S (I + 1) := Hex (LSB + 1);
             S (I + 2) := ':';
-            I := I + 3;
+            I         := I + 3;
          end;
       end loop;
 

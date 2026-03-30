@@ -12,7 +12,6 @@ package Uhppoted.Types is
    --  Custom exception for timeout errors.
    Timeout_Error : exception;
 
-
    type IPv4 is array (1 .. 4) of Interfaces.Unsigned_8;
    type Hardware_Addr is array (1 .. 6) of Unsigned_8;
    subtype Firmware_Version is String (1 .. 5);
@@ -106,9 +105,9 @@ package Uhppoted.Types is
    type Passcodes_List is array (Positive range <>) of Unsigned_32;
 
    function Image (Addr : IPv4) return String;
-   function Image (MAC  : Hardware_Addr) return String;
-   function Image (D    : DateOnly) return String;
-   function Image (T    : TimeOnly) return String;
-   function Image (DT   : DateTime) return String;
+   function Image (MAC : Hardware_Addr) return String;
+   function Image (D : DateOnly) return String;
+   function Image (T : TimeOnly) return String;
+   function Image (DT : DateTime) return String;
 
 end Uhppoted.Types;

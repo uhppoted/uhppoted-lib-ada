@@ -11,7 +11,7 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Version_Field use record
-      Major at 0 range 0 .. 7;
+      Major at 0 range 0 ..  7;
       Minor at 0 range 8 .. 15;
    end record;
 
@@ -33,16 +33,16 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Get_Controller_Response use record
-      SOM        at 0  range 0 .. 7;
-      Opcode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Address    at 8  range 0 .. 31;
-      Netmask    at 12 range 0 .. 31;
-      Gateway    at 16 range 0 .. 31;
-      MAC        at 20 range 0 .. 47;
-      Version    at 26 range 0 .. 15;
-      Date       at 28 range 0 .. 31;
+      SOM        at  0 range 0 ..   7;
+      Opcode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Address    at  8 range 0 ..  31;
+      Netmask    at 12 range 0 ..  31;
+      Gateway    at 16 range 0 ..  31;
+      MAC        at 20 range 0 ..  47;
+      Version    at 26 range 0 ..  15;
+      Date       at 28 range 0 ..  31;
       Padding    at 32 range 0 .. 255;
    end record;
 
@@ -61,11 +61,11 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Set_IPv4_Response use record
-      SOM        at 0 range 0 .. 7;
-      Opcode     at 1 range 0 .. 7;
-      Reserved   at 2 range 0 .. 15;
-      Controller at 4 range 0 .. 31;
-      Ok         at 8 range 0 .. 7;
+      SOM        at 0 range 0 ..   7;
+      Opcode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Ok         at 8 range 0 ..   7;
       Padding    at 9 range 0 .. 439;
    end record;
 
@@ -84,11 +84,11 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Get_Time_Response use record
-      SOM        at 0  range 0 .. 7;
-      Opcode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Date_Time  at 8  range 0 .. 55;
+      SOM        at  0 range 0 ..   7;
+      Opcode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Date_Time  at  8 range 0 ..  55;
       Padding    at 15 range 0 .. 383;
    end record;
 
@@ -107,11 +107,11 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Set_Time_Response use record
-      SOM        at 0  range 0 .. 7;
-      Opcode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Date_Time  at 8  range 0 .. 55;
+      SOM        at  0 range 0 ..   7;
+      Opcode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Date_Time  at  8 range 0 ..  55;
       Padding    at 15 range 0 .. 383;
    end record;
 
@@ -132,13 +132,13 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Get_Listener_Response use record
-      SOM        at 0  range 0 .. 7;
-      Opcode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Address    at 8  range 0 .. 31;
-      Port       at 12 range 0 .. 15;
-      Interval   at 14 range 0 .. 7;
+      SOM        at  0 range 0 ..   7;
+      Opcode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Address    at  8 range 0 ..  31;
+      Port       at 12 range 0 ..  15;
+      Interval   at 14 range 0 ..   7;
       Padding    at 15 range 0 .. 383;
    end record;
 
@@ -159,13 +159,13 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Get_Listener_Addr_Port_Response use record
-      SOM        at 0  range 0 .. 7;
-      Opcode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Address    at 8  range 0 .. 31;
-      Port       at 12 range 0 .. 15;
-      Interval   at 14 range 0 .. 7;
+      SOM        at  0 range 0 ..   7;
+      Opcode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Address    at  8 range 0 ..  31;
+      Port       at 12 range 0 ..  15;
+      Interval   at 14 range 0 ..   7;
       Padding    at 15 range 0 .. 383;
    end record;
 
@@ -184,11 +184,11 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Set_Listener_Response use record
-      SOM        at 0 range 0 .. 7;
-      Opcode     at 1 range 0 .. 7;
-      Reserved   at 2 range 0 .. 15;
-      Controller at 4 range 0 .. 31;
-      Ok         at 8 range 0 .. 7;
+      SOM        at 0 range 0 ..   7;
+      Opcode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Ok         at 8 range 0 ..   7;
       Padding    at 9 range 0 .. 439;
    end record;
 
@@ -207,11 +207,11 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Set_Listener_Addr_Port_Response use record
-      SOM        at 0 range 0 .. 7;
-      Opcode     at 1 range 0 .. 7;
-      Reserved   at 2 range 0 .. 15;
-      Controller at 4 range 0 .. 31;
-      Ok         at 8 range 0 .. 7;
+      SOM        at 0 range 0 ..   7;
+      Opcode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Ok         at 8 range 0 ..   7;
       Padding    at 9 range 0 .. 439;
    end record;
 
@@ -252,32 +252,32 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Get_Status_Response use record
-      SOM                  at 0  range 0 .. 7;
-      Opcode               at 1  range 0 .. 7;
-      Reserved             at 2  range 0 .. 15;
-      Controller           at 4  range 0 .. 31;
-      Event_Index          at 8  range 0 .. 31;
-      Event_Type           at 12 range 0 .. 7;
-      Event_Access_Granted at 13 range 0 .. 7;
-      Event_Door           at 14 range 0 .. 7;
-      Event_Direction      at 15 range 0 .. 7;
+      SOM                  at  0 range 0 ..  7;
+      Opcode               at  1 range 0 ..  7;
+      Reserved             at  2 range 0 .. 15;
+      Controller           at  4 range 0 .. 31;
+      Event_Index          at  8 range 0 .. 31;
+      Event_Type           at 12 range 0 ..  7;
+      Event_Access_Granted at 13 range 0 ..  7;
+      Event_Door           at 14 range 0 ..  7;
+      Event_Direction      at 15 range 0 ..  7;
       Event_Card           at 16 range 0 .. 31;
       Event_Timestamp      at 20 range 0 .. 55;
-      Event_Reason         at 27 range 0 .. 7;
-      Door_1_Open          at 28 range 0 .. 7;
-      Door_2_Open          at 29 range 0 .. 7;
-      Door_3_Open          at 30 range 0 .. 7;
-      Door_4_Open          at 31 range 0 .. 7;
-      Door_1_Button        at 32 range 0 .. 7;
-      Door_2_Button        at 33 range 0 .. 7;
-      Door_3_Button        at 34 range 0 .. 7;
-      Door_4_Button        at 35 range 0 .. 7;
-      System_Error         at 36 range 0 .. 7;
+      Event_Reason         at 27 range 0 ..  7;
+      Door_1_Open          at 28 range 0 ..  7;
+      Door_2_Open          at 29 range 0 ..  7;
+      Door_3_Open          at 30 range 0 ..  7;
+      Door_4_Open          at 31 range 0 ..  7;
+      Door_1_Button        at 32 range 0 ..  7;
+      Door_2_Button        at 33 range 0 ..  7;
+      Door_3_Button        at 34 range 0 ..  7;
+      Door_4_Button        at 35 range 0 ..  7;
+      System_Error         at 36 range 0 ..  7;
       System_Time          at 37 range 0 .. 23;
       Sequence_No          at 40 range 0 .. 31;
-      Special_Info         at 48 range 0 .. 7;
-      Relays               at 49 range 0 .. 7;
-      Inputs               at 50 range 0 .. 7;
+      Special_Info         at 48 range 0 ..  7;
+      Relays               at 49 range 0 ..  7;
+      Inputs               at 50 range 0 ..  7;
       System_Date          at 51 range 0 .. 23;
       Padding              at 54 range 0 .. 79;
    end record;
@@ -299,13 +299,13 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Get_Door_Response use record
-      SOM        at 0  range 0 .. 7;
-      Opcode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Door       at 8  range 0 .. 7;
-      Mode       at 9  range 0 .. 7;
-      OpenDelay  at 10 range 0 .. 7;
+      SOM        at  0 range 0 ..   7;
+      Opcode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Door       at  8 range 0 ..   7;
+      Mode       at  9 range 0 ..   7;
+      OpenDelay  at 10 range 0 ..   7;
       Padding    at 11 range 0 .. 423;
    end record;
 
@@ -326,13 +326,13 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Set_Door_Response use record
-      SOM        at 0  range 0 .. 7;
-      Opcode     at 1  range 0 .. 7;
-      Reserved   at 2  range 0 .. 15;
-      Controller at 4  range 0 .. 31;
-      Door       at 8  range 0 .. 7;
-      Mode       at 9  range 0 .. 7;
-      OpenDelay  at 10 range 0 .. 7;
+      SOM        at  0 range 0 ..   7;
+      Opcode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Door       at  8 range 0 ..   7;
+      Mode       at  9 range 0 ..   7;
+      OpenDelay  at 10 range 0 ..   7;
       Padding    at 11 range 0 .. 423;
    end record;
 
@@ -351,17 +351,16 @@ package Uhppoted.Lib.Replies is
    end record;
 
    for Set_Door_Passcodes_Response use record
-      SOM        at 0 range 0 .. 7;
-      Opcode     at 1 range 0 .. 7;
-      Reserved   at 2 range 0 .. 15;
-      Controller at 4 range 0 .. 31;
-      Ok         at 8 range 0 .. 7;
+      SOM        at 0 range 0 ..   7;
+      Opcode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Ok         at 8 range 0 ..   7;
       Padding    at 9 range 0 .. 439;
    end record;
 
    for Set_Door_Passcodes_Response'Size use 64 * 8;
    for Set_Door_Passcodes_Response'Bit_Order use System.Low_Order_First;
    for Set_Door_Passcodes_Response'Scalar_Storage_Order use System.Low_Order_First;
-
 
 end Uhppoted.Lib.Replies;

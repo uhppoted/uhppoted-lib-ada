@@ -69,7 +69,7 @@ package body Handlers is
       R : constant Controller_Record := Get_Controller (U, Args.Controller, Timeout);
    begin
       Put_Line ("--- get-controller");
-      Put_Line ("controller:"  & R.ID'Image);
+      Put_Line ("controller:" & R.ID'Image);
       Put_Line ("            " & Image (R.Address));
       Put_Line ("            " & Image (R.Netmask));
       Put_Line ("            " & Image (R.Gateway));
@@ -84,10 +84,10 @@ package body Handlers is
       Addr    : constant Inet_Addr_Type := Inet_Addr ("192.168.1.125");
       Netmask : constant Inet_Addr_Type := Inet_Addr ("255.255.255.0");
       Gateway : constant Inet_Addr_Type := Inet_Addr ("192.168.1.1");
-      R       : constant Boolean := Set_IPv4 (U, Args.Controller, Addr, Netmask, Gateway, Timeout);
+      R       : constant Boolean        := Set_IPv4 (U, Args.Controller, Addr, Netmask, Gateway, Timeout);
    begin
       Put_Line ("--- set-IPv4");
-      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("controller:" & Args.Controller.ID'Image);
       Put_Line ("            " & R'Image);
       Put_Line ("");
    end Set_IPv4;
@@ -97,14 +97,14 @@ package body Handlers is
       R : constant DateTime := Get_Time (U, Args.Controller, Timeout);
    begin
       Put_Line ("--- get-time");
-      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("controller:" & Args.Controller.ID'Image);
       Put_Line ("            " & Image (R));
       Put_Line ("");
    end Get_Time;
 
    --  Executes the set-time command.
    procedure Set_Time (Args : ArgParse.Args) is
-      Now    : constant Time := Clock;
+      Now    : constant Time        := Clock;
       Offset : constant Time_Offset := Local_Time_Offset (Now);
 
       Year       : Year_Number;
@@ -138,7 +138,7 @@ package body Handlers is
       R := Uhppoted.Lib.Set_Time (U, Args.Controller, DT, Timeout);
 
       Put_Line ("--- set-time");
-      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("controller:" & Args.Controller.ID'Image);
       Put_Line ("            " & Image (R));
       Put_Line ("");
    end Set_Time;
@@ -148,7 +148,7 @@ package body Handlers is
       R : constant Listener_Record := Get_Listener (U, Args.Controller, Timeout);
    begin
       Put_Line ("--- get-listener");
-      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("controller:" & Args.Controller.ID'Image);
       Put_Line ("  listener: " & Image (R.Listener));
       Put_Line ("  interval:" & R.Interval'Image);
       Put_Line ("");
@@ -159,7 +159,7 @@ package body Handlers is
       R : constant Boolean := Set_Listener (U, Args.Controller, Args.Listener, Args.Interval, Timeout);
    begin
       Put_Line ("--- set-listener");
-      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("controller:" & Args.Controller.ID'Image);
       Put_Line ("        ok: " & R'Image);
       Put_Line ("");
    end Set_Listener;
@@ -169,7 +169,7 @@ package body Handlers is
       R : constant Controller_Status := Get_Status (U, Args.Controller, Timeout);
    begin
       Put_Line ("--- get-status");
-      Put_Line ("controller:"  & Args.Controller.ID'Image);
+      Put_Line ("controller:" & Args.Controller.ID'Image);
       Put_Line ("  system date/time:        " & Image (R.System_Date_Time));
       Put_Line ("  door 1 - open:           " & R.Doors (1).Open'Image);
       Put_Line ("           button pressed: " & R.Doors (1).Button'Image);

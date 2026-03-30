@@ -27,11 +27,11 @@ package body Registry is
                       Cmd  : String;
                       Args : ArgParse.Args) is
    begin
-         if Self.Internal_Map.Contains (Cmd) then
-            Self.Internal_Map.Element (Cmd).all (Args);
-         else
-            Put_Line ("   *** ERROR: unknown command " & Cmd);
-         end if;
+      if Self.Internal_Map.Contains (Cmd) then
+         Self.Internal_Map.Element (Cmd).all (Args);
+      else
+         Put_Line ("   *** ERROR: unknown command " & Cmd);
+      end if;
    end Execute;
 
 end Registry;

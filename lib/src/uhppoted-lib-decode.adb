@@ -13,9 +13,7 @@ package body Uhppoted.Lib.Decode is
    use Uhppoted.Lib.Responses;
 
    --  Decodes a 64 byte get-controller reply as a Get_Controller_Response record.
-   function Get_Controller
-     (Reply : Packet) return Responses.Get_Controller_Response
-   is
+   function Get_Controller (Reply : Packet) return Responses.Get_Controller_Response is
       R : Replies.Get_Controller_Response with
         Import, Address => Reply'Address;
    begin
@@ -49,8 +47,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return (Controller => R.Controller,
-              Ok         => Unpack_Boolean (R.Ok));
+      return (Controller => R.Controller, Ok => Unpack_Boolean (R.Ok));
    end Set_IPv4;
 
    --  Decodes a 64 byte get-time reply as a Get_Time_Response record.
@@ -66,9 +63,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return
-        (Controller => R.Controller,
-         Date_Time  => Unpack_Date_Time (R.Date_Time));
+      return (Controller => R.Controller, Date_Time => Unpack_Date_Time (R.Date_Time));
    end Get_Time;
 
    --  Decodes a 64 byte set-time reply as a Set_Time_Response record.
@@ -84,15 +79,11 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return
-        (Controller => R.Controller,
-         Date_Time  => Unpack_Date_Time (R.Date_Time));
+      return (Controller => R.Controller, Date_Time => Unpack_Date_Time (R.Date_Time));
    end Set_Time;
 
    --  Decodes a 64 byte get-listener reply as a Get_Listener_Response record.
-   function Get_Listener
-     (Reply : Packet) return Responses.Get_Listener_Response
-   is
+   function Get_Listener (Reply : Packet) return Responses.Get_Listener_Response is
       R : Replies.Get_Listener_Response with
         Import, Address => Reply'Address;
    begin
@@ -104,17 +95,11 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return
-         (Controller => R.Controller,
-          Address    => R.Address,
-          Port       => R.Port,
-          Interval   => R.Interval);
+      return (Controller => R.Controller, Address => R.Address, Port => R.Port, Interval => R.Interval);
    end Get_Listener;
 
    --  Decodes a 64 byte get-listener reply as a Get_Listener_Addr_Port_Response record.
-   function Get_Listener_Addr_Port
-     (Reply : Packet) return Responses.Get_Listener_Addr_Port_Response
-   is
+   function Get_Listener_Addr_Port (Reply : Packet) return Responses.Get_Listener_Addr_Port_Response is
       R : Replies.Get_Listener_Addr_Port_Response with
         Import, Address => Reply'Address;
    begin
@@ -128,17 +113,12 @@ package body Uhppoted.Lib.Decode is
 
       return
         (Controller => R.Controller,
-         Listener   =>
-           Network_Socket_Address
-             (Addr => Inet_Addr (Image (R.Address)),
-              Port => Port_Type (R.Port)),
+         Listener   => Network_Socket_Address (Addr => Inet_Addr (Image (R.Address)), Port => Port_Type (R.Port)),
          Interval   => R.Interval);
    end Get_Listener_Addr_Port;
 
    --  Decodes a 64 byte set-listener reply as a Set_Listener_Response record.
-   function Set_Listener
-     (Reply : Packet) return Responses.Set_Listener_Response
-   is
+   function Set_Listener (Reply : Packet) return Responses.Set_Listener_Response is
       R : Replies.Set_Listener_Response with
         Import, Address => Reply'Address;
    begin
@@ -150,15 +130,11 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return
-         (Controller => R.Controller,
-          Ok         => R.Ok);
+      return (Controller => R.Controller, Ok => R.Ok);
    end Set_Listener;
 
    --  Decodes a 64 byte set-listener reply as a Set_Listener_Addr_Port_Response record.
-   function Set_Listener_Addr_Port
-     (Reply : Packet) return Responses.Set_Listener_Addr_Port_Response
-   is
+   function Set_Listener_Addr_Port (Reply : Packet) return Responses.Set_Listener_Addr_Port_Response is
       R : Replies.Set_Listener_Addr_Port_Response with
         Import, Address => Reply'Address;
    begin
@@ -170,9 +146,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return
-         (Controller => R.Controller,
-          Ok         => R.Ok);
+      return (Controller => R.Controller, Ok => R.Ok);
    end Set_Listener_Addr_Port;
 
    --  Decodes a 64 byte get-status reply as a Get_Status_Response record.
@@ -228,10 +202,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return (Controller => R.Controller,
-              Door       => R.Door,
-              Mode       => R.Mode,
-              OpenDelay  => R.OpenDelay);
+      return (Controller => R.Controller, Door => R.Door, Mode => R.Mode, OpenDelay => R.OpenDelay);
    end Get_Door;
 
    --  Decodes a 64 byte set-door reply as a Set_Door_Response record.
@@ -247,10 +218,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return (Controller => R.Controller,
-              Door       => R.Door,
-              Mode       => R.Mode,
-              OpenDelay  => R.OpenDelay);
+      return (Controller => R.Controller, Door => R.Door, Mode => R.Mode, OpenDelay => R.OpenDelay);
    end Set_Door;
 
    --  Translates a BCD coded version to a vN.NN formatted string.
@@ -267,9 +235,7 @@ package body Uhppoted.Lib.Decode is
    end Unpack_Version;
 
    --  Decodes a 64 byte set-door-passcodes reply as a Get_Door_Passcodes_Response record.
-   function Set_Door_Passcodes
-     (Reply : Packet) return Responses.Set_Door_Passcodes_Response
-   is
+   function Set_Door_Passcodes (Reply : Packet) return Responses.Set_Door_Passcodes_Response is
       R : Replies.Set_Door_Passcodes_Response with
         Import, Address => Reply'Address;
    begin
@@ -281,8 +247,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return (Controller => R.Controller,
-              Ok         => R.Ok);
+      return (Controller => R.Controller, Ok => R.Ok);
    end Set_Door_Passcodes;
 
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
@@ -330,19 +295,13 @@ package body Uhppoted.Lib.Decode is
       YYYYMMDD_HHMMSS : constant String := BCD_To_String (Bytes);
 
       Year   : constant Unsigned_16 := Unsigned_16'Value (YYYYMMDD_HHMMSS (1 .. 4));
-      Month  : constant Unsigned_8  := Unsigned_8'Value  (YYYYMMDD_HHMMSS (5 .. 6));
-      Day    : constant Unsigned_8  := Unsigned_8'Value  (YYYYMMDD_HHMMSS (7 .. 8));
-      Hour   : constant Unsigned_8  := Unsigned_8'Value  (YYYYMMDD_HHMMSS (9 .. 10));
-      Minute : constant Unsigned_8  := Unsigned_8'Value  (YYYYMMDD_HHMMSS (11 .. 12));
-      Second : constant Unsigned_8  := Unsigned_8'Value  (YYYYMMDD_HHMMSS (13 .. 14));
+      Month  : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (5 .. 6));
+      Day    : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (7 .. 8));
+      Hour   : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (9 .. 10));
+      Minute : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (11 .. 12));
+      Second : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (13 .. 14));
    begin
-      return
-         (Year   => Year,
-          Month  => Month,
-          Day    => Day,
-          Hour   => Hour,
-          Minute => Minute,
-         Second  => Second);
+      return (Year => Year, Month => Month, Day => Day, Hour => Hour, Minute => Minute, Second => Second);
    end Unpack_Date_Time;
 
    --  Translates a BCD coded string in a byte array to a string.

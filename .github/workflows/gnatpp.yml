@@ -50,3 +50,17 @@ jobs:
       with:
         path: examples/cli/src
         name: uhppoted-lib-ada-cli-src
+
+    - name: Build integration tests
+      run: |
+        cd integration-tests && alr build
+
+    - name: Format integration tests source
+      run: |
+        cd integration-tests && alr exec -- gnatpp -P integration-tests.gpr
+
+    - name: Upload formatted integration tests source
+      uses: actions/upload-artifact@v6
+      with:
+        path: integration-tests/src
+        name: uhppoted-lib-ada-integration-tests-src

@@ -39,7 +39,7 @@ package body Uhppoted.Lib.Transport.TCP is
       Deadline  : constant Time := Clock + Timeout;
 
    begin
-      Bind_Socket    (Sock.Client, Bind);
+      Bind_Socket (Sock.Client, Bind);
       Connect_Socket (Sock.Client, DestAddr);
 
       Send_Socket (Sock.Client, To_Stream (Request), Offset);
@@ -71,7 +71,7 @@ package body Uhppoted.Lib.Transport.TCP is
 
             Empty (Read_Set);
             Empty (Write_Set);
-            Set   (Read_Set, Sock.Client);
+            Set (Read_Set, Sock.Client);
 
             Check_Selector (Selector.Selector,
                             R_Socket_Set => Read_Set,

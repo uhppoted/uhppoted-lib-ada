@@ -20,20 +20,20 @@ package Uhppoted.Lib is
    type Controller is record
       ID       : Unsigned_32;
       DestAddr : Sock_Addr_Type := No_Sock_Addr;
-      Protocol : Protocol_Type := Default;
+      Protocol : Protocol_Type  := Default;
    end record;
 
    Invalid_Response_Error : exception renames Uhppoted.Types.Invalid_Response_Error;
    Timeout_Error          : exception renames Uhppoted.Types.Timeout_Error;
 
-   subtype Controller_Record      is Uhppoted.Types.Controller_Record;
+   subtype Controller_Record is Uhppoted.Types.Controller_Record;
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
-   subtype Controller_Status      is Uhppoted.Types.Controller_Status;
-   subtype DateTime               is Uhppoted.Types.DateTime;
-   subtype Listener_Record        is Uhppoted.Types.Listener_Record;
-   subtype Door_Record            is Uhppoted.Types.Door_Record;
-   subtype Control_Mode           is Uhppoted.Types.Control_Mode;
-   subtype Passcodes_List         is Uhppoted.Types.Passcodes_List;
+   subtype Controller_Status is Uhppoted.Types.Controller_Status;
+   subtype DateTime is Uhppoted.Types.DateTime;
+   subtype Listener_Record is Uhppoted.Types.Listener_Record;
+   subtype Door_Record is Uhppoted.Types.Door_Record;
+   subtype Control_Mode is Uhppoted.Types.Control_Mode;
+   subtype Passcodes_List is Uhppoted.Types.Passcodes_List;
 
    Normally_Open   : Control_Mode renames Uhppoted.Types.Normally_Open;
    Normally_Closed : Control_Mode renames Uhppoted.Types.Normally_Closed;

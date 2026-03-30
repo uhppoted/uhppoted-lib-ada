@@ -26,7 +26,7 @@ package body Uhppoted.Lib is
       Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
       Replies  : constant Packet_List := Uhppoted.Lib.Transport.UDP.Broadcast (U, Request, Timeout);
       Response : Controller_Record_List (1 .. Integer (Replies.Length));
-      IX       : Positive := 1;
+      IX       : Positive             := 1;
    begin
       for Reply of Replies loop
          declare

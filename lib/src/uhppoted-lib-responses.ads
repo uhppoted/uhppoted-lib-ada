@@ -22,14 +22,14 @@ package Uhppoted.Lib.Responses is
 
    --  Message definition for a get-time response.
    type Get_Time_Response is record
-      Controller  : Unsigned_32;
-      Date_Time   : DateTime;
+      Controller : Unsigned_32;
+      Date_Time  : DateTime;
    end record;
 
    --  Message definition for a set-time response.
    type Set_Time_Response is record
-      Controller  : Unsigned_32;
-      Date_Time   : DateTime;
+      Controller : Unsigned_32;
+      Date_Time  : DateTime;
    end record;
 
    --  Message definition for a get-listener response.
@@ -60,7 +60,7 @@ package Uhppoted.Lib.Responses is
    end record;
 
    --  Message definition for a get-status response.
-   type Relay_State  is mod 256;
+   type Relay_State is mod 256;
    type Inputs_State is mod 256;
 
    type Get_Status_Response is record

@@ -27,10 +27,10 @@ package body Uhppoted.Lib.Transport.UDP is
       DestAddr  : constant Sock_Addr_Type := U.Broadcast_Addr;
       Offset    : Stream_Element_Offset;
 
-      Sock      : S;
-      From      : Sock_Addr_Type;
-      Buffer    : Stream_Element_Array (1 .. 64);
-      Replies   : Packet_List;
+      Sock    : S;
+      From    : Sock_Addr_Type;
+      Buffer  : Stream_Element_Array (1 .. 64);
+      Replies : Packet_List;
 
       Selector  : H;
       Read_Set  : Socket_Set_Type;
@@ -50,9 +50,9 @@ package body Uhppoted.Lib.Transport.UDP is
 
       loop
          declare
-            Now : constant Time := Clock;
-            Remaining  : Duration;
-            Reply : Packet;
+            Now       : constant Time := Clock;
+            Remaining : Duration;
+            Reply     : Packet;
          begin
             Remaining := Deadline - Now;
 
@@ -60,7 +60,7 @@ package body Uhppoted.Lib.Transport.UDP is
 
             Empty (Read_Set);
             Empty (Write_Set);
-            Set   (Read_Set, Sock.Client);
+            Set (Read_Set, Sock.Client);
 
             Check_Selector (Selector.Selector,
                             R_Socket_Set => Read_Set,
@@ -136,7 +136,7 @@ package body Uhppoted.Lib.Transport.UDP is
 
             Empty (Read_Set);
             Empty (Write_Set);
-            Set   (Read_Set, Sock.Client);
+            Set (Read_Set, Sock.Client);
 
             if Remaining <= 0.0 then
                raise Timeout_Error;
@@ -189,7 +189,7 @@ package body Uhppoted.Lib.Transport.UDP is
       Deadline  : constant Time := Clock + Timeout;
 
    begin
-      Bind_Socket    (Sock.Client, BindAddr);
+      Bind_Socket (Sock.Client, BindAddr);
       Connect_Socket (Sock.Client, DestAddr);
 
       Send_Socket (Sock.Client, To_Stream (Request), Offset);

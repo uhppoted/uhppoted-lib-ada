@@ -40,9 +40,8 @@ package body Uhppoted.Lib.Transport is
 
    --  Converts a byte to hex.
    function Hex (B : Unsigned_8) return String is
-      Charset : constant array (Interfaces.Unsigned_8 range 0 .. 15) of Character := [
-         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
-      ];
+      Charset : constant array (Interfaces.Unsigned_8 range 0 .. 15) of Character :=
+        ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
 
       LSN : constant Unsigned_8 := B mod 16;
       MSN : constant Unsigned_8 := B / 16;

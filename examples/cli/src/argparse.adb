@@ -107,8 +107,8 @@ package body ArgParse is
       Controller_Addr      : aliased String_Access := null;
       Controller_Transport : aliased String_Access := null;
 
-      Listener_Addr        : aliased String_Access := null;
-      Listener_Interval    : aliased Integer       := 0;
+      Listener_Addr     : aliased String_Access := null;
+      Listener_Interval : aliased Integer       := 0;
 
       C        : Controller;
       AddrPort : Sock_Addr_Type := (Family => Family_Inet,

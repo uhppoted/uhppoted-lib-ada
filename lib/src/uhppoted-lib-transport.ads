@@ -13,16 +13,15 @@ package Uhppoted.Lib.Transport is
    subtype Stream_Packet is Ada.Streams.Stream_Element_Array (1 .. 64);
 
    --  Converts a Packet to a Stream_Packet.
-   function To_Stream is new Ada.Unchecked_Conversion (Source => Uhppoted.Lib.Types.Packet, Target =>  Stream_Packet);
+   function To_Stream is new Ada.Unchecked_Conversion (Source => Uhppoted.Lib.Types.Packet, Target => Stream_Packet);
 
    --  Converts a Stream_Packet to a Packet.
-   function To_Packet is new Ada.Unchecked_Conversion (Source => Stream_Packet,  Target => Uhppoted.Lib.Types.Packet);
+   function To_Packet is new Ada.Unchecked_Conversion (Source => Stream_Packet, Target => Uhppoted.Lib.Types.Packet);
 
 private
    --  Controlled Type for a socket selector.
-   type H is new Ada.Finalization.Limited_Controlled with
-   record
-      Selector  : Selector_Type;
+   type H is new Ada.Finalization.Limited_Controlled with record
+      Selector : Selector_Type;
    end record;
 
    --  Creates the wrapped selector handle.

@@ -7,6 +7,9 @@ with Uhppoted.Lib.Integration_Tests.Expected;
 package body Uhppoted.Lib.Integration_Tests.TCP is
    use AUnit.Assertions;
 
+   Socket : Socket_Type;
+   Port   : constant Port_Type := 60003;
+
    U : constant UHPPOTE := (
       Bind_Addr => (
          Family => GNAT.Sockets.Family_Inet,
@@ -37,9 +40,30 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, {{ printf "Test_%v'Access," .Name | rpad 32 }} "{{ .Name }}");{{end}}
    end Register_Tests;
 
+   overriding procedure Set_Up_Case (T : in out Integration_Test) is
+   begin
+      null;
+   end Set_Up_Case;
+
+   overriding procedure Tear_Down_Case (T : in out Integration_Test) is
+   begin
+      Close_Socket (Socket);
+   end Tear_Down_Case;
+
+   overriding procedure Set_Up (T : in out Integration_Test) is
+   begin
+      null;
+   end Set_Up;
+
+   overriding procedure Tear_Down (T : in out Integration_Test) is
+   begin
+      null;
+   end Tear_Down;
+
    task body Listen is
    begin
-      Uhppoted.Lib.Integration_Tests.Stub.ListenTCP (Port => 60003);
+      Create_Socket (Socket);
+      Uhppoted.Lib.Integration_Tests.Stub.ListenTCP (Socket => Socket, Port => Port);
    end Listen;
 {{ range $ix,$test := .Tests }}
    procedure Test_{{ printf "%v" .Name }} (T : in out Test_Case'Class) is
@@ -48,12 +72,12 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       C : constant Controller := (ID       => {{ index .Args 0 }},
                                   DestAddr => (Family => Family_Inet,
                                                Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => 60003),
+                                               Port => Port),
                                   Protocol => Uhppoted.Lib.TCP);
 {{ range $var := .Vars }}
       {{ $var }}
 {{ end }}
-      V : constant {{ .Returns.Type }} := {{ .Function }} (U, C{{ range $arg := (slice .Args  1) }}, {{ $arg }}{{ end }});
+      V : constant {{ .Returns.Type }} := {{ .Function }} (U, C{{ range $arg := (slice .Args  1) }}, {{ $arg }}{{ end }}, 0.5);
    begin
       Assert (V = Expected.{{ .Name }}, "invalid result" & V'Image);
    end Test_{{ printf "%v" .Name}};

@@ -7,6 +7,9 @@ with Uhppoted.Lib.Integration_Tests.Expected;
 package body Uhppoted.Lib.Integration_Tests.Default is
    use AUnit.Assertions;
 
+   Socket : Socket_Type;
+   Port   : constant Port_Type := 60005;
+
    U : constant UHPPOTE := (
       Bind_Addr => (
          Family => GNAT.Sockets.Family_Inet,
@@ -16,7 +19,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Broadcast_Addr => (
          Family => GNAT.Sockets.Family_Inet,
          Addr => Inet_Addr ("255.255.255.255"),
-         Port => 60005),
+         Port => Port),
 
       Listen_Addr => (
          Family => GNAT.Sockets.Family_Inet,
@@ -48,15 +51,36 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Register_Routine (T, Test_Open_Door'Access,           "Open_Door");
    end Register_Tests;
 
+   overriding procedure Set_Up_Case (T : in out Integration_Test) is
+   begin
+      null;
+   end Set_Up_Case;
+
+   overriding procedure Tear_Down_Case (T : in out Integration_Test) is
+   begin
+      Close_Socket (Socket);
+   end Tear_Down_Case;
+
+   overriding procedure Set_Up (T : in out Integration_Test) is
+   begin
+      null;
+   end Set_Up;
+
+   overriding procedure Tear_Down (T : in out Integration_Test) is
+   begin
+      null;
+   end Tear_Down;
+
    task body Listen is
    begin
-      Uhppoted.Lib.Integration_Tests.Stub.ListenUDP (Port => 60005);
+      Create_Socket (Socket, Family_Inet, Socket_Datagram);
+      Uhppoted.Lib.Integration_Tests.Stub.ListenUDP (Socket => Socket, Port => Port);
    end Listen;
 
    procedure Test_Find_Controllers (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Controller_Record_List := Find_Controllers (U);
+      V : constant Controller_Record_List := Find_Controllers (U, 0.5);
    begin
       Assert (V = Expected.Find_Controllers, "invalid result" & V'Image);
    end Test_Find_Controllers;
@@ -64,7 +88,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Controller (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Controller_Record := Get_Controller (U, 405419896);
+      V : constant Controller_Record := Get_Controller (U, 405419896, 0.5);
    begin
       Assert (V = Expected.Get_Controller, "invalid result" & V'Image);
    end Test_Get_Controller;
@@ -72,7 +96,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Set_IPv4 (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Boolean := Set_IPv4 (U, 405419896, Inet_Addr ("192.168.1.125"), Inet_Addr ("255.255.255.0"), Inet_Addr ("192.168.1.1"));
+      V : constant Boolean := Set_IPv4 (U, 405419896, Inet_Addr ("192.168.1.125"), Inet_Addr ("255.255.255.0"), Inet_Addr ("192.168.1.1"), 0.5);
    begin
       Assert (V = Expected.Set_IPv4, "invalid result" & V'Image);
    end Test_Set_IPv4;
@@ -80,7 +104,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Time (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant DateTime := Get_Time (U, 405419896);
+      V : constant DateTime := Get_Time (U, 405419896, 0.5);
    begin
       Assert (V = Expected.Get_Time, "invalid result" & V'Image);
    end Test_Get_Time;
@@ -88,7 +112,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Set_Time (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant DateTime := Set_Time (U, 405419896, (Year => 2025, Month => 11, Day => 4, Hour => 12, Minute => 34, Second => 56));
+      V : constant DateTime := Set_Time (U, 405419896, (Year => 2025, Month => 11, Day => 4, Hour => 12, Minute => 34, Second => 56), 0.5);
    begin
       Assert (V = Expected.Set_Time, "invalid result" & V'Image);
    end Test_Set_Time;
@@ -96,7 +120,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Listener (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Listener_Record := Get_Listener (U, 405419896);
+      V : constant Listener_Record := Get_Listener (U, 405419896, 0.5);
    begin
       Assert (V = Expected.Get_Listener, "invalid result" & V'Image);
    end Test_Get_Listener;
@@ -104,7 +128,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Set_Listener (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Boolean := Set_Listener (U, 405419897, (Family_Inet, Inet_Addr ("192.168.1.100"), 60001), 17);
+      V : constant Boolean := Set_Listener (U, 405419897, (Family_Inet, Inet_Addr ("192.168.1.100"), 60001), 17, 0.5);
    begin
       Assert (V = Expected.Set_Listener, "invalid result" & V'Image);
    end Test_Set_Listener;
@@ -112,7 +136,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Status (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Controller_Status := Get_Status (U, 405419896);
+      V : constant Controller_Status := Get_Status (U, 405419896, 0.5);
    begin
       Assert (V = Expected.Get_Status, "invalid result" & V'Image);
    end Test_Get_Status;
@@ -120,7 +144,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Status_No_Event (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Controller_Status := Get_Status (U, 405419897);
+      V : constant Controller_Status := Get_Status (U, 405419897, 0.5);
    begin
       Assert (V = Expected.Get_Status_No_Event, "invalid result" & V'Image);
    end Test_Get_Status_No_Event;
@@ -128,7 +152,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Door_Record := Get_Door (U, 405419896, 4);
+      V : constant Door_Record := Get_Door (U, 405419896, 4, 0.5);
    begin
       Assert (V = Expected.Get_Door, "invalid result" & V'Image);
    end Test_Get_Door;
@@ -136,7 +160,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Set_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Door_Record := Set_Door (U, 405419896, 4, To_Control_Mode (2), 17);
+      V : constant Door_Record := Set_Door (U, 405419896, 4, To_Control_Mode (2), 17, 0.5);
    begin
       Assert (V = Expected.Set_Door, "invalid result" & V'Image);
    end Test_Set_Door;
@@ -146,7 +170,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
       Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := (1 => 12345, 2 => 54321, 3 => 999999, 4 => 0);
 
-      V : constant Boolean := Set_Door_Passcodes (U, 405419896, 4, Passcodes);
+      V : constant Boolean := Set_Door_Passcodes (U, 405419896, 4, Passcodes, 0.5);
    begin
       Assert (V = Expected.Set_Door_Passcodes, "invalid result" & V'Image);
    end Test_Set_Door_Passcodes;
@@ -154,7 +178,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Open_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Boolean := Open_Door (U, 405419896, 4);
+      V : constant Boolean := Open_Door (U, 405419896, 4, 0.5);
    begin
       Assert (V = Expected.Open_Door, "invalid result" & V'Image);
    end Test_Open_Door;

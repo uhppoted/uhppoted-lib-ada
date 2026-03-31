@@ -59,7 +59,7 @@
     - [ ] pretty print
 
 - [ ] integration tests
-    - [ ] `None` response timeout closes stub socket
+    - [x] `None` response timeout closes stub socket
     - [ ] Invalid response test
         - [ ] invalid SOM
         - [ ] invalid op-code

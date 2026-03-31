@@ -11,8 +11,7 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
    function To_Stream is new Ada.Unchecked_Conversion (Source => Messages.Reply, Target =>  Packet);
    function From_Packet is new Ada.Unchecked_Conversion (Source => Packet,  Target => Messages.Request);
 
-   procedure ListenUDP (Port : Port_Type) is
-      Socket   : Socket_Type;
+   procedure ListenUDP (Socket : Socket_Type; Port : Port_Type) is
       Bind     : Sock_Addr_Type;
 
       Read_Set  : Socket_Set_Type;
@@ -23,7 +22,6 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
       Bind.Addr := Any_Inet_Addr;
       Bind.Port := Port;
 
-      Create_Socket (Socket, Family_Inet, Socket_Datagram);
       Bind_Socket (Socket, Bind);
 
       Create_Selector (Selector);
@@ -65,12 +63,10 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
       Close_Socket (Socket);
    end ListenUDP;
 
-   procedure ListenTCP (Port : Port_Type) is
+   procedure ListenTCP (Socket : Socket_Type; Port : Port_Type) is
       type Client_Array is array (1 .. 16) of Socket_Type;
 
-      Socket   : Socket_Type;
-      Bind     : Sock_Addr_Type;
-
+      Bind      : Sock_Addr_Type;
       Read_Set  : Socket_Set_Type;
       Write_Set : Socket_Set_Type;
       Selector  : Selector_Type;
@@ -80,7 +76,6 @@ package body Uhppoted.Lib.Integration_Tests.Stub is
       Bind.Addr := Any_Inet_Addr;
       Bind.Port := Port;
 
-      Create_Socket (Socket);
       Set_Socket_Option (Socket, Socket_Level, (Reuse_Address, True));
       Bind_Socket (Socket, Bind);
       Listen_Socket (Socket);

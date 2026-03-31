@@ -37,6 +37,7 @@ project Integration_Tests is
    package Pretty_Printer is
       for Default_Switches ("Ada") use (
          "-M120"
+        ,"-l3"
       );
    end Pretty_Printer;
 

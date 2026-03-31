@@ -21,13 +21,11 @@ jobs:
     - name: Setup gnatcheck
       uses: alire-project/alr-install@v2
       with:
-        crates: libadalang_tools
+        crates: gnatcheck
 
-    - name: Build lib
-      run: |
-        cd lib && alr build
+    - name: Build project
+      working-directory: lib
+      run:  alr build
 
     - name: Check lib
-      run: |
-        cd lib && alr exec -- gnatcheck -P uhppoted_lib_ada.gpr
-
+      run: alr exec -- gnatcheck -P uhppoted_lib_ada.gpr

@@ -5,10 +5,7 @@
 - https://alire.ada.dev/transition_from_gnat_community.html
 
 - [ ] format
-- [ ] lint
-    - [ ] gnatcheck
-    - [ ] adacontrol
-    - https://stackoverflow.com/questions/79655031/how-to-install-gnatcheck-on-ubuntu
+- [x] ~~lint~~
 - [ ] adadoc
     - [ ] exceptions
     - [ ] types

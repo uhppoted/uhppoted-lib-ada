@@ -20,7 +20,7 @@ jobs:
 
     - name: Setup gnatcheck
       run:  |
-        sudo aptt update
+        sudo apt update
         sudo apt install -y gprbuild gnat asis-programs
 
     # - name: Setup gnatcheck

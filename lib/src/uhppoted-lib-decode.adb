@@ -14,7 +14,7 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte get-controller reply as a Get_Controller_Response record.
    function Get_Controller (Reply : Packet) return Responses.Get_Controller_Response is
-      R : Replies.Get_Controller_Response with
+      R : Replies.Get_Controller_Reply with
         Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
@@ -218,7 +218,10 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return (Controller => R.Controller, Door => R.Door, Mode => R.Mode, OpenDelay => R.OpenDelay);
+      return (Controller => R.Controller,
+              Door       => R.Door,
+              Mode       => R.Mode,
+              OpenDelay  => R.OpenDelay);
    end Set_Door;
 
    --  Translates a BCD coded version to a vN.NN formatted string.
@@ -236,8 +239,7 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte set-door-passcodes reply as a Get_Door_Passcodes_Response record.
    function Set_Door_Passcodes (Reply : Packet) return Responses.Set_Door_Passcodes_Response is
-      R : Replies.Set_Door_Passcodes_Response with
-        Import, Address => Reply'Address;
+      R : Replies.Set_Door_Passcodes_Reply with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
@@ -247,8 +249,25 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return (Controller => R.Controller, Ok => R.Ok);
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
    end Set_Door_Passcodes;
+
+   --  Decodes a 64 byte open-door reply as an Open_Door_Response record.
+   function Open_Door (Reply : Packet) return Responses.Open_Door_Response is
+      R : Replies.Open_Door_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Open_Door then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Open_Door;
 
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
    function Unpack_Boolean (B : Unsigned_8) return Boolean is

@@ -1,7 +1,6 @@
 with Ada.Finalization;
 with Ada.Unchecked_Conversion;
 with Ada.Streams;
-with GNAT.Sockets;
 with Uhppoted.Lib.Types;
 
 package Uhppoted.Lib.Transport is

@@ -18,7 +18,7 @@ package Uhppoted.Lib.Replies is
    for Version_Field'Size use 16;
 
    --  Message definition for a get-controller reply.
-   type Get_Controller_Response is record
+   type Get_Controller_Reply is record
       SOM        : Unsigned_8    := Codec.SOM;
       Opcode     : Codec.Op_Code := Codec.Get_Controller;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
@@ -32,7 +32,7 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 32);
    end record;
 
-   for Get_Controller_Response use record
+   for Get_Controller_Reply use record
       SOM        at  0 range 0 ..   7;
       Opcode     at  1 range 0 ..   7;
       Reserved   at  2 range 0 ..  15;
@@ -46,9 +46,9 @@ package Uhppoted.Lib.Replies is
       Padding    at 32 range 0 .. 255;
    end record;
 
-   for Get_Controller_Response'Size use 64 * 8;
-   for Get_Controller_Response'Bit_Order use System.Low_Order_First;
-   for Get_Controller_Response'Scalar_Storage_Order use System.Low_Order_First;
+   for Get_Controller_Reply'Size use 64 * 8;
+   for Get_Controller_Reply'Bit_Order use System.Low_Order_First;
+   for Get_Controller_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-IPv4 reply.
    type Set_IPv4_Response is record
@@ -341,16 +341,16 @@ package Uhppoted.Lib.Replies is
    for Set_Door_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-door-passcodes reply.
-   type Set_Door_Passcodes_Response is record
+   type Set_Door_Passcodes_Reply is record
       SOM        : Unsigned_8    := Codec.SOM;
       Opcode     : Codec.Op_Code := Codec.Set_Door_Passcodes;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
-      Ok         : Boolean;
+      Ok         : Unsigned_8;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_Door_Passcodes_Response use record
+   for Set_Door_Passcodes_Reply use record
       SOM        at 0 range 0 ..   7;
       Opcode     at 1 range 0 ..   7;
       Reserved   at 2 range 0 ..  15;
@@ -359,8 +359,31 @@ package Uhppoted.Lib.Replies is
       Padding    at 9 range 0 .. 439;
    end record;
 
-   for Set_Door_Passcodes_Response'Size use 64 * 8;
-   for Set_Door_Passcodes_Response'Bit_Order use System.Low_Order_First;
-   for Set_Door_Passcodes_Response'Scalar_Storage_Order use System.Low_Order_First;
+   for Set_Door_Passcodes_Reply'Size use 64 * 8;
+   for Set_Door_Passcodes_Reply'Bit_Order use System.Low_Order_First;
+   for Set_Door_Passcodes_Reply'Scalar_Storage_Order use System.Low_Order_First;
+
+   --  Message definition for a set-door reply.
+   type Open_Door_Reply is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      Opcode     : Codec.Op_Code := Codec.Open_Door;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Ok         : Unsigned_8;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
+   end record;
+
+   for Open_Door_Reply use record
+      SOM        at 0 range 0 ..   7;
+      Opcode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Ok         at 8 range 0 ..   7;
+      Padding    at 9 range 0 .. 439;
+   end record;
+
+   for Open_Door_Reply'Size use 64 * 8;
+   for Open_Door_Reply'Bit_Order use System.Low_Order_First;
+   for Open_Door_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
 end Uhppoted.Lib.Replies;

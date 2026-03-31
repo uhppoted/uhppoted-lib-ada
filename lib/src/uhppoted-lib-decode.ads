@@ -44,6 +44,10 @@ package Uhppoted.Lib.Decode is
    function Set_Door_Passcodes
      (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Door_Passcodes_Response;
 
+   --  Decodes a 64 byte open-door reply as an Open_Door_Response record.
+   function Open_Door
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Open_Door_Response;
+
 private
    --  Translates a BCD coded string in a byte array to a string.
    function BCD_To_String (Bytes : Uhppoted.Lib.Types.BCD) return String;

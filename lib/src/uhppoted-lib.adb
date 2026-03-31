@@ -398,6 +398,34 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Set_Door_Passcodes;
 
+   --  Remotely unlocks a door. Restricted to the local LAN.
+   function Open_Door (U         : UHPPOTE;
+                       C         : Unsigned_32;
+                       Door      : Unsigned_8;
+                       Timeout   : Duration := 2.5) return Boolean is
+   begin
+      return Open_Door (U, To_Controller (C), Door, Timeout);
+   end Open_Door;
+
+   --  Remotely unlocks a door.
+   function Open_Door (U         : UHPPOTE;
+                       C         : Controller;
+                       Door      : Unsigned_8;
+                       Timeout   : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Open_Door (C.ID, Door);
+      Reply   : Packet;
+      R       : Open_Door_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Open_Door (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Open_Door;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

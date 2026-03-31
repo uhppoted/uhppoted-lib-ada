@@ -117,4 +117,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Set_Door_Passcodes : constant Boolean := True;
 
+   Open_Door : constant Boolean := True;
+
 end Uhppoted.Lib.Integration_Tests.Expected;

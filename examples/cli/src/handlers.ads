@@ -12,4 +12,5 @@ package Handlers is
    procedure Get_Door (Args : ArgParse.Args);
    procedure Set_Door (Args : ArgParse.Args);
    procedure Set_Door_Passcodes (Args : ArgParse.Args);
+   procedure Open_Door (Args : ArgParse.Args);
 end Handlers;

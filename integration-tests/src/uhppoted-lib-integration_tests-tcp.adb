@@ -44,6 +44,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Get_Door'Access,            "Get_Door");
       Register_Routine (T, Test_Set_Door'Access,            "Set_Door");
       Register_Routine (T, Test_Set_Door_Passcodes'Access,  "Set_Door_Passcodes");
+      Register_Routine (T, Test_Open_Door'Access,           "Open_Door");
    end Register_Tests;
 
    task body Listen is
@@ -206,5 +207,19 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.Set_Door_Passcodes, "invalid result" & V'Image);
    end Test_Set_Door_Passcodes;
+
+   procedure Test_Open_Door (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 60003),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Boolean := Open_Door (U, C, 4);
+   begin
+      Assert (V = Expected.Open_Door, "invalid result" & V'Image);
+   end Test_Open_Door;
 
 end Uhppoted.Lib.Integration_Tests.TCP;

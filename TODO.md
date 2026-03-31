@@ -24,6 +24,7 @@
 - [x] get-door
 - [x] set-door
 - [x] set-door-passcodes
+- [x] open-door
    - [x] API
    - [x] CLI
    - [x] README

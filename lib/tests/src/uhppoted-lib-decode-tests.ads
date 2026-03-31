@@ -19,5 +19,6 @@ package Uhppoted.Lib.Decode.Tests is
    procedure Test_Decode_Get_Door (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Set_Door (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Set_Door_Passcodes (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Decode_Open_Door (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Decode.Tests;

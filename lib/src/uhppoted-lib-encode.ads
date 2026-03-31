@@ -56,4 +56,8 @@ package Uhppoted.Lib.Encode is
                                 Passcode3  : Unsigned_32;
                                 Passcode4  : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes an open-door request as a 64 byte array.
+   function Open_Door (Controller : Unsigned_32;
+                       Door       : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+
 end Uhppoted.Lib.Encode;

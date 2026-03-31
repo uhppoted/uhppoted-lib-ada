@@ -19,6 +19,7 @@ package body Registry is
       CS.Internal_Map.Insert ("get-door",           Get_Door'Access);
       CS.Internal_Map.Insert ("set-door",           Set_Door'Access);
       CS.Internal_Map.Insert ("set-door-passcodes", Set_Door_Passcodes'Access);
+      CS.Internal_Map.Insert ("open-door",          Open_Door'Access);
 
       return CS;
    end Initialise;

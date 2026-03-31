@@ -52,6 +52,7 @@ var translations = map[string]string{
 	"get door response":               "Door_Record",
 	"set door response":               "Door_Record",
 	"set door passcodes response":     "Boolean",
+	"open door response":              "Boolean",
 }
 
 func IntegrationTests() {

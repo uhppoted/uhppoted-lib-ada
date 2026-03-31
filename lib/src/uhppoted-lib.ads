@@ -376,6 +376,38 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
+   function Open_Door (U       : UHPPOTE;
+                       C       : Unsigned_32;
+                       Door    : Unsigned_8;
+                       Timeout : Duration := 2.5) return Boolean;
+   --  Remotely unlocks a door. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Door       Door ID [1..4].
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if the door was unlocked.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Open_Door (U       : UHPPOTE;
+                       C       : Controller;
+                       Door    : Unsigned_8;
+                       Timeout : Duration := 2.5) return Boolean;
+   --  Remotely unlocks a door.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Door       Door ID [1..4].
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if the door was unlocked.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").
    --

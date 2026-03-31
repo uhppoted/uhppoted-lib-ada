@@ -235,4 +235,15 @@ package body Handlers is
       Put_Line ("");
    end Set_Door_Passcodes;
 
+   --  Executes the open-door command.
+   procedure Open_Door (Args : ArgParse.Args) is
+      R : constant Boolean := Open_Door (U, Args.Controller, Args.Door, Timeout);
+   begin
+      Put_Line ("--- open-door");
+      Put_Line ("controller:" & Args.Controller.ID'Image);
+      Put_Line ("      door:" & Args.Door'Image);
+      Put_Line ("        ok: " & R'Image);
+      Put_Line ("");
+   end Open_Door;
+
 end Handlers;

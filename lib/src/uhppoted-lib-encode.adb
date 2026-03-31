@@ -182,6 +182,18 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Set_Door_Passcodes;
 
+   --  Encodes an open-door request as a 64 byte array.
+   function Open_Door (Controller : Unsigned_32;
+                       Door       : Unsigned_8) return Uhppoted.Lib.Types.Packet is
+      Request : Open_Door_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Door       := Door;
+
+      return Buffer;
+   end Open_Door;
+
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is
       V : constant IPv4 := [

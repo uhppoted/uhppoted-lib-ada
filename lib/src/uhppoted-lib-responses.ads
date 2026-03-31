@@ -112,4 +112,10 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for an open-door response.
+   type Open_Door_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
 end Uhppoted.Lib.Responses;

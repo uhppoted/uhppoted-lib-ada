@@ -19,5 +19,6 @@ package Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
    procedure Test_Get_Door_Invalid_OpCode       (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Set_Door_Invalid_OpCode       (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Set_Door_Passcodes_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Open_Door_Invalid_OpCode      (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

@@ -54,3 +54,6 @@ set-door: build
 
 set-door-passcodes: build
 	$(CLI) set-door-passcodes --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --door $(DOOR) --passcodes $(PASSCODES)
+
+open-door: build
+	$(CLI) open-door --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --door $(DOOR)

@@ -31,6 +31,10 @@ package body ArgParse is
          return Parse_Set_Door_Passcodes;
       end if;
 
+      if Cmd = "open-door" then
+         return Parse_Open_Door;
+      end if;
+
       --  default to general command
       Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
       Getopt (Config, Concatenate => True);
@@ -298,5 +302,32 @@ package body ArgParse is
               Passcodes  => Codes);
 
    end Parse_Set_Door_Passcodes;
+
+   function Parse_Open_Door return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Door                 : aliased Integer       := 0;
+
+      C : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Door'Access,
+                     Long_Switch => "--door:",
+                     Help        => "door ID [1..4]",
+                     Argument    => "[1..4]");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return open-door command specific args
+      return (T          => ArgParse.Open_Door_Args,
+              Controller => C,
+              Door       => Unsigned_8 (Door));
+
+   end Parse_Open_Door;
 
 end ArgParse;

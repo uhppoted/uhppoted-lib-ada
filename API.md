@@ -10,6 +10,7 @@
 - [`Get_Door`](#get_door)
 - [`Set_Door`](#set_door)
 - [`Set_Door_Passcodes`](#set_door_passcodes)
+- [`Open_Door`](#open_door)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -507,6 +508,35 @@ where:
 ```
 
 Returns `True` if the supervisor passcodes were accepted.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Open_Door`
+
+**Open_Door** remotely unlocks a door.
+
+```
+function Open_Door (U         : UHPPOTE;
+                    C         : Unsigned_32; 
+                    Door      : Unsigned_8;
+                    Timeout   : Duration) return Listener_Record;
+
+function Open_Door (U         : Uhppoted.Lib.UHPPOTE;
+                    C         : Controller;
+                    Door      : Unsigned_8;
+                    Timeout   : Duration) return Listener_Record;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Door       Unsigned_8      Door ID [1..4].
+```
+
+Returns `True` if the door was unlocked.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

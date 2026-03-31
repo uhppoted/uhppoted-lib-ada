@@ -20,7 +20,9 @@ jobs:
 
     - name: Setup gnatcheck
       run:  |
-        apt install -y gprbuild gnat asis-programs
+        sudo aptt update
+        sudo apt install -y gprbuild gnat asis-programs
+
     # - name: Setup gnatcheck
     #   uses: alire-project/alr-install@v2
     #   with:

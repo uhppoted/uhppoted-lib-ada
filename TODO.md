@@ -8,6 +8,7 @@
 - [ ] lint
     - [ ] gnatcheck
     - [ ] adacontrol
+    - https://stackoverflow.com/questions/79655031/how-to-install-gnatcheck-on-ubuntu
 - [ ] adadoc
     - [ ] exceptions
     - [ ] types

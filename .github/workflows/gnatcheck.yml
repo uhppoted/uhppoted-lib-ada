@@ -19,13 +19,17 @@ jobs:
       uses: alire-project/setup-alire@v5
 
     - name: Setup gnatcheck
-      uses: alire-project/alr-install@v2
-      with:
-        crates: gnatcheck
+      run:  |
+        apt-get update
+        apt-get install -y gprbuild gnat asis-programs
+    # - name: Setup gnatcheck
+    #   uses: alire-project/alr-install@v2
+    #   with:
+    #     crates: gnatcheck
 
-    - name: Build project
-      working-directory: lib
-      run:  alr build
+    # - name: Build project
+    #   working-directory: lib
+    #   run:  alr build
 
-    - name: Check lib
-      run: alr exec -- gnatcheck -P uhppoted_lib_ada.gpr
+    # - name: Check lib
+    #   run: alr exec -- gnatcheck -P uhppoted_lib_ada.gpr

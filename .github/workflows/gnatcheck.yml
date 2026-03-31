@@ -27,7 +27,7 @@ jobs:
     - name: Setup gnatcheck (2)
       run: |
          alr install gnatcheck
-        gnatcheck --version
+         gnatcheck --version
 
     # - name: Build project
     #   working-directory: lib

@@ -19,9 +19,10 @@ jobs:
       uses: alire-project/setup-alire@v5
 
     - name: Setup gnatcheck
-      run: |
-         alr install gnatcheck
-         gnatcheck --version
+      run:  |
+        sudo apt update
+        sudo apt install -y gnatstudio
+        gnatcheck --version
 
     # - name: Build project
     #   working-directory: lib

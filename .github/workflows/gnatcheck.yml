@@ -1,0 +1,33 @@
+name: gnatcheck
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+
+  build:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Check out code
+      uses: actions/checkout@v6
+
+    - name: Setup Alire
+      uses: alire-project/setup-alire@v5
+
+    - name: Setup gnatcheck
+      uses: alire-project/alr-install@v2
+      with:
+        crates: libadalang_tools
+
+    - name: Build lib
+      run: |
+        cd lib && alr build
+
+    - name: Check lib
+      run: |
+        cd lib && alr exec -- gnatcheck -P uhppoted_lib_ada.gpr
+

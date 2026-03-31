@@ -21,7 +21,7 @@ jobs:
     - name: Setup gnatcheck
       run:  |
         sudo apt update
-        sudo apt install -y grpbuild gnat
+        sudo apt install -y gnat
         gnatcheck --version
 
     - name: Setup gnatcheck (2)

@@ -21,12 +21,13 @@ jobs:
     - name: Setup gnatcheck
       run:  |
         sudo apt update
-        sudo apt install -y gprbuild gnat asis-programs
+        sudo apt install -y adactl
 
     # - name: Setup gnatcheck
     #   uses: alire-project/alr-install@v2
     #   with:
     #     crates: gnatcheck
+    # sudo apt install -y gprbuild gnat asis-programs
 
     # - name: Build project
     #   working-directory: lib

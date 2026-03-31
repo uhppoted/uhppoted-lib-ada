@@ -64,6 +64,7 @@
         - [ ] invalid SOM
         - [ ] invalid op-code
     - [ ] Timeout test
+    - [ ] Connection refused test
     - [ ] v6.62
 
 - [ ] fix _Library_Interface_ in .gpr file

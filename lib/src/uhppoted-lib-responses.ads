@@ -118,4 +118,10 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for a get-cards response.
+   type Get_Cards_Response is record
+      Controller : Unsigned_32;
+      Cards      : Unsigned_32;
+   end record;
+
 end Uhppoted.Lib.Responses;

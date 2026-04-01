@@ -53,6 +53,7 @@ var translations = map[string]string{
 	"set door response":               "Door_Record",
 	"set door passcodes response":     "Boolean",
 	"open door response":              "Boolean",
+	"get cards response":              "Unsigned_32",
 }
 
 func IntegrationTests() {
@@ -160,7 +161,7 @@ func vars(t lib.FuncTest) []any {
 	}
 
 	if t.Name == "set-door-passcodes" {
-		m = append(m, fmt.Sprintf("Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := (1 => %v, 2 => %v, 3 => %v, 4 => %v);", passcodes[1], passcodes[2], passcodes[3], passcodes[4]))
+		m = append(m, fmt.Sprintf("Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := [1 => %v, 2 => %v, 3 => %v, 4 => %v];", passcodes[1], passcodes[2], passcodes[3], passcodes[4]))
 	}
 
 	return m
@@ -234,6 +235,10 @@ func response(f lib.Function, t lib.FuncTest) returns {
 		switch v {
 		case "Boolean":
 			r.Template = "boolean"
+			r.Value = codegen.AdaValue(v, t.Replies[0].Response[1].Value)
+
+		case "Unsigned_32":
+			r.Template = "uint32"
 			r.Value = codegen.AdaValue(v, t.Replies[0].Response[1].Value)
 
 		case "DateTime":

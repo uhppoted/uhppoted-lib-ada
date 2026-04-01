@@ -11,6 +11,7 @@
 - [`Set_Door`](#set_door)
 - [`Set_Door_Passcodes`](#set_door_passcodes)
 - [`Open_Door`](#open_door)
+- [`Get_Cards`](#get_cards)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -320,13 +321,13 @@ function Set_Listener (U        : UHPPOTE;
                        C        : Unsigned_32; 
                        Listener : GNAT.Sockets.Sock_Addr_Type;
                        Interval : Unsigned_8;
-                       Timeout  : Duration) return Listener_Record;
+                       Timeout  : Duration) return Boolean;
 
 function Set_Listener (U        : Uhppoted.Lib.UHPPOTE;
                        C        : Controller;
                        Listener : GNAT.Sockets.Sock_Addr_Type;
                        Interval : Unsigned_8;
-                       Timeout  : Duration) return Listener_Record;
+                       Timeout  : Duration) return Boolean;
 
 where:
 - U         UHPPOTE                      UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
@@ -414,12 +415,13 @@ Raises:
 function Get_Door (U       : UHPPOTE;
                    C       : Unsigned_32; 
                    Door    : Unsigned_8;
-                   Timeout : Duration) return Listener_Record;
+                   Timeout : Duration) return Door_Record;
 
 function Get_Door (U       : Uhppoted.Lib.UHPPOTE;
                    C       : Controller;
                    Door    : Unsigned_8;
-                   Timeout : Duration) return Listener_Record;
+                   Timeout : Duration) return Returns a `Door_Record`:
+;
 
 where:
 - U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
@@ -451,14 +453,14 @@ function Set_Door (U         : UHPPOTE;
                    Door      : Unsigned_8;
                    Mode      : Control_Mode;
                    OpenDelay : Unsigned_8;
-                   Timeout   : Duration) return Listener_Record;
+                   Timeout   : Duration) return Door_Record;
 
 function Set_Door (U         : Uhppoted.Lib.UHPPOTE;
                    C         : Controller;
                    Door      : Unsigned_8;
                    Mode      : Control_Mode;
                    OpenDelay : Unsigned_8;
-                   Timeout   : Duration) return Listener_Record;
+                   Timeout   : Duration) return Door_Record;
 
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
@@ -491,13 +493,13 @@ function Set_Door_Passcodes (U         : UHPPOTE;
                              C         : Unsigned_32; 
                              Door      : Unsigned_8;
                              Passcodes : Passcodes_List;
-                             Timeout   : Duration) return Listener_Record;
+                             Timeout   : Duration) return Boolean;
 
 function Set_Door_Passcodes (U         : Uhppoted.Lib.UHPPOTE;
                              C         : Controller;
                              Door      : Unsigned_8;
                              Passcodes : Passcodes_List;
-                             Timeout   : Duration) return Listener_Record;
+                             Timeout   : Duration) return Boolean;
 
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
@@ -522,12 +524,12 @@ Raises:
 function Open_Door (U         : UHPPOTE;
                     C         : Unsigned_32; 
                     Door      : Unsigned_8;
-                    Timeout   : Duration) return Listener_Record;
+                    Timeout   : Duration) return Boolean;
 
 function Open_Door (U         : Uhppoted.Lib.UHPPOTE;
                     C         : Controller;
                     Door      : Unsigned_8;
-                    Timeout   : Duration) return Listener_Record;
+                    Timeout   : Duration) return Boolean;
 
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
@@ -537,6 +539,30 @@ where:
 ```
 
 Returns `True` if the door was unlocked.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Get_Cards`
+
+**Get_Cards** retrieves the number of cards stored on a controller.
+
+```
+function Get_Cards (U         : UHPPOTE;
+                    C         : Unsigned_32; 
+                    Timeout   : Duration) return Unsigned_32;
+
+function Get_Cards (U         : Uhppoted.Lib.UHPPOTE;
+                    C         : Controller;
+                    Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
 
 Raises:
 - `Timeout_Error` if the controller does not respond

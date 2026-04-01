@@ -19,7 +19,7 @@ var API = []types.Function{
 	SetDoor,
 	SetDoorPasscodes,
 	OpenDoor,
-	// &GetCards,
+	GetCards,
 	// &GetCard,
 	// &GetCardAtIndex,
 	// &PutCard,

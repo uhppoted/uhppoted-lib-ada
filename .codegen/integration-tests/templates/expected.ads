@@ -13,9 +13,10 @@ end Uhppoted.Lib.Integration_Tests.Expected;
 
    {{ .Name }} : constant {{ .Returns.Type }} := {{render .Returns.Template .}};
 {{- end }}
-{{- define "unknown"    }}null{{ end }}
-{{- define "boolean"    }}{{ .Returns.Value }}{{ end }}
-{{- define "datetime"   }}{{ .Returns.Value }}{{ end }}
+{{- define "unknown"  }}null{{ end }}
+{{- define "boolean"  }}{{ .Returns.Value }}{{ end }}
+{{- define "uint32"   }}{{ .Returns.Value }}{{ end }}
+{{- define "datetime" }}{{ .Returns.Value }}{{ end }}
 
 {{- define "controllers" }}[{{  range $ix,$v := .Returns.Value }}{{if $ix}},{{end}}
       ({{ range $jx,$vv := $v.Response }}{{if $jx}},{{end}}

@@ -49,6 +49,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Register_Routine (T, Test_Set_Door'Access,            "Set_Door");
       Register_Routine (T, Test_Set_Door_Passcodes'Access,  "Set_Door_Passcodes");
       Register_Routine (T, Test_Open_Door'Access,           "Open_Door");
+      Register_Routine (T, Test_Get_Cards'Access,           "Get_Cards");
    end Register_Tests;
 
    overriding procedure Set_Up_Case (T : in out Integration_Test) is
@@ -168,7 +169,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Set_Door_Passcodes (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := (1 => 12345, 2 => 54321, 3 => 999999, 4 => 0);
+      Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := [1 => 12345, 2 => 54321, 3 => 999999, 4 => 0];
 
       V : constant Boolean := Set_Door_Passcodes (U, 405419896, 4, Passcodes, 0.5);
    begin
@@ -182,5 +183,13 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    begin
       Assert (V = Expected.Open_Door, "invalid result" & V'Image);
    end Test_Open_Door;
+
+   procedure Test_Get_Cards (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      V : constant Unsigned_32 := Get_Cards (U, 405419896, 0.5);
+   begin
+      Assert (V = Expected.Get_Cards, "invalid result" & V'Image);
+   end Test_Get_Cards;
 
 end Uhppoted.Lib.Integration_Tests.Default;

@@ -51,7 +51,7 @@ package Uhppoted.Lib.Replies is
    for Get_Controller_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-IPv4 reply.
-   type Set_IPv4_Response is record
+   type Set_IPv4_Reply is record
       SOM        : Unsigned_8    := Codec.SOM;
       Opcode     : Codec.Op_Code := Codec.Set_IPv4;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
@@ -60,7 +60,7 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_IPv4_Response use record
+   for Set_IPv4_Reply use record
       SOM        at 0 range 0 ..   7;
       Opcode     at 1 range 0 ..   7;
       Reserved   at 2 range 0 ..  15;
@@ -69,9 +69,9 @@ package Uhppoted.Lib.Replies is
       Padding    at 9 range 0 .. 439;
    end record;
 
-   for Set_IPv4_Response'Size use 64 * 8;
-   for Set_IPv4_Response'Bit_Order use System.Low_Order_First;
-   for Set_IPv4_Response'Scalar_Storage_Order use System.Low_Order_First;
+   for Set_IPv4_Reply'Size use 64 * 8;
+   for Set_IPv4_Reply'Bit_Order use System.Low_Order_First;
+   for Set_IPv4_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-time reply.
    type Get_Time_Response is record
@@ -363,7 +363,7 @@ package Uhppoted.Lib.Replies is
    for Set_Door_Passcodes_Reply'Bit_Order use System.Low_Order_First;
    for Set_Door_Passcodes_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
-   --  Message definition for a set-door reply.
+   --  Message definition for an open-door reply.
    type Open_Door_Reply is record
       SOM        : Unsigned_8    := Codec.SOM;
       Opcode     : Codec.Op_Code := Codec.Open_Door;
@@ -385,5 +385,28 @@ package Uhppoted.Lib.Replies is
    for Open_Door_Reply'Size use 64 * 8;
    for Open_Door_Reply'Bit_Order use System.Low_Order_First;
    for Open_Door_Reply'Scalar_Storage_Order use System.Low_Order_First;
+
+   --  Message definition for a get-cards reply.
+   type Get_Cards_Reply is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      Opcode     : Codec.Op_Code := Codec.Get_Cards;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Cards      : Unsigned_32;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 52);
+   end record;
+
+   for Get_Cards_Reply use record
+      SOM        at  0 range 0 ..   7;
+      Opcode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Cards      at  8 range 0 ..  31;
+      Padding    at 12 range 0 .. 415;
+   end record;
+
+   for Get_Cards_Reply'Size use 64 * 8;
+   for Get_Cards_Reply'Bit_Order use System.Low_Order_First;
+   for Get_Cards_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
 end Uhppoted.Lib.Replies;

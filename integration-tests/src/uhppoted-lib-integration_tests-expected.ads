@@ -119,4 +119,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Open_Door : constant Boolean := True;
 
+   Get_Cards : constant Unsigned_32 := 13579;
+
 end Uhppoted.Lib.Integration_Tests.Expected;

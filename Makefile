@@ -69,3 +69,6 @@ set-door-passcodes: build
 
 open-door: build
 	cd examples/cli && make open-door CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)" DOOR="$(DOOR)"
+
+get-cards: build
+	cd examples/cli && make get-cards CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)"

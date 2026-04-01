@@ -20,7 +20,7 @@ var Responses = []types.Response{
 	SetDoorResponse,
 	SetDoorPasscodesResponse,
 	OpenDoorResponse,
-	// &GetCardsResponse,
+	GetCardsResponse,
 	// &GetCardResponse,
 	// &GetCardAtIndexResponse,
 	// &PutCardResponse,

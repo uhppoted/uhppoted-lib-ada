@@ -426,6 +426,32 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Open_Door;
 
+   --  Retrieves the number of cards stored on an access controller. Restricted to the local LAN.
+   function Get_Cards (U         : UHPPOTE;
+                       C         : Unsigned_32;
+                       Timeout   : Duration := 2.5) return Unsigned_32 is
+   begin
+      return Get_Cards (U, To_Controller (C), Timeout);
+   end Get_Cards;
+
+   --  Retrieves the number of cards stored on an access controller.
+   function Get_Cards (U         : UHPPOTE;
+                       C         : Controller;
+                       Timeout   : Duration := 2.5) return Unsigned_32 is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Cards (C.ID);
+      Reply   : Packet;
+      R       : Get_Cards_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Cards (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Cards;
+   end Get_Cards;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

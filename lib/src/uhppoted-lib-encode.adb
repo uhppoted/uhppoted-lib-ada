@@ -1,4 +1,3 @@
-with Ada.Text_IO; use Ada.Text_IO;
 with GNAT.Sockets;
 with Uhppoted.Lib.Requests;
 
@@ -193,6 +192,16 @@ package body Uhppoted.Lib.Encode is
 
       return Buffer;
    end Open_Door;
+
+   --  Encodes a get-cards request as a 64 byte array.
+   function Get_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Get_Cards_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+
+      return Buffer;
+   end Get_Cards;
 
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is

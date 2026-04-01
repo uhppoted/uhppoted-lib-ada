@@ -275,4 +275,25 @@ package Uhppoted.Lib.Requests is
    for Open_Door_Request'Bit_Order use System.Low_Order_First;
    for Open_Door_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a get-cards request.
+   type Get_Cards_Request is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Get_Cards;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
+   end record;
+
+   for Get_Cards_Request use record
+      SOM        at 0 range 0 ..   7;
+      OpCode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Padding    at 8 range 0 .. 447;
+   end record;
+
+   for Get_Cards_Request'Size use 64 * 8;
+   for Get_Cards_Request'Bit_Order use System.Low_Order_First;
+   for Get_Cards_Request'Scalar_Storage_Order use System.Low_Order_First;
+
 end Uhppoted.Lib.Requests;

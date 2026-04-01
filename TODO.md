@@ -5,7 +5,8 @@
 - https://alire.ada.dev/transition_from_gnat_community.html
 
 - [ ] format
-- [x] ~~lint~~
+- [ ] lint
+     - https://www.adalog.fr/en/adacontrol.html#download
 - [ ] adadoc
     - [ ] exceptions
     - [ ] types
@@ -23,6 +24,7 @@
 - [x] set-door
 - [x] set-door-passcodes
 - [x] open-door
+- [x] get-cards
    - [x] API
    - [x] CLI
    - [x] README

@@ -4,6 +4,10 @@
 
 Standalone ADA library for the UHPPOTE access controllers.
 
+A basic example CLI illustrating the use of the library can be found in the
+[examples](https://github.com/uhppoted/uhppoted-lib-ada/tree/main/examples/cli) folder.
+
+
 ## Release Notes
 
 **In Development**
@@ -13,7 +17,28 @@ Standalone ADA library for the UHPPOTE access controllers.
 
 ## Development
 
+Requirements:
+- gnat 15.1.2+
+- Alire 2.1.0+
+
 ### Building from source
+
+Assuming you have `Alire`, `gnat 15.12+` and `make` installed:
+
+```
+git clone https://github.com/uhppoted/uhppoted-lib-ada/uhppoted-lib-ada.git
+cd uhppoted-lib-ada
+make build-all
+```
+
+If you prefer building manually:
+```
+git clone https://github.com/uhppoted/uhppoted-lib-ada/uhppoted-lib-ada.git
+cd uhppoted-lib-ada
+cd lib && alr build
+cd ../examples/cli && alr build
+cd ../integration-tests && alr build
+```
 
 ## API
 
@@ -31,6 +56,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Set_Door`](API.md#set_door)
 - [`Set_Door_Passcodes`](API.md#set_door_passcodes)
 - [`Open_Door`](API.md#open_door)
+- [`Get_Cards`](API.md#get_cards)
 
 
 ## License

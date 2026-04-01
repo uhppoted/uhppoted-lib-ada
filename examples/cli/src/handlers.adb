@@ -246,4 +246,14 @@ package body Handlers is
       Put_Line ("");
    end Open_Door;
 
+   --  Executes the get-cards command.
+   procedure Get_Cards (Args : ArgParse.Args) is
+      R : constant Unsigned_32 := Get_Cards (U, Args.Controller, Timeout);
+   begin
+      Put_Line ("--- get-cards");
+      Put_Line ("controller:" & Args.Controller.ID'Image);
+      Put_Line ("     cards:" & R'Image);
+      Put_Line ("");
+   end Get_Cards;
+
 end Handlers;

@@ -60,4 +60,7 @@ package Uhppoted.Lib.Encode is
    function Open_Door (Controller : Unsigned_32;
                        Door       : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a get-cards request as a 64 byte array.
+   function Get_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+
 end Uhppoted.Lib.Encode;

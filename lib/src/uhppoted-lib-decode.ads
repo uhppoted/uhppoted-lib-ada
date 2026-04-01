@@ -21,15 +21,13 @@ package Uhppoted.Lib.Decode is
    function Get_Listener (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Listener_Response;
 
    --  Decodes a 64 byte get-listener reply as a Get_Listener_Addr_Port_Response record.
-   function Get_Listener_Addr_Port
-     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Listener_Addr_Port_Response;
+   function Get_Listener_Addr_Port (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Listener_Addr_Port_Response;
 
    --  Decodes a 64 byte set-listener reply as a Set_Listener_Response record.
    function Set_Listener (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Listener_Response;
 
    --  Decodes a 64 byte set-listener reply as a Set_Listener_Response record.
-   function Set_Listener_Addr_Port
-     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Listener_Addr_Port_Response;
+   function Set_Listener_Addr_Port (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Listener_Addr_Port_Response;
 
    --  Decodes a 64 byte get-status reply as a Get_Status_Response record.
    function Get_Status (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Status_Response;
@@ -41,12 +39,13 @@ package Uhppoted.Lib.Decode is
    function Set_Door (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Door_Response;
 
    --  Decodes a 64 byte set-door-passcodes reply as a Get_Door_Passcodes_Response record.
-   function Set_Door_Passcodes
-     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Door_Passcodes_Response;
+   function Set_Door_Passcodes (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Door_Passcodes_Response;
 
    --  Decodes a 64 byte open-door reply as an Open_Door_Response record.
-   function Open_Door
-     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Open_Door_Response;
+   function Open_Door (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Open_Door_Response;
+
+   --  Decodes a 64 byte get-cards reply as a Get_Cards_Response record.
+   function Get_Cards (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Cards_Response;
 
 private
    --  Translates a BCD coded string in a byte array to a string.

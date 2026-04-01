@@ -57,3 +57,6 @@ set-door-passcodes: build
 
 open-door: build
 	$(CLI) open-door --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --door $(DOOR)
+
+get-cards: build
+	$(CLI) get-cards --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)

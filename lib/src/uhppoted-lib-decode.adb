@@ -36,7 +36,7 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte set-IPv4 reply as a Set_IPv4_Response record.
    function Set_IPv4 (Reply : Packet) return Responses.Set_IPv4_Response is
-      R : Replies.Set_IPv4_Response with
+      R : Replies.Set_IPv4_Reply with
         Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
@@ -268,6 +268,22 @@ package body Uhppoted.Lib.Decode is
       return (Controller => R.Controller,
               Ok         => Unpack_Boolean (R.Ok));
    end Open_Door;
+
+   --  Decodes a 64 byte get-cards reply as an Get_Cards_Response record.
+   function Get_Cards (Reply : Packet) return Responses.Get_Cards_Response is
+      R : Replies.Get_Cards_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Cards then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Cards      => R.Cards);
+   end Get_Cards;
 
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
    function Unpack_Boolean (B : Unsigned_8) return Boolean is

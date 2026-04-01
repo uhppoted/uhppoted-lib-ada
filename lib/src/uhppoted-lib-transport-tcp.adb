@@ -1,8 +1,12 @@
+with Ada.Text_IO; use Ada.Text_IO;
+
+with Ada.Exceptions;
 with Ada.Streams;
 with Ada.Calendar;
 
 package body Uhppoted.Lib.Transport.TCP is
    use Ada.Streams;
+   use Ada.Exceptions;
    use Ada.Calendar;
 
    --  Creates the wrapped socket handle.
@@ -40,8 +44,52 @@ package body Uhppoted.Lib.Transport.TCP is
 
    begin
       Bind_Socket (Sock.Client, Bind);
-      Connect_Socket (Sock.Client, DestAddr);
 
+      --  non-blocking connect
+      declare
+         Non_Blocking : Request_Type := (Name => Non_Blocking_IO, Enabled => True);
+         Blocking     : Request_Type := (Name => Non_Blocking_IO, Enabled => False);
+         Err          : Error_Type;
+         Remaining    : Duration;
+      begin
+         begin
+            Control_Socket (Sock.Client, Non_Blocking);
+            Connect_Socket (Sock.Client, DestAddr);
+         exception
+            when E : Socket_Error =>
+               Err := Resolve_Exception (E);
+               if Err /= Operation_Now_In_Progress and then Err /= Resource_Temporarily_Unavailable then
+                  raise;
+               end if;
+         end;
+
+         Remaining := Deadline - Clock;
+         Empty (Read_Set);
+         Empty (Write_Set);
+         Set (Write_Set, Sock.Client);
+
+         Check_Selector (Selector.Selector,
+                         R_Socket_Set => Read_Set,
+                         W_Socket_Set => Write_Set,
+                         Status       => Status,
+                         Timeout      => Remaining);
+
+         if Status = Completed and then Is_Set (Write_Set, Sock.Client) then
+            declare
+               Err : constant Option_Type := Get_Socket_Option (Sock.Client, Socket_Level, Error);
+            begin
+               if Err.Error /= Success then
+                  raise Socket_Error with "Connect failed: " & Err.Error'Image;
+               end if;
+            end;
+
+            Control_Socket (Sock.Client, Blocking);
+         else
+            raise Timeout_Error;
+         end if;
+      end;
+
+      --  send/receive
       Send_Socket (Sock.Client, To_Stream (Request), Offset);
       if U.Debug then
          Dump ("... sent to " & Image (DestAddr) & " (TCP)", Request);

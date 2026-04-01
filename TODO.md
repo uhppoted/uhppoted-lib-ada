@@ -46,12 +46,14 @@
     - [x] send loop
     - [x] ada-doc
     - [ ] listen
+    - [ ] check dest-addr is not bind addr
 
 - [x] TCP
     - [x] dump
     - [x] send loop
     - [x] ada-doc
-    - [ ] non-blocking connect
+    - [x] non-blocking connect
+    - [ ] check dest-addr is not bind addr
 
 - [ ] CLI
     - [x] command line args

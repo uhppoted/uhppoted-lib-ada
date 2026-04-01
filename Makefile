@@ -36,6 +36,9 @@ build-all:
 	cd examples/cli && make build
 	cd integration-tests && make build
 
+debug:
+	cd examples/cli && make get-controller CONTROLLER=405419896 DEST=192.168.1.125:60000 PROTOCOL=tcp
+
 find-controllers: build
 	cd examples/cli && make find-controllers
 

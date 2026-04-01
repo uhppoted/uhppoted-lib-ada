@@ -30,6 +30,11 @@ package ArgParse is
       Door       : Unsigned_8;
 
       case T is
+         when Set_IPv4_Args =>
+            Address : Inet_Addr_Type;
+            Netmask : Inet_Addr_Type;
+            Gateway : Inet_Addr_Type;
+
          when Set_Listener_Args =>
             Listener : Sock_Addr_Type;
             Interval : Unsigned_8;
@@ -65,6 +70,7 @@ private
                                       Controller_Transport : String_Access;
                                       C                    : out Uhppoted.Lib.Controller);
 
+   function Parse_Set_IPv4 return Args;
    function Parse_Set_Listener return Args;
    function Parse_Get_Door return Args;
    function Parse_Set_Door return Args;

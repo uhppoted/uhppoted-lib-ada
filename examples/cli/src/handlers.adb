@@ -81,10 +81,7 @@ package body Handlers is
 
    --  Executes the set-IPv4 command.
    procedure Set_IPv4 (Args : ArgParse.Args) is
-      Addr    : constant Inet_Addr_Type := Inet_Addr ("192.168.1.125");
-      Netmask : constant Inet_Addr_Type := Inet_Addr ("255.255.255.0");
-      Gateway : constant Inet_Addr_Type := Inet_Addr ("192.168.1.1");
-      R       : constant Boolean        := Set_IPv4 (U, Args.Controller, Addr, Netmask, Gateway, Timeout);
+      R : constant Boolean := Set_IPv4 (U, Args.Controller, Args.Address, Args.Netmask, Args.Gateway, Timeout);
    begin
       Put_Line ("--- set-IPv4");
       Put_Line ("controller:" & Args.Controller.ID'Image);

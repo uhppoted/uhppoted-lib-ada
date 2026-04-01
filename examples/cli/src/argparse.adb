@@ -15,6 +15,10 @@ package body ArgParse is
       C : Controller;
    begin
       --  return command specific args
+      if Cmd = "set-IPv4" then
+         return Parse_Set_IPv4;
+      end if;
+
       if Cmd = "set-listener" then
          return Parse_Set_Listener;
       end if;
@@ -105,6 +109,59 @@ package body ArgParse is
 
    end Extract_Controller_Args;
 
+   --  set-IPv4 specific args
+   function Parse_Set_IPv4 return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+
+      Address : aliased String_Access := null;
+      Netmask : aliased String_Access := null;
+      Gateway : aliased String_Access := null;
+
+      C : Controller;
+
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Address'Access,
+                     Long_Switch => "--address:",
+                     Help        => "IPv4 address",
+                     Argument    => "ADDRESS");
+
+      Define_Switch (Config,
+                     Output      => Netmask'Access,
+                     Long_Switch => "--netmask:",
+                     Help        => "IPv4 subnet mask",
+                     Argument    => "NETMASK");
+
+      Define_Switch (Config,
+                     Output      => Gateway'Access,
+                     Long_Switch => "--gateway:",
+                     Help        => "gateway IPv4address",
+                     Argument    => "GATEWAY");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      declare
+         A : String renames Address.all;
+         M : String renames Netmask.all;
+         G : String renames Gateway.all;
+      begin
+         return (T          => ArgParse.Set_IPv4_Args,
+                 Controller => C,
+                 Door       => 0,
+                 Address    => Inet_Addr (A),
+                 Netmask    => Inet_Addr (M),
+                 Gateway    => Inet_Addr (G));
+      end;
+
+   end Parse_Set_IPv4;
+
+   --  set-listener specific args
    function Parse_Set_Listener return Args is
       Config               : Command_Line_Configuration;
       Controller_ID        : aliased Integer       := 0;
@@ -284,7 +341,7 @@ package body ArgParse is
       begin
          for I in 1 .. 4 loop
             exit when First > S'Last;
-            
+
             Last := Ada.Strings.Fixed.Index (S (First .. S'Last), ",");
             if Last = 0 then
                Codes (I) := Unsigned_32'Value (S (First .. S'Last));

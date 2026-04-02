@@ -54,6 +54,7 @@ var translations = map[string]string{
 	"set door passcodes response":     "Boolean",
 	"open door response":              "Boolean",
 	"get cards response":              "Unsigned_32",
+	"get card response":               "Card_Record",
 }
 
 func IntegrationTests() {
@@ -263,6 +264,10 @@ func response(f lib.Function, t lib.FuncTest) returns {
 
 		case "Door_Record":
 			r.Template = "door"
+			r.Value = t.Replies[0].Response
+
+		case "Card_Record":
+			r.Template = "card"
 			r.Value = t.Replies[0].Response
 		}
 	}

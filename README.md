@@ -57,6 +57,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Set_Door_Passcodes`](API.md#set_door_passcodes)
 - [`Open_Door`](API.md#open_door)
 - [`Get_Cards`](API.md#get_cards)
+- [`Get_Card`](API.md#get_card)
 
 
 ## License

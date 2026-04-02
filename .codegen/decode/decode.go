@@ -133,13 +133,7 @@ func name(v lib.Value) string {
 }
 
 func value(v lib.Value) string {
-	switch v.Type {
-	case "bool":
-		return boolean(v.Value)
-
-	default:
-		return codegen.AdaValue(v.Type, v.Value)
-	}
+	return codegen.AdaValue(v.Type, v.Value)
 }
 
 func boolean(v any) string {

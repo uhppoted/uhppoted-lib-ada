@@ -1,12 +1,8 @@
-with Ada.Text_IO; use Ada.Text_IO;
-
-with Ada.Exceptions;
 with Ada.Streams;
 with Ada.Calendar;
 
 package body Uhppoted.Lib.Transport.TCP is
    use Ada.Streams;
-   use Ada.Exceptions;
    use Ada.Calendar;
 
    --  Creates the wrapped socket handle.

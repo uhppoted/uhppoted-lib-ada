@@ -22,5 +22,6 @@ package Uhppoted.Lib.Encode.Tests is
    procedure Test_Encode_Set_Door_Passcodes_With_Invalid_Passcode (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Open_Door (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Get_Cards (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Encode_Get_Card (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Encode.Tests;

@@ -23,21 +23,23 @@ package Uhppoted.Lib is
       Protocol : Protocol_Type  := Default;
    end record;
 
-   Invalid_Response_Error : exception renames Uhppoted.Types.Invalid_Response_Error;
-   Timeout_Error          : exception renames Uhppoted.Types.Timeout_Error;
-
    subtype Controller_Record is Uhppoted.Types.Controller_Record;
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
    subtype Controller_Status is Uhppoted.Types.Controller_Status;
-   subtype DateTime is Uhppoted.Types.DateTime;
    subtype Listener_Record is Uhppoted.Types.Listener_Record;
    subtype Door_Record is Uhppoted.Types.Door_Record;
+   subtype Card_Record is Uhppoted.Types.Card_Record;
+
+   subtype DateTime is Uhppoted.Types.DateTime;
    subtype Control_Mode is Uhppoted.Types.Control_Mode;
    subtype Passcodes_List is Uhppoted.Types.Passcodes_List;
 
    Normally_Open   : Control_Mode renames Uhppoted.Types.Normally_Open;
    Normally_Closed : Control_Mode renames Uhppoted.Types.Normally_Closed;
    Controlled      : Control_Mode renames Uhppoted.Types.Controlled;
+
+   Invalid_Response_Error : exception renames Uhppoted.Types.Invalid_Response_Error;
+   Timeout_Error          : exception renames Uhppoted.Types.Timeout_Error;
 
    function Find_Controllers (U       : UHPPOTE;
                               Timeout : Duration := 2.5) return Controller_Record_List;
@@ -417,7 +419,7 @@ package Uhppoted.Lib is
    --  @param  C          Controller serial number.
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
    --
-   --  @return            True if the door was unlocked.
+   --  @return            Total number of stored card records.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
@@ -431,7 +433,39 @@ package Uhppoted.Lib is
    --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
    --
-   --  @return            True if the door was unlocked.
+   --  @return            Total number of stored card records.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Get_Card (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      Card    : Unsigned_32;
+                      Timeout : Duration := 2.5) return Card_Record;
+   --  Retrieves the card record for the requested card number. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Card       Card number.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Card record for card number.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Get_Card (U       : UHPPOTE;
+                      C       : Controller;
+                      Card    : Unsigned_32;
+                      Timeout : Duration := 2.5) return Card_Record;
+   --  Retrieves the card record for the requested card number.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Card       Card number.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Card record for card number.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.

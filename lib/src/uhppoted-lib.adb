@@ -452,6 +452,45 @@ package body Uhppoted.Lib is
       return R.Cards;
    end Get_Cards;
 
+   --  Retrieves the card record for the requested card number. Restricted to the local LAN.
+   function Get_Card (U         : UHPPOTE;
+                      C         : Unsigned_32;
+                      Card      : Unsigned_32;
+                      Timeout   : Duration := 2.5) return Card_Record is
+   begin
+      return Get_Card (U, To_Controller (C), Card, Timeout);
+   end Get_Card;
+
+   --  Retrieves the card record for the requested card number.
+   function Get_Card (U         : UHPPOTE;
+                      C         : Controller;
+                      Card      : Unsigned_32;
+                      Timeout   : Duration := 2.5) return Card_Record is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Card (C.ID, Card);
+      Reply   : Packet;
+      R       : Get_Card_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Card (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Card /= Card and then R.Card /= 0 then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Card       => R.Card,
+              Start_Date => R.Start_Date,
+              End_Date   => R.End_Date,
+              Door_1     => R.Door_1,
+              Door_2     => R.Door_2,
+              Door_3     => R.Door_3,
+              Door_4     => R.Door_4,
+              PIN        => R.PIN);
+   end Get_Card;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

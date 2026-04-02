@@ -100,6 +100,17 @@ package Uhppoted.Types is
       OpenDelay : Unsigned_8;
    end record;
 
+   type Card_Record is record
+      Card       : Unsigned_32;
+      Start_Date : DateOnly;
+      End_Date   : DateOnly;
+      Door_1     : Unsigned_8;
+      Door_2     : Unsigned_8;
+      Door_3     : Unsigned_8;
+      Door_4     : Unsigned_8;
+      PIN        : Unsigned_32;
+   end record;
+
    function To_Control_Mode (V : Unsigned_8) return Control_Mode;
 
    type Passcodes_List is array (Positive range <>) of Unsigned_32;

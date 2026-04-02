@@ -124,4 +124,17 @@ package Uhppoted.Lib.Responses is
       Cards      : Unsigned_32;
    end record;
 
+   --  Message definition for a get-card response.
+   type Get_Card_Response is record
+      Controller : Unsigned_32;
+      Card       : Unsigned_32;
+      Start_Date : DateOnly;
+      End_Date   : DateOnly;
+      Door_1     : Unsigned_8;
+      Door_2     : Unsigned_8;
+      Door_3     : Unsigned_8;
+      Door_4     : Unsigned_8;
+      PIN        : Unsigned_32;
+   end record;
+
 end Uhppoted.Lib.Responses;

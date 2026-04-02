@@ -30,5 +30,7 @@ private
    procedure Test_Set_Door_Passcodes  (T : in out Test_Case'Class);
    procedure Test_Open_Door           (T : in out Test_Case'Class);
    procedure Test_Get_Cards           (T : in out Test_Case'Class);
+   procedure Test_Get_Card            (T : in out Test_Case'Class);
+   procedure Test_Get_Card_Not_Found  (T : in out Test_Case'Class);
 
 end Uhppoted.Lib.Integration_Tests.UDP;

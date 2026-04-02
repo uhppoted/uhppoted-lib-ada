@@ -39,6 +39,10 @@ package body ArgParse is
          return Parse_Open_Door;
       end if;
 
+      if Cmd = "get-card" then
+         return Parse_Get_Card;
+      end if;
+
       --  default to general command
       Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
       Getopt (Config, Concatenate => True);
@@ -46,7 +50,8 @@ package body ArgParse is
 
       return (T          => ArgParse.General_Args,
               Controller => C,
-              Door       => 0);
+              Door       => 0,
+              Card       => 0);
    end Parse;
 
    procedure Add_Controller_Switches (Config               : in out Command_Line_Configuration;
@@ -154,6 +159,7 @@ package body ArgParse is
          return (T          => ArgParse.Set_IPv4_Args,
                  Controller => C,
                  Door       => 0,
+                 Card       => 0,
                  Address    => Inet_Addr (A),
                  Netmask    => Inet_Addr (M),
                  Gateway    => Inet_Addr (G));
@@ -216,6 +222,7 @@ package body ArgParse is
       return (T          => ArgParse.Set_Listener_Args,
               Controller => C,
               Door       => 0,
+              Card       => 0,
               Listener   => AddrPort,
               Interval   => Unsigned_8 (Listener_Interval));
 
@@ -244,7 +251,8 @@ package body ArgParse is
       --  return get-door command specific args
       return (T          => ArgParse.Get_Door_Args,
               Controller => C,
-              Door       => Unsigned_8 (Door));
+              Door       => Unsigned_8 (Door),
+              Card       => 0);
 
    end Parse_Get_Door;
 
@@ -300,7 +308,8 @@ package body ArgParse is
               Controller => C,
               Door       => Unsigned_8 (Door),
               Mode       => M,
-              OpenDelay  => Unsigned_8 (OpenDelay));
+              OpenDelay  => Unsigned_8 (OpenDelay),
+              Card       => 0);
 
    end Parse_Set_Door;
 
@@ -356,7 +365,8 @@ package body ArgParse is
       return (T          => ArgParse.Set_Door_Passcodes_Args,
               Controller => C,
               Door       => Unsigned_8 (Door),
-              Passcodes  => Codes);
+              Passcodes  => Codes,
+              Card       => 0);
 
    end Parse_Set_Door_Passcodes;
 
@@ -383,8 +393,37 @@ package body ArgParse is
       --  return open-door command specific args
       return (T          => ArgParse.Open_Door_Args,
               Controller => C,
-              Door       => Unsigned_8 (Door));
+              Door       => Unsigned_8 (Door),
+              Card       => 0);
 
    end Parse_Open_Door;
+
+   function Parse_Get_Card return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Card                 : aliased Integer       := 0;
+
+      C : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Card'Access,
+                     Long_Switch => "--card:",
+                     Help        => "card number",
+                     Argument    => "CARD");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return get-card command specific args
+      return (T          => ArgParse.Get_Card_Args,
+              Controller => C,
+              Door       => 0,
+              Card       => Unsigned_32 (Card));
+
+   end Parse_Get_Card;
 
 end ArgParse;

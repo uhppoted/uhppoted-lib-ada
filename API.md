@@ -12,6 +12,7 @@
 - [`Set_Door_Passcodes`](#set_door_passcodes)
 - [`Open_Door`](#open_door)
 - [`Get_Cards`](#get_cards)
+- [`Get_Card`](#get_card)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -562,6 +563,47 @@ where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
 - C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Get_Card`
+
+**Get_Card** retrieves the card record for a card number.
+
+```
+function Get_Card (U         : UHPPOTE;
+                   C         : Unsigned_32;
+                   Card      : Unsigned_32;
+                   Timeout   : Duration) return Unsigned_32;
+
+function Get_Card (U         : Uhppoted.Lib.UHPPOTE;
+                   C         : Controller;
+                   Card      : Unsigned_32
+                   Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Card       Unsigned_32     Card number.
+```
+
+Returns a `Card_Record`:
+```
+   typeCard_Record is record
+      Card       : Unsigned_32;
+      Start_Date : DateOnly;
+      End_Date   : DateOnly;
+      Door_1     : Unsigned_8;
+      Door_2     : Unsigned_8;
+      Door_3     : Unsigned_8;
+      Door_4     : Unsigned_8;
+      PIN        : Unsigned_32;
+   end record;
 ```
 
 Raises:

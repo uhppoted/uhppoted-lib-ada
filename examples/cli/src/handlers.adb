@@ -253,4 +253,21 @@ package body Handlers is
       Put_Line ("");
    end Get_Cards;
 
+   --  Executes the get-card command.
+   procedure Get_Card (Args : ArgParse.Args) is
+      R : constant Card_Record := Get_Card (U, Args.Controller, Args.Card, Timeout);
+   begin
+      Put_Line ("--- get-card");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("       card:" & R.Card'Image);
+      Put_Line (" start date: " & Image (R.Start_Date));
+      Put_Line ("   end date: " & Image (R.End_Date));
+      Put_Line ("     door 1:" & R.Door_1'Image);
+      Put_Line ("     door 2:" & R.Door_2'Image);
+      Put_Line ("     door 3:" & R.Door_3'Image);
+      Put_Line ("     door 4:" & R.Door_4'Image);
+      Put_Line ("        PIN:" & R.PIN'Image);
+      Put_Line ("");
+   end Get_Card;
+
 end Handlers;

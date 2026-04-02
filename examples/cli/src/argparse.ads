@@ -23,11 +23,13 @@ package ArgParse is
       Get_Door_Args,
       Set_Door_Args,
       Set_Door_Passcodes_Args,
-      Open_Door_Args);
+      Open_Door_Args,
+      Get_Card_Args);
 
    type Args (T : Args_Type) is record
       Controller : Uhppoted.Lib.Controller;
       Door       : Unsigned_8;
+      Card       : Unsigned_32;
 
       case T is
          when Set_IPv4_Args =>
@@ -50,6 +52,9 @@ package ArgParse is
             Passcodes : Uhppoted.Lib.Passcodes_List (1 .. 4);
 
          when Open_Door_Args =>
+            null;
+
+         when Get_Card_Args =>
             null;
 
          when others =>
@@ -76,5 +81,6 @@ private
    function Parse_Set_Door return Args;
    function Parse_Set_Door_Passcodes return Args;
    function Parse_Open_Door return Args;
+   function Parse_Get_Card return Args;
 
 end ArgParse;

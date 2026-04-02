@@ -16,6 +16,8 @@ MODE      ?= controlled
 DELAY     ?= 5
 PASSCODES ?= 7531,12345,54321
 
+CARD      ?= 10058400
+
 clean:
 	alr clean
 
@@ -60,3 +62,6 @@ open-door: build
 
 get-cards: build
 	$(CLI) get-cards --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+
+get-card: build
+	$(CLI) get-card --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --card $(CARD)

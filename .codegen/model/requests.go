@@ -20,7 +20,7 @@ var Requests = []types.Request{
 	SetDoorPasscodesRequest,
 	OpenDoorRequest,
 	GetCardsRequest,
-	// GetCardRequest,
+	GetCardRequest,
 	// GetCardAtIndexRequest,
 	// PutCardRequest,
 	// DeleteCardRequest,

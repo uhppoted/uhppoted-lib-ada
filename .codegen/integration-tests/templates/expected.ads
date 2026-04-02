@@ -61,3 +61,13 @@ end Uhppoted.Lib.Integration_Tests.Expected;
 {{- define "door" }}({{ with $v := .Returns.Value }}
      Mode      => To_Control_Mode ({{ get $v "mode"}}),
      OpenDelay => {{ get $v "delay"}}{{ end }}){{ end }}
+
+{{- define "card" }}({{ with $v := .Returns.Value }}
+     Card       => {{ get $v "card"}},
+     Start_Date => {{ get $v "start-date"}},
+     End_Date   => {{ get $v "end-date"}},
+     Door_1     => {{ get $v "door 1"}},
+     Door_2     => {{ get $v "door 2"}},
+     Door_3     => {{ get $v "door 3"}},
+     Door_4     => {{ get $v "door 4"}},
+     PIN        => {{ get $v "PIN"}}{{ end }}){{ end }}

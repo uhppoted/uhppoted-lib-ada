@@ -30,6 +30,8 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Set_Door_Passcodes'Access, "test decode Set_Door_Passcodes response");
       Register_Routine (T, Test_Decode_Open_Door'Access,    "test decode Open_Door response");
       Register_Routine (T, Test_Decode_Get_Cards'Access,    "test decode Get_Cards response");
+      Register_Routine (T, Test_Decode_Get_Card'Access,     "test decode Get_Card response");
+      Register_Routine (T, Test_Decode_Get_Card_Not_Found'Access, "test decode Get_Card_Not_Found response");
    end Register_Tests;
 
    procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -331,5 +333,57 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded get-cards response: got" & Response'Image);
    end Test_Decode_Get_Cards;
+
+   procedure Test_Decode_Get_Card (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Get_Card_Response := (
+         Controller => 405419896,
+         Card       => 10058400,
+         Start_Date => (Year => 2024, Month => 1, Day => 1),
+         End_Date   => (Year => 2024, Month => 12, Day => 31),
+         Door_1     => 1,
+         Door_2     => 0,
+         Door_3     => 17,
+         Door_4     => 1,
+         PIN        => 999999);
+
+      Reply : constant Packet := [
+         16#17#, 16#5a#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#a0#, 16#7a#, 16#99#, 16#00#, 16#20#, 16#24#, 16#01#, 16#01#,
+         16#20#, 16#24#, 16#12#, 16#31#, 16#01#, 16#00#, 16#11#, 16#01#,  16#3f#, 16#42#, 16#0f#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Get_Card_Response := Uhppoted.Lib.Decode.Get_Card (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded get-card response: got" & Response'Image);
+   end Test_Decode_Get_Card;
+
+   procedure Test_Decode_Get_Card_Not_Found (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Get_Card_Response := (
+         Controller => 405419896,
+         Card       => 0,
+         Start_Date => (Year => 1, Month => 1, Day => 1),
+         End_Date   => (Year => 1, Month => 1, Day => 1),
+         Door_1     => 0,
+         Door_2     => 0,
+         Door_3     => 0,
+         Door_4     => 0,
+         PIN        => 0);
+
+      Reply : constant Packet := [
+         16#17#, 16#5a#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Get_Card_Response := Uhppoted.Lib.Decode.Get_Card (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded get-card response: got" & Response'Image);
+   end Test_Decode_Get_Card_Not_Found;
 
 end Uhppoted.Lib.Decode.Tests;

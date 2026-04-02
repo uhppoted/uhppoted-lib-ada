@@ -55,7 +55,7 @@ func AdaValue(t string, v any) string {
 	case t == "version":
 		return fmt.Sprintf(`To_Unbounded_String ("%v")`, v)
 
-	case t == "date" || t == "shortdate":
+	case t == "date" || t == "shortdate" || t == "optional date":
 		return date(v)
 
 	case t == "time":

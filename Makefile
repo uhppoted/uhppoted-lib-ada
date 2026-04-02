@@ -9,6 +9,8 @@ MODE      ?= controlled
 DELAY     ?= 5
 PASSCODES ?= 7531,12345,54321
 
+CARD      ?= 10058400
+
 clean:
 	cd lib && make clean
 
@@ -58,22 +60,25 @@ get-listener: build
 	cd examples/cli && make get-listener
 
 set-listener: build
-	cd examples/cli && make set-listener CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)" LISTENER="$(LISTENER)" INTERVAL="$(INTERVAL)"
+	cd examples/cli && make set-listener CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) LISTENER=$(LISTENER) INTERVAL=$(INTERVAL)
 
 get-status: build
 	cd examples/cli && make get-status
 
 get-door: build
-	cd examples/cli && make get-door CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)" DOOR="$(DOOR)"
+	cd examples/cli && make get-door CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) DOOR=$(DOOR)
 
 set-door: build
-	cd examples/cli && make set-door CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)" DOOR="$(DOOR)" MODE="$(MODE)" DELAY="$(DELAY)"
+	cd examples/cli && make set-door CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) DOOR=$(DOOR) MODE="$(MODE)" DELAY=$(DELAY)
 
 set-door-passcodes: build
-	cd examples/cli && make set-door-passcodes CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)" DOOR="$(DOOR)" PASSCODES="$(PASSCODES)"
+	cd examples/cli && make set-door-passcodes CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) DOOR=$(DOOR) PASSCODES=$(PASSCODES)
 
 open-door: build
-	cd examples/cli && make open-door CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)" DOOR="$(DOOR)"
+	cd examples/cli && make open-door CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) DOOR=$(DOOR)
 
 get-cards: build
-	cd examples/cli && make get-cards CONTROLLER="$(CONTROLLER)" DEST="$(DEST)" PROTOCOL="$(PROTOCOL)"
+	cd examples/cli && make get-cards CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+
+get-card: build
+	cd examples/cli && make get-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD=$(CARD)

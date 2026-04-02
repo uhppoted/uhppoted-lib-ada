@@ -16,7 +16,9 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
      (Set_Door_Request,         Set_Door_Reply),
      (Set_Door_Passcodes_Request, Set_Door_Passcodes_Reply),
      (Open_Door_Request,        Open_Door_Reply),
-     (Get_Cards_Request,        Get_Cards_Reply)
+     (Get_Cards_Request,        Get_Cards_Reply),
+     (Get_Card_Request,         Get_Card_Reply),
+     (Get_Card_Not_Found_Request, Get_Card_Not_Found_Reply)
    ];
 
    None : constant Reply_List := [];

@@ -28,6 +28,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Set_Door_Passcodes_With_Invalid_Passcode'Access, "test encode Set_Door_Passcodes_With_Invalid_Passcode request");
       Register_Routine (T, Test_Encode_Open_Door'Access,        "test encode Open_Door request");
       Register_Routine (T, Test_Encode_Get_Cards'Access,        "test encode Get_Cards request");
+      Register_Routine (T, Test_Encode_Get_Card'Access,         "test encode Get_Card request");
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -309,5 +310,22 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded get-cards request: got" & Request'Image);
    end Test_Encode_Get_Cards;
+
+   procedure Test_Encode_Get_Card (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#5a#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#a0#, 16#7a#, 16#99#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Card (
+         405419896,
+         10058400);
+   begin
+      Assert (Request = Expected, "incorrectly encoded get-card request: got" & Request'Image);
+   end Test_Encode_Get_Card;
 
 end Uhppoted.Lib.Encode.Tests;

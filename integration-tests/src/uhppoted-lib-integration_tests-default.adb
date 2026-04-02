@@ -50,6 +50,8 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Register_Routine (T, Test_Set_Door_Passcodes'Access,  "Set_Door_Passcodes");
       Register_Routine (T, Test_Open_Door'Access,           "Open_Door");
       Register_Routine (T, Test_Get_Cards'Access,           "Get_Cards");
+      Register_Routine (T, Test_Get_Card'Access,            "Get_Card");
+      Register_Routine (T, Test_Get_Card_Not_Found'Access,  "Get_Card_Not_Found");
    end Register_Tests;
 
    overriding procedure Set_Up_Case (T : in out Integration_Test) is
@@ -191,5 +193,21 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    begin
       Assert (V = Expected.Get_Cards, "invalid result" & V'Image);
    end Test_Get_Cards;
+
+   procedure Test_Get_Card (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      V : constant Card_Record := Get_Card (U, 405419896, 10058400, 0.5);
+   begin
+      Assert (V = Expected.Get_Card, "invalid result" & V'Image);
+   end Test_Get_Card;
+
+   procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      V : constant Card_Record := Get_Card (U, 405419896, 10058401, 0.5);
+   begin
+      Assert (V = Expected.Get_Card_Not_Found, "invalid result" & V'Image);
+   end Test_Get_Card_Not_Found;
 
 end Uhppoted.Lib.Integration_Tests.Default;

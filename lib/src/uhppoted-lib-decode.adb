@@ -285,6 +285,29 @@ package body Uhppoted.Lib.Decode is
               Cards      => R.Cards);
    end Get_Cards;
 
+   --  Decodes a 64 byte get-card reply as an Get_Card_Response record.
+   function Get_Card (Reply : Packet) return Responses.Get_Card_Response is
+      R : Replies.Get_Card_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Card then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Card       => R.Card,
+              Start_Date => Unpack_Date (R.Start_Date),
+              End_Date   => Unpack_Date (R.End_Date),
+              Door_1      => R.Door_1,
+              Door_2      => R.Door_2,
+              Door_3      => R.Door_3,
+              Door_4      => R.Door_4,
+              PIN        => R.PIN);
+   end Get_Card;
+
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
    function Unpack_Boolean (B : Unsigned_8) return Boolean is
    begin
@@ -302,7 +325,11 @@ package body Uhppoted.Lib.Decode is
       MM       : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD (5 .. 6));
       DD       : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD (7 .. 8));
    begin
-      return (Year => YYYY, Month => MM, Day => DD);
+      if YYYY = 0 and then MM = 0 and then DD = 0 then
+        return (Year => 1, Month => 1, Day => 1);
+      else
+        return (Year => YYYY, Month => MM, Day => DD);
+      end if;
    end Unpack_Date;
 
    --  Translates a BCD coded YYMMDD date to a DateOnly.

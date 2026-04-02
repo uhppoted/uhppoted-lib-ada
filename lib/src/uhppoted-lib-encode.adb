@@ -203,6 +203,17 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Get_Cards;
 
+   --  Encodes a get-card request as a 64 byte array.
+   function Get_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Get_Card_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Card := Card;
+
+      return Buffer;
+   end Get_Card;
+
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is
       V : constant IPv4 := [

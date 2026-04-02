@@ -38,6 +38,12 @@ package body Uhppoted.Lib.Transport.UDP is
       Status    : Selector_Status;
       Deadline  : constant Time := Clock + Timeout;
    begin
+      --  validate
+      if BindAddr = DestAddr then
+         raise Invalid_Address_Error;
+      end if;
+
+      --  execute
       Replies.Reserve_Capacity (16);
 
       Bind_Socket (Sock.Client, BindAddr);
@@ -108,6 +114,12 @@ package body Uhppoted.Lib.Transport.UDP is
       Deadline  : constant Time := Clock + Timeout;
 
    begin
+      --  validate
+      if BindAddr = U.Broadcast_Addr then
+         raise Invalid_Address_Error;
+      end if;
+
+      --  execute
       Bind_Socket (Sock.Client, BindAddr);
       Set_Socket_Option (Sock.Client, Socket_Level, (Broadcast, True));
 
@@ -189,6 +201,12 @@ package body Uhppoted.Lib.Transport.UDP is
       Deadline  : constant Time := Clock + Timeout;
 
    begin
+      --  validate
+      if BindAddr = DestAddr then
+         raise Invalid_Address_Error;
+      end if;
+
+      --  execute
       Bind_Socket (Sock.Client, BindAddr);
       Connect_Socket (Sock.Client, DestAddr);
 

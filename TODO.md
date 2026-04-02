@@ -40,21 +40,22 @@
      - (?) Controller_Status => Status_Type
      - (?) Listener_Record => Listener_Type
      - (?) Door_Record => Door_Type
+     - (?) Card_Record => Card_Type
 
 - [ ] UDP
     - [x] dump
     - [x] connect
     - [x] send loop
     - [x] ada-doc
+    - [x] check dest-addr is not bind addr
     - [ ] listen
-    - [ ] check dest-addr is not bind addr
 
 - [x] TCP
     - [x] dump
     - [x] send loop
     - [x] ada-doc
     - [x] non-blocking connect
-    - [ ] check dest-addr is not bind addr
+    - [x] check dest-addr is not bind addr
 
 - [ ] CLI
     - [x] command line args

@@ -6,6 +6,9 @@ package Uhppoted.Types is
    use Ada.Strings.Unbounded;
    use Interfaces;
 
+   --  Custom exception for invalid destination address errors.
+   Invalid_Address_Error : exception;
+
    --  Custom exception for invalid response errors.
    Invalid_Response_Error : exception;
 

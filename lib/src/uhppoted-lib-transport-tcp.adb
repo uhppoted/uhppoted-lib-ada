@@ -25,8 +25,8 @@ package body Uhppoted.Lib.Transport.TCP is
                   DestAddr : Sock_Addr_Type;
                   Request  : Packet;
                   Timeout  : Duration) return Packet is
-      Bind   : constant Sock_Addr_Type := U.Bind_Addr;
-      Offset : Stream_Element_Offset;
+      BindAddr : constant Sock_Addr_Type := U.Bind_Addr;
+      Offset   : Stream_Element_Offset;
 
       Sock   : S;
       Buffer : Ada.Streams.Stream_Element_Array (1 .. 64);
@@ -39,9 +39,14 @@ package body Uhppoted.Lib.Transport.TCP is
       Deadline  : constant Time := Clock + Timeout;
 
    begin
-      Bind_Socket (Sock.Client, Bind);
+      --  validate
+      if BindAddr = DestAddr then
+         raise Invalid_Address_Error;
+      end if;
 
       --  non-blocking connect
+      Bind_Socket (Sock.Client, BindAddr);
+
       declare
          Non_Blocking : Request_Type := (Name => Non_Blocking_IO, Enabled => True);
          Blocking     : Request_Type := (Name => Non_Blocking_IO, Enabled => False);

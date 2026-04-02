@@ -38,6 +38,7 @@ package Uhppoted.Lib is
    Normally_Closed : Control_Mode renames Uhppoted.Types.Normally_Closed;
    Controlled      : Control_Mode renames Uhppoted.Types.Controlled;
 
+   Invalid_Address_Error  : exception renames Uhppoted.Types.Invalid_Address_Error;
    Invalid_Response_Error : exception renames Uhppoted.Types.Invalid_Response_Error;
    Timeout_Error          : exception renames Uhppoted.Types.Timeout_Error;
 

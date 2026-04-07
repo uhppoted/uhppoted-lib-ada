@@ -21,7 +21,7 @@ var Requests = []types.Request{
 	OpenDoorRequest,
 	GetCardsRequest,
 	GetCardRequest,
-	// GetCardAtIndexRequest,
+	GetCardAtIndexRequest,
 	// PutCardRequest,
 	// DeleteCardRequest,
 	// DeleteAllCardsRequest,

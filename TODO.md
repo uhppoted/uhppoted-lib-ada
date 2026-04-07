@@ -12,6 +12,8 @@
     - [ ] types
     - [ ] codec
 
+- [x] TCP
+
 - [x] find-controllers
 - [x] get-controller
 - [x] set-IPv4
@@ -26,10 +28,15 @@
 - [x] open-door
 - [x] get-cards
 - [x] get-card
-   - [x] API
-   - [x] CLI
-   - [x] README
-   - [x] integration tests
+    - [ ] card not found 
+
+- [ ] get-card-by-index
+    - [x] API
+    - [x] CLI
+    - [x] README
+    - [x] integration tests
+    - [ ] card not found 
+    - [ ] card deleted
 
 - [x] check SOM in decode
 - [x] check opcode in decode
@@ -50,12 +57,6 @@
     - [x] check dest-addr is not bind addr
     - [ ] listen
 
-- [x] TCP
-    - [x] dump
-    - [x] send loop
-    - [x] ada-doc
-    - [x] non-blocking connect
-    - [x] check dest-addr is not bind addr
 
 - [ ] CLI
     - [x] command line args

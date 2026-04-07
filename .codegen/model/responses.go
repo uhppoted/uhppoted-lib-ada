@@ -22,7 +22,7 @@ var Responses = []types.Response{
 	OpenDoorResponse,
 	GetCardsResponse,
 	GetCardResponse,
-	// &GetCardAtIndexResponse,
+	GetCardAtIndexResponse,
 	// &PutCardResponse,
 	// &DeleteCardResponse,
 	// &DeleteAllCardsResponse,

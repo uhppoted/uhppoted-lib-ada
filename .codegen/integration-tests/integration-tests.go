@@ -55,6 +55,7 @@ var translations = map[string]string{
 	"open door response":              "Boolean",
 	"get cards response":              "Unsigned_32",
 	"get card response":               "Card_Record",
+	"get card at index response":      "Card_Record",
 }
 
 func IntegrationTests() {

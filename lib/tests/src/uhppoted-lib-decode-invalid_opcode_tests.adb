@@ -30,6 +30,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       Register_Routine (T, Test_Get_Cards_Invalid_OpCode'Access,       "test decode Get_Cards with invalid opcode");
       Register_Routine (T, Test_Get_Card_Invalid_OpCode'Access,        "test decode Get_Card with invalid opcode");
       Register_Routine (T, Test_Get_Card_Not_Found_Invalid_OpCode'Access, "test decode Get_Card_Not_Found with invalid opcode");
+      Register_Routine (T, Test_Get_Card_At_Index_Invalid_OpCode'Access, "test decode Get_Card_At_Index with invalid opcode");
    end Register_Tests;
 
    procedure Test_Get_Controller_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -335,5 +336,24 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
    begin
       Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
    end Test_Get_Card_Not_Found_Invalid_OpCode;
+
+   procedure Test_Get_Card_At_Index_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#17#, 16#5d#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#a0#, 16#7a#, 16#99#, 16#00#, 16#20#, 16#24#, 16#01#, 16#01#,
+         16#20#, 16#24#, 16#12#, 16#31#, 16#01#, 16#00#, 16#11#, 16#01#,  16#3f#, 16#42#, 16#0f#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      procedure Exec is
+         Unused : constant Get_Card_At_Index_Response := Uhppoted.Lib.Decode.Get_Card_At_Index (Reply);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+   end Test_Get_Card_At_Index_Invalid_OpCode;
 
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

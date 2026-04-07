@@ -141,4 +141,34 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4     => 0,
      PIN        => 0);
 
+   Get_Card_At_Index : constant Card_Record := (
+     Card       => 10058400,
+     Start_Date => (Year => 2025, Month => 1, Day => 1),
+     End_Date   => (Year => 2025, Month => 12, Day => 31),
+     Door_1     => 1,
+     Door_2     => 0,
+     Door_3     => 17,
+     Door_4     => 1,
+     PIN        => 7531);
+
+   Get_Card_At_Index_Not_Found : constant Card_Record := (
+     Card       => 0,
+     Start_Date => (Year => 1, Month => 1, Day => 1),
+     End_Date   => (Year => 1, Month => 1, Day => 1),
+     Door_1     => 0,
+     Door_2     => 0,
+     Door_3     => 0,
+     Door_4     => 0,
+     PIN        => 0);
+
+   Get_Card_At_Index_Deleted : constant Card_Record := (
+     Card       => 4294967295,
+     Start_Date => (Year => 1, Month => 1, Day => 1),
+     End_Date   => (Year => 1, Month => 1, Day => 1),
+     Door_1     => 0,
+     Door_2     => 0,
+     Door_3     => 0,
+     Door_4     => 0,
+     PIN        => 0);
+
 end Uhppoted.Lib.Integration_Tests.Expected;

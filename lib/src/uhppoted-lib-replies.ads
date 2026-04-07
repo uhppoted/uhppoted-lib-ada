@@ -446,4 +446,41 @@ package Uhppoted.Lib.Replies is
    for Get_Card_Reply'Bit_Order use System.Low_Order_First;
    for Get_Card_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a get-card-at-index reply.
+   type Get_Card_At_Index_Reply is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      Opcode     : Codec.Op_Code := Codec.Get_Card_At_Index;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Card       : Unsigned_32;
+      Start_Date : Uhppoted.Lib.Types.BCD (1 .. 4);
+      End_Date   : Uhppoted.Lib.Types.BCD (1 .. 4);
+      Door_1     : Unsigned_8;
+      Door_2     : Unsigned_8;
+      Door_3     : Unsigned_8;
+      Door_4     : Unsigned_8;
+      PIN        : Unsigned_32;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 36);
+   end record;
+
+   for Get_Card_At_Index_Reply use record
+      SOM        at  0 range 0 ..   7;
+      Opcode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Card       at  8 range 0 ..  31;
+      Start_Date at 12 range 0 ..  31;
+      End_Date   at 16 range 0 ..  31;
+      Door_1     at 20 range 0 ..   7;
+      Door_2     at 21 range 0 ..   7;
+      Door_3     at 22 range 0 ..   7;
+      Door_4     at 23 range 0 ..   7;
+      PIN        at 24 range 0 ..  31;
+      Padding    at 28 range 0 .. 287;
+   end record;
+
+   for Get_Card_At_Index_Reply'Size use 64 * 8;
+   for Get_Card_At_Index_Reply'Bit_Order use System.Low_Order_First;
+   for Get_Card_At_Index_Reply'Scalar_Storage_Order use System.Low_Order_First;
+
 end Uhppoted.Lib.Replies;

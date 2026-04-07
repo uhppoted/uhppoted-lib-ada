@@ -17,6 +17,7 @@ DELAY     ?= 5
 PASSCODES ?= 7531,12345,54321
 
 CARD      ?= 10058400
+INDEX     ?= 3
 
 clean:
 	alr clean
@@ -65,3 +66,6 @@ get-cards: build
 
 get-card: build
 	$(CLI) get-card --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --card $(CARD)
+
+get-card-at-index: build
+	$(CLI) get-card-at-index --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --index $(INDEX)

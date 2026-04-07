@@ -21,7 +21,7 @@ var API = []types.Function{
 	OpenDoor,
 	GetCards,
 	GetCard,
-	// &GetCardAtIndex,
+	GetCardAtIndex,
 	// &PutCard,
 	// &DeleteCard,
 	// &DeleteAllCards,

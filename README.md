@@ -58,6 +58,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Open_Door`](API.md#open_door)
 - [`Get_Cards`](API.md#get_cards)
 - [`Get_Card`](API.md#get_card)
+- [`Get_Card_At_Index`](API.md#get_card_at_index)
 
 
 ## License

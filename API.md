@@ -13,6 +13,7 @@
 - [`Open_Door`](#open_door)
 - [`Get_Cards`](#get_cards)
 - [`Get_Card`](#get_card)
+- [`Get_Card_At_Index`](#get_card_at_index)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -609,3 +610,46 @@ Returns a `Card_Record`:
 Raises:
 - `Timeout_Error` if the controller does not respond
 - `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Get_Card_At_Index`
+
+**Get_Card_at_Index** retrieves the card record stored at an index.
+
+```
+function Get_Card_At_Index (U         : UHPPOTE;
+                            C         : Unsigned_32;
+                            Index     : Unsigned_32;
+                            Timeout   : Duration) return Unsigned_32;
+
+function Get_Card_At_Index (U         : Uhppoted.Lib.UHPPOTE;
+                            C         : Controller;
+                            Index     : Unsigned_32
+                            Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Index      Unsigned_32     Card record index.
+```
+
+Returns a `Card_Record`:
+```
+   typeCard_Record is record
+      Card       : Unsigned_32;
+      Start_Date : DateOnly;
+      End_Date   : DateOnly;
+      Door_1     : Unsigned_8;
+      Door_2     : Unsigned_8;
+      Door_3     : Unsigned_8;
+      Door_4     : Unsigned_8;
+      PIN        : Unsigned_32;
+   end record;
+```
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+- `Card_Not_Found_Error` if there is no record at the index
+- `Card_Deleted_Error` if the record at the index has been deleted

@@ -51,6 +51,9 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Get_Cards'Access,           "Get_Cards");
       Register_Routine (T, Test_Get_Card'Access,            "Get_Card");
       Register_Routine (T, Test_Get_Card_Not_Found'Access,  "Get_Card_Not_Found");
+      Register_Routine (T, Test_Get_Card_At_Index'Access,   "Get_Card_At_Index");
+      Register_Routine (T, Test_Get_Card_At_Index_Not_Found'Access, "Get_Card_At_Index_Not_Found");
+      Register_Routine (T, Test_Get_Card_At_Index_Deleted'Access, "Get_Card_At_Index_Deleted");
    end Register_Tests;
 
    overriding procedure Set_Up_Case (T : in out Integration_Test) is
@@ -290,5 +293,47 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.Get_Card_Not_Found, "invalid result" & V'Image);
    end Test_Get_Card_Not_Found;
+
+   procedure Test_Get_Card_At_Index (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Card_Record := Get_Card_At_Index (U, C, 135, 0.5);
+   begin
+      Assert (V = Expected.Get_Card_At_Index, "invalid result" & V'Image);
+   end Test_Get_Card_At_Index;
+
+   procedure Test_Get_Card_At_Index_Not_Found (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Card_Record := Get_Card_At_Index (U, C, 136, 0.5);
+   begin
+      Assert (V = Expected.Get_Card_At_Index_Not_Found, "invalid result" & V'Image);
+   end Test_Get_Card_At_Index_Not_Found;
+
+   procedure Test_Get_Card_At_Index_Deleted (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Card_Record := Get_Card_At_Index (U, C, 137, 0.5);
+   begin
+      Assert (V = Expected.Get_Card_At_Index_Deleted, "invalid result" & V'Image);
+   end Test_Get_Card_At_Index_Deleted;
 
 end Uhppoted.Lib.Integration_Tests.TCP;

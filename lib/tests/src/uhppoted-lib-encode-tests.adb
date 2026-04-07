@@ -29,6 +29,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Open_Door'Access,        "test encode Open_Door request");
       Register_Routine (T, Test_Encode_Get_Cards'Access,        "test encode Get_Cards request");
       Register_Routine (T, Test_Encode_Get_Card'Access,         "test encode Get_Card request");
+      Register_Routine (T, Test_Encode_Get_Card_At_Index'Access, "test encode Get_Card_At_Index request");
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -327,5 +328,22 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded get-card request: got" & Request'Image);
    end Test_Encode_Get_Card;
+
+   procedure Test_Encode_Get_Card_At_Index (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#5c#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#87#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Card_At_Index (
+         405419896,
+         135);
+   begin
+      Assert (Request = Expected, "incorrectly encoded get-card-at-index request: got" & Request'Image);
+   end Test_Encode_Get_Card_At_Index;
 
 end Uhppoted.Lib.Encode.Tests;

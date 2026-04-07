@@ -43,6 +43,10 @@ package body ArgParse is
          return Parse_Get_Card;
       end if;
 
+      if Cmd = "get-card-at-index" then
+         return Parse_Get_Card_At_Index;
+      end if;
+
       --  default to general command
       Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
       Getopt (Config, Concatenate => True);
@@ -346,7 +350,6 @@ package body ArgParse is
          S     : String renames Passcodes.all;
          First : Natural  := S'First;
          Last  : Natural  := 0;
-         I     : Positive := 1;
       begin
          for I in 1 .. 4 loop
             exit when First > S'Last;
@@ -425,5 +428,34 @@ package body ArgParse is
               Card       => Unsigned_32 (Card));
 
    end Parse_Get_Card;
+
+   function Parse_Get_Card_At_Index return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Index                : aliased Integer       := 0;
+
+      C : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Index'Access,
+                     Long_Switch => "--index:",
+                     Help        => "card index",
+                     Argument    => "INDEX");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return get-card command specific args
+      return (T          => ArgParse.Get_Card_At_Index_Args,
+              Controller => C,
+              Door       => 0,
+              Card       => 0,
+              Card_Index => Unsigned_32 (Index));
+
+   end Parse_Get_Card_At_Index;
 
 end ArgParse;

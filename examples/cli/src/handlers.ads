@@ -15,4 +15,5 @@ package Handlers is
    procedure Open_Door (Args : ArgParse.Args);
    procedure Get_Cards (Args : ArgParse.Args);
    procedure Get_Card (Args : ArgParse.Args);
+   procedure Get_Card_At_Index (Args : ArgParse.Args);
 end Handlers;

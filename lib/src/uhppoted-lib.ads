@@ -454,6 +454,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   --  @exception Card_Not_Found_Error   if there is no record at the index.
 
    function Get_Card (U       : UHPPOTE;
                       C       : Controller;
@@ -470,6 +471,43 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   --  @exception Card_Not_Found_Error   if there is no record at the index.
+
+   function Get_Card_At_Index (U       : UHPPOTE;
+                               C       : Unsigned_32;
+                               Index   : Unsigned_32;
+                               Timeout : Duration := 2.5) return Card_Record;
+   --  Retrieves the card record at the request index. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Index      Card record index.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Card record at the requested index.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   --  @exception Card_Not_Found_Error   if there is no record at the index.
+   --  @exception Card_Deleted_Error     if the record at the index has been deleted.
+
+   function Get_Card_At_Index (U       : UHPPOTE;
+                               C       : Controller;
+                               Index   : Unsigned_32;
+                               Timeout : Duration := 2.5) return Card_Record;
+   --  Retrieves the card record at the request index.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Index      Card record index.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Card record at the requested index.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   --  @exception Card_Not_Found_Error   if there is no record at the index.
+   --  @exception Card_Deleted_Error     if the record at the index has been deleted.
 
    function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").

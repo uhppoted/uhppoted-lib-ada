@@ -491,6 +491,41 @@ package body Uhppoted.Lib is
               PIN        => R.PIN);
    end Get_Card;
 
+   --  Retrieves the card record at the requested index. Restricted to the local LAN.
+   function Get_Card_At_Index (U         : UHPPOTE;
+                               C         : Unsigned_32;
+                               Index     : Unsigned_32;
+                               Timeout   : Duration := 2.5) return Card_Record is
+   begin
+      return Get_Card_At_Index (U, To_Controller (C), Index, Timeout);
+   end Get_Card_At_Index;
+
+   --  Retrieves the card record at the requested index.
+   function Get_Card_At_Index (U         : UHPPOTE;
+                               C         : Controller;
+                               Index     : Unsigned_32;
+                               Timeout   : Duration := 2.5) return Card_Record is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Card_At_Index (C.ID, Index);
+      Reply   : Packet;
+      R       : Get_Card_At_Index_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Card_At_Index (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Card       => R.Card,
+              Start_Date => R.Start_Date,
+              End_Date   => R.End_Date,
+              Door_1     => R.Door_1,
+              Door_2     => R.Door_2,
+              Door_3     => R.Door_3,
+              Door_4     => R.Door_4,
+              PIN        => R.PIN);
+   end Get_Card_At_Index;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

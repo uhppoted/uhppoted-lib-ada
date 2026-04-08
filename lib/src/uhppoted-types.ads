@@ -9,6 +9,12 @@ package Uhppoted.Types is
    --  Custom exception for invalid destination address errors.
    Invalid_Address_Error : exception;
 
+   --  Custom exception for card not found errors.
+   Card_Not_Found_Error : exception;
+
+   --  Custom exception for card deleted errors.
+   Card_Deleted_Error : exception;
+
    --  Custom exception for invalid response errors.
    Invalid_Response_Error : exception;
 

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"slices"
 	"text/template"
 	"time"
 
@@ -72,6 +73,7 @@ func IntegrationTests() {
 	funcs["value"] = value
 	funcs["get"] = get
 	funcs["gets"] = gets
+	funcs["skip"] = skip
 
 	if templates, err := templates.Funcs(funcs).ParseFS(templateFS, "templates/*"); err != nil {
 		log.Fatal(err)
@@ -376,4 +378,14 @@ func gets(values []lib.Value, key string) string {
 	}
 
 	panic(fmt.Sprintf("unknown field (%v)", key))
+}
+
+func skip(test string) bool {
+	tests := []string{
+		"Get_Card_Not_Found",
+		"Get_Card_At_Index_Not_Found",
+		"Get_Card_At_Index_Deleted",
+	}
+
+	return slices.Contains(tests, test)
 }

@@ -481,6 +481,10 @@ package body Uhppoted.Lib is
          raise Invalid_Response_Error;
       end if;
 
+      if R.Card = 0 then
+         raise Card_Not_Found_Error;
+      end if;
+
       return (Card       => R.Card,
               Start_Date => R.Start_Date,
               End_Date   => R.End_Date,
@@ -514,6 +518,14 @@ package body Uhppoted.Lib is
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
+      end if;
+
+      if R.Card = 0 then
+         raise Card_Not_Found_Error;
+      end if;
+
+      if R.Card = 16#ffffffff# then
+         raise Card_Deleted_Error;
       end if;
 
       return (Card       => R.Card,

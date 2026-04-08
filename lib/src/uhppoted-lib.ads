@@ -39,6 +39,8 @@ package Uhppoted.Lib is
    Controlled      : Control_Mode renames Uhppoted.Types.Controlled;
 
    Invalid_Address_Error  : exception renames Uhppoted.Types.Invalid_Address_Error;
+   Card_Not_Found_Error   : exception renames Uhppoted.Types.Card_Not_Found_Error;
+   Card_Deleted_Error     : exception renames Uhppoted.Types.Card_Deleted_Error;
    Invalid_Response_Error : exception renames Uhppoted.Types.Invalid_Response_Error;
    Timeout_Error          : exception renames Uhppoted.Types.Timeout_Error;
 

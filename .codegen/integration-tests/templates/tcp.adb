@@ -65,7 +65,64 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Create_Socket (Socket);
       Uhppoted.Lib.Integration_Tests.Stub.ListenTCP (Socket => Socket, Port => Port);
    end Listen;
-{{ range $ix,$test := .Tests }}
+{{ range $ix,$test := .Tests }}{{if not (skip .Name)}}{{- template "tcptest" $test }}{{end}}{{end}}
+   --  custom tests
+   procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      procedure Exec is
+         Unused : constant Card_Record := Get_Card (U, C, 10058401, 0.5);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card not found' error");
+   end Test_Get_Card_Not_Found;
+
+   procedure Test_Get_Card_At_Index_Not_Found (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      procedure Exec is
+         Unused : constant Card_Record := Get_Card_At_Index (U, C, 136, 0.5);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card not found' error");
+   end Test_Get_Card_At_Index_Not_Found;
+
+   procedure Test_Get_Card_At_Index_Deleted (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      procedure Exec is
+         Unused : constant Card_Record := Get_Card_At_Index (U, C, 137, 0.5);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card deleted' error");
+   end Test_Get_Card_At_Index_Deleted;
+
+end Uhppoted.Lib.Integration_Tests.TCP;
+{{ define "tcptest" }}
    procedure Test_{{ printf "%v" .Name }} (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
@@ -81,5 +138,4 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.{{ .Name }}, "invalid result" & V'Image);
    end Test_{{ printf "%v" .Name}};
-{{end}}
-end Uhppoted.Lib.Integration_Tests.TCP;
+{{ end }}

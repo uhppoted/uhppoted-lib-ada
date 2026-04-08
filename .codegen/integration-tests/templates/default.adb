@@ -65,7 +65,46 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Create_Socket (Socket, Family_Inet, Socket_Datagram);
       Uhppoted.Lib.Integration_Tests.Stub.ListenUDP (Socket => Socket, Port => Port);
    end Listen;
-{{ range $ix,$test := .Tests }}
+{{ range $ix,$test := .Tests }}{{if not (skip .Name)}}{{- template "unittest" $test }}{{end}}{{end}}
+   --  custom test cases
+   procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      procedure Exec is
+         Unused : constant Card_Record := Get_Card (U, 405419896, 10058401, 0.5);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card not found' error");
+   end Test_Get_Card_Not_Found;
+
+   procedure Test_Get_Card_At_Index_Not_Found (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      procedure Exec is
+         Unused : constant Card_Record := Get_Card_At_Index (U, 405419896, 136, 0.5);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card not found' error");
+   end Test_Get_Card_At_Index_Not_Found;
+
+   procedure Test_Get_Card_At_Index_Deleted (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      procedure Exec is
+         Unused : constant Card_Record := Get_Card_At_Index (U, 405419896, 137, 0.5);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card deleted' error");
+   end Test_Get_Card_At_Index_Deleted;
+
+end Uhppoted.Lib.Integration_Tests.Default;
+{{ define "unittest" }}
    procedure Test_{{ printf "%v" .Name }} (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 {{ range $var := .Vars }}
@@ -75,5 +114,4 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    begin
       Assert (V = Expected.{{ .Name }}, "invalid result" & V'Image);
    end Test_{{ printf "%v" .Name}};
-{{end}}
-end Uhppoted.Lib.Integration_Tests.Default;
+{{ end }}

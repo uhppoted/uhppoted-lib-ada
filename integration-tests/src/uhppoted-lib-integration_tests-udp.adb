@@ -280,20 +280,6 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       Assert (V = Expected.Get_Card, "invalid result" & V'Image);
    end Test_Get_Card;
 
-   procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is
-      pragma Unreferenced (T);
-
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
-
-      V : constant Card_Record := Get_Card (U, C, 10058401, 0.5);
-   begin
-      Assert (V = Expected.Get_Card_Not_Found, "invalid result" & V'Image);
-   end Test_Get_Card_Not_Found;
-
    procedure Test_Get_Card_At_Index (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
@@ -308,6 +294,25 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       Assert (V = Expected.Get_Card_At_Index, "invalid result" & V'Image);
    end Test_Get_Card_At_Index;
 
+   --  custom tests
+   procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.UDP);
+
+      procedure Exec is
+         Unused : constant Card_Record := Get_Card (U, C, 10058401, 0.5);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card not found' error");
+   end Test_Get_Card_Not_Found;
+
    procedure Test_Get_Card_At_Index_Not_Found (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
@@ -317,9 +322,13 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Card_Record := Get_Card_At_Index (U, C, 136, 0.5);
+      procedure Exec is
+         Unused : constant Card_Record := Get_Card_At_Index (U, C, 136, 0.5);
+      begin
+         null;
+      end Exec;
    begin
-      Assert (V = Expected.Get_Card_At_Index_Not_Found, "invalid result" & V'Image);
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card not found' error");
    end Test_Get_Card_At_Index_Not_Found;
 
    procedure Test_Get_Card_At_Index_Deleted (T : in out Test_Case'Class) is
@@ -331,9 +340,13 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Card_Record := Get_Card_At_Index (U, C, 137, 0.5);
+      procedure Exec is
+         Unused : constant Card_Record := Get_Card_At_Index (U, C, 137, 0.5);
+      begin
+         null;
+      end Exec;
    begin
-      Assert (V = Expected.Get_Card_At_Index_Deleted, "invalid result" & V'Image);
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card deleted' error");
    end Test_Get_Card_At_Index_Deleted;
 
 end Uhppoted.Lib.Integration_Tests.UDP;

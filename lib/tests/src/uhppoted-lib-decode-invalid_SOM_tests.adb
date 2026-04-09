@@ -32,6 +32,7 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
       Register_Routine (T, Test_Get_Card_Invalid_SOM'Access,        "test decode Get_Card with invalid SOM");
       Register_Routine (T, Test_Get_Card_Not_Found_Invalid_SOM'Access, "test decode Get_Card_Not_Found with invalid SOM");
       Register_Routine (T, Test_Get_Card_At_Index_Invalid_SOM'Access, "test decode Get_Card_At_Index with invalid SOM");
+      Register_Routine (T, Test_Put_Card_Invalid_SOM'Access,        "test decode Put_Card with invalid SOM");
    end Register_Tests;
 
    procedure Test_Get_Controller_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -356,5 +357,24 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
    begin
       Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
    end Test_Get_Card_At_Index_Invalid_SOM;
+
+   procedure Test_Put_Card_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#13#, 16#50#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      procedure Exec is
+         Unused : constant Put_Card_Response := Uhppoted.Lib.Decode.Put_Card (Reply);
+      begin
+         null;
+      end Exec;
+   begin
+      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+   end Test_Put_Card_Invalid_SOM;
 
 end Uhppoted.Lib.Decode.Invalid_SOM_Tests;

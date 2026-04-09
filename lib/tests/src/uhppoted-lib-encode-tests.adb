@@ -30,6 +30,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Get_Cards'Access,        "test encode Get_Cards request");
       Register_Routine (T, Test_Encode_Get_Card'Access,         "test encode Get_Card request");
       Register_Routine (T, Test_Encode_Get_Card_At_Index'Access, "test encode Get_Card_At_Index request");
+      Register_Routine (T, Test_Encode_Put_Card'Access,         "test encode Put_Card request");
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -345,5 +346,29 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded get-card-at-index request: got" & Request'Image);
    end Test_Encode_Get_Card_At_Index;
+
+   procedure Test_Encode_Put_Card (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#50#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#a0#, 16#7a#, 16#99#, 16#00#, 16#20#, 16#25#, 16#01#, 16#01#,
+         16#20#, 16#25#, 16#12#, 16#31#, 16#01#, 16#00#, 16#11#, 16#01#,  16#3f#, 16#42#, 16#0f#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Put_Card (
+         405419896,
+         10058400,
+         (Year => 2025, Month => 1, Day => 1),
+         (Year => 2025, Month => 12, Day => 31),
+         1,
+         0,
+         17,
+         1,
+         999999);
+   begin
+      Assert (Request = Expected, "incorrectly encoded put-card request: got" & Request'Image);
+   end Test_Encode_Put_Card;
 
 end Uhppoted.Lib.Encode.Tests;

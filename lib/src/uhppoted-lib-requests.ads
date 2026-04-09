@@ -4,6 +4,7 @@ with Uhppoted.Lib.Codec;
 
 package Uhppoted.Lib.Requests is
 
+   type BCD4 is array (1 .. 4) of Unsigned_8;
    type BCD7 is array (1 .. 7) of Unsigned_8;
 
    --  Message definition for a get-controller request.
@@ -342,5 +343,41 @@ package Uhppoted.Lib.Requests is
    for Get_Card_At_Index_Request'Bit_Order use System.Low_Order_First;
    for Get_Card_At_Index_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a put-card request.
+   type Put_Card_Request is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Put_Card;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Card       : Unsigned_32;
+      Start_Date : BCD4;
+      End_Date   : BCD4;
+      Door_1     : Unsigned_8;
+      Door_2     : Unsigned_8;
+      Door_3     : Unsigned_8;
+      Door_4     : Unsigned_8;
+      PIN        : Unsigned_24;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 37) := [others => 0];
+   end record;
+
+   for Put_Card_Request use record
+      SOM        at  0 range 0 ..   7;
+      OpCode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Card       at  8 range 0 ..  31;
+      Start_Date at 12 range 0 ..  31;
+      End_Date   at 16 range 0 ..  31;
+      Door_1     at 20 range 0 ..   7;
+      Door_2     at 21 range 0 ..   7;
+      Door_3     at 22 range 0 ..   7;
+      Door_4     at 23 range 0 ..   7;
+      PIN        at 24 range 0 ..  23;
+      Padding    at 27 range 0 .. 295;
+   end record;
+
+   for Put_Card_Request'Size use 64 * 8;
+   for Put_Card_Request'Bit_Order use System.Low_Order_First;
+   for Put_Card_Request'Scalar_Storage_Order use System.Low_Order_First;
 
 end Uhppoted.Lib.Requests;

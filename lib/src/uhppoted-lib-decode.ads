@@ -69,6 +69,10 @@ package Uhppoted.Lib.Decode is
       return Uhppoted.Lib.Responses.Get_Card_At_Index_Response;
    --  Decodes a 64 byte get-card reply as a Get_Card_At_Index_Response record.
 
+   function Put_Card (Reply : Uhppoted.Lib.Types.Packet)
+      return Uhppoted.Lib.Responses.Put_Card_Response;
+   --  Decodes a 64 byte put-card reply as a Put_Card_Response record.
+
 private
    function BCD_To_String (Bytes : Uhppoted.Lib.Types.BCD) return String;
    --  Translates a BCD coded string in a byte array to a string.

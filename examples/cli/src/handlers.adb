@@ -255,7 +255,7 @@ package body Handlers is
 
    --  Executes the get-card command.
    procedure Get_Card (Args : ArgParse.Args) is
-      R : constant Card_Record := Get_Card (U, Args.Controller, Args.Card, Timeout);
+      R : constant Card_Record := Get_Card (U, Args.Controller, Args.Card.Card, Timeout);
    begin
       Put_Line ("--- get-card");
       Put_Line (" controller:" & Args.Controller.ID'Image);
@@ -287,5 +287,16 @@ package body Handlers is
       Put_Line ("        PIN:" & R.PIN'Image);
       Put_Line ("");
    end Get_Card_At_Index;
+
+   --  Executes the put-card command.
+   procedure Put_Card (Args : ArgParse.Args) is
+      R : constant Boolean := Put_Card (U, Args.Controller, Args.Card, Timeout);
+   begin
+      Put_Line ("--- put-card");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("       card:" & Args.Card.Card'Image);
+      Put_Line ("         ok: " & R'Image);
+      Put_Line ("");
+   end Put_Card;
 
 end Handlers;

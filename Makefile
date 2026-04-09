@@ -9,8 +9,12 @@ MODE      ?= controlled
 DELAY     ?= 5
 PASSCODES ?= 7531,12345,54321
 
-CARD  ?= 10058400
-INDEX ?= 3
+CARD       ?= 10058400
+INDEX      ?= 3
+START_DATE ?= 2026-01-01
+END_DATE   ?= 2026-12-31
+DOORS      ?= 1,3,4
+PIN        ?= 7531
 
 clean:
 	cd lib && make clean
@@ -86,3 +90,7 @@ get-card: build
 
 get-card-at-index: build
 	cd examples/cli && make get-card-at-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) INDEX=$(INDEX)
+
+put-card: build
+	cd examples/cli && make put-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD=$(CARD) START=$(START_DATE) END=$(END_DATE) ACCESS=$(DOORS) PIN=$(PIN)
+

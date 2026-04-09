@@ -117,7 +117,7 @@ package Uhppoted.Types is
       Door_2     : Unsigned_8;
       Door_3     : Unsigned_8;
       Door_4     : Unsigned_8;
-      PIN        : Unsigned_32;
+      PIN        : Unsigned_24;
    end record;
 
    function To_Control_Mode (V : Unsigned_8) return Control_Mode;

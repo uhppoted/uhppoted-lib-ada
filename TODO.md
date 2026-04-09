@@ -28,15 +28,13 @@
 - [x] open-door
 - [x] get-cards
 - [x] get-card
-    - [x] card not found 
-
 - [x] get-card-by-index
+- [ ] put-card
     - [x] API
-    - [x] CLI
+    - [ ] CLI
+       - [ ] --doors
     - [x] README
-    - [x] integration tests
-    - [x] card not found 
-    - [x] card deleted
+    - [ ] integration tests
 
 - [x] check SOM in decode
 - [x] check opcode in decode

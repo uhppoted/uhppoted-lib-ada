@@ -47,6 +47,10 @@ package body ArgParse is
          return Parse_Get_Card_At_Index;
       end if;
 
+      if Cmd = "put-card" then
+         return Parse_Put_Card;
+      end if;
+
       --  default to general command
       Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
       Getopt (Config, Concatenate => True);
@@ -55,7 +59,7 @@ package body ArgParse is
       return (T          => ArgParse.General_Args,
               Controller => C,
               Door       => 0,
-              Card       => 0);
+              Card       => (others => <>));
    end Parse;
 
    procedure Add_Controller_Switches (Config               : in out Command_Line_Configuration;
@@ -163,7 +167,7 @@ package body ArgParse is
          return (T          => ArgParse.Set_IPv4_Args,
                  Controller => C,
                  Door       => 0,
-                 Card       => 0,
+                 Card       => (others => <>),
                  Address    => Inet_Addr (A),
                  Netmask    => Inet_Addr (M),
                  Gateway    => Inet_Addr (G));
@@ -226,7 +230,7 @@ package body ArgParse is
       return (T          => ArgParse.Set_Listener_Args,
               Controller => C,
               Door       => 0,
-              Card       => 0,
+              Card       => (others => <>),
               Listener   => AddrPort,
               Interval   => Unsigned_8 (Listener_Interval));
 
@@ -256,7 +260,7 @@ package body ArgParse is
       return (T          => ArgParse.Get_Door_Args,
               Controller => C,
               Door       => Unsigned_8 (Door),
-              Card       => 0);
+              Card       => (others => <>));
 
    end Parse_Get_Door;
 
@@ -313,7 +317,7 @@ package body ArgParse is
               Door       => Unsigned_8 (Door),
               Mode       => M,
               OpenDelay  => Unsigned_8 (OpenDelay),
-              Card       => 0);
+              Card       => (others => <>));
 
    end Parse_Set_Door;
 
@@ -369,7 +373,7 @@ package body ArgParse is
               Controller => C,
               Door       => Unsigned_8 (Door),
               Passcodes  => Codes,
-              Card       => 0);
+              Card       => (others => <>));
 
    end Parse_Set_Door_Passcodes;
 
@@ -397,7 +401,7 @@ package body ArgParse is
       return (T          => ArgParse.Open_Door_Args,
               Controller => C,
               Door       => Unsigned_8 (Door),
-              Card       => 0);
+              Card       => (others => <>));
 
    end Parse_Open_Door;
 
@@ -408,7 +412,7 @@ package body ArgParse is
       Controller_Transport : aliased String_Access := null;
       Card                 : aliased Integer       := 0;
 
-      C : Controller;
+      C  : Controller;
    begin
       Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
 
@@ -425,7 +429,7 @@ package body ArgParse is
       return (T          => ArgParse.Get_Card_Args,
               Controller => C,
               Door       => 0,
-              Card       => Unsigned_32 (Card));
+              Card       => (Card => Unsigned_32 (Card), others => <>));
 
    end Parse_Get_Card;
 
@@ -453,9 +457,82 @@ package body ArgParse is
       return (T          => ArgParse.Get_Card_At_Index_Args,
               Controller => C,
               Door       => 0,
-              Card       => 0,
+              Card       => (others => <>),
               Card_Index => Unsigned_32 (Index));
 
    end Parse_Get_Card_At_Index;
+
+   function Parse_Put_Card return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+
+      Card       : aliased Integer       := 0;
+      Start_Date : aliased String_Access := null;
+      End_Date   : aliased String_Access := null;
+      Doors      : aliased String_Access := null;
+      PIN        : aliased Integer       := 0;
+
+      C : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Card'Access,
+                     Long_Switch => "--card:",
+                     Help        => "card number",
+                     Argument    => "CARD");
+
+      Define_Switch (Config,
+                     Output      => Start_Date'Access,
+                     Long_Switch => "--start:",
+                     Help        => "start date",
+                     Argument    => "YYYY-MM-DD");
+
+      Define_Switch (Config,
+                     Output      => End_Date'Access,
+                     Long_Switch => "--end:",
+                     Help        => "end date",
+                     Argument    => "YYYY-MM-DD");
+
+      Define_Switch (Config,
+                     Output      => Doors'Access,
+                     Long_Switch => "--doors:",
+                     Help        => "e.g. 1,3,4:19",
+                     Argument    => "DOORS");
+
+      Define_Switch (Config,
+                     Output      => PIN'Access,
+                     Long_Switch => "--PIN:",
+                     Help        => "(optional) PIN",
+                     Argument    => "PIN [0..999999]");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return put-card command specific args
+      declare
+         S : String renames Start_Date.all;
+         E : String renames End_Date.all;
+      begin
+         return (T          => ArgParse.Put_Card_Args,
+                 Controller => C,
+                 Door       => 0,
+                 Card       => (Card       => Unsigned_32 (Card),
+                                Start_Date => (Year  => Unsigned_16'Value (S (1 .. 4)),
+                                               Month => Unsigned_8'Value  (S (6 .. 7)),
+                                               Day   => Unsigned_8'Value  (S (9 .. 10))),
+                                End_Date   => (Year  => Unsigned_16'Value (E (1 .. 4)),
+                                               Month => Unsigned_8'Value  (E (6 .. 7)),
+                                               Day   => Unsigned_8'Value  (E (9 .. 10))),
+                                Door_1     => 1,
+                                Door_2     => 0,
+                                Door_3     => 1,
+                                Door_4     => 19,
+                                PIN        => Unsigned_24 (PIN)));
+      end;
+
+   end Parse_Put_Card;
 
 end ArgParse;

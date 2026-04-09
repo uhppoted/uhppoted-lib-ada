@@ -331,6 +331,22 @@ package body Uhppoted.Lib.Decode is
               PIN        => R.PIN);
    end Get_Card_At_Index;
 
+   --  Decodes a 64 byte put-card reply as a Put_Card_Response record.
+   function Put_Card (Reply : Packet) return Responses.Put_Card_Response is
+      R : Replies.Put_Card_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Put_Card then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Put_Card;
+
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
    function Unpack_Boolean (B : Unsigned_8) return Boolean is
    begin

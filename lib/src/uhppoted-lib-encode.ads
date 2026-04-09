@@ -69,4 +69,15 @@ package Uhppoted.Lib.Encode is
    --  Encodes a get-card-by-index request as a 64 byte array.
    function Get_Card_At_Index (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a put-card request as a 64 byte array.
+   function Put_Card (Controller : Unsigned_32;
+                      Card       : Unsigned_32;
+                      Start_Date : DateOnly;
+                      End_Date   : DateOnly;
+                      Door_1     : Unsigned_8;
+                      Door_2     : Unsigned_8;
+                      Door_3     : Unsigned_8;
+                      Door_4     : Unsigned_8;
+                      PIN        : Unsigned_24) return Uhppoted.Lib.Types.Packet;
+
 end Uhppoted.Lib.Encode;

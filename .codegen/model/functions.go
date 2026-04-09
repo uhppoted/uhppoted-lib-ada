@@ -135,8 +135,8 @@ var GetStatusRecord = types.Function{
 			Description: "uint32|Controller controller serial number or {id, address, protocol} Controller struct",
 		},
 	},
-	Request:  GetStatusRequest.Message,
-	Response: GetStatusResponse.Message,
+	Request:  lib.GetStatusRequest.Message,
+	Response: lib.GetStatusResponse.Message,
 
 	Tests: []types.FuncTest{
 		{

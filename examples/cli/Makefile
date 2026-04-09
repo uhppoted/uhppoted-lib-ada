@@ -16,8 +16,12 @@ MODE      ?= controlled
 DELAY     ?= 5
 PASSCODES ?= 7531,12345,54321
 
-CARD      ?= 10058400
-INDEX     ?= 3
+CARD       ?= 10058400
+INDEX      ?= 3
+START_DATE ?= 2026-01-01
+END_DATE   ?= 2026-12-31
+DOORS      ?= 1,3,4
+PIN        ?= 7531
 
 clean:
 	alr clean
@@ -69,3 +73,6 @@ get-card: build
 
 get-card-at-index: build
 	$(CLI) get-card-at-index --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --index $(INDEX)
+
+put-card: build
+	$(CLI) put-card --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --card $(CARD) --start $(START_DATE) --end $(END_DATE) --doors $(DOORS) --PIN $(PIN)

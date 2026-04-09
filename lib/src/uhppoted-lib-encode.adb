@@ -5,8 +5,9 @@ package body Uhppoted.Lib.Encode is
    use Uhppoted.Lib.Types;
    use Uhppoted.Lib.Requests;
 
-   function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4;
-   function Pack_DateTime (DT : DateTime) return BCD7;
+   function Pack_IPv4     (Addr : Inet_Addr_Type) return IPv4;
+   function Pack_DateTime (DT   : DateTime)       return BCD7;
+   function Pack_Date     (D    : DateOnly)       return BCD4;
 
    --  Encodes a get-controller request as a 64 byte array.
    function Get_Controller (Controller : Unsigned_32) return Packet is
@@ -225,6 +226,32 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Get_Card_At_Index;
 
+   --  Encodes a put-card request as a 64 byte array.
+   function Put_Card (Controller : Unsigned_32;
+                      Card       : Unsigned_32;
+                      Start_Date : DateOnly;
+                      End_Date   : DateOnly;
+                      Door_1     : Unsigned_8;
+                      Door_2     : Unsigned_8;
+                      Door_3     : Unsigned_8;
+                      Door_4     : Unsigned_8;
+                      PIN        : Unsigned_24) return Uhppoted.Lib.Types.Packet is
+      Request : Put_Card_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Card       := Card;
+      Request.Start_Date := Pack_Date (Start_Date);
+      Request.End_Date   := Pack_Date (End_Date);
+      Request.Door_1     := Door_1;
+      Request.Door_2     := Door_2;
+      Request.Door_3     := Door_3;
+      Request.Door_4     := Door_4;
+      Request.PIN        := PIN;
+
+      return Buffer;
+   end Put_Card;
+
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is
       V : constant IPv4 := [
@@ -259,5 +286,22 @@ package body Uhppoted.Lib.Encode is
 
       return V;
    end Pack_DateTime;
+
+   --  Packs a date value into 4 bytes of BCD.
+   function Pack_Date (D : DateOnly) return BCD4 is
+      V : BCD4 := [others => 0];
+
+      CC : constant Unsigned_8 := Unsigned_8 (D.Year / 100);
+      YY : constant Unsigned_8 := Unsigned_8 (D.Year mod 100);
+      MM : constant Unsigned_8 := D.Month;
+      DD : constant Unsigned_8 := D.Day;
+   begin
+      V (1) := Shift_Left (CC / 10, 4) + (CC mod 10);
+      V (2) := Shift_Left (YY / 10, 4) + (YY mod 10);
+      V (3) := Shift_Left (MM / 10, 4) + (MM mod 10);
+      V (4) := Shift_Left (DD / 10, 4) + (DD mod 10);
+
+      return V;
+   end Pack_Date;
 
 end Uhppoted.Lib.Encode;

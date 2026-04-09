@@ -134,7 +134,7 @@ package Uhppoted.Lib.Responses is
       Door_2     : Unsigned_8;
       Door_3     : Unsigned_8;
       Door_4     : Unsigned_8;
-      PIN        : Unsigned_32;
+      PIN        : Unsigned_24;
    end record;
 
    --  Message definition for a get-card-at-index response.
@@ -147,7 +147,13 @@ package Uhppoted.Lib.Responses is
       Door_2     : Unsigned_8;
       Door_3     : Unsigned_8;
       Door_4     : Unsigned_8;
-      PIN        : Unsigned_32;
+      PIN        : Unsigned_24;
+   end record;
+
+   --  Message definition for a put-card response.
+   type Put_Card_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
    end record;
 
 end Uhppoted.Lib.Responses;

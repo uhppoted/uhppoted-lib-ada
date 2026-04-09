@@ -14,6 +14,7 @@
 - [`Get_Cards`](#get_cards)
 - [`Get_Card`](#get_card)
 - [`Get_Card_At_Index`](#get_card_at_index)
+- [`Put_Card`](#put_card)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -610,6 +611,7 @@ Returns a `Card_Record`:
 Raises:
 - `Timeout_Error` if the controller does not respond
 - `Invalid_Response_Error` if the returned response is incorrect
+- `Card_Not_Found_Error` if there is no record at the index
 
 
 ### `Get_Card_At_Index`
@@ -653,3 +655,45 @@ Raises:
 - `Invalid_Response_Error` if the returned response is incorrect
 - `Card_Not_Found_Error` if there is no record at the index
 - `Card_Deleted_Error` if the record at the index has been deleted
+
+
+### `Put_Card`
+
+**Put_Card** adds or updates a card record stored on a controller.
+
+```
+function Put_Card (U         : UHPPOTE;
+                   C         : Unsigned_32;
+                   Card      : Card_Record;
+                   Timeout   : Duration) return Boolean;
+
+function Put_Card (U         : Uhppoted.Lib.UHPPOTE;
+                   C         : Controller;
+                   Card      : Card_Record
+                   Timeout   : Duration) return Boolean;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Card       Card_Record     Card information:
+
+   typeCard_Record is record
+      Card       : Unsigned_32;
+      Start_Date : DateOnly;
+      End_Date   : DateOnly;
+      Door_1     : Unsigned_8;
+      Door_2     : Unsigned_8;
+      Door_3     : Unsigned_8;
+      Door_4     : Unsigned_8;
+      PIN        : Unsigned_32;
+   end record;
+```
+
+Returns `True` if the record was added or updated.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+

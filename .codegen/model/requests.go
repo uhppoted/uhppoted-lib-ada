@@ -6,23 +6,23 @@ import (
 )
 
 var Requests = []types.Request{
-	GetControllerRequest,
-	SetIPv4Request,
-	GetTimeRequest,
-	SetTimeRequest,
-	GetListenerRequest,
-	SetListenerRequest,
-	GetStatusRequest,
-	GetListenerAddrPortRequest,
-	SetListenerAddrPortRequest,
-	GetDoorRequest,
-	SetDoorRequest,
-	SetDoorPasscodesRequest,
-	OpenDoorRequest,
-	GetCardsRequest,
-	GetCardRequest,
-	GetCardAtIndexRequest,
-	// PutCardRequest,
+	lib.GetControllerRequest,
+	lib.SetIPv4Request,
+	lib.GetTimeRequest,
+	lib.SetTimeRequest,
+	lib.GetListenerRequest,
+	lib.SetListenerRequest,
+	lib.GetStatusRequest,
+	lib.GetListenerAddrPortRequest,
+	lib.SetListenerAddrPortRequest,
+	lib.GetDoorRequest,
+	lib.SetDoorRequest,
+	lib.SetDoorPasscodesRequest,
+	lib.OpenDoorRequest,
+	lib.GetCardsRequest,
+	lib.GetCardRequest,
+	lib.GetCardAtIndexRequest,
+	lib.PutCardRequest,
 	// DeleteCardRequest,
 	// DeleteAllCardsRequest,
 	// GetEventRequest,
@@ -45,23 +45,23 @@ var Requests = []types.Request{
 
 var FindControllersRequest = types.Request{}
 
-var GetControllerRequest = lib.GetControllerRequest
-var SetIPv4Request = lib.SetIPv4Request
-var GetTimeRequest = lib.GetTimeRequest
-var SetTimeRequest = lib.SetTimeRequest
-var GetListenerRequest = lib.GetListenerRequest
-var SetListenerRequest = lib.SetListenerRequest
-var GetListenerAddrPortRequest = lib.GetListenerAddrPortRequest
-var SetListenerAddrPortRequest = lib.SetListenerAddrPortRequest
-var GetDoorRequest = lib.GetDoorRequest
-var SetDoorRequest = lib.SetDoorRequest
-var SetDoorPasscodesRequest = lib.SetDoorPasscodesRequest
-var OpenDoorRequest = lib.OpenDoorRequest
-var GetStatusRequest = lib.GetStatusRequest
-var GetCardsRequest = lib.GetCardsRequest
-var GetCardRequest = lib.GetCardRequest
-var GetCardAtIndexRequest = lib.GetCardAtIndexRequest
-var PutCardRequest = lib.PutCardRequest
+// var GetControllerRequest = lib.GetControllerRequest
+// var SetIPv4Request = lib.SetIPv4Request
+// var GetTimeRequest = lib.GetTimeRequest
+// var SetTimeRequest = lib.SetTimeRequest
+// var GetListenerRequest = lib.GetListenerRequest
+// var SetListenerRequest = lib.SetListenerRequest
+// var GetListenerAddrPortRequest = lib.GetListenerAddrPortRequest
+// var SetListenerAddrPortRequest = lib.SetListenerAddrPortRequest
+// var GetDoorRequest = lib.GetDoorRequest
+// var SetDoorRequest = lib.SetDoorRequest
+// var SetDoorPasscodesRequest = lib.SetDoorPasscodesRequest
+// var OpenDoorRequest = lib.OpenDoorRequest
+// var GetStatusRequest = lib.GetStatusRequest
+// var GetCardsRequest = lib.GetCardsRequest
+// var GetCardRequest = lib.GetCardRequest
+// var GetCardAtIndexRequest = lib.GetCardAtIndexRequest
+// var PutCardRequest = lib.PutCardRequest
 var DeleteCardRequest = lib.DeleteCardRequest
 var DeleteAllCardsRequest = lib.DeleteAllCardsRequest
 var GetEventRequest = lib.GetEventRequest

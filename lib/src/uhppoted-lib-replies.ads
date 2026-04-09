@@ -422,8 +422,8 @@ package Uhppoted.Lib.Replies is
       Door_2     : Unsigned_8;
       Door_3     : Unsigned_8;
       Door_4     : Unsigned_8;
-      PIN        : Unsigned_32;
-      Padding    : Ada.Streams.Stream_Element_Array (1 .. 36);
+      PIN        : Unsigned_24;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 37);
    end record;
 
    for Get_Card_Reply use record
@@ -438,8 +438,8 @@ package Uhppoted.Lib.Replies is
       Door_2     at 21 range 0 ..   7;
       Door_3     at 22 range 0 ..   7;
       Door_4     at 23 range 0 ..   7;
-      PIN        at 24 range 0 ..  31;
-      Padding    at 28 range 0 .. 287;
+      PIN        at 24 range 0 ..  23;
+      Padding    at 27 range 0 .. 295;
    end record;
 
    for Get_Card_Reply'Size use 64 * 8;
@@ -459,8 +459,8 @@ package Uhppoted.Lib.Replies is
       Door_2     : Unsigned_8;
       Door_3     : Unsigned_8;
       Door_4     : Unsigned_8;
-      PIN        : Unsigned_32;
-      Padding    : Ada.Streams.Stream_Element_Array (1 .. 36);
+      PIN        : Unsigned_24;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 37);
    end record;
 
    for Get_Card_At_Index_Reply use record
@@ -475,12 +475,35 @@ package Uhppoted.Lib.Replies is
       Door_2     at 21 range 0 ..   7;
       Door_3     at 22 range 0 ..   7;
       Door_4     at 23 range 0 ..   7;
-      PIN        at 24 range 0 ..  31;
-      Padding    at 28 range 0 .. 287;
+      PIN        at 24 range 0 ..  23;
+      Padding    at 27 range 0 .. 295;
    end record;
 
    for Get_Card_At_Index_Reply'Size use 64 * 8;
    for Get_Card_At_Index_Reply'Bit_Order use System.Low_Order_First;
    for Get_Card_At_Index_Reply'Scalar_Storage_Order use System.Low_Order_First;
+
+   --  Message definition for a put-card reply.
+   type Put_Card_Reply is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      Opcode     : Codec.Op_Code := Codec.Put_Card;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Ok         : Unsigned_8;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
+   end record;
+
+   for Put_Card_Reply use record
+      SOM        at 0 range 0 ..   7;
+      Opcode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Ok         at 8 range 0 ..   7;
+      Padding    at 9 range 0 .. 439;
+   end record;
+
+   for Put_Card_Reply'Size use 64 * 8;
+   for Put_Card_Reply'Bit_Order use System.Low_Order_First;
+   for Put_Card_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
 end Uhppoted.Lib.Replies;

@@ -538,6 +538,42 @@ package body Uhppoted.Lib is
               PIN        => R.PIN);
    end Get_Card_At_Index;
 
+   --  Adds/updates a card record stored on the controller. Restricted to the local LAN.
+   function Put_Card (U         : UHPPOTE;
+                      C         : Unsigned_32;
+                      Card      : Card_Record;
+                      Timeout   : Duration := 2.5) return Boolean is
+   begin
+      return Put_Card (U, To_Controller (C), Card, Timeout);
+   end Put_Card;
+
+   --  Adds/updates a card record stored on the controller.
+   function Put_Card (U         : UHPPOTE;
+                      C         : Controller;
+                      Card      : Card_Record;
+                      Timeout   : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Put_Card (C.ID,
+                                                                 Card.Card,
+                                                                 Card.Start_Date,
+                                                                 Card.End_Date,
+                                                                 Card.Door_1,
+                                                                 Card.Door_2,
+                                                                 Card.Door_3,
+                                                                 Card.Door_4,
+                                                                 Card.PIN);
+      Reply   : Packet;
+      R       : Put_Card_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Put_Card (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Put_Card;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

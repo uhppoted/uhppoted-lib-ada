@@ -56,7 +56,7 @@ func AdaValue(t string, v any) string {
 		return fmt.Sprintf(`To_Unbounded_String ("%v")`, v)
 
 	case t == "date" || t == "shortdate" || t == "optional date":
-		return date(v)
+		return Date(v)
 
 	case t == "time":
 		return _time(v)
@@ -114,7 +114,7 @@ func mac(v any) string {
 	}
 }
 
-func date(v any) string {
+func Date(v any) string {
 	s := fmt.Sprintf("%v", v)
 	if date, err := time.ParseInLocation("2006-01-02", s, time.Local); err != nil {
 		panic(fmt.Sprintf("invalid date (%v)", v))

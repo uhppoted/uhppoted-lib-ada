@@ -21,7 +21,8 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
      (Get_Card_Not_Found_Request, Get_Card_Not_Found_Reply),
      (Get_Card_At_Index_Request, Get_Card_At_Index_Reply),
      (Get_Card_At_Index_Not_Found_Request, Get_Card_At_Index_Not_Found_Reply),
-     (Get_Card_At_Index_Deleted_Request, Get_Card_At_Index_Deleted_Reply)
+     (Get_Card_At_Index_Deleted_Request, Get_Card_At_Index_Deleted_Reply),
+     (Put_Card_Request,         Put_Card_Reply)
    ];
 
    None : constant Reply_List := [];

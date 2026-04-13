@@ -29,11 +29,11 @@
 - [x] get-cards
 - [x] get-card
 - [x] get-card-by-index
-- [ ] put-card
+- [x] put-card
     - [x] API
     - [x] CLI
     - [x] README
-    - [ ] integration tests
+    - [x] integration tests
 
 - [x] check SOM in decode
 - [x] check opcode in decode

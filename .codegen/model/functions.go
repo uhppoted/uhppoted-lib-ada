@@ -22,7 +22,7 @@ var API = []types.Function{
 	GetCards,
 	GetCard,
 	GetCardAtIndex,
-	// &PutCard,
+	PutCard,
 	// &DeleteCard,
 	// &DeleteAllCards,
 	// &GetEvent,

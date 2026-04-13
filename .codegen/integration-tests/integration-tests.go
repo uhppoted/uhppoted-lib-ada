@@ -57,6 +57,7 @@ var translations = map[string]string{
 	"get cards response":              "Unsigned_32",
 	"get card response":               "Card_Record",
 	"get card at index response":      "Card_Record",
+	"put card response":               "Boolean",
 }
 
 func IntegrationTests() {
@@ -146,26 +147,76 @@ func transmogrify(functions []lib.Function) []test {
 
 func vars(t lib.FuncTest) []any {
 	m := []any{}
-	passcodes := map[uint8]any{}
-
-	for _, v := range t.Args {
-		switch {
-		case t.Name == "set-door-passcodes" && v.Name == "passcode 1":
-			passcodes[1] = v.Value
-
-		case t.Name == "set-door-passcodes" && v.Name == "passcode 2":
-			passcodes[2] = v.Value
-
-		case t.Name == "set-door-passcodes" && v.Name == "passcode 3":
-			passcodes[3] = v.Value
-
-		case t.Name == "set-door-passcodes" && v.Name == "passcode 4":
-			passcodes[4] = v.Value
-		}
-	}
 
 	if t.Name == "set-door-passcodes" {
+		passcodes := map[uint8]any{}
+
+		for _, v := range t.Args {
+			switch {
+			case v.Name == "passcode 1":
+				passcodes[1] = v.Value
+
+			case v.Name == "passcode 2":
+				passcodes[2] = v.Value
+
+			case v.Name == "passcode 3":
+				passcodes[3] = v.Value
+
+			case v.Name == "passcode 4":
+				passcodes[4] = v.Value
+			}
+		}
+
 		m = append(m, fmt.Sprintf("Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := [1 => %v, 2 => %v, 3 => %v, 4 => %v];", passcodes[1], passcodes[2], passcodes[3], passcodes[4]))
+	}
+
+	if t.Name == "put-card" {
+		var card any
+		var startDate any
+		var endDate any
+		var door1 any
+		var door2 any
+		var door3 any
+		var door4 any
+		var PIN any
+
+		for _, v := range t.Args {
+			switch {
+			case v.Name == "card":
+				card = v.Value
+
+			case v.Name == "start date":
+				startDate = codegen.Date(v.Value)
+
+			case v.Name == "end date":
+				endDate = codegen.Date(v.Value)
+
+			case v.Name == "door 1":
+				door1 = v.Value
+
+			case v.Name == "door 2":
+				door2 = v.Value
+
+			case v.Name == "door 3":
+				door3 = v.Value
+
+			case v.Name == "door 4":
+				door4 = v.Value
+
+			case v.Name == "PIN":
+				PIN = v.Value
+			}
+		}
+
+		m = append(m, fmt.Sprintf(`Card : constant Uhppoted.Lib.Card_Record := (
+         Card       => %v,
+         Start_Date => %v,
+         End_Date   => %v,
+         Door_1     => %v,
+         Door_2     => %v,
+         Door_3     => %v,
+         Door_4     => %v,
+         PIN        => %v);`, card, startDate, endDate, door1, door2, door3, door4, PIN))
 	}
 
 	return m
@@ -193,6 +244,15 @@ func args(t lib.FuncTest) []any {
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 3":
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 4":
 
+		case t.Name == "put-card" && v.Name == "card":
+		case t.Name == "put-card" && v.Name == "start date":
+		case t.Name == "put-card" && v.Name == "end date":
+		case t.Name == "put-card" && v.Name == "door 1":
+		case t.Name == "put-card" && v.Name == "door 2":
+		case t.Name == "put-card" && v.Name == "door 3":
+		case t.Name == "put-card" && v.Name == "door 4":
+		case t.Name == "put-card" && v.Name == "PIN":
+
 		default:
 			args = append(args, v.Value)
 		}
@@ -200,6 +260,10 @@ func args(t lib.FuncTest) []any {
 
 	if t.Name == "set-door-passcodes" {
 		args = append(args, "Passcodes")
+	}
+
+	if t.Name == "put-card" {
+		args = append(args, "Card")
 	}
 
 	return args

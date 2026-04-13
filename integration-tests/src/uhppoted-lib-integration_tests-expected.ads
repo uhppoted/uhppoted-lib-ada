@@ -171,4 +171,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4     => 0,
      PIN        => 0);
 
+   Put_Card : constant Boolean := True;
+
 end Uhppoted.Lib.Integration_Tests.Expected;

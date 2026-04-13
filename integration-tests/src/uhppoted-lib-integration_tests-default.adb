@@ -55,6 +55,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Register_Routine (T, Test_Get_Card_At_Index'Access,   "Get_Card_At_Index");
       Register_Routine (T, Test_Get_Card_At_Index_Not_Found'Access, "Get_Card_At_Index_Not_Found");
       Register_Routine (T, Test_Get_Card_At_Index_Deleted'Access, "Get_Card_At_Index_Deleted");
+      Register_Routine (T, Test_Put_Card'Access,            "Put_Card");
    end Register_Tests;
 
    overriding procedure Set_Up_Case (T : in out Integration_Test) is
@@ -212,6 +213,24 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    begin
       Assert (V = Expected.Get_Card_At_Index, "invalid result" & V'Image);
    end Test_Get_Card_At_Index;
+
+   procedure Test_Put_Card (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Card : constant Uhppoted.Lib.Card_Record := (
+         Card       => 10058400,
+         Start_Date => (Year => 2025, Month => 1, Day => 1),
+         End_Date   => (Year => 2025, Month => 12, Day => 31),
+         Door_1     => 1,
+         Door_2     => 0,
+         Door_3     => 17,
+         Door_4     => 1,
+         PIN        => 999999);
+
+      V : constant Boolean := Put_Card (U, 405419896, Card, 0.5);
+   begin
+      Assert (V = Expected.Put_Card, "invalid result" & V'Image);
+   end Test_Put_Card;
 
    --  custom test cases
    procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is

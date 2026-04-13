@@ -4,9 +4,10 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
 
    Messages : constant Message_List := [
 {{- range $ix,$test := .Tests }}
-{{- if $ix -}},{{ end }}
-{{- template "message" $test }}
+{{- template "message" $test }},
 {{- end }}
+     (Invalid_SOM_Request,                 Invalid_SOM_Reply),
+     (Invalid_OpCode_Request,              Invalid_OpCode_Reply)
    ];
 
    None : constant Reply_List := [];
@@ -24,5 +25,5 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
 
 end Uhppoted.Lib.Integration_Tests.Stub.Messages;
 {{- define "message"}}
-     ({{ printf "%v_Request," .Name | rpad 25 }} {{ .Name }}_Reply)
+     ({{ printf "%v_Request," .Name | rpad 36 }} {{ .Name }}_Reply)
 {{- end }}

@@ -55,16 +55,15 @@
     - [ ] listen
 
 
-- [ ] CLI
+- [x] CLI
     - [x] command line args
     - [x] handle exceptions
-    - [ ] pretty print
 
 - [ ] integration tests
     - [x] `None` response timeout closes stub socket
-    - [ ] Invalid response test
-        - [ ] invalid SOM
-        - [ ] invalid op-code
+    - [x] Invalid response test
+        - [x] invalid SOM
+        - [x] invalid op-code
     - [ ] Timeout test
     - [ ] Connection refused test
     - [ ] v6.62

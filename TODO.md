@@ -31,8 +31,7 @@
 - [x] get-card-by-index
 - [ ] put-card
     - [x] API
-    - [ ] CLI
-       - [ ] --doors
+    - [x] CLI
     - [x] README
     - [ ] integration tests
 

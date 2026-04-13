@@ -515,7 +515,34 @@ package body ArgParse is
       declare
          S : String renames Start_Date.all;
          E : String renames End_Date.all;
+         D : String renames Doors.all;
+
+         I : Positive := D'First;
+
+         Door_1 : Unsigned_8 := 0;
+         Door_2 : Unsigned_8 := 0;
+         Door_3 : Unsigned_8 := 0;
+         Door_4 : Unsigned_8 := 0;
       begin
+         --  parse 'doors' arg
+         while I <= D'Last loop
+            declare
+               J     : constant Natural := Ada.Strings.Fixed.Index (D, ",", I);
+               Token : constant String  := (if J = 0 then D (I .. D'Last) else D (I .. J - 1));
+               V     : constant Integer := Integer'Value (Token);
+            begin
+               I := (if J = 0 then D'Last + 1 else J + 1);
+
+               case V is
+                  when 1 => Door_1 := 1;
+                  when 2 => Door_2 := 1;
+                  when 3 => Door_3 := 1;
+                  when 4 => Door_4 := 1;
+                  when others => null;
+               end case;
+            end;
+         end loop;
+
          return (T          => ArgParse.Put_Card_Args,
                  Controller => C,
                  Door       => 0,
@@ -526,10 +553,10 @@ package body ArgParse is
                                 End_Date   => (Year  => Unsigned_16'Value (E (1 .. 4)),
                                                Month => Unsigned_8'Value  (E (6 .. 7)),
                                                Day   => Unsigned_8'Value  (E (9 .. 10))),
-                                Door_1     => 1,
-                                Door_2     => 0,
-                                Door_3     => 1,
-                                Door_4     => 19,
+                                Door_1     => Door_1,
+                                Door_2     => Door_2,
+                                Door_3     => Door_3,
+                                Door_4     => Door_4,
                                 PIN        => Unsigned_24 (PIN)));
       end;
 

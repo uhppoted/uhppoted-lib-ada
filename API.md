@@ -15,6 +15,7 @@
 - [`Get_Card`](#get_card)
 - [`Get_Card_At_Index`](#get_card_at_index)
 - [`Put_Card`](#put_card)
+- [`Delete_Card`](#delete_card)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -580,12 +581,12 @@ Raises:
 function Get_Card (U         : UHPPOTE;
                    C         : Unsigned_32;
                    Card      : Unsigned_32;
-                   Timeout   : Duration) return Unsigned_32;
+                   Timeout   : Duration) return Card_Record;
 
 function Get_Card (U         : Uhppoted.Lib.UHPPOTE;
                    C         : Controller;
                    Card      : Unsigned_32
-                   Timeout   : Duration) return Unsigned_32;
+                   Timeout   : Duration) return Card_Record;
 
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
@@ -697,3 +698,30 @@ Raises:
 - `Invalid_Response_Error` if the returned response is incorrect
 
 
+### `Delete_Card`
+
+**Delete_Card** deletes the card record for a card number.
+
+```
+function Delete_Card (U         : UHPPOTE;
+                      C         : Unsigned_32;
+                      Card      : Unsigned_32;
+                      Timeout   : Duration) return Boolean;
+
+function Delete_Card (U         : Uhppoted.Lib.UHPPOTE;
+                      C         : Controller;
+                      Card      : Unsigned_32
+                      Timeout   : Duration) return Boolean;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Card       Unsigned_32     Card number.
+```
+
+Returns `True` if the record was added or updated.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect

@@ -17,38 +17,24 @@ package body ArgParse is
       --  return command specific args
       if Cmd = "set-IPv4" then
          return Parse_Set_IPv4;
-      end if;
-
-      if Cmd = "set-listener" then
+      elsif Cmd = "set-listener" then
          return Parse_Set_Listener;
-      end if;
-
-      if Cmd = "get-door" then
+      elsif Cmd = "get-door" then
          return Parse_Get_Door;
-      end if;
-
-      if Cmd = "set-door" then
+      elsif Cmd = "set-door" then
          return Parse_Set_Door;
-      end if;
-
-      if Cmd = "set-door-passcodes" then
+      elsif Cmd = "set-door-passcodes" then
          return Parse_Set_Door_Passcodes;
-      end if;
-
-      if Cmd = "open-door" then
+      elsif Cmd = "open-door" then
          return Parse_Open_Door;
-      end if;
-
-      if Cmd = "get-card" then
+      elsif Cmd = "get-card" then
          return Parse_Get_Card;
-      end if;
-
-      if Cmd = "get-card-at-index" then
+      elsif Cmd = "get-card-at-index" then
          return Parse_Get_Card_At_Index;
-      end if;
-
-      if Cmd = "put-card" then
+      elsif Cmd = "put-card" then
          return Parse_Put_Card;
+      elsif Cmd = "delete-card" then
+         return Parse_Delete_Card;
       end if;
 
       --  default to general command
@@ -561,5 +547,33 @@ package body ArgParse is
       end;
 
    end Parse_Put_Card;
+
+   function Parse_Delete_Card return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Card                 : aliased Integer       := 0;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Card'Access,
+                     Long_Switch => "--card:",
+                     Help        => "card number",
+                     Argument    => "CARD");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return delete-card command specific args
+      return (T          => ArgParse.Delete_Card_Args,
+              Controller => C,
+              Door       => 0,
+              Card       => (Card => Unsigned_32 (Card), others => <>));
+
+   end Parse_Delete_Card;
 
 end ArgParse;

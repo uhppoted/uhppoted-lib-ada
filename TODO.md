@@ -30,6 +30,7 @@
 - [x] get-card
 - [x] get-card-by-index
 - [x] put-card
+- [x] delete-card
     - [x] API
     - [x] CLI
     - [x] README

@@ -299,4 +299,15 @@ package body Handlers is
       Put_Line ("");
    end Put_Card;
 
+   --  Executes the delete-card command.
+   procedure Delete_Card (Args : ArgParse.Args) is
+      R : constant Boolean := Delete_Card (U, Args.Controller, Args.Card.Card, Timeout);
+   begin
+      Put_Line ("--- delete-card");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("       card:" & Args.Card.Card'Image);
+      Put_Line ("         ok: " & R'Image);
+      Put_Line ("");
+   end Delete_Card;
+
 end Handlers;

@@ -8,22 +8,22 @@ import (
 
 var API = []types.Function{
 	FindControllers,
-	GetController,
-	SetIPv4,
-	GetTime,
-	SetTime,
-	GetListener,
-	SetListenerAddrPort,
+	lib.GetController,
+	lib.SetIPv4,
+	lib.GetTime,
+	lib.SetTime,
+	lib.GetListener,
+	lib.SetListenerAddrPort,
 	GetStatusRecord,
-	GetDoor,
-	SetDoor,
-	SetDoorPasscodes,
-	OpenDoor,
-	GetCards,
-	GetCard,
-	GetCardAtIndex,
-	PutCard,
-	// &DeleteCard,
+	lib.GetDoor,
+	lib.SetDoor,
+	lib.SetDoorPasscodes,
+	lib.OpenDoor,
+	lib.GetCards,
+	lib.GetCard,
+	lib.GetCardAtIndex,
+	lib.PutCard,
+	lib.DeleteCard,
 	// &DeleteAllCards,
 	// &GetEvent,
 	// &GetEventIndex,
@@ -484,39 +484,3 @@ var GetStatusRecord = types.Function{
 		},
 	},
 }
-
-var GetController = lib.GetController
-var SetIPv4 = lib.SetIPv4
-var GetTime = lib.GetTime
-var SetTime = lib.SetTime
-var GetListener = lib.GetListener
-var SetListener = lib.SetListener
-var GetListenerAddrPort = lib.GetListenerAddrPort
-var SetListenerAddrPort = lib.SetListenerAddrPort
-var GetDoor = lib.GetDoor
-var SetDoor = lib.SetDoor
-var OpenDoor = lib.OpenDoor
-var SetDoorPasscodes = lib.SetDoorPasscodes
-var GetStatus = lib.GetStatus
-var GetCards = lib.GetCards
-var GetCard = lib.GetCard
-var GetCardAtIndex = lib.GetCardAtIndex
-var PutCard = lib.PutCard
-var DeleteCard = lib.DeleteCard
-var DeleteAllCards = lib.DeleteAllCards
-var GetEvent = lib.GetEvent
-var GetEventIndex = lib.GetEventIndex
-var SetEventIndex = lib.SetEventIndex
-var RecordSpecialEvents = lib.RecordSpecialEvents
-var GetTimeProfile = lib.GetTimeProfile
-var SetTimeProfile = lib.SetTimeProfile
-var ClearTimeProfiles = lib.ClearTimeProfiles
-var AddTask = lib.AddTask
-var RefreshTaskList = lib.RefreshTaskList
-var ClearTaskList = lib.ClearTaskList
-var SetPCControl = lib.SetPCControl
-var SetInterlock = lib.SetInterlock
-var ActivateKeypads = lib.ActivateKeypads
-var GetAntiPassback = lib.GetAntiPassback
-var SetAntiPassback = lib.SetAntiPassback
-var RestoreDefaultParameters = lib.RestoreDefaultParameters

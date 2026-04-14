@@ -2,7 +2,6 @@ with AUnit.Assertions;
 with GNAT.Sockets;
 
 with Uhppoted.Lib.Integration_Tests.Stub;
-with Uhppoted.Lib.Integration_Tests.Expected;
 
 package body Uhppoted.Lib.Integration_Tests.Errors is
    use AUnit.Assertions;

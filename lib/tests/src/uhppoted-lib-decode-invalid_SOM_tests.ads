@@ -25,5 +25,6 @@ package Uhppoted.Lib.Decode.Invalid_SOM_Tests is
    procedure Test_Get_Card_Not_Found_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Get_Card_At_Index_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Put_Card_Invalid_SOM       (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Delete_Card_Invalid_SOM    (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Decode.Invalid_SOM_Tests;

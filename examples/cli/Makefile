@@ -76,3 +76,6 @@ get-card-at-index: build
 
 put-card: build
 	$(CLI) put-card --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --card $(CARD) --start $(START_DATE) --end $(END_DATE) --doors $(DOORS) --PIN $(PIN)
+
+delete-card: build
+	$(CLI) delete-card --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --card $(CARD)

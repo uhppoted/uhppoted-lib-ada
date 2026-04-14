@@ -23,6 +23,7 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
      (Get_Card_At_Index_Not_Found_Request, Get_Card_At_Index_Not_Found_Reply),
      (Get_Card_At_Index_Deleted_Request,   Get_Card_At_Index_Deleted_Reply),
      (Put_Card_Request,                    Put_Card_Reply),
+     (Delete_Card_Request,                 Delete_Card_Reply),
      (Invalid_SOM_Request,                 Invalid_SOM_Reply),
      (Invalid_OpCode_Request,              Invalid_OpCode_Reply)
    ];

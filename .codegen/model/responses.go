@@ -24,7 +24,7 @@ var Responses = []types.Response{
 	lib.GetCardResponse,
 	lib.GetCardAtIndexResponse,
 	lib.PutCardResponse,
-	// &DeleteCardResponse,
+	lib.DeleteCardResponse,
 	// &DeleteAllCardsResponse,
 	// &GetEventResponse,
 	// &GetEventIndexResponse,
@@ -50,24 +50,6 @@ var FindControllersResponse = types.Response{
 	},
 }
 
-// var GetControllerResponse = lib.GetControllerResponse
-// var SetIPv4Response = lib.SetIPv4Response
-// var GetTimeResponse = lib.GetTimeResponse
-// var SetTimeResponse = lib.SetTimeResponse
-// var GetListenerResponse = lib.GetListenerResponse
-// var SetListenerResponse = lib.SetListenerResponse
-// var GetListenerAddrPortResponse = lib.GetListenerAddrPortResponse
-// var SetListenerAddrPortResponse = lib.SetListenerAddrPortResponse
-// var GetDoorResponse = lib.GetDoorResponse
-// var SetDoorResponse = lib.SetDoorResponse
-// var SetDoorPasscodesResponse = lib.SetDoorPasscodesResponse
-// var OpenDoorResponse = lib.OpenDoorResponse
-// var GetStatusResponse = lib.GetStatusResponse
-// var GetCardsResponse = lib.GetCardsResponse
-// var GetCardResponse = lib.GetCardResponse
-// var GetCardAtIndexResponse = lib.GetCardAtIndexResponse
-// var PutCardResponse = lib.PutCardResponse
-var DeleteCardResponse = lib.DeleteCardResponse
 var DeleteAllCardsResponse = lib.DeleteAllCardsResponse
 var GetEventResponse = lib.GetEventResponse
 var GetEventIndexResponse = lib.GetEventIndexResponse

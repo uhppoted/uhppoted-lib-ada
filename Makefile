@@ -94,3 +94,5 @@ get-card-at-index: build
 put-card: build
 	cd examples/cli && make put-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD=$(CARD) START=$(START_DATE) END=$(END_DATE) ACCESS=$(DOORS) PIN=$(PIN)
 
+delete-card: build
+	cd examples/cli && make delete-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD=$(CARD)

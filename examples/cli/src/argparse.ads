@@ -26,7 +26,8 @@ package ArgParse is
       Open_Door_Args,
       Get_Card_Args,
       Get_Card_At_Index_Args,
-      Put_Card_Args);
+      Put_Card_Args,
+      Delete_Card_Args);
 
    type Args (T : Args_Type) is record
       Controller : Uhppoted.Lib.Controller;
@@ -65,6 +66,9 @@ package ArgParse is
          when Put_Card_Args =>
             null;
 
+         when Delete_Card_Args =>
+            null;
+
          when others =>
             null;
       end case;
@@ -92,5 +96,6 @@ private
    function Parse_Get_Card           return Args;
    function Parse_Get_Card_At_Index  return Args;
    function Parse_Put_Card           return Args;
+   function Parse_Delete_Card        return Args;
 
 end ArgParse;

@@ -80,4 +80,7 @@ package Uhppoted.Lib.Encode is
                       Door_4     : Unsigned_8;
                       PIN        : Unsigned_24) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a delete-card request as a 64 byte array.
+   function Delete_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+
 end Uhppoted.Lib.Encode;

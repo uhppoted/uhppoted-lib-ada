@@ -1,3 +1,4 @@
+with Ada.Exceptions;
 with AUnit.Assertions;
 
 package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
@@ -45,13 +46,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Controller_Invalid_OpCode;
 
    procedure Test_Set_IPv4_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -64,13 +70,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Set_IPv4_Response := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Set_IPv4_Invalid_OpCode;
 
    procedure Test_Get_Time_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -83,13 +94,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Get_Time_Response := Uhppoted.Lib.Decode.Get_Time (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Time_Invalid_OpCode;
 
    procedure Test_Set_Time_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -102,13 +118,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Set_Time_Response := Uhppoted.Lib.Decode.Set_Time (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Set_Time_Invalid_OpCode;
 
    procedure Test_Get_Listener_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -121,13 +142,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Get_Listener_Response := Uhppoted.Lib.Decode.Get_Listener (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Listener_Invalid_OpCode;
 
    procedure Test_Set_Listener_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -140,13 +166,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Set_Listener_Response := Uhppoted.Lib.Decode.Set_Listener (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Set_Listener_Invalid_OpCode;
 
    procedure Test_Get_Status_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -159,13 +190,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#27#, 16#07#, 16#09#, 16#22#, 16#08#, 16#23#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Get_Status_Response := Uhppoted.Lib.Decode.Get_Status (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Status_Invalid_OpCode;
 
    procedure Test_Get_Listener_Address_Port_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -178,13 +214,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Get_Listener_Addr_Port_Response := Uhppoted.Lib.Decode.Get_Listener_Addr_Port (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Listener_Address_Port_Invalid_OpCode;
 
    procedure Test_Set_Listener_Address_Port_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -197,13 +238,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Set_Listener_Addr_Port_Response := Uhppoted.Lib.Decode.Set_Listener_Addr_Port (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Set_Listener_Address_Port_Invalid_OpCode;
 
    procedure Test_Get_Door_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -216,13 +262,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Get_Door_Response := Uhppoted.Lib.Decode.Get_Door (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Door_Invalid_OpCode;
 
    procedure Test_Set_Door_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -235,13 +286,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Set_Door_Response := Uhppoted.Lib.Decode.Set_Door (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Set_Door_Invalid_OpCode;
 
    procedure Test_Set_Door_Passcodes_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -254,13 +310,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Set_Door_Passcodes_Response := Uhppoted.Lib.Decode.Set_Door_Passcodes (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Set_Door_Passcodes_Invalid_OpCode;
 
    procedure Test_Open_Door_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -273,13 +334,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Open_Door_Response := Uhppoted.Lib.Decode.Open_Door (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Open_Door_Invalid_OpCode;
 
    procedure Test_Get_Cards_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -292,13 +358,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Get_Cards_Response := Uhppoted.Lib.Decode.Get_Cards (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Cards_Invalid_OpCode;
 
    procedure Test_Get_Card_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -311,13 +382,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Get_Card_Response := Uhppoted.Lib.Decode.Get_Card (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Card_Invalid_OpCode;
 
    procedure Test_Get_Card_Not_Found_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -330,13 +406,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Get_Card_Response := Uhppoted.Lib.Decode.Get_Card (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Card_Not_Found_Invalid_OpCode;
 
    procedure Test_Get_Card_At_Index_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -349,13 +430,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Get_Card_At_Index_Response := Uhppoted.Lib.Decode.Get_Card_At_Index (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Card_At_Index_Invalid_OpCode;
 
    procedure Test_Put_Card_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -368,13 +454,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Put_Card_Response := Uhppoted.Lib.Decode.Put_Card (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Put_Card_Invalid_OpCode;
 
    procedure Test_Delete_Card_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -387,13 +478,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Delete_Card_Response := Uhppoted.Lib.Decode.Delete_Card (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Delete_Card_Invalid_OpCode;
 
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

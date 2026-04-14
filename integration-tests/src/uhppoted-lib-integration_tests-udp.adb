@@ -1,3 +1,4 @@
+with Ada.Exceptions;
 with AUnit.Assertions;
 with GNAT.Sockets;
 
@@ -343,14 +344,18 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Addr => Inet_Addr ("127.0.0.1"),
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
-
-      procedure Exec is
+   begin
+      declare
          Unused : constant Card_Record := Get_Card (U, C, 10058401, 0.5);
       begin
+         Assert (False, "Expected 'card not found' error");
+      end;
+
+   exception
+      when Card_Not_Found_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card not found' error");
+      when E : others =>
+         Assert (False, "Expected Card_Not_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Card_Not_Found;
 
    procedure Test_Get_Card_At_Index_Not_Found (T : in out Test_Case'Class) is
@@ -361,14 +366,18 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Addr => Inet_Addr ("127.0.0.1"),
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
-
-      procedure Exec is
+   begin
+      declare
          Unused : constant Card_Record := Get_Card_At_Index (U, C, 136, 0.5);
       begin
+         Assert (False, "Expected 'card not found' error");
+      end;
+
+   exception
+      when Card_Not_Found_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card not found' error");
+      when E : others =>
+         Assert (False, "Expected Card_Not_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Card_At_Index_Not_Found;
 
    procedure Test_Get_Card_At_Index_Deleted (T : in out Test_Case'Class) is
@@ -379,14 +388,18 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Addr => Inet_Addr ("127.0.0.1"),
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
-
-      procedure Exec is
+   begin
+      declare
          Unused : constant Card_Record := Get_Card_At_Index (U, C, 137, 0.5);
       begin
+         Assert (False, "Expected 'card deleted' error");
+      end;
+
+   exception
+      when Card_Deleted_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'card deleted' error");
+      when E : others =>
+         Assert (False, "Expected Card_Deleted_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Card_At_Index_Deleted;
 
 end Uhppoted.Lib.Integration_Tests.UDP;

@@ -1,3 +1,4 @@
+with Ada.Exceptions;
 with AUnit.Assertions;
 with GNAT.Sockets;
 
@@ -35,8 +36,9 @@ package body Uhppoted.Lib.Integration_Tests.Errors is
    overriding procedure Register_Tests (T : in out Integration_Test) is
       use AUnit.Test_Cases.Registration;
    begin
-      Register_Routine (T, Test_Invalid_SOM'Access, "invalid SOM");
+      Register_Routine (T, Test_Invalid_SOM'Access,    "invalid SOM");
       Register_Routine (T, Test_Invalid_OpCode'Access, "invalid op-code");
+      Register_Routine (T, Test_Timeout'Access,        "timeout");
    end Register_Tests;
 
    overriding procedure Set_Up_Case (T : in out Integration_Test) is
@@ -68,25 +70,52 @@ package body Uhppoted.Lib.Integration_Tests.Errors is
    procedure Test_Invalid_SOM (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant Controller_Record := Get_Controller (U, 201020304, 0.5);
       begin
+         Assert (False, "Expected an 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Invalid_SOM;
 
    procedure Test_Invalid_OpCode (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant DateTime := Get_Time (U, 201020304, 0.5);
       begin
+         Assert (False, "Expected an 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid opcode' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Invalid_OpCode;
+
+   procedure Test_Timeout (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+   begin
+      declare
+         Unused : constant Controller_Record := Get_Controller (U, 303986753, 0.5);
+      begin
+         Assert (False, "Expected a timeout error");
+      end;
+
+   exception
+      when Timeout_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Timeout_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Timeout;
 
 end Uhppoted.Lib.Integration_Tests.Errors;

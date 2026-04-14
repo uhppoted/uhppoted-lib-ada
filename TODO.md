@@ -63,9 +63,7 @@
 - [ ] integration tests
     - [x] `None` response timeout closes stub socket
     - [x] Invalid response test
-        - [x] invalid SOM
-        - [x] invalid op-code
-    - [ ] Timeout test
+    - [x] Timeout test
     - [ ] Connection refused test
     - [ ] v6.62
 

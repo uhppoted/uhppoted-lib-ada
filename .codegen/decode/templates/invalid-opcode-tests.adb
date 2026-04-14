@@ -1,3 +1,4 @@
+with Ada.Exceptions;
 with AUnit.Assertions;
 
 package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
@@ -26,13 +27,18 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          {{ $bytes }}{{ end }}
       ];
 
-      procedure Exec is
+   begin
+      declare
          Unused : constant {{ var .Response }}_Response := Uhppoted.Lib.Decode.{{ var .Response }} (Reply);
       begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
          null;
-      end Exec;
-   begin
-      Assert_Exception (Exec'Unrestricted_Access, "Expected 'invalid response' error");
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_{{ .Name }}_Invalid_OpCode;
 {{ end }}
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

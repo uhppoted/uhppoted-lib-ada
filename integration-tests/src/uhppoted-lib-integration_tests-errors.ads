@@ -17,5 +17,6 @@ private
 
    procedure Test_Invalid_SOM    (T : in out Test_Case'Class);
    procedure Test_Invalid_OpCode (T : in out Test_Case'Class);
+   procedure Test_Timeout        (T : in out Test_Case'Class);
 
 end Uhppoted.Lib.Integration_Tests.Errors;

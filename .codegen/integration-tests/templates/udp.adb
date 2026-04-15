@@ -38,7 +38,8 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       use AUnit.Test_Cases.Registration;
    begin
 {{- range $ix,$test := .Tests }}
-      Register_Routine (T, {{ printf "Test_%v'Access," .Name | rpad 32 }} "{{ .Name }}");{{end}}
+      Register_Routine (T, {{ printf "Test_%v'Access," .Name | rpad 40 }} "{{ .Name }}");{{end}}
+      Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
 
    overriding procedure Set_Up_Case (T : in out Integration_Test) is
@@ -133,6 +134,34 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       when E : others =>
          Assert (False, "Expected Card_Deleted_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Card_At_Index_Deleted;
+
+   procedure Test_Connection_Refused (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 54321),
+                                  Protocol => Uhppoted.Lib.UDP);
+   begin
+      declare
+         Unused : constant Controller_Record := Get_Controller(U, C, 0.5);
+      begin
+         Assert (False, "Expected 'connection refused' error");
+      end;
+
+   exception
+      when E: Socket_Error =>
+         declare
+            Err : constant Error_Type := Resolve_Exception (E);
+         begin
+            if Err /= Connection_Refused then
+               Assert (False, "Expected 'connection refused', got: " & Err'Image);
+            end if;
+         end;      
+      when E : others =>
+         Assert (False, "Expected Socket_Error.Connection_Refused, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Connection_Refused;
 
 end Uhppoted.Lib.Integration_Tests.UDP;
 {{ define "udptest" }}

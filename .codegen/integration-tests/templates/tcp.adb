@@ -1,5 +1,6 @@
 with Ada.Exceptions;
 with AUnit.Assertions;
+with Ada.Strings.Fixed;
 with GNAT.Sockets;
 
 with Uhppoted.Lib.Integration_Tests.Stub;
@@ -38,7 +39,8 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       use AUnit.Test_Cases.Registration;
    begin
 {{- range $ix,$test := .Tests }}
-      Register_Routine (T, {{ printf "Test_%v'Access," .Name | rpad 32 }} "{{ .Name }}");{{end}}
+      Register_Routine (T, {{ printf "Test_%v'Access," .Name | rpad 40 }} "{{ .Name }}");{{end}}
+      Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
 
    overriding procedure Set_Up_Case (T : in out Integration_Test) is
@@ -133,6 +135,42 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       when E : others =>
          Assert (False, "Expected Card_Deleted_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Card_At_Index_Deleted;
+
+   procedure Test_Connection_Refused (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => 12345),
+                                  Protocol => Uhppoted.Lib.TCP);
+   begin
+      declare
+         Unused : constant Controller_Record := Get_Controller(U, C, 0.5);
+      begin
+         Assert (False, "Expected 'connection refused' error");
+      end;
+
+   exception
+      when E: Socket_Error =>
+         --  NTS: Resolve_Exception fails for TCP
+         --  declare
+         --     Err : constant Error_Type := Resolve_Exception (E);
+         --  begin
+         --     if Err /= No_Route_To_Host then
+         --        Assert (False, "Expected 'connection refused', got: " & Err'Image);
+         --     end if;
+         --  end;      
+         declare
+            Msg : constant String := Ada.Exceptions.Exception_Message (E);
+         begin
+            if Ada.Strings.Fixed.Index (Msg, "CONNECTION_REFUSED") = 0 then
+               Assert (False, "Expected 'connection refused', got: " & Msg);
+            end if;
+         end;      
+      when E : others =>
+         Assert (False, "Expected Socket_Error.Connection_Refused, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Connection_Refused;
 
 end Uhppoted.Lib.Integration_Tests.TCP;
 {{ define "tcptest" }}

@@ -17,6 +17,7 @@ private
 
    task Listen;
 {{ range $ix,$test := .Tests }}
-   procedure Test_{{ printf "%v" .Name | rpad 19 }} (T : in out Test_Case'Class);{{end}}
+   procedure Test_{{ printf "%v" .Name | rpad 27 }} (T : in out Test_Case'Class);{{end}}
+   procedure Test_Connection_Refused (T : in out Test_Case'Class);
 
 end Uhppoted.Lib.Integration_Tests.UDP;

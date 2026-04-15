@@ -50,7 +50,7 @@
     - [x] `None` response timeout closes stub socket
     - [x] Invalid response test
     - [x] Timeout test
-    - [ ] Connection refused test
+    - [x] Connection refused test
     - [ ] v6.62
 
 - [ ] fix _Library_Interface_ in .gpr file

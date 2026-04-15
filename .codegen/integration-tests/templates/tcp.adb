@@ -152,20 +152,14 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       end;
 
    exception
+      --  NTS: Resolve_Exception returns Cannot_Resolve_Error for TCP
       when E: Socket_Error =>
-         --  NTS: Resolve_Exception fails for TCP
-         --  declare
-         --     Err : constant Error_Type := Resolve_Exception (E);
-         --  begin
-         --     if Err /= No_Route_To_Host then
-         --        Assert (False, "Expected 'connection refused', got: " & Err'Image);
-         --     end if;
-         --  end;      
          declare
+            Err : constant Error_Type := Resolve_Exception (E);
             Msg : constant String := Ada.Exceptions.Exception_Message (E);
          begin
-            if Ada.Strings.Fixed.Index (Msg, "CONNECTION_REFUSED") = 0 then
-               Assert (False, "Expected 'connection refused', got: " & Msg);
+            if Err /= Connection_Refused and then (Err /= Cannot_Resolve_Error or else Ada.Strings.Fixed.Index (Msg, "CONNECTION_REFUSED") = 0) then
+               Assert (False, "Expected 'connection refused', got: " & Err'Image);
             end if;
          end;      
       when E : others =>

@@ -1,6 +1,7 @@
 package Uhppoted.Lib.Codec is
 
-   SOM : Unsigned_8 := 16#17#;
+   SOM       : Unsigned_8  := 16#17#;
+   MagicWord : Unsigned_32 := 16#55aaaa55#;
 
    type Op_Code is (
       Get_Status,
@@ -9,6 +10,7 @@ package Uhppoted.Lib.Codec is
       Open_Door,
       Put_Card,
       Delete_Card,
+      Delete_All_Cards,
       Get_Cards,
       Get_Card,
       Get_Card_At_Index,
@@ -27,6 +29,7 @@ package Uhppoted.Lib.Codec is
       Open_Door          => 16#40#,
       Put_Card           => 16#50#,
       Delete_Card        => 16#52#,
+      Delete_All_Cards   => 16#54#,
       Get_Cards          => 16#58#,
       Get_Card           => 16#5a#,
       Get_Card_At_Index  => 16#5c#,

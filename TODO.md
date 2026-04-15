@@ -2,7 +2,6 @@
 
 - https://github.com/ohenley/awesome-ada
 - https://github.com/simonjwright/alire-index.mac
-- https://alire.ada.dev/transition_from_gnat_community.html
 
 - [ ] format
 - [ ] lint
@@ -11,8 +10,6 @@
     - [ ] exceptions
     - [ ] types
     - [ ] codec
-
-- [x] TCP
 
 - [x] find-controllers
 - [x] get-controller
@@ -31,13 +28,12 @@
 - [x] get-card-by-index
 - [x] put-card
 - [x] delete-card
+- [x] delete-cards
     - [x] API
     - [x] CLI
     - [x] README
     - [x] integration tests
 
-- [x] check SOM in decode
-- [x] check opcode in decode
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 - [ ] enums for event-type, event-reason, event-direction
 - [ ] rename
@@ -48,17 +44,7 @@
      - (?) Card_Record => Card_Type
 
 - [ ] UDP
-    - [x] dump
-    - [x] connect
-    - [x] send loop
-    - [x] ada-doc
-    - [x] check dest-addr is not bind addr
     - [ ] listen
-
-
-- [x] CLI
-    - [x] command line args
-    - [x] handle exceptions
 
 - [ ] integration tests
     - [x] `None` response timeout closes stub socket

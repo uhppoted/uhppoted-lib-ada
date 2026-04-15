@@ -237,6 +237,16 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Delete_Card;
 
+   --  Encodes a delete-cards request as a 64 byte array.
+   function Delete_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Delete_Cards_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+
+      return Buffer;
+   end Delete_Cards;
+
    --  Encodes a put-card request as a 64 byte array.
    function Put_Card (Controller : Unsigned_32;
                       Card       : Unsigned_32;

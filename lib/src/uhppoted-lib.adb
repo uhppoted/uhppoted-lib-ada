@@ -602,6 +602,32 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Delete_Card;
 
+   --  Deletes all card records from the controller. Restricted to the local LAN.
+   function Delete_All_Cards (U         : UHPPOTE;
+                              C         : Unsigned_32;
+                              Timeout   : Duration := 2.5) return Boolean is
+   begin
+      return Delete_All_Cards (U, To_Controller (C), Timeout);
+   end Delete_All_Cards;
+
+   --  Deletes all card records from the controller.
+   function Delete_All_Cards (U         : UHPPOTE;
+                              C         : Controller;
+                              Timeout   : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Delete_Cards (C.ID);
+      Reply   : Packet;
+      R       : Delete_All_Cards_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Delete_All_Cards (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Delete_All_Cards;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

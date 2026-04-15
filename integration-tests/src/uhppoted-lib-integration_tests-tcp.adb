@@ -57,6 +57,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Get_Card_At_Index_Deleted'Access, "Get_Card_At_Index_Deleted");
       Register_Routine (T, Test_Put_Card'Access,            "Put_Card");
       Register_Routine (T, Test_Delete_Card'Access,         "Delete_Card");
+      Register_Routine (T, Test_Delete_All_Cards'Access,    "Delete_All_Cards");
    end Register_Tests;
 
    overriding procedure Set_Up_Case (T : in out Integration_Test) is
@@ -334,6 +335,20 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.Delete_Card, "invalid result" & V'Image);
    end Test_Delete_Card;
+
+   procedure Test_Delete_All_Cards (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Boolean := Delete_All_Cards (U, C, 0.5);
+   begin
+      Assert (V = Expected.Delete_All_Cards, "invalid result" & V'Image);
+   end Test_Delete_All_Cards;
 
    --  custom tests
    procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is

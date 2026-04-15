@@ -347,7 +347,7 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Put_Card;
 
-   --  Decodes a 64 byte put-card reply as a Put_Card_Response record.
+   --  Decodes a 64 byte put-card reply as a Delete_Card_Response record.
    function Delete_Card (Reply : Packet) return Responses.Delete_Card_Response is
       R : Replies.Delete_Card_Reply with Import, Address => Reply'Address;
    begin
@@ -362,6 +362,22 @@ package body Uhppoted.Lib.Decode is
       return (Controller => R.Controller,
               Ok         => Unpack_Boolean (R.Ok));
    end Delete_Card;
+
+   --  Decodes a 64 byte put-card reply as a Delete_Cards_Response record.
+   function Delete_All_Cards (Reply : Packet) return Responses.Delete_All_Cards_Response is
+      R : Replies.Delete_All_Cards_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Delete_All_Cards then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Delete_All_Cards;
 
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
    function Unpack_Boolean (B : Unsigned_8) return Boolean is

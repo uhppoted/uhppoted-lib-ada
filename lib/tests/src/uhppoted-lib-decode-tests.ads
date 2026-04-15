@@ -26,5 +26,6 @@ package Uhppoted.Lib.Decode.Tests is
    procedure Test_Decode_Get_Card_At_Index (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Put_Card (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Delete_Card (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Decode_Delete_All_Cards (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Decode.Tests;

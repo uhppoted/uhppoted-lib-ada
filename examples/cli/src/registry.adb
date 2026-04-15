@@ -25,6 +25,7 @@ package body Registry is
       CS.Internal_Map.Insert ("get-card-at-index",  Get_Card_At_Index'Access);
       CS.Internal_Map.Insert ("put-card",           Put_Card'Access);
       CS.Internal_Map.Insert ("delete-card",        Delete_Card'Access);
+      CS.Internal_Map.Insert ("delete-all-cards",   Delete_All_Cards'Access);
 
       return CS;
    end Initialise;

@@ -96,3 +96,6 @@ put-card: build
 
 delete-card: build
 	cd examples/cli && make delete-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD=$(CARD)
+
+delete-all-cards: build
+	cd examples/cli && make delete-all-cards CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)

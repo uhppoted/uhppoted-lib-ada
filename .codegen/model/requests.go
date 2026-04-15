@@ -24,7 +24,7 @@ var Requests = []types.Request{
 	lib.GetCardAtIndexRequest,
 	lib.PutCardRequest,
 	lib.DeleteCardRequest,
-	// DeleteAllCardsRequest,
+	lib.DeleteAllCardsRequest,
 	// GetEventRequest,
 	// GetEventIndexRequest,
 	// SetEventIndexRequest,
@@ -44,22 +44,3 @@ var Requests = []types.Request{
 }
 
 var FindControllersRequest = types.Request{}
-
-// var DeleteCardRequest = lib.DeleteCardRequest
-// var DeleteAllCardsRequest = lib.DeleteAllCardsRequest
-// var GetEventRequest = lib.GetEventRequest
-// var GetEventIndexRequest = lib.GetEventIndexRequest
-// var SetEventIndexRequest = lib.SetEventIndexRequest
-// var RecordSpecialEventsRequest = lib.RecordSpecialEventsRequest
-// var GetTimeProfileRequest = lib.GetTimeProfileRequest
-// var SetTimeProfileRequest = lib.SetTimeProfileRequest
-// var ClearTimeProfilesRequest = lib.ClearTimeProfilesRequest
-// var AddTaskRequest = lib.AddTaskRequest
-// var RefreshTaskListRequest = lib.RefreshTaskListRequest
-// var ClearTaskListRequest = lib.ClearTaskListRequest
-// var SetPCControlRequest = lib.SetPCControlRequest
-// var SetInterlockRequest = lib.SetInterlockRequest
-// var ActivateKeypadsRequest = lib.ActivateKeypadsRequest
-// var GetAntiPassbackRequest = lib.GetAntiPassbackRequest
-// var SetAntiPassbackRequest = lib.SetAntiPassbackRequest
-// var RestoreDefaultParametersRequest = lib.RestoreDefaultParametersRequest

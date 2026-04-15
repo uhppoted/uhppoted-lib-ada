@@ -162,4 +162,10 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for a delete-all-cards response.
+   type Delete_All_Cards_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
 end Uhppoted.Lib.Responses;

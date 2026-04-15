@@ -35,6 +35,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Get_Card_At_Index'Access, "test decode Get_Card_At_Index response");
       Register_Routine (T, Test_Decode_Put_Card'Access,     "test decode Put_Card response");
       Register_Routine (T, Test_Decode_Delete_Card'Access,  "test decode Delete_Card response");
+      Register_Routine (T, Test_Decode_Delete_All_Cards'Access, "test decode Delete_All_Cards response");
    end Register_Tests;
 
    procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -452,5 +453,24 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded delete-card response: got" & Response'Image);
    end Test_Decode_Delete_Card;
+
+   procedure Test_Decode_Delete_All_Cards (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Delete_All_Cards_Response := (
+         Controller => 405419896,
+         Ok         => True);
+
+      Reply : constant Packet := [
+         16#17#, 16#54#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Delete_All_Cards_Response := Uhppoted.Lib.Decode.Delete_All_Cards (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded delete-all-cards response: got" & Response'Image);
+   end Test_Decode_Delete_All_Cards;
 
 end Uhppoted.Lib.Decode.Tests;

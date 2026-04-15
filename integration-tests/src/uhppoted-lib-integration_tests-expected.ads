@@ -175,4 +175,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Delete_Card : constant Boolean := True;
 
+   Delete_All_Cards : constant Boolean := True;
+
 end Uhppoted.Lib.Integration_Tests.Expected;

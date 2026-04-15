@@ -83,4 +83,7 @@ package Uhppoted.Lib.Encode is
    --  Encodes a delete-card request as a 64 byte array.
    function Delete_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a delete-cards request as a 64 byte array.
+   function Delete_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+
 end Uhppoted.Lib.Encode;

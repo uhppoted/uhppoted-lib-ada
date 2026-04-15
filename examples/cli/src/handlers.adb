@@ -310,4 +310,14 @@ package body Handlers is
       Put_Line ("");
    end Delete_Card;
 
+   --  Executes the delete-all-cards command.
+   procedure Delete_All_Cards (Args : ArgParse.Args) is
+      R : constant Boolean := Delete_All_Cards (U, Args.Controller, Timeout);
+   begin
+      Put_Line ("--- delete-all-cards");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("         ok: " & R'Image);
+      Put_Line ("");
+   end Delete_All_Cards;
+
 end Handlers;

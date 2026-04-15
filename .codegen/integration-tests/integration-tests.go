@@ -59,6 +59,7 @@ var translations = map[string]string{
 	"get card at index response":      "Card_Record",
 	"put card response":               "Boolean",
 	"delete card response":            "Boolean",
+	"delete all cards response":       "Boolean",
 }
 
 func IntegrationTests() {

@@ -77,6 +77,10 @@ package Uhppoted.Lib.Decode is
       return Uhppoted.Lib.Responses.Delete_Card_Response;
    --  Decodes a 64 byte delete-card reply as a Delete_Card_Response record.
 
+   function Delete_All_Cards (Reply : Uhppoted.Lib.Types.Packet)
+      return Uhppoted.Lib.Responses.Delete_All_Cards_Response;
+   --  Decodes a 64 byte delete-cards reply as a Delete_All_Cards_Response record.
+
 private
    function BCD_To_String (Bytes : Uhppoted.Lib.Types.BCD) return String;
    --  Translates a BCD coded string in a byte array to a string.

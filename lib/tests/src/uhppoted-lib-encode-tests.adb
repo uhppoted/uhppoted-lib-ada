@@ -32,6 +32,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Get_Card_At_Index'Access, "test encode Get_Card_At_Index request");
       Register_Routine (T, Test_Encode_Put_Card'Access,         "test encode Put_Card request");
       Register_Routine (T, Test_Encode_Delete_Card'Access,      "test encode Delete_Card request");
+      Register_Routine (T, Test_Encode_Delete_All_Cards'Access, "test encode Delete_All_Cards request");
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -388,5 +389,21 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded delete-card request: got" & Request'Image);
    end Test_Encode_Delete_Card;
+
+   procedure Test_Encode_Delete_All_Cards (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#54#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#55#, 16#aa#, 16#aa#, 16#55#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Delete_Cards (
+         405419896);
+   begin
+      Assert (Request = Expected, "incorrectly encoded delete-cards request: got" & Request'Image);
+   end Test_Encode_Delete_All_Cards;
 
 end Uhppoted.Lib.Encode.Tests;

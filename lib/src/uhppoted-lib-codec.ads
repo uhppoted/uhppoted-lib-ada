@@ -20,7 +20,8 @@ package Uhppoted.Lib.Codec is
       Set_Listener,
       Get_Listener,
       Get_Controller,
-      Set_IPv4);
+      Set_IPv4,
+      Get_Event_Index);
 
    for Op_Code use (
       Get_Status         => 16#20#,
@@ -39,7 +40,8 @@ package Uhppoted.Lib.Codec is
       Set_Listener       => 16#90#,
       Get_Listener       => 16#92#,
       Get_Controller     => 16#94#,
-      Set_IPv4           => 16#96#
+      Set_IPv4           => 16#96#,
+      Get_Event_Index    => 16#b4#
    );
 
 end Uhppoted.Lib.Codec;

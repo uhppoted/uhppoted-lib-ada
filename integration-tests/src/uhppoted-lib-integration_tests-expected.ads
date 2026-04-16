@@ -177,4 +177,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Delete_All_Cards : constant Boolean := True;
 
+   Get_Event_Index : constant Unsigned_32 := 13579;
+
 end Uhppoted.Lib.Integration_Tests.Expected;

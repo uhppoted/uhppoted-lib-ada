@@ -628,6 +628,32 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Delete_All_Cards;
 
+   --  Retrieves the current event index from the controller. Restricted to the local LAN.
+   function Get_Event_Index (U         : UHPPOTE;
+                             C         : Unsigned_32;
+                             Timeout   : Duration := 2.5) return Unsigned_32 is
+   begin
+      return Get_Event_Index (U, To_Controller (C), Timeout);
+   end Get_Event_Index;
+
+   --  Retrieves the current event index from the controller.
+   function Get_Event_Index (U         : UHPPOTE;
+                             C         : Controller;
+                             Timeout   : Duration := 2.5) return Unsigned_32 is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Event_Index (C.ID);
+      Reply   : Packet;
+      R       : Get_Event_Index_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Event_Index (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Index;
+   end Get_Event_Index;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

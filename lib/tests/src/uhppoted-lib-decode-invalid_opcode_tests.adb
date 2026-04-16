@@ -35,6 +35,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       Register_Routine (T, Test_Put_Card_Invalid_OpCode'Access,        "test decode Put_Card with invalid opcode");
       Register_Routine (T, Test_Delete_Card_Invalid_OpCode'Access,     "test decode Delete_Card with invalid opcode");
       Register_Routine (T, Test_Delete_All_Cards_Invalid_OpCode'Access, "test decode Delete_All_Cards with invalid opcode");
+      Register_Routine (T, Test_Get_Event_Index_Invalid_OpCode'Access, "test decode Get_Event_Index with invalid opcode");
    end Register_Tests;
 
    procedure Test_Get_Controller_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -516,5 +517,29 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when E : others =>
          Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Delete_All_Cards_Invalid_OpCode;
+
+   procedure Test_Get_Event_Index_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#17#, 16#b5#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#0b#, 16#35#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+   begin
+      declare
+         Unused : constant Get_Event_Index_Response := Uhppoted.Lib.Decode.Get_Event_Index (Reply);
+      begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Index_Invalid_OpCode;
 
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

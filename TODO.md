@@ -29,6 +29,7 @@
 - [x] put-card
 - [x] delete-card
 - [x] delete-cards
+- [x] get-event-index
     - [x] API
     - [x] CLI
     - [x] README

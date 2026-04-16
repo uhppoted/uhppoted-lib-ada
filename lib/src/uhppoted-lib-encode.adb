@@ -226,27 +226,6 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Get_Card_At_Index;
 
-   --  Encodes a delete-card request as a 64 byte array.
-   function Delete_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet is
-      Request : Delete_Card_Request;
-      Buffer  : Packet with Address => Request'Address;
-   begin
-      Request.Controller := Controller;
-      Request.Card := Card;
-
-      return Buffer;
-   end Delete_Card;
-
-   --  Encodes a delete-cards request as a 64 byte array.
-   function Delete_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
-      Request : Delete_Cards_Request;
-      Buffer  : Packet with Address => Request'Address;
-   begin
-      Request.Controller := Controller;
-
-      return Buffer;
-   end Delete_Cards;
-
    --  Encodes a put-card request as a 64 byte array.
    function Put_Card (Controller : Unsigned_32;
                       Card       : Unsigned_32;
@@ -272,6 +251,37 @@ package body Uhppoted.Lib.Encode is
 
       return Buffer;
    end Put_Card;
+
+   --  Encodes a delete-card request as a 64 byte array.
+   function Delete_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Delete_Card_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Card := Card;
+
+      return Buffer;
+   end Delete_Card;
+
+   --  Encodes a delete-cards request as a 64 byte array.
+   function Delete_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Delete_Cards_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+
+      return Buffer;
+   end Delete_Cards;
+
+   --  Encodes a get-event-index request as a 64 byte array.
+   function Get_Event_Index (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Get_Event_Index_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+
+      return Buffer;
+   end Get_Event_Index;
 
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is

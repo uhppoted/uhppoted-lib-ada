@@ -17,6 +17,7 @@
 - [`Put_Card`](#put_card)
 - [`Delete_Card`](#delete_card)
 - [`Delete_All_Cards`](#delete_all_cards)
+- [`Get_Event_Index`](#get_event_index)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -748,6 +749,32 @@ where:
 ```
 
 Returns `True` if all card records were deleted from the controller.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Get_Event_Index`
+
+**Get_Event_Index** retrieves the downloaded event index from a controller.
+
+```
+function Get_Event_Index (U         : UHPPOTE;
+                          C         : Unsigned_32;
+                          Timeout   : Duration) return Unsigned_32;
+
+function Get_Event_Index (U         : Uhppoted.Lib.UHPPOTE;
+                          C         : Controller;
+                          Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
+
+Returns the controller downloaded event index.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

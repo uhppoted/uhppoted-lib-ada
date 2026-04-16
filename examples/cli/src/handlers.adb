@@ -320,4 +320,14 @@ package body Handlers is
       Put_Line ("");
    end Delete_All_Cards;
 
+   --  Executes the get-event-index command.
+   procedure Get_Event_Index (Args : ArgParse.Args) is
+      R : constant Unsigned_32 := Get_Event_Index (U, Args.Controller, Timeout);
+   begin
+      Put_Line ("--- delete-all-cards");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("      index:" & R'Image);
+      Put_Line ("");
+   end Get_Event_Index;
+
 end Handlers;

@@ -27,7 +27,7 @@ var Responses = []types.Response{
 	lib.DeleteCardResponse,
 	lib.DeleteAllCardsResponse,
 	// &GetEventResponse,
-	// &GetEventIndexResponse,
+	lib.GetEventIndexResponse,
 	// &SetEventIndexResponse,
 	// &RecordSpecialEventsResponse,
 	// &GetTimeProfileResponse,

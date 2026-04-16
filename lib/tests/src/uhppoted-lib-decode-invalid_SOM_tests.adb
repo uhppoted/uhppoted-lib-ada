@@ -36,6 +36,7 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
       Register_Routine (T, Test_Put_Card_Invalid_SOM'Access,        "test decode Put_Card with invalid SOM");
       Register_Routine (T, Test_Delete_Card_Invalid_SOM'Access,     "test decode Delete_Card with invalid SOM");
       Register_Routine (T, Test_Delete_All_Cards_Invalid_SOM'Access, "test decode Delete_All_Cards with invalid SOM");
+      Register_Routine (T, Test_Get_Event_Index_Invalid_SOM'Access, "test decode Get_Event_Index with invalid SOM");
    end Register_Tests;
 
    procedure Test_Get_Controller_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -517,5 +518,29 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
       when E : others =>
          Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Delete_All_Cards_Invalid_SOM;
+
+   procedure Test_Get_Event_Index_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#13#, 16#b4#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#0b#, 16#35#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+   begin
+      declare
+         Unused : constant Get_Event_Index_Response := Uhppoted.Lib.Decode.Get_Event_Index (Reply);
+      begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Index_Invalid_SOM;
 
 end Uhppoted.Lib.Decode.Invalid_SOM_Tests;

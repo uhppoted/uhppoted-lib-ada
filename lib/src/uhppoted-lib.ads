@@ -605,6 +605,34 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
+   function Get_Event_Index (U       : UHPPOTE;
+                             C       : Unsigned_32;
+                             Timeout : Duration := 2.5) return Unsigned_32;
+   --  Retrieves the event index from the controller. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            The controller event index.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Get_Event_Index (U       : UHPPOTE;
+                             C       : Controller;
+                             Timeout : Duration := 2.5) return Unsigned_32;
+   --  Retrieves the event index from the controller.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            The controller event index.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").
    --

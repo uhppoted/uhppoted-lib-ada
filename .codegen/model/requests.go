@@ -26,7 +26,7 @@ var Requests = []types.Request{
 	lib.DeleteCardRequest,
 	lib.DeleteAllCardsRequest,
 	// GetEventRequest,
-	// GetEventIndexRequest,
+	lib.GetEventIndexRequest,
 	// SetEventIndexRequest,
 	// RecordSpecialEventsRequest,
 	// GetTimeProfileRequest,

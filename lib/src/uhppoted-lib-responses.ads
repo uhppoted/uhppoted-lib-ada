@@ -168,4 +168,10 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for a get-event-index response.
+   type Get_Event_Index_Response is record
+      Controller : Unsigned_32;
+      Index      : Unsigned_32;
+   end record;
+
 end Uhppoted.Lib.Responses;

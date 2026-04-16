@@ -99,3 +99,6 @@ delete-card: build
 
 delete-all-cards: build
 	cd examples/cli && make delete-all-cards CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+
+get-event-index: build
+	cd examples/cli && make get-event-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)

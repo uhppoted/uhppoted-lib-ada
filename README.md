@@ -62,6 +62,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Put_Card`](API.md#put_card)
 - [`Delete_Card`](API.md#delete_card)
 - [`Delete_All_Cards`](API.md#delete_all_cards)
+- [`Get_Event_Index`](API.md#get_event_index)
 
 
 ## License

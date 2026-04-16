@@ -86,4 +86,7 @@ package Uhppoted.Lib.Encode is
    --  Encodes a delete-cards request as a 64 byte array.
    function Delete_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a get-event-index request as a 64 byte array.
+   function Get_Event_Index (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+
 end Uhppoted.Lib.Encode;

@@ -456,7 +456,7 @@ package body Uhppoted.Lib is
    function Get_Card (U       : UHPPOTE;
                       C       : Unsigned_32;
                       Card    : Unsigned_32;
-                      Timeout : Duration := 2.5) return Card_Record is
+                      Timeout : Duration := 2.5) return Card_Type is
    begin
       return Get_Card (U, To_Controller (C), Card, Timeout);
    end Get_Card;
@@ -465,7 +465,7 @@ package body Uhppoted.Lib is
    function Get_Card (U       : UHPPOTE;
                       C       : Controller;
                       Card    : Unsigned_32;
-                      Timeout : Duration := 2.5) return Card_Record is
+                      Timeout : Duration := 2.5) return Card_Type is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Card (C.ID, Card);
       Reply   : Packet;
       R       : Get_Card_Response;
@@ -499,7 +499,7 @@ package body Uhppoted.Lib is
    function Get_Card_At_Index (U       : UHPPOTE;
                                C       : Unsigned_32;
                                Index   : Unsigned_32;
-                               Timeout : Duration := 2.5) return Card_Record is
+                               Timeout : Duration := 2.5) return Card_Type is
    begin
       return Get_Card_At_Index (U, To_Controller (C), Index, Timeout);
    end Get_Card_At_Index;
@@ -508,7 +508,7 @@ package body Uhppoted.Lib is
    function Get_Card_At_Index (U       : UHPPOTE;
                                C       : Controller;
                                Index   : Unsigned_32;
-                               Timeout : Duration := 2.5) return Card_Record is
+                               Timeout : Duration := 2.5) return Card_Type is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Card_At_Index (C.ID, Index);
       Reply   : Packet;
       R       : Get_Card_At_Index_Response;
@@ -541,7 +541,7 @@ package body Uhppoted.Lib is
    --  Adds/updates a card record stored on the controller. Restricted to the local LAN.
    function Put_Card (U       : UHPPOTE;
                       C       : Unsigned_32;
-                      Card    : Card_Record;
+                      Card    : Card_Type;
                       Timeout : Duration := 2.5) return Boolean is
    begin
       return Put_Card (U, To_Controller (C), Card, Timeout);
@@ -550,7 +550,7 @@ package body Uhppoted.Lib is
    --  Adds/updates a card record stored on the controller.
    function Put_Card (U       : UHPPOTE;
                       C       : Controller;
-                      Card    : Card_Record;
+                      Card    : Card_Type;
                       Timeout : Duration := 2.5) return Boolean is
       Request : constant Packet := Uhppoted.Lib.Encode.Put_Card (C.ID,
                                                                  Card.Card,

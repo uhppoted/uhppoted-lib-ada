@@ -109,7 +109,7 @@ package Uhppoted.Types is
       OpenDelay : Unsigned_8;
    end record;
 
-   type Card_Record is record
+   type Card_Type is record
       Card       : Unsigned_32;
       Start_Date : DateOnly;
       End_Date   : DateOnly;

@@ -121,7 +121,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Get_Cards : constant Unsigned_32 := 13579;
 
-   Get_Card : constant Card_Record := (
+   Get_Card : constant Card_Type := (
      Card       => 10058400,
      Start_Date => (Year => 2025, Month => 1, Day => 1),
      End_Date   => (Year => 2025, Month => 12, Day => 31),
@@ -131,7 +131,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4     => 1,
      PIN        => 7531);
 
-   Get_Card_Not_Found : constant Card_Record := (
+   Get_Card_Not_Found : constant Card_Type := (
      Card       => 0,
      Start_Date => (Year => 1, Month => 1, Day => 1),
      End_Date   => (Year => 1, Month => 1, Day => 1),
@@ -141,7 +141,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4     => 0,
      PIN        => 0);
 
-   Get_Card_At_Index : constant Card_Record := (
+   Get_Card_At_Index : constant Card_Type := (
      Card       => 10058400,
      Start_Date => (Year => 2025, Month => 1, Day => 1),
      End_Date   => (Year => 2025, Month => 12, Day => 31),
@@ -151,7 +151,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4     => 1,
      PIN        => 7531);
 
-   Get_Card_At_Index_Not_Found : constant Card_Record := (
+   Get_Card_At_Index_Not_Found : constant Card_Type := (
      Card       => 0,
      Start_Date => (Year => 1, Month => 1, Day => 1),
      End_Date   => (Year => 1, Month => 1, Day => 1),
@@ -161,7 +161,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4     => 0,
      PIN        => 0);
 
-   Get_Card_At_Index_Deleted : constant Card_Record := (
+   Get_Card_At_Index_Deleted : constant Card_Type := (
      Card       => 4294967295,
      Start_Date => (Year => 1, Month => 1, Day => 1),
      End_Date   => (Year => 1, Month => 1, Day => 1),

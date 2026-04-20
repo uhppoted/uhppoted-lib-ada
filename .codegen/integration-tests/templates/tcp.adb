@@ -80,7 +80,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                   Protocol => Uhppoted.Lib.TCP);
    begin
       declare
-         Unused : constant Card_Record := Get_Card (U, C, 10058401, 0.5);
+         Unused : constant Card_Type := Get_Card (U, C, 10058401, 0.5);
       begin
          Assert (False, "Expected 'card not found' error");
       end;
@@ -102,7 +102,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                   Protocol => Uhppoted.Lib.TCP);
    begin
       declare
-         Unused : constant Card_Record := Get_Card_At_Index (U, C, 136, 0.5);
+         Unused : constant Card_Type := Get_Card_At_Index (U, C, 136, 0.5);
       begin
          Assert (False, "Expected 'card not found' error");
       end;
@@ -124,7 +124,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                   Protocol => Uhppoted.Lib.TCP);
    begin
       declare
-         Unused : constant Card_Record := Get_Card_At_Index (U, C, 137, 0.5);
+         Unused : constant Card_Type := Get_Card_At_Index (U, C, 137, 0.5);
       begin
          Assert (False, "Expected 'card deleted' error");
       end;

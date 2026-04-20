@@ -28,7 +28,7 @@ package Uhppoted.Lib is
    subtype Controller_Status is Uhppoted.Types.Controller_Status;
    subtype Listener_Record is Uhppoted.Types.Listener_Record;
    subtype Door_Record is Uhppoted.Types.Door_Record;
-   subtype Card_Record is Uhppoted.Types.Card_Record;
+   subtype Card_Type is Uhppoted.Types.Card_Type;
 
    subtype DateTime is Uhppoted.Types.DateTime;
    subtype Control_Mode is Uhppoted.Types.Control_Mode;
@@ -444,7 +444,7 @@ package Uhppoted.Lib is
    function Get_Card (U       : UHPPOTE;
                       C       : Unsigned_32;
                       Card    : Unsigned_32;
-                      Timeout : Duration := 2.5) return Card_Record;
+                      Timeout : Duration := 2.5) return Card_Type;
    --  Retrieves the card record for the requested card number. Restricted to the local LAN.
    --
    --  @param  U          UHPPOTE configuration.
@@ -461,7 +461,7 @@ package Uhppoted.Lib is
    function Get_Card (U       : UHPPOTE;
                       C       : Controller;
                       Card    : Unsigned_32;
-                      Timeout : Duration := 2.5) return Card_Record;
+                      Timeout : Duration := 2.5) return Card_Type;
    --  Retrieves the card record for the requested card number.
    --
    --  @param  U          UHPPOTE configuration.
@@ -478,7 +478,7 @@ package Uhppoted.Lib is
    function Get_Card_At_Index (U       : UHPPOTE;
                                C       : Unsigned_32;
                                Index   : Unsigned_32;
-                               Timeout : Duration := 2.5) return Card_Record;
+                               Timeout : Duration := 2.5) return Card_Type;
    --  Retrieves the card record at the request index. Restricted to the local LAN.
    --
    --  @param  U          UHPPOTE configuration.
@@ -496,7 +496,7 @@ package Uhppoted.Lib is
    function Get_Card_At_Index (U       : UHPPOTE;
                                C       : Controller;
                                Index   : Unsigned_32;
-                               Timeout : Duration := 2.5) return Card_Record;
+                               Timeout : Duration := 2.5) return Card_Type;
    --  Retrieves the card record at the request index.
    --
    --  @param  U          UHPPOTE configuration.
@@ -513,7 +513,7 @@ package Uhppoted.Lib is
 
    function Put_Card (U          : UHPPOTE;
                       C          : Unsigned_32;
-                      Card       : Card_Record;
+                      Card       : Card_Type;
                       Timeout    : Duration := 2.5) return Boolean;
    --  Adds/updates a card record to the controller's stored. Restricted to the local LAN.
    --
@@ -530,7 +530,7 @@ package Uhppoted.Lib is
 
    function Put_Card (U          : UHPPOTE;
                       C          : Controller;
-                      Card       : Card_Record;
+                      Card       : Card_Type;
                       Timeout    : Duration := 2.5) return Boolean;
    --  Adds/updates a card record to the controller's stored.
    --

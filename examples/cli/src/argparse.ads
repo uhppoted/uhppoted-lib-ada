@@ -33,7 +33,7 @@ package ArgParse is
    type Args (T : Args_Type) is record
       Controller : Uhppoted.Lib.Controller;
       Door       : Unsigned_8;
-      Card       : Uhppoted.Lib.Card_Record;
+      Card       : Uhppoted.Lib.Card_Type;
 
       case T is
          when Set_IPv4_Args =>

@@ -255,7 +255,7 @@ package body Handlers is
 
    --  Executes the get-card command.
    procedure Get_Card (Args : ArgParse.Args) is
-      R : constant Card_Record := Get_Card (U, Args.Controller, Args.Card.Card, Timeout);
+      R : constant Card_Type := Get_Card (U, Args.Controller, Args.Card.Card, Timeout);
    begin
       Put_Line ("--- get-card");
       Put_Line (" controller:" & Args.Controller.ID'Image);
@@ -272,7 +272,7 @@ package body Handlers is
 
    --  Executes the get-card-at-index command.
    procedure Get_Card_At_Index (Args : ArgParse.Args) is
-      R : constant Card_Record := Get_Card_At_Index (U, Args.Controller, Args.Card_Index, Timeout);
+      R : constant Card_Type := Get_Card_At_Index (U, Args.Controller, Args.Card_Index, Timeout);
    begin
       Put_Line ("--- get-card-at-index");
       Put_Line (" controller:" & Args.Controller.ID'Image);

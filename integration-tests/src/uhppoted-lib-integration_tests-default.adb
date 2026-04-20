@@ -206,7 +206,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Card (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Card_Record := Get_Card (U, 405419896, 10058400, 0.5);
+      V : constant Card_Type := Get_Card (U, 405419896, 10058400, 0.5);
    begin
       Assert (V = Expected.Get_Card, "invalid result" & V'Image);
    end Test_Get_Card;
@@ -214,7 +214,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Card_At_Index (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Card_Record := Get_Card_At_Index (U, 405419896, 135, 0.5);
+      V : constant Card_Type := Get_Card_At_Index (U, 405419896, 135, 0.5);
    begin
       Assert (V = Expected.Get_Card_At_Index, "invalid result" & V'Image);
    end Test_Get_Card_At_Index;
@@ -222,7 +222,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Put_Card (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      Card : constant Uhppoted.Lib.Card_Record := (
+      Card : constant Uhppoted.Lib.Card_Type := (
          Card       => 10058400,
          Start_Date => (Year => 2025, Month => 1, Day => 1),
          End_Date   => (Year => 2025, Month => 12, Day => 31),
@@ -275,7 +275,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
    begin
       declare
-         Unused : constant Card_Record := Get_Card (U, 405419896, 10058401, 0.5);
+         Unused : constant Card_Type := Get_Card (U, 405419896, 10058401, 0.5);
       begin
          Assert (False, "Expected 'card not found' error");
       end;
@@ -292,7 +292,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
    begin
       declare
-         Unused : constant Card_Record := Get_Card_At_Index (U, 405419896, 136, 0.5);
+         Unused : constant Card_Type := Get_Card_At_Index (U, 405419896, 136, 0.5);
       begin
          Assert (False, "Expected 'card not found' error");
       end;
@@ -309,7 +309,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
    begin
       declare
-         Unused : constant Card_Record := Get_Card_At_Index (U, 405419896, 137, 0.5);
+         Unused : constant Card_Type := Get_Card_At_Index (U, 405419896, 137, 0.5);
       begin
          Assert (False, "Expected 'card deleted' error");
       end;

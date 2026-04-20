@@ -55,8 +55,8 @@ var translations = map[string]string{
 	"set door passcodes response":     "Boolean",
 	"open door response":              "Boolean",
 	"get cards response":              "Unsigned_32",
-	"get card response":               "Card_Record",
-	"get card at index response":      "Card_Record",
+	"get card response":               "Card_Type",
+	"get card at index response":      "Card_Type",
 	"put card response":               "Boolean",
 	"delete card response":            "Boolean",
 	"delete all cards response":       "Boolean",
@@ -212,7 +212,7 @@ func vars(t lib.FuncTest) []any {
 			}
 		}
 
-		m = append(m, fmt.Sprintf(`Card : constant Uhppoted.Lib.Card_Record := (
+		m = append(m, fmt.Sprintf(`Card : constant Uhppoted.Lib.Card_Type := (
          Card       => %v,
          Start_Date => %v,
          End_Date   => %v,
@@ -337,7 +337,7 @@ func response(f lib.Function, t lib.FuncTest) returns {
 			r.Template = "door"
 			r.Value = t.Replies[0].Response
 
-		case "Card_Record":
+		case "Card_Type":
 			r.Template = "card"
 			r.Value = t.Replies[0].Response
 		}

@@ -324,10 +324,21 @@ package body Handlers is
    procedure Get_Event_Index (Args : ArgParse.Args) is
       R : constant Unsigned_32 := Get_Event_Index (U, Args.Controller, Timeout);
    begin
-      Put_Line ("--- delete-all-cards");
+      Put_Line ("--- get-event-index");
       Put_Line (" controller:" & Args.Controller.ID'Image);
       Put_Line ("      index:" & R'Image);
       Put_Line ("");
    end Get_Event_Index;
+
+   --  Executes the set-event-index command.
+   procedure Set_Event_Index (Args : ArgParse.Args) is
+      R : constant Boolean := Set_Event_Index (U, Args.Controller, Args.Event_Index, Timeout);
+   begin
+      Put_Line ("--- set-event-index");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("      index:" & Args.Event_Index'Image);
+      Put_Line ("         ok: " & R'Image);
+      Put_Line ("");
+   end Set_Event_Index;
 
 end Handlers;

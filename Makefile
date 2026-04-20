@@ -10,11 +10,13 @@ DELAY     ?= 5
 PASSCODES ?= 7531,12345,54321
 
 CARD       ?= 10058400
-INDEX      ?= 3
+CARD_INDEX ?= 3
 START_DATE ?= 2026-01-01
 END_DATE   ?= 2026-12-31
 DOORS      ?= 1,3,4
 PIN        ?= 7531
+
+EVENT_INDEX ?= 23
 
 clean:
 	cd lib && make clean
@@ -89,7 +91,7 @@ get-card: build
 	cd examples/cli && make get-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD=$(CARD)
 
 get-card-at-index: build
-	cd examples/cli && make get-card-at-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) INDEX=$(INDEX)
+	cd examples/cli && make get-card-at-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD_INDEX=$(CARD_INDEX)
 
 put-card: build
 	cd examples/cli && make put-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD=$(CARD) START=$(START_DATE) END=$(END_DATE) ACCESS=$(DOORS) PIN=$(PIN)
@@ -102,3 +104,6 @@ delete-all-cards: build
 
 get-event-index: build
 	cd examples/cli && make get-event-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+
+set-event-index: build
+	cd examples/cli && make set-event-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) EVENT_INDEX=$(EVENT_INDEX)

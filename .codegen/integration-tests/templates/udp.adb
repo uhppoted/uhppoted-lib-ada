@@ -145,20 +145,20 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                   Protocol => Uhppoted.Lib.UDP);
    begin
       declare
-         Unused : constant Controller_Record := Get_Controller(U, C, 0.5);
+         Unused : constant Controller_Record := Get_Controller (U, C, 0.5);
       begin
          Assert (False, "Expected 'connection refused' error");
       end;
 
    exception
-      when E: Socket_Error =>
+      when E : Socket_Error =>
          declare
             Err : constant Error_Type := Resolve_Exception (E);
          begin
             if Err /= Connection_Refused then
                Assert (False, "Expected 'connection refused', got: " & Err'Image);
             end if;
-         end;      
+         end;
       when E : others =>
          Assert (False, "Expected Socket_Error.Connection_Refused, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Connection_Refused;

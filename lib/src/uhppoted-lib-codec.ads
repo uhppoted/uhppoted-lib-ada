@@ -21,6 +21,7 @@ package Uhppoted.Lib.Codec is
       Get_Listener,
       Get_Controller,
       Set_IPv4,
+      Set_Event_Index,
       Get_Event_Index);
 
    for Op_Code use (
@@ -41,6 +42,7 @@ package Uhppoted.Lib.Codec is
       Get_Listener       => 16#92#,
       Get_Controller     => 16#94#,
       Set_IPv4           => 16#96#,
+      Set_Event_Index    => 16#b2#,
       Get_Event_Index    => 16#b4#
    );
 

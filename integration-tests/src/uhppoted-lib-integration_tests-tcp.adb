@@ -60,6 +60,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Delete_Card'Access,                 "Delete_Card");
       Register_Routine (T, Test_Delete_All_Cards'Access,            "Delete_All_Cards");
       Register_Routine (T, Test_Get_Event_Index'Access,             "Get_Event_Index");
+      Register_Routine (T, Test_Set_Event_Index'Access,             "Set_Event_Index");
       Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
 
@@ -367,6 +368,20 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Assert (V = Expected.Get_Event_Index, "invalid result" & V'Image);
    end Test_Get_Event_Index;
 
+   procedure Test_Set_Event_Index (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Boolean := Set_Event_Index (U, C, 13579, 0.5);
+   begin
+      Assert (V = Expected.Set_Event_Index, "invalid result" & V'Image);
+   end Test_Set_Event_Index;
+
    --  custom tests
    procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
@@ -444,22 +459,25 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                   Protocol => Uhppoted.Lib.TCP);
    begin
       declare
-         Unused : constant Controller_Record := Get_Controller(U, C, 0.5);
+         Unused : constant Controller_Record := Get_Controller (U, C, 0.5);
       begin
          Assert (False, "Expected 'connection refused' error");
       end;
 
    exception
       --  NTS: Resolve_Exception returns Cannot_Resolve_Error for TCP
-      when E: Socket_Error =>
+      when E : Socket_Error =>
          declare
             Err : constant Error_Type := Resolve_Exception (E);
             Msg : constant String := Ada.Exceptions.Exception_Message (E);
          begin
-            if Err /= Connection_Refused and then (Err /= Cannot_Resolve_Error or else Ada.Strings.Fixed.Index (Msg, "CONNECTION_REFUSED") = 0) then
+            if Err /= Connection_Refused
+              and then (Err /= Cannot_Resolve_Error
+                        or else Ada.Strings.Fixed.Index (Msg, "CONNECTION_REFUSED") = 0)
+            then
                Assert (False, "Expected 'connection refused', got: " & Err'Image);
             end if;
-         end;      
+         end;
       when E : others =>
          Assert (False, "Expected Socket_Error.Connection_Refused, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Connection_Refused;

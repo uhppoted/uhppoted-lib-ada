@@ -283,6 +283,18 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Get_Event_Index;
 
+   --  Encodes a set-event-index request as a 64 byte array.
+   function Set_Event_Index (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Set_Event_Index_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Index := Index;
+      Request.MagicWord  := 16#55AA_AA55#;
+
+      return Buffer;
+   end Set_Event_Index;
+
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is
       V : constant IPv4 := [

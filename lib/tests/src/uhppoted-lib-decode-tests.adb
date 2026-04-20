@@ -37,6 +37,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Delete_Card'Access,  "test decode Delete_Card response");
       Register_Routine (T, Test_Decode_Delete_All_Cards'Access, "test decode Delete_All_Cards response");
       Register_Routine (T, Test_Decode_Get_Event_Index'Access, "test decode Get_Event_Index response");
+      Register_Routine (T, Test_Decode_Set_Event_Index'Access, "test decode Set_Event_Index response");
    end Register_Tests;
 
    procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -492,5 +493,24 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded get-event-index response: got" & Response'Image);
    end Test_Decode_Get_Event_Index;
+
+   procedure Test_Decode_Set_Event_Index (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Set_Event_Index_Response := (
+         Controller => 405419896,
+         Ok         => true);
+
+      Reply : constant Packet := [
+         16#17#, 16#b2#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Set_Event_Index_Response := Uhppoted.Lib.Decode.Set_Event_Index (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded set-event-index response: got" & Response'Image);
+   end Test_Decode_Set_Event_Index;
 
 end Uhppoted.Lib.Decode.Tests;

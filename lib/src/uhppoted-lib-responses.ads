@@ -174,4 +174,10 @@ package Uhppoted.Lib.Responses is
       Index      : Unsigned_32;
    end record;
 
+   --  Message definition for a set-event-index response.
+   type Set_Event_Index_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
 end Uhppoted.Lib.Responses;

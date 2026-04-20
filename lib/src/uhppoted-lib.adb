@@ -399,19 +399,19 @@ package body Uhppoted.Lib is
    end Set_Door_Passcodes;
 
    --  Remotely unlocks a door. Restricted to the local LAN.
-   function Open_Door (U         : UHPPOTE;
-                       C         : Unsigned_32;
-                       Door      : Unsigned_8;
-                       Timeout   : Duration := 2.5) return Boolean is
+   function Open_Door (U       : UHPPOTE;
+                       C       : Unsigned_32;
+                       Door    : Unsigned_8;
+                       Timeout : Duration := 2.5) return Boolean is
    begin
       return Open_Door (U, To_Controller (C), Door, Timeout);
    end Open_Door;
 
    --  Remotely unlocks a door.
-   function Open_Door (U         : UHPPOTE;
-                       C         : Controller;
-                       Door      : Unsigned_8;
-                       Timeout   : Duration := 2.5) return Boolean is
+   function Open_Door (U       : UHPPOTE;
+                       C       : Controller;
+                       Door    : Unsigned_8;
+                       Timeout : Duration := 2.5) return Boolean is
       Request : constant Packet := Uhppoted.Lib.Encode.Open_Door (C.ID, Door);
       Reply   : Packet;
       R       : Open_Door_Response;
@@ -427,17 +427,17 @@ package body Uhppoted.Lib is
    end Open_Door;
 
    --  Retrieves the number of cards stored on an access controller. Restricted to the local LAN.
-   function Get_Cards (U         : UHPPOTE;
-                       C         : Unsigned_32;
-                       Timeout   : Duration := 2.5) return Unsigned_32 is
+   function Get_Cards (U       : UHPPOTE;
+                       C       : Unsigned_32;
+                       Timeout : Duration := 2.5) return Unsigned_32 is
    begin
       return Get_Cards (U, To_Controller (C), Timeout);
    end Get_Cards;
 
    --  Retrieves the number of cards stored on an access controller.
-   function Get_Cards (U         : UHPPOTE;
-                       C         : Controller;
-                       Timeout   : Duration := 2.5) return Unsigned_32 is
+   function Get_Cards (U       : UHPPOTE;
+                       C       : Controller;
+                       Timeout : Duration := 2.5) return Unsigned_32 is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Cards (C.ID);
       Reply   : Packet;
       R       : Get_Cards_Response;
@@ -453,19 +453,19 @@ package body Uhppoted.Lib is
    end Get_Cards;
 
    --  Retrieves the card record for the requested card number. Restricted to the local LAN.
-   function Get_Card (U         : UHPPOTE;
-                      C         : Unsigned_32;
-                      Card      : Unsigned_32;
-                      Timeout   : Duration := 2.5) return Card_Record is
+   function Get_Card (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      Card    : Unsigned_32;
+                      Timeout : Duration := 2.5) return Card_Record is
    begin
       return Get_Card (U, To_Controller (C), Card, Timeout);
    end Get_Card;
 
    --  Retrieves the card record for the requested card number.
-   function Get_Card (U         : UHPPOTE;
-                      C         : Controller;
-                      Card      : Unsigned_32;
-                      Timeout   : Duration := 2.5) return Card_Record is
+   function Get_Card (U       : UHPPOTE;
+                      C       : Controller;
+                      Card    : Unsigned_32;
+                      Timeout : Duration := 2.5) return Card_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Card (C.ID, Card);
       Reply   : Packet;
       R       : Get_Card_Response;
@@ -496,19 +496,19 @@ package body Uhppoted.Lib is
    end Get_Card;
 
    --  Retrieves the card record at the requested index. Restricted to the local LAN.
-   function Get_Card_At_Index (U         : UHPPOTE;
-                               C         : Unsigned_32;
-                               Index     : Unsigned_32;
-                               Timeout   : Duration := 2.5) return Card_Record is
+   function Get_Card_At_Index (U       : UHPPOTE;
+                               C       : Unsigned_32;
+                               Index   : Unsigned_32;
+                               Timeout : Duration := 2.5) return Card_Record is
    begin
       return Get_Card_At_Index (U, To_Controller (C), Index, Timeout);
    end Get_Card_At_Index;
 
    --  Retrieves the card record at the requested index.
-   function Get_Card_At_Index (U         : UHPPOTE;
-                               C         : Controller;
-                               Index     : Unsigned_32;
-                               Timeout   : Duration := 2.5) return Card_Record is
+   function Get_Card_At_Index (U       : UHPPOTE;
+                               C       : Controller;
+                               Index   : Unsigned_32;
+                               Timeout : Duration := 2.5) return Card_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Card_At_Index (C.ID, Index);
       Reply   : Packet;
       R       : Get_Card_At_Index_Response;
@@ -539,19 +539,19 @@ package body Uhppoted.Lib is
    end Get_Card_At_Index;
 
    --  Adds/updates a card record stored on the controller. Restricted to the local LAN.
-   function Put_Card (U         : UHPPOTE;
-                      C         : Unsigned_32;
-                      Card      : Card_Record;
-                      Timeout   : Duration := 2.5) return Boolean is
+   function Put_Card (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      Card    : Card_Record;
+                      Timeout : Duration := 2.5) return Boolean is
    begin
       return Put_Card (U, To_Controller (C), Card, Timeout);
    end Put_Card;
 
    --  Adds/updates a card record stored on the controller.
-   function Put_Card (U         : UHPPOTE;
-                      C         : Controller;
-                      Card      : Card_Record;
-                      Timeout   : Duration := 2.5) return Boolean is
+   function Put_Card (U       : UHPPOTE;
+                      C       : Controller;
+                      Card    : Card_Record;
+                      Timeout : Duration := 2.5) return Boolean is
       Request : constant Packet := Uhppoted.Lib.Encode.Put_Card (C.ID,
                                                                  Card.Card,
                                                                  Card.Start_Date,
@@ -575,19 +575,19 @@ package body Uhppoted.Lib is
    end Put_Card;
 
    --  Deletes a card record stored on the controller. Restricted to the local LAN.
-   function Delete_Card (U         : UHPPOTE;
-                         C         : Unsigned_32;
-                         Card      : Unsigned_32;
-                         Timeout   : Duration := 2.5) return Boolean is
+   function Delete_Card (U       : UHPPOTE;
+                         C       : Unsigned_32;
+                         Card    : Unsigned_32;
+                         Timeout : Duration := 2.5) return Boolean is
    begin
       return Delete_Card (U, To_Controller (C), Card, Timeout);
    end Delete_Card;
 
    --  Deletes a card record stored on the controller.
-   function Delete_Card (U         : UHPPOTE;
-                         C         : Controller;
-                         Card      : Unsigned_32;
-                         Timeout   : Duration := 2.5) return Boolean is
+   function Delete_Card (U       : UHPPOTE;
+                         C       : Controller;
+                         Card    : Unsigned_32;
+                         Timeout : Duration := 2.5) return Boolean is
       Request : constant Packet := Uhppoted.Lib.Encode.Delete_Card (C.ID, Card);
       Reply   : Packet;
       R       : Delete_Card_Response;
@@ -603,17 +603,17 @@ package body Uhppoted.Lib is
    end Delete_Card;
 
    --  Deletes all card records from the controller. Restricted to the local LAN.
-   function Delete_All_Cards (U         : UHPPOTE;
-                              C         : Unsigned_32;
-                              Timeout   : Duration := 2.5) return Boolean is
+   function Delete_All_Cards (U       : UHPPOTE;
+                              C       : Unsigned_32;
+                              Timeout : Duration := 2.5) return Boolean is
    begin
       return Delete_All_Cards (U, To_Controller (C), Timeout);
    end Delete_All_Cards;
 
    --  Deletes all card records from the controller.
-   function Delete_All_Cards (U         : UHPPOTE;
-                              C         : Controller;
-                              Timeout   : Duration := 2.5) return Boolean is
+   function Delete_All_Cards (U       : UHPPOTE;
+                              C       : Controller;
+                              Timeout : Duration := 2.5) return Boolean is
       Request : constant Packet := Uhppoted.Lib.Encode.Delete_Cards (C.ID);
       Reply   : Packet;
       R       : Delete_All_Cards_Response;
@@ -628,18 +628,18 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Delete_All_Cards;
 
-   --  Retrieves the current event index from the controller. Restricted to the local LAN.
-   function Get_Event_Index (U         : UHPPOTE;
-                             C         : Unsigned_32;
-                             Timeout   : Duration := 2.5) return Unsigned_32 is
+   --  Retrieves the downloaded event index from the controller. Restricted to the local LAN.
+   function Get_Event_Index (U       : UHPPOTE;
+                             C       : Unsigned_32;
+                             Timeout : Duration := 2.5) return Unsigned_32 is
    begin
       return Get_Event_Index (U, To_Controller (C), Timeout);
    end Get_Event_Index;
 
-   --  Retrieves the current event index from the controller.
-   function Get_Event_Index (U         : UHPPOTE;
-                             C         : Controller;
-                             Timeout   : Duration := 2.5) return Unsigned_32 is
+   --  Retrieves the downloaded event index from the controller.
+   function Get_Event_Index (U       : UHPPOTE;
+                             C       : Controller;
+                             Timeout : Duration := 2.5) return Unsigned_32 is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Event_Index (C.ID);
       Reply   : Packet;
       R       : Get_Event_Index_Response;
@@ -653,6 +653,34 @@ package body Uhppoted.Lib is
 
       return R.Index;
    end Get_Event_Index;
+
+   --  Sets the downloaded event index from the controller. Restricted to the local LAN.
+   function Set_Event_Index (U       : UHPPOTE;
+                             C       : Unsigned_32;
+                             Index   : Unsigned_32;
+                             Timeout : Duration := 2.5) return Boolean is
+   begin
+      return Set_Event_Index (U, To_Controller (C), Index, Timeout);
+   end Set_Event_Index;
+
+   --  Sets the downloaded event index from the controller.
+   function Set_Event_Index (U       : UHPPOTE;
+                             C       : Controller;
+                             Index   : Unsigned_32;
+                             Timeout : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Event_Index (C.ID, Index);
+      Reply   : Packet;
+      R       : Set_Event_Index_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Set_Event_Index (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Set_Event_Index;
 
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.

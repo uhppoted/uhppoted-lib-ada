@@ -35,6 +35,8 @@ package body ArgParse is
          return Parse_Put_Card;
       elsif Cmd = "delete-card" then
          return Parse_Delete_Card;
+      elsif Cmd = "set-event-index" then
+         return Parse_Set_Event_Index;
       end if;
 
       --  default to general command
@@ -575,5 +577,34 @@ package body ArgParse is
               Card       => (Card => Unsigned_32 (Card), others => <>));
 
    end Parse_Delete_Card;
+
+   function Parse_Set_Event_Index return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Index                : aliased Integer       := 0;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Index'Access,
+                     Long_Switch => "--index:",
+                     Help        => "index",
+                     Argument    => "EVENT INDEX");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return set-event-index command specific args
+      return (T           => ArgParse.Set_Event_Index_Args,
+              Controller  => C,
+              Door        => 0,
+              Card        => (others => <>),
+              Event_Index => Unsigned_32(Index));
+
+   end Parse_Set_Event_Index;
 
 end ArgParse;

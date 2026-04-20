@@ -27,7 +27,7 @@ var API = []types.Function{
 	lib.DeleteAllCards,
 	// &GetEvent,
 	lib.GetEventIndex,
-	// &SetEventIndex,
+	lib.SetEventIndex,
 	// &RecordSpecialEvents,
 	// &GetTimeProfile,
 	// &SetTimeProfile,

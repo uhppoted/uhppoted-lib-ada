@@ -20,4 +20,5 @@ package Handlers is
    procedure Delete_Card        (Args : ArgParse.Args);
    procedure Delete_All_Cards   (Args : ArgParse.Args);
    procedure Get_Event_Index    (Args : ArgParse.Args);
+   procedure Set_Event_Index    (Args : ArgParse.Args);
 end Handlers;

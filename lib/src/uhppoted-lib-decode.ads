@@ -79,11 +79,15 @@ package Uhppoted.Lib.Decode is
 
    function Delete_All_Cards (Reply : Uhppoted.Lib.Types.Packet)
       return Uhppoted.Lib.Responses.Delete_All_Cards_Response;
-   --  Decodes a 64 byte delete-cards reply as a Delete_All_Cards_Response record.
+   --  Decodes a 64 byte delete-all-cards reply as a Delete_All_Cards_Response record.
 
    function Get_Event_Index (Reply : Uhppoted.Lib.Types.Packet)
       return Uhppoted.Lib.Responses.Get_Event_Index_Response;
-   --  Decodes a 64 byte delete-cards reply as a Get_Event_Index_Response record.
+   --  Decodes a 64 byte get-event-index reply as a Get_Event_Index_Response record.
+
+   function Set_Event_Index (Reply : Uhppoted.Lib.Types.Packet)
+      return Uhppoted.Lib.Responses.Set_Event_Index_Response;
+   --  Decodes a 64 byte set-event-index reply as a Set_Event_Index_Response record.
 
 private
    function BCD_To_String (Bytes : Uhppoted.Lib.Types.BCD) return String;

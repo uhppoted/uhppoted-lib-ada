@@ -179,4 +179,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Get_Event_Index : constant Unsigned_32 := 13579;
 
+   Set_Event_Index : constant Boolean := True;
+
 end Uhppoted.Lib.Integration_Tests.Expected;

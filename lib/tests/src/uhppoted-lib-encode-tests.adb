@@ -34,6 +34,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Delete_Card'Access,      "test encode Delete_Card request");
       Register_Routine (T, Test_Encode_Delete_All_Cards'Access, "test encode Delete_All_Cards request");
       Register_Routine (T, Test_Encode_Get_Event_Index'Access,  "test encode Get_Event_Index request");
+      Register_Routine (T, Test_Encode_Set_Event_Index_Request'Access, "test encode Set_Event_Index_Request request");
    end Register_Tests;
 
    procedure Test_Encode_Find_Controllers (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -422,5 +423,22 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded get-event-index request: got" & Request'Image);
    end Test_Encode_Get_Event_Index;
+
+   procedure Test_Encode_Set_Event_Index_Request (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#b2#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#0b#, 16#35#, 16#00#, 16#00#, 16#55#, 16#aa#, 16#aa#, 16#55#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Event_Index (
+         405419896,
+         13579);
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-event-index request: got" & Request'Image);
+   end Test_Encode_Set_Event_Index_Request;
 
 end Uhppoted.Lib.Encode.Tests;

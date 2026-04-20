@@ -30,6 +30,7 @@
 - [x] delete-card
 - [x] delete-cards
 - [x] get-event-index
+- [x] set-event-index
     - [x] API
     - [x] CLI
     - [x] README
@@ -48,10 +49,6 @@
     - [ ] listen
 
 - [ ] integration tests
-    - [x] `None` response timeout closes stub socket
-    - [x] Invalid response test
-    - [x] Timeout test
-    - [x] Connection refused test
     - [ ] v6.62
 
 - [ ] fix _Library_Interface_ in .gpr file
@@ -63,3 +60,8 @@
       "Uhppoted.Lib.Decode"
    );
 ```
+
+- [ ] `clang: warning: overriding deployment version from '16.0' to '26.0' [-Woverriding-deployment-version]`
+   - https://forum.ada-lang.io/t/gnat-toolchain-now-broken-after-os-upgrade-to-macos-26-tahoe-arm64/3843/8
+   - https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120645
+   - https://github.com/alire-project/GNAT-FSF-builds/issues/94

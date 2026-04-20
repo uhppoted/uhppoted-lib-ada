@@ -28,5 +28,6 @@ package Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
    procedure Test_Delete_Card_Invalid_OpCode    (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Delete_All_Cards_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Get_Event_Index_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Set_Event_Index_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

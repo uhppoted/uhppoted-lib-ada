@@ -18,6 +18,7 @@
 - [`Delete_Card`](#delete_card)
 - [`Delete_All_Cards`](#delete_all_cards)
 - [`Get_Event_Index`](#get_event_index)
+- [`Set_Event_Index`](#set_event_index)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -775,6 +776,35 @@ where:
 ```
 
 Returns the controller downloaded event index.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Set_Event_Index`
+
+**Set_Event_Index** sets the downloaded event index on a controller.
+
+```
+function Set_Event_Index (U         : UHPPOTE;
+                          C         : Unsigned_32;
+                          Index     : Unsigned_32;
+                          Timeout   : Duration) return Unsigned_32;
+
+function Set_Event_Index (U         : Uhppoted.Lib.UHPPOTE;
+                          C         : Controller;
+                          Index     : Unsigned_32;
+                          Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Index      Unsigned_32     Downloaded event index to store.
+```
+
+Returns `True` if the controller downloaded event index was updated.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

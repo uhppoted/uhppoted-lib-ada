@@ -447,4 +447,29 @@ package Uhppoted.Lib.Requests is
    for Get_Event_Index_Request'Bit_Order use System.Low_Order_First;
    for Get_Event_Index_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a set-event-index request.
+   type Set_Event_Index_Request is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Set_Event_Index;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Index      : Unsigned_32;
+      MagicWord  : Unsigned_32;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 45) := [others => 0];
+   end record;
+
+   for Set_Event_Index_Request use record
+      SOM        at  0 range 0 ..   7;
+      OpCode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Index      at  8 range 0 ..  31;
+      MagicWOrd  at 12 range 0 ..  31;
+      Padding    at 16 range 0 .. 359;
+   end record;
+
+   for Set_Event_Index_Request'Size use 64 * 8;
+   for Set_Event_Index_Request'Bit_Order use System.Low_Order_First;
+   for Set_Event_Index_Request'Scalar_Storage_Order use System.Low_Order_First;
+
 end Uhppoted.Lib.Requests;

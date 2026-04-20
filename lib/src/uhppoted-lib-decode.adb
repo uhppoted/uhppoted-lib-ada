@@ -395,6 +395,22 @@ package body Uhppoted.Lib.Decode is
               Index      => R.Index);
    end Get_Event_Index;
 
+   --  Decodes a 64 byte set-event-index reply as a Set_Event_Index_Response record.
+   function Set_Event_Index (Reply : Packet) return Responses.Set_Event_Index_Response is
+      R : Replies.Set_Event_Index_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Set_Event_Index then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Set_Event_Index;
+
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
    function Unpack_Boolean (B : Unsigned_8) return Boolean is
    begin

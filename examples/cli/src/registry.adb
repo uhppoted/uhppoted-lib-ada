@@ -8,26 +8,27 @@ package body Registry is
    function Initialise return Command_Set is
       CS : Command_Set;
    begin
-      CS.Internal_Map.Insert ("find-controllers",   Find_Controllers'Access);
-      CS.Internal_Map.Insert ("get-controller",     Get_Controller'Access);
-      CS.Internal_Map.Insert ("set-IPv4",           Set_IPv4'Access);
-      CS.Internal_Map.Insert ("get-time",           Get_Time'Access);
-      CS.Internal_Map.Insert ("set-time",           Set_Time'Access);
-      CS.Internal_Map.Insert ("get-listener",       Get_Listener'Access);
-      CS.Internal_Map.Insert ("set-listener",       Set_Listener'Access);
-      CS.Internal_Map.Insert ("get-status",         Get_Status'Access);
-      CS.Internal_Map.Insert ("get-door",           Get_Door'Access);
-      CS.Internal_Map.Insert ("set-door",           Set_Door'Access);
-      CS.Internal_Map.Insert ("set-door-passcodes", Set_Door_Passcodes'Access);
-      CS.Internal_Map.Insert ("open-door",          Open_Door'Access);
-      CS.Internal_Map.Insert ("get-cards",          Get_Cards'Access);
-      CS.Internal_Map.Insert ("get-card",           Get_Card'Access);
-      CS.Internal_Map.Insert ("get-card-at-index",  Get_Card_At_Index'Access);
-      CS.Internal_Map.Insert ("put-card",           Put_Card'Access);
-      CS.Internal_Map.Insert ("delete-card",        Delete_Card'Access);
-      CS.Internal_Map.Insert ("delete-all-cards",   Delete_All_Cards'Access);
-      CS.Internal_Map.Insert ("get-event-index",    Get_Event_Index'Access);
-      CS.Internal_Map.Insert ("set-event-index",    Set_Event_Index'Access);
+      CS.Internal_Map.Insert ("find-controllers",      Find_Controllers'Access);
+      CS.Internal_Map.Insert ("get-controller",        Get_Controller'Access);
+      CS.Internal_Map.Insert ("set-IPv4",              Set_IPv4'Access);
+      CS.Internal_Map.Insert ("get-time",              Get_Time'Access);
+      CS.Internal_Map.Insert ("set-time",              Set_Time'Access);
+      CS.Internal_Map.Insert ("get-listener",          Get_Listener'Access);
+      CS.Internal_Map.Insert ("set-listener",          Set_Listener'Access);
+      CS.Internal_Map.Insert ("get-status",            Get_Status'Access);
+      CS.Internal_Map.Insert ("get-door",              Get_Door'Access);
+      CS.Internal_Map.Insert ("set-door",              Set_Door'Access);
+      CS.Internal_Map.Insert ("set-door-passcodes",    Set_Door_Passcodes'Access);
+      CS.Internal_Map.Insert ("open-door",             Open_Door'Access);
+      CS.Internal_Map.Insert ("get-cards",             Get_Cards'Access);
+      CS.Internal_Map.Insert ("get-card",              Get_Card'Access);
+      CS.Internal_Map.Insert ("get-card-at-index",     Get_Card_At_Index'Access);
+      CS.Internal_Map.Insert ("put-card",              Put_Card'Access);
+      CS.Internal_Map.Insert ("delete-card",           Delete_Card'Access);
+      CS.Internal_Map.Insert ("delete-all-cards",      Delete_All_Cards'Access);
+      CS.Internal_Map.Insert ("get-event-index",       Get_Event_Index'Access);
+      CS.Internal_Map.Insert ("set-event-index",       Set_Event_Index'Access);
+      CS.Internal_Map.Insert ("record-special-events", Record_Special_Events'Access);
 
       return CS;
    end Initialise;

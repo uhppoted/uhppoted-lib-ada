@@ -37,6 +37,8 @@ package body ArgParse is
          return Parse_Delete_Card;
       elsif Cmd = "set-event-index" then
          return Parse_Set_Event_Index;
+      elsif Cmd = "record-special-events" then
+         return Parse_Record_Special_Events;
       end if;
 
       --  default to general command
@@ -603,8 +605,42 @@ package body ArgParse is
               Controller  => C,
               Door        => 0,
               Card        => (others => <>),
-              Event_Index => Unsigned_32(Index));
+              Event_Index => Unsigned_32 (Index));
 
    end Parse_Set_Event_Index;
+
+   function Parse_Record_Special_Events return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Enabled              : aliased String_Access := null;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Enabled'Access,
+                     Long_Switch => "--enabled:",
+                     Help        => "enables/disables events for e.g. door unlock",
+                     Argument    => "YES/NO");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return record-special-events command specific args
+      declare
+         S : String renames Enabled.all;
+         E : constant Boolean := S = "yes" or S = "YES";
+      begin
+         return (T           => ArgParse.Record_Special_Events_Args,
+                 Controller  => C,
+                 Door        => 0,
+                 Card        => (others => <>),
+                 Enabled     => E);
+      end;
+
+   end Parse_Record_Special_Events;
 
 end ArgParse;

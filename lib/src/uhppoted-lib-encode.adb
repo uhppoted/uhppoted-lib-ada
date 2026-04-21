@@ -8,6 +8,7 @@ package body Uhppoted.Lib.Encode is
    function Pack_IPv4     (Addr : Inet_Addr_Type) return IPv4;
    function Pack_DateTime (DT   : DateTime)       return BCD7;
    function Pack_Date     (D    : DateOnly)       return BCD4;
+   function Pack_Boolean  (B    : Boolean)        return Unsigned_8;
 
    --  Encodes a get-controller request as a 64 byte array.
    function Get_Controller (Controller : Unsigned_32) return Packet is
@@ -295,6 +296,17 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Set_Event_Index;
 
+   --  Encodes a record-special-events request as a 64 byte array.
+   function Record_Special_Events (Controller : Unsigned_32; Enabled : Boolean) return Uhppoted.Lib.Types.Packet is
+      Request : Record_Special_Events_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Enabled := Pack_Boolean (Enabled);
+
+      return Buffer;
+   end Record_Special_Events;
+
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is
       V : constant IPv4 := [
@@ -346,5 +358,15 @@ package body Uhppoted.Lib.Encode is
 
       return V;
    end Pack_Date;
+
+   --  Packs a Boolean value into a single byte.
+   function Pack_Boolean (B : Boolean) return Unsigned_8 is
+   begin
+      if B then
+         return 1;
+      else
+         return 0;
+      end if;
+   end Pack_Boolean;
 
 end Uhppoted.Lib.Encode;

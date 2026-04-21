@@ -411,6 +411,22 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Set_Event_Index;
 
+   --  Decodes a 64 byte record-special-events reply as a Record_Special_Events_Response record.
+   function Record_Special_Events (Reply : Packet) return Responses.Record_Special_Events_Response is
+      R : Replies.Record_Special_Events_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Record_Special_Events then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Record_Special_Events;
+
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
    function Unpack_Boolean (B : Unsigned_8) return Boolean is
    begin

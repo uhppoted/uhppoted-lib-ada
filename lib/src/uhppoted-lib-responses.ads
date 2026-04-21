@@ -180,4 +180,10 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for a record-special-events response.
+   type Record_Special_Events_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
 end Uhppoted.Lib.Responses;

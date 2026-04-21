@@ -29,5 +29,6 @@ package Uhppoted.Lib.Encode.Tests is
    procedure Test_Encode_Delete_All_Cards (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Get_Event_Index (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Set_Event_Index_Request (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Encode_Record_Special_Events_Request (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Encode.Tests;

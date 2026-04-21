@@ -682,6 +682,34 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Set_Event_Index;
 
+   --  Enables/disables events for e.g. door open, door unlock, etc. Restricted to the local LAN.
+   function Record_Special_Events (U       : UHPPOTE;
+                                   C       : Unsigned_32;
+                                   Enabled : Boolean;
+                                   Timeout : Duration := 2.5) return Boolean is
+   begin
+      return Record_Special_Events (U, To_Controller (C), Enabled, Timeout);
+   end Record_Special_Events;
+
+   --  Enables/disables events for e.g. door open, door unlock, etc.
+   function Record_Special_Events (U       : UHPPOTE;
+                                   C       : Controller;
+                                   Enabled : Boolean;
+                                   Timeout : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Record_Special_Events (C.ID, Enabled);
+      Reply   : Packet;
+      R       : Record_Special_Events_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Record_Special_Events (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Record_Special_Events;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;

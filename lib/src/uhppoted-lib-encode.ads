@@ -92,4 +92,7 @@ package Uhppoted.Lib.Encode is
    --  Encodes a set-event-index request as a 64 byte array.
    function Set_Event_Index (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a record-special-events request as a 64 byte array.
+   function Record_Special_Events (Controller : Unsigned_32; Enabled : Boolean) return Uhppoted.Lib.Types.Packet;
+
 end Uhppoted.Lib.Encode;

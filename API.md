@@ -19,6 +19,7 @@
 - [`Delete_All_Cards`](#delete_all_cards)
 - [`Get_Event_Index`](#get_event_index)
 - [`Set_Event_Index`](#set_event_index)
+- [`Record_Special_Events`](#record_special_events)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -805,6 +806,35 @@ where:
 ```
 
 Returns `True` if the controller downloaded event index was updated.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Record_Special_Events`
+
+**Record_Special_Events** enables or disables events for e.g. door unlocked.
+
+```
+function Record_Special_Events (U         : UHPPOTE;
+                                C         : Unsigned_32;
+                                Enabled   : Boolean;
+                                Timeout   : Duration) return Unsigned_32;
+
+function Record_Special_Events (U         : Uhppoted.Lib.UHPPOTE;
+                                C         : Controller;
+                                Enabled   : Boolean;
+                                Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Enabled    Boolean         Enables/disables events for e.g. door unlocked.
+```
+
+Returns `True` if the controller record special events was enabled/disabled.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

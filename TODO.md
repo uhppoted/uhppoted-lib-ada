@@ -31,6 +31,7 @@
 - [x] delete-cards
 - [x] get-event-index
 - [x] set-event-index
+- [x] record-special-events
     - [x] API
     - [x] CLI
     - [x] README

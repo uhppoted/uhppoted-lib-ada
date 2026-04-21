@@ -37,6 +37,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       Register_Routine (T, Test_Delete_All_Cards_Invalid_OpCode'Access, "test decode Delete_All_Cards with invalid opcode");
       Register_Routine (T, Test_Get_Event_Index_Invalid_OpCode'Access, "test decode Get_Event_Index with invalid opcode");
       Register_Routine (T, Test_Set_Event_Index_Invalid_OpCode'Access, "test decode Set_Event_Index with invalid opcode");
+      Register_Routine (T, Test_Record_Special_Events_Invalid_OpCode'Access, "test decode Record_Special_Events with invalid opcode");
    end Register_Tests;
 
    procedure Test_Get_Controller_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -566,5 +567,29 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when E : others =>
          Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Set_Event_Index_Invalid_OpCode;
+
+   procedure Test_Record_Special_Events_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#17#, 16#8f#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+   begin
+      declare
+         Unused : constant Record_Special_Events_Response := Uhppoted.Lib.Decode.Record_Special_Events (Reply);
+      begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Record_Special_Events_Invalid_OpCode;
 
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

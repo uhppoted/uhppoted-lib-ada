@@ -181,4 +181,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Set_Event_Index : constant Boolean := True;
 
+   Record_Special_Events : constant Boolean := True;
+
 end Uhppoted.Lib.Integration_Tests.Expected;

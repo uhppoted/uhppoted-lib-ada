@@ -62,6 +62,7 @@ var translations = map[string]string{
 	"delete all cards response":       "Boolean",
 	"get event index response":        "Unsigned_32",
 	"set event index response":        "Boolean",
+	"record special events response":  "Boolean",
 }
 
 func IntegrationTests() {

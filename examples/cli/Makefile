@@ -24,7 +24,7 @@ DOORS      ?= 1,3,4
 PIN        ?= 7531
 
 EVENT_INDEX ?= 23
-
+RECORD_SPECIAL_EVENTS ?= yes
 
 clean:
 	alr clean
@@ -91,3 +91,6 @@ get-event-index: build
 
 set-event-index: build
 	$(CLI) set-event-index --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --index $(EVENT_INDEX)
+
+record-special-events: build
+	$(CLI) record-special-events --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --enabled $(RECORD_SPECIAL_EVENTS)

@@ -17,6 +17,7 @@ DOORS      ?= 1,3,4
 PIN        ?= 7531
 
 EVENT_INDEX ?= 23
+RECORD_SPECIAL_EVENTS ?= yes
 
 clean:
 	cd lib && make clean
@@ -107,3 +108,6 @@ get-event-index: build
 
 set-event-index: build
 	cd examples/cli && make set-event-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) EVENT_INDEX=$(EVENT_INDEX)
+
+record-special-events: build
+	cd examples/cli && make record-special-events CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) RECORD_SPECIAL_EVENTS=$(RECORD_SPECIAL_EVENTS)

@@ -60,6 +60,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       Register_Routine (T, Test_Delete_All_Cards'Access,            "Delete_All_Cards");
       Register_Routine (T, Test_Get_Event_Index'Access,             "Get_Event_Index");
       Register_Routine (T, Test_Set_Event_Index'Access,             "Set_Event_Index");
+      Register_Routine (T, Test_Record_Special_Events'Access,       "Record_Special_Events");
       Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
 
@@ -380,6 +381,20 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    begin
       Assert (V = Expected.Set_Event_Index, "invalid result" & V'Image);
    end Test_Set_Event_Index;
+
+   procedure Test_Record_Special_Events (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.UDP);
+
+      V : constant Boolean := Record_Special_Events (U, C, true, 0.5);
+   begin
+      Assert (V = Expected.Record_Special_Events, "invalid result" & V'Image);
+   end Test_Record_Special_Events;
 
    --  custom tests
    procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is

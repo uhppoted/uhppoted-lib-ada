@@ -337,8 +337,19 @@ package body Handlers is
       Put_Line ("--- set-event-index");
       Put_Line (" controller:" & Args.Controller.ID'Image);
       Put_Line ("      index:" & Args.Event_Index'Image);
-      Put_Line ("         ok: " & R'Image);
+      Put_Line ("         ok:" & R'Image);
       Put_Line ("");
    end Set_Event_Index;
+
+   --  Executes the record-special-events command.
+   procedure Record_Special_Events (Args : ArgParse.Args) is
+      R : constant Boolean := Record_Special_Events (U, Args.Controller, Args.Enabled, Timeout);
+   begin
+      Put_Line ("--- record-special-events");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("    enabled:" & Args.Enabled'Image);
+      Put_Line ("         ok:" & R'Image);
+      Put_Line ("");
+   end Record_Special_Events;
 
 end Handlers;

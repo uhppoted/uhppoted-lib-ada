@@ -40,6 +40,7 @@ private
    procedure Test_Delete_All_Cards            (T : in out Test_Case'Class);
    procedure Test_Get_Event_Index             (T : in out Test_Case'Class);
    procedure Test_Set_Event_Index             (T : in out Test_Case'Class);
+   procedure Test_Record_Special_Events       (T : in out Test_Case'Class);
    procedure Test_Connection_Refused (T : in out Test_Case'Class);
 
 end Uhppoted.Lib.Integration_Tests.TCP;

@@ -29,7 +29,7 @@ var Responses = []types.Response{
 	// &GetEventResponse,
 	lib.GetEventIndexResponse,
 	lib.SetEventIndexResponse,
-	// &RecordSpecialEventsResponse,
+	lib.RecordSpecialEventsResponse,
 	// &GetTimeProfileResponse,
 	// &SetTimeProfileResponse,
 	// &ClearTimeProfilesResponse,

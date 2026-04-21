@@ -27,6 +27,7 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
      (Delete_All_Cards_Request,            Delete_All_Cards_Reply),
      (Get_Event_Index_Request,             Get_Event_Index_Reply),
      (Set_Event_Index_Request,             Set_Event_Index_Reply),
+     (Record_Special_Events_Request,       Record_Special_Events_Reply),
      (Invalid_SOM_Request,                 Invalid_SOM_Reply),
      (Invalid_OpCode_Request,              Invalid_OpCode_Reply)
    ];

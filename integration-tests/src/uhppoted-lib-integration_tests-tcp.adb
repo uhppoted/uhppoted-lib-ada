@@ -212,7 +212,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.TCP);
 
-      V : constant Door_Record := Get_Door (U, C, 4, 0.5);
+      V : constant Door_Type := Get_Door (U, C, 4, 0.5);
    begin
       Assert (V = Expected.Get_Door, "invalid result" & V'Image);
    end Test_Get_Door;
@@ -226,7 +226,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.TCP);
 
-      V : constant Door_Record := Set_Door (U, C, 4, To_Control_Mode (2), 17, 0.5);
+      V : constant Door_Type := Set_Door (U, C, 4, To_Control_Mode (2), 17, 0.5);
    begin
       Assert (V = Expected.Set_Door, "invalid result" & V'Image);
    end Test_Set_Door;
@@ -392,7 +392,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.TCP);
 
-      V : constant Boolean := Record_Special_Events (U, C, true, 0.5);
+      V : constant Boolean := Record_Special_Events (U, C, True, 0.5);
    begin
       Assert (V = Expected.Record_Special_Events, "invalid result" & V'Image);
    end Test_Record_Special_Events;

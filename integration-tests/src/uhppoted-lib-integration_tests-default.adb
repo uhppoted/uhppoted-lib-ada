@@ -165,7 +165,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Door_Record := Get_Door (U, 405419896, 4, 0.5);
+      V : constant Door_Type := Get_Door (U, 405419896, 4, 0.5);
    begin
       Assert (V = Expected.Get_Door, "invalid result" & V'Image);
    end Test_Get_Door;
@@ -173,7 +173,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Set_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Door_Record := Set_Door (U, 405419896, 4, To_Control_Mode (2), 17, 0.5);
+      V : constant Door_Type := Set_Door (U, 405419896, 4, To_Control_Mode (2), 17, 0.5);
    begin
       Assert (V = Expected.Set_Door, "invalid result" & V'Image);
    end Test_Set_Door;
@@ -273,7 +273,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Record_Special_Events (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Boolean := Record_Special_Events (U, 405419896, true, 0.5);
+      V : constant Boolean := Record_Special_Events (U, 405419896, True, 0.5);
    begin
       Assert (V = Expected.Record_Special_Events, "invalid result" & V'Image);
    end Test_Record_Special_Events;

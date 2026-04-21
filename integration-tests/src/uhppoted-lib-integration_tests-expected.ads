@@ -107,11 +107,11 @@ package Uhppoted.Lib.Integration_Tests.Expected is
                Access_Granted => False,
                Reason         => 0));
 
-   Get_Door : constant Door_Record := (
+   Get_Door : constant Door_Type := (
      Mode      => To_Control_Mode (3),
      OpenDelay => 7);
 
-   Set_Door : constant Door_Record := (
+   Set_Door : constant Door_Type := (
      Mode      => To_Control_Mode (2),
      OpenDelay => 17);
 

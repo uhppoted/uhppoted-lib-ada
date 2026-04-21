@@ -454,7 +454,7 @@ package body Uhppoted.Lib.Encode.Tests is
 
       Request : constant Packet := Uhppoted.Lib.Encode.Record_Special_Events (
          405419896,
-         true);
+         True);
    begin
       Assert (Request = Expected, "incorrectly encoded record-special-events request: got" & Request'Image);
    end Test_Encode_Record_Special_Events_Request;

@@ -41,10 +41,10 @@
 - [ ] enums for event-type, event-reason, event-direction
 - [ ] rename
      - [x] Card_Record => Card_Type
+     - [x] Door_Record => Door_Type
      - (?) Controller_Record => Controller_Type
-     - (?) Controller_Status => Status_Type
+     - (?) Controller_Status => Controller_Status_Type
      - (?) Listener_Record => Listener_Type
-     - (?) Door_Record => Door_Type
 
 - [ ] UDP
     - [ ] listen

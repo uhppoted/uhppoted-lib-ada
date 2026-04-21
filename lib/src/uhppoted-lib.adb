@@ -288,7 +288,7 @@ package body Uhppoted.Lib is
    function Get_Door (U       : UHPPOTE;
                       C       : Unsigned_32;
                       Door    : Unsigned_8;
-                      Timeout : Duration := 2.5) return Door_Record is
+                      Timeout : Duration := 2.5) return Door_Type is
    begin
       return Get_Door (U, To_Controller (C), Door, Timeout);
    end Get_Door;
@@ -297,7 +297,7 @@ package body Uhppoted.Lib is
    function Get_Door (U       : UHPPOTE;
                       C       : Controller;
                       Door    : Unsigned_8;
-                      Timeout : Duration := 2.5) return Door_Record is
+                      Timeout : Duration := 2.5) return Door_Type is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Door (C.ID, Door);
       Reply   : Packet;
       R       : Get_Door_Response;
@@ -319,7 +319,7 @@ package body Uhppoted.Lib is
                       Door      : Unsigned_8;
                       Mode      : Control_Mode;
                       OpenDelay : Unsigned_8;
-                      Timeout   : Duration := 2.5) return Door_Record is
+                      Timeout   : Duration := 2.5) return Door_Type is
    begin
       return Set_Door (U, To_Controller (C), Door, Mode, OpenDelay, Timeout);
    end Set_Door;
@@ -330,7 +330,7 @@ package body Uhppoted.Lib is
                       Door      : Unsigned_8;
                       Mode      : Control_Mode;
                       OpenDelay : Unsigned_8;
-                      Timeout   : Duration := 2.5) return Door_Record is
+                      Timeout   : Duration := 2.5) return Door_Type is
       Request : constant Packet := Uhppoted.Lib.Encode.Set_Door (C.ID, Door, Mode, OpenDelay);
       Reply   : Packet;
       R       : Set_Door_Response;

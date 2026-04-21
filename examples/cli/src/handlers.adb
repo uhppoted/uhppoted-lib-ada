@@ -199,7 +199,7 @@ package body Handlers is
 
    --  Executes the get-door command.
    procedure Get_Door (Args : ArgParse.Args) is
-      R : constant Door_Record := Get_Door (U, Args.Controller, Args.Door, Timeout);
+      R : constant Door_Type := Get_Door (U, Args.Controller, Args.Door, Timeout);
    begin
       Put_Line ("--- get-door");
       Put_Line ("controller:" & Args.Controller.ID'Image);
@@ -211,7 +211,7 @@ package body Handlers is
 
    --  Executes the set-door command.
    procedure Set_Door (Args : ArgParse.Args) is
-      R : constant Door_Record := Set_Door (U, Args.Controller, Args.Door, Args.Mode, Args.OpenDelay, Timeout);
+      R : constant Door_Type := Set_Door (U, Args.Controller, Args.Door, Args.Mode, Args.OpenDelay, Timeout);
    begin
       Put_Line ("--- set-door");
       Put_Line ("controller:" & Args.Controller.ID'Image);

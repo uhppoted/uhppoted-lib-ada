@@ -27,7 +27,7 @@ package Uhppoted.Lib is
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
    subtype Controller_Status is Uhppoted.Types.Controller_Status;
    subtype Listener_Record is Uhppoted.Types.Listener_Record;
-   subtype Door_Record is Uhppoted.Types.Door_Record;
+   subtype Door_Type is Uhppoted.Types.Door_Type;
    subtype Card_Type is Uhppoted.Types.Card_Type;
 
    subtype DateTime is Uhppoted.Types.DateTime;
@@ -276,7 +276,7 @@ package Uhppoted.Lib is
    function Get_Door (U       : UHPPOTE;
                       C       : Unsigned_32;
                       Door    : Unsigned_8;
-                      Timeout : Duration := 2.5) return Door_Record;
+                      Timeout : Duration := 2.5) return Door_Type;
    --  Retrieves a door control mode and open delay. Restricted to the local LAN.
    --
    --  @param  U        UHPPOTE configuration.
@@ -284,7 +284,7 @@ package Uhppoted.Lib is
    --  @param  Door     Door ID [1..4].
    --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return          Door_Record with the control mode and open delay.
+   --  @return          Door_Type with the control mode and open delay.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
@@ -292,7 +292,7 @@ package Uhppoted.Lib is
    function Get_Door (U       : UHPPOTE;
                       C       : Controller;
                       Door    : Unsigned_8;
-                      Timeout : Duration := 2.5) return Door_Record;
+                      Timeout : Duration := 2.5) return Door_Type;
    --  Retrieves a door control mode and open delay.
    --
    --  @param  U        UHPPOTE configuration.
@@ -300,7 +300,7 @@ package Uhppoted.Lib is
    --  @param  Door     Door ID [1..4].
    --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return          Door_Record with the control mode and open delay.
+   --  @return          Door_Type with the control mode and open delay.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
@@ -310,7 +310,7 @@ package Uhppoted.Lib is
                       Door      : Unsigned_8;
                       Mode      : Uhppoted.Lib.Control_Mode;
                       OpenDelay : Unsigned_8;
-                      Timeout   : Duration := 2.5) return Door_Record;
+                      Timeout   : Duration := 2.5) return Door_Type;
    --  Sets a door control mode and open delay. Restricted to the local LAN.
    --
    --  @param  U          UHPPOTE configuration.
@@ -320,7 +320,7 @@ package Uhppoted.Lib is
    --  @param  OpenDelay  Time  (seconds) door remains unlocked after swipe.
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
    --
-   --  @return          Door_Record with the control mode and open delay.
+   --  @return          Door_Type with the control mode and open delay.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
@@ -330,7 +330,7 @@ package Uhppoted.Lib is
                       Door      : Unsigned_8;
                       Mode      : Uhppoted.Lib.Control_Mode;
                       OpenDelay : Unsigned_8;
-                      Timeout   : Duration := 2.5) return Door_Record;
+                      Timeout   : Duration := 2.5) return Door_Type;
    --  Sets a door control mode and open delay.
    --
    --  @param  U          UHPPOTE configuration.
@@ -340,7 +340,7 @@ package Uhppoted.Lib is
    --  @param  OpenDelay  Time  (seconds) door remains unlocked after swipe.
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
    --
-   --  @return            Door_Record with the control mode and open delay.
+   --  @return            Door_Type with the control mode and open delay.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.

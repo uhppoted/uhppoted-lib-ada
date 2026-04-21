@@ -149,6 +149,9 @@ func args(t lib.RequestTest) []arg {
 				args = append(args, arg{address, comma})
 			}
 
+		case "bool":
+			args = append(args, arg{boolean(a.Value), comma})
+
 		default:
 			args = append(args, arg{fmt.Sprintf("%v", a.Value), comma})
 		}
@@ -189,4 +192,16 @@ func date(v any) string {
 			"(Year => %v, Month => %v, Day => %v)",
 			uint16(year), uint8(month), uint8(day))
 	}
+}
+
+func boolean(v any) string {
+	if b, ok := v.(bool); ok {
+		if b {
+			return "True"
+		} else {
+			return "False"
+		}
+	}
+
+	panic(fmt.Sprintf("invalid bool (%v)", v))
 }

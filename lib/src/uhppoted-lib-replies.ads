@@ -582,7 +582,7 @@ package Uhppoted.Lib.Replies is
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
-      Padding    : Ada.Streams.Stream_Element_Array (1 .. 52);
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
    for Set_Event_Index_Reply use record
@@ -605,7 +605,7 @@ package Uhppoted.Lib.Replies is
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
-      Padding    : Ada.Streams.Stream_Element_Array (1 .. 52);
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
    for Record_Special_Events_Reply use record

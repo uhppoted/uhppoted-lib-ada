@@ -50,8 +50,8 @@ var translations = map[string]string{
 	"get listener response":           "Listener_Record",
 	"set listener addr:port response": "Boolean",
 	"get status response":             "Controller_Status",
-	"get door response":               "Door_Record",
-	"set door response":               "Door_Record",
+	"get door response":               "Door_Type",
+	"set door response":               "Door_Type",
 	"set door passcodes response":     "Boolean",
 	"open door response":              "Boolean",
 	"get cards response":              "Unsigned_32",
@@ -244,6 +244,9 @@ func args(t lib.FuncTest) []any {
 		case v.Type == "mode":
 			args = append(args, fmt.Sprintf("To_Control_Mode (%v)", v.Value))
 
+		case v.Type == "bool":
+			args = append(args, boolean(v.Value))
+
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 1":
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 2":
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 3":
@@ -334,7 +337,7 @@ func response(f lib.Function, t lib.FuncTest) returns {
 			r.Template = "status"
 			r.Value = t.Replies[0].Response
 
-		case "Door_Record":
+		case "Door_Type":
 			r.Template = "door"
 			r.Value = t.Replies[0].Response
 
@@ -398,6 +401,18 @@ func datetime(v any) string {
 			uint16(year), uint8(month), uint8(day),
 			uint8(datetime.Hour()), uint8(datetime.Minute()), uint8(datetime.Second()))
 	}
+}
+
+func boolean(v any) string {
+	if b, ok := v.(bool); ok {
+		if b {
+			return "True"
+		} else {
+			return "False"
+		}
+	}
+
+	panic(fmt.Sprintf("invalid boolean (%v)", v))
 }
 
 func field(v string) string {

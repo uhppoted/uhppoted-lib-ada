@@ -63,13 +63,13 @@ package Uhppoted.Types is
       Interval : Unsigned_8;
    end record;
 
-   type Door_Type is record
+   type Door_State is record
       Open     : Boolean;
       Button   : Boolean;
       Unlocked : Boolean;
    end record;
 
-   type Doors_Type is array (1 .. 4) of Door_Type;
+   type Doors_State is array (1 .. 4) of Door_State;
 
    type Alarms_Type is record
       Flags       : Unsigned_8;
@@ -90,7 +90,7 @@ package Uhppoted.Types is
 
    type Controller_Status is record
       System_Date_Time : DateTime;
-      Doors            : Doors_Type;
+      Doors            : Doors_State;
       Alarms           : Alarms_Type;
       System_Error     : Unsigned_8;
       Special_Info     : Unsigned_8;
@@ -104,7 +104,7 @@ package Uhppoted.Types is
       Normally_Closed => 2,
       Controlled      => 3);
 
-   type Door_Record is record
+   type Door_Type is record
       Mode      : Control_Mode;
       OpenDelay : Unsigned_8;
    end record;

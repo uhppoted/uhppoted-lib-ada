@@ -168,6 +168,19 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for a get-event response.
+   type Get_Event_Response is record
+      Controller     : Unsigned_32;
+      Index          : Unsigned_32;
+      Event_Type     : Unsigned_8;
+      Access_Granted : Boolean;
+      Door           : Unsigned_8;
+      Direction      : Unsigned_8;
+      Card           : Unsigned_32;
+      Timestamp      : DateTime;
+      Reason         : Unsigned_8;
+   end record;
+
    --  Message definition for a get-event-index response.
    type Get_Event_Index_Response is record
       Controller : Unsigned_32;

@@ -28,13 +28,15 @@ package ArgParse is
       Get_Card_At_Index_Args,
       Put_Card_Args,
       Delete_Card_Args,
+      Get_Event_Args,
       Set_Event_Index_Args,
       Record_Special_Events_Args);
 
    type Args (T : Args_Type) is record
-      Controller : Uhppoted.Lib.Controller;
-      Door       : Unsigned_8;
-      Card       : Uhppoted.Lib.Card_Type;
+      Controller  : Uhppoted.Lib.Controller;
+      Door        : Unsigned_8;
+      Card        : Uhppoted.Lib.Card_Type;
+      Event_Index : Unsigned_32;
 
       case T is
          when Set_IPv4_Args =>
@@ -71,8 +73,11 @@ package ArgParse is
          when Delete_Card_Args =>
             null;
 
+         when Get_Event_Args =>
+            null;
+
          when Set_Event_Index_Args =>
-            Event_Index : Unsigned_32;
+            null;
 
          when Record_Special_Events_Args =>
             Enabled : Boolean;
@@ -105,6 +110,7 @@ private
    function Parse_Get_Card_At_Index     return Args;
    function Parse_Put_Card              return Args;
    function Parse_Delete_Card           return Args;
+   function Parse_Get_Event             return Args;
    function Parse_Set_Event_Index       return Args;
    function Parse_Record_Special_Events return Args;
 

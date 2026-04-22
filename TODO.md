@@ -32,6 +32,7 @@
 - [x] get-event-index
 - [x] set-event-index
 - [x] record-special-events
+- [x] get-event
     - [x] API
     - [x] CLI
     - [x] README

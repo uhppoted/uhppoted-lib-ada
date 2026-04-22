@@ -29,6 +29,7 @@ package Uhppoted.Lib is
    subtype Listener_Record is Uhppoted.Types.Listener_Record;
    subtype Door_Type is Uhppoted.Types.Door_Type;
    subtype Card_Type is Uhppoted.Types.Card_Type;
+   subtype Event_Type is Uhppoted.Types.Event_Type;
 
    subtype DateTime is Uhppoted.Types.DateTime;
    subtype Control_Mode is Uhppoted.Types.Control_Mode;
@@ -38,11 +39,13 @@ package Uhppoted.Lib is
    Normally_Closed : Control_Mode renames Uhppoted.Types.Normally_Closed;
    Controlled      : Control_Mode renames Uhppoted.Types.Controlled;
 
-   Invalid_Address_Error  : exception renames Uhppoted.Types.Invalid_Address_Error;
-   Card_Not_Found_Error   : exception renames Uhppoted.Types.Card_Not_Found_Error;
-   Card_Deleted_Error     : exception renames Uhppoted.Types.Card_Deleted_Error;
-   Invalid_Response_Error : exception renames Uhppoted.Types.Invalid_Response_Error;
-   Timeout_Error          : exception renames Uhppoted.Types.Timeout_Error;
+   Invalid_Address_Error   : exception renames Uhppoted.Types.Invalid_Address_Error;
+   Card_Not_Found_Error    : exception renames Uhppoted.Types.Card_Not_Found_Error;
+   Card_Deleted_Error      : exception renames Uhppoted.Types.Card_Deleted_Error;
+   Event_Not_Found_Error   : exception renames Uhppoted.Types.Event_Not_Found_Error;
+   Event_Overwritten_Error : exception renames Uhppoted.Types.Event_Overwritten_Error;
+   Invalid_Response_Error  : exception renames Uhppoted.Types.Invalid_Response_Error;
+   Timeout_Error           : exception renames Uhppoted.Types.Timeout_Error;
 
    function Find_Controllers (U       : UHPPOTE;
                               Timeout : Duration := 2.5) return Controller_Record_List;
@@ -604,6 +607,42 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Get_Event (U       : UHPPOTE;
+                       C       : Unsigned_32;
+                       Index   : Unsigned_32;
+                       Timeout : Duration := 2.5) return Event_Type;
+   --  Retrieves an event index from the controller. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Index      Downloaded event index.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Event record.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   --  @exception Event_Not_Found        if the event index does not match an existing record.
+   --  @exception Event_Overwritten      if the event at the index has been overwritten.
+
+   function Get_Event (U       : UHPPOTE;
+                       C       : Controller;
+                       Index   : Unsigned_32;
+                       Timeout : Duration := 2.5) return Event_Type;
+   --  Retrieves an event index from the controller.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Index      Downloaded event index.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Event record.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+   --  @exception Event_Not_Found        if the event index does not match an existing record.
+   --  @exception Event_Overwritten      if the event at the index has been overwritten.
 
    function Get_Event_Index (U       : UHPPOTE;
                              C       : Unsigned_32;

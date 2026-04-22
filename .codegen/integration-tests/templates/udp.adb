@@ -163,6 +163,50 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
          Assert (False, "Expected Socket_Error.Connection_Refused, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Connection_Refused;
 
+   procedure Test_Get_Event_Not_Found (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.UDP);
+   begin
+      declare
+         Unused : constant Event_Type := Get_Event (U, C, 24680, 0.5);
+      begin
+         Assert (False, "Expected 'event not found' error");
+      end;
+
+   exception
+      when Event_Not_Found_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Event_Not_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Not_Found;
+
+   procedure Test_Get_Event_Overwritten (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.UDP);
+   begin
+      declare
+         Unused : constant Event_Type := Get_Event (U, C, 98765, 0.5);
+      begin
+         Assert (False, "Expected 'event not found' error");
+      end;
+
+   exception
+      when Event_Overwritten_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Event_Overwritten_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Overwritten;
+
 end Uhppoted.Lib.Integration_Tests.UDP;
 {{ define "udptest" }}
    procedure Test_{{ printf "%v" .Name }} (T : in out Test_Case'Class) is

@@ -35,6 +35,9 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       Register_Routine (T, Test_Put_Card_Invalid_OpCode'Access,        "test decode Put_Card with invalid opcode");
       Register_Routine (T, Test_Delete_Card_Invalid_OpCode'Access,     "test decode Delete_Card with invalid opcode");
       Register_Routine (T, Test_Delete_All_Cards_Invalid_OpCode'Access, "test decode Delete_All_Cards with invalid opcode");
+      Register_Routine (T, Test_Get_Event_Invalid_OpCode'Access,       "test decode Get_Event with invalid opcode");
+      Register_Routine (T, Test_Get_Event_Not_Found_Invalid_OpCode'Access, "test decode Get_Event_Not_Found with invalid opcode");
+      Register_Routine (T, Test_Get_Event_Overwritten_Invalid_OpCode'Access, "test decode Get_Event_Overwritten with invalid opcode");
       Register_Routine (T, Test_Get_Event_Index_Invalid_OpCode'Access, "test decode Get_Event_Index with invalid opcode");
       Register_Routine (T, Test_Set_Event_Index_Invalid_OpCode'Access, "test decode Set_Event_Index with invalid opcode");
       Register_Routine (T, Test_Record_Special_Events_Invalid_OpCode'Access, "test decode Record_Special_Events with invalid opcode");
@@ -519,6 +522,78 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when E : others =>
          Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Delete_All_Cards_Invalid_OpCode;
+
+   procedure Test_Get_Event_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#17#, 16#b1#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#0b#, 16#35#, 16#00#, 16#00#, 16#02#, 16#01#, 16#04#, 16#02#,
+         16#a0#, 16#7a#, 16#99#, 16#00#, 16#20#, 16#25#, 16#11#, 16#17#,  16#12#, 16#34#, 16#56#, 16#15#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+   begin
+      declare
+         Unused : constant Get_Event_Response := Uhppoted.Lib.Decode.Get_Event (Reply);
+      begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Invalid_OpCode;
+
+   procedure Test_Get_Event_Not_Found_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#17#, 16#b1#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#68#, 16#60#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+   begin
+      declare
+         Unused : constant Get_Event_Response := Uhppoted.Lib.Decode.Get_Event (Reply);
+      begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Not_Found_Invalid_OpCode;
+
+   procedure Test_Get_Event_Overwritten_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#17#, 16#b1#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#cd#, 16#81#, 16#01#, 16#00#, 16#ff#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+   begin
+      declare
+         Unused : constant Get_Event_Response := Uhppoted.Lib.Decode.Get_Event (Reply);
+      begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Overwritten_Invalid_OpCode;
 
    procedure Test_Get_Event_Index_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

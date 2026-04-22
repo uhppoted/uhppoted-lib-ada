@@ -140,16 +140,19 @@ func datetime(v any) string {
 	s := fmt.Sprintf("%v", v)
 
 	if s == "" {
-		return fmt.Sprintf("(Year => %v, Month => %v, Day => %v, Hour => %v, Minute => %v, Second => %v)", 0, 0, 0, 0, 0, 0)
+		return fmt.Sprintf("(Year => %v, Month => %v, Day => %v, Hour => %v, Minute => %v, Second => %v)", 1, 1, 1, 0, 0, 0)
 	} else if datetime, err := time.ParseInLocation("2006-01-02 15:04:05", s, time.Local); err != nil {
 		panic(fmt.Sprintf("invalid date (%v)", v))
 	} else {
 		year, month, day := datetime.Date()
+		hour := datetime.Hour()
+		minute := datetime.Minute()
+		second := datetime.Second()
 
 		return fmt.Sprintf(
 			"(Year => %v, Month => %v, Day => %v, Hour => %v, Minute => %v, Second => %v)",
 			uint16(year), uint8(month), uint8(day),
-			uint8(datetime.Hour()), uint8(datetime.Minute()), uint8(datetime.Second()))
+			uint8(hour), uint8(minute), uint8(second))
 	}
 }
 

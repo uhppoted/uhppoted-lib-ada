@@ -552,6 +552,43 @@ package Uhppoted.Lib.Replies is
    for Delete_All_Cards_Reply'Bit_Order use System.Low_Order_First;
    for Delete_All_Cards_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a get-event reply.
+   type Get_Event_Reply is record
+      SOM                  : Unsigned_8    := Codec.SOM;
+      Opcode               : Codec.Op_Code := Codec.Get_Event;
+      Reserved             : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller           : Unsigned_32;
+      Index                : Unsigned_32;
+      Event_Type           : Unsigned_8;
+      Access_Granted       : Unsigned_8;
+      Door                 : Unsigned_8;
+      Direction            : Unsigned_8;
+      Card                 : Unsigned_32;
+      Timestamp            : Uhppoted.Lib.Types.BCD (1 .. 7);
+      Reason               : Unsigned_8;
+      Padding              : Ada.Streams.Stream_Element_Array (1 .. 36);
+   end record;
+
+   for Get_Event_Reply use record
+      SOM            at  0 range 0 ..   7;
+      Opcode         at  1 range 0 ..   7;
+      Reserved       at  2 range 0 ..  15;
+      Controller     at  4 range 0 ..  31;
+      Index          at  8 range 0 ..  31;
+      Event_Type     at 12 range 0 ..   7;
+      Access_Granted at 13 range 0 ..   7;
+      Door           at 14 range 0 ..   7;
+      Direction      at 15 range 0 ..   7;
+      Card           at 16 range 0 ..  31;
+      Timestamp      at 20 range 0 ..  55;
+      Reason         at 27 range 0 ..   7;
+      Padding        at 28 range 0 .. 287;
+   end record;
+
+   for Get_Event_Reply'Size use 64 * 8;
+   for Get_Event_Reply'Bit_Order use System.Low_Order_First;
+   for Get_Event_Reply'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a get-event-index reply.
    type Get_Event_Index_Reply is record
       SOM        : Unsigned_8    := Codec.SOM;

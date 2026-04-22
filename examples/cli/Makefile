@@ -86,6 +86,9 @@ delete-card: build
 delete-all-cards: build
 	$(CLI) delete-all-cards --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
 
+get-event: build
+	$(CLI) get-event --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --index $(EVENT_INDEX)
+
 get-event-index: build
 	$(CLI) get-event-index --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
 

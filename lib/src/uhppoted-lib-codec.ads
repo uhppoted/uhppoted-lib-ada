@@ -22,6 +22,7 @@ package Uhppoted.Lib.Codec is
       Get_Listener,
       Get_Controller,
       Set_IPv4,
+      Get_Event,
       Set_Event_Index,
       Get_Event_Index);
 
@@ -44,6 +45,7 @@ package Uhppoted.Lib.Codec is
       Get_Listener          => 16#92#,
       Get_Controller        => 16#94#,
       Set_IPv4              => 16#96#,
+      Get_Event             => 16#b0#,
       Set_Event_Index       => 16#b2#,
       Get_Event_Index       => 16#b4#
    );

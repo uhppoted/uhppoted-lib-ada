@@ -60,6 +60,7 @@ var translations = map[string]string{
 	"put card response":               "Boolean",
 	"delete card response":            "Boolean",
 	"delete all cards response":       "Boolean",
+	"get event response":              "Event_Type",
 	"get event index response":        "Unsigned_32",
 	"set event index response":        "Boolean",
 	"record special events response":  "Boolean",
@@ -344,6 +345,10 @@ func response(f lib.Function, t lib.FuncTest) returns {
 		case "Card_Type":
 			r.Template = "card"
 			r.Value = t.Replies[0].Response
+
+		case "Event_Type":
+			r.Template = "event"
+			r.Value = t.Replies[0].Response
 		}
 	}
 
@@ -395,11 +400,14 @@ func datetime(v any) string {
 		panic(fmt.Sprintf("invalid date (%v)", v))
 	} else {
 		year, month, day := datetime.Date()
+		hour := datetime.Hour()
+		minute := datetime.Minute()
+		second := datetime.Second()
 
 		return fmt.Sprintf(
 			"(Year => %v, Month => %v, Day => %v, Hour => %v, Minute => %v, Second => %v)",
 			uint16(year), uint8(month), uint8(day),
-			uint8(datetime.Hour()), uint8(datetime.Minute()), uint8(datetime.Second()))
+			uint8(hour), uint8(minute), uint8(second))
 	}
 }
 
@@ -469,6 +477,8 @@ func skip(test string) bool {
 		"Get_Card_Not_Found",
 		"Get_Card_At_Index_Not_Found",
 		"Get_Card_At_Index_Deleted",
+		"Get_Event_Not_Found",
+		"Get_Event_Overwritten",
 	}
 
 	return slices.Contains(tests, test)

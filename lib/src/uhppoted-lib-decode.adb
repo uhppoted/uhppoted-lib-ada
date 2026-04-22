@@ -379,6 +379,30 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Delete_All_Cards;
 
+   --  Decodes a 64 byte get-event reply as a Get_Status_Response record.
+   function Get_Event (Reply : Packet) return Responses.Get_Event_Response is
+      R : Replies.Get_Event_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Event then
+         raise Invalid_Response_Error;
+      end if;
+
+      return
+         (Controller     => R.Controller,
+          Index          => R.Index,
+          Event_Type     => R.Event_Type,
+          Access_Granted => Unpack_Boolean (R.Access_Granted),
+          Door           => R.Door,
+          Direction      => R.Direction,
+          Card           => R.Card,
+          Timestamp      => Unpack_Date_Time (R.Timestamp),
+          Reason         => R.Reason);
+   end Get_Event;
+
    --  Decodes a 64 byte get-event-index reply as a Get_Event_Index_Response record.
    function Get_Event_Index (Reply : Packet) return Responses.Get_Event_Index_Response is
       R : Replies.Get_Event_Index_Reply with Import, Address => Reply'Address;
@@ -482,6 +506,10 @@ package body Uhppoted.Lib.Decode is
       Minute : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (11 .. 12));
       Second : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (13 .. 14));
    begin
+      if Year = 0 and then Month = 0 and then Day = 0 and then Hour = 0 and then Minute = 0 and then Second = 0 then
+         return (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0);
+      end if;
+
       return (Year => Year, Month => Month, Day => Day, Hour => Hour, Minute => Minute, Second => Second);
    end Unpack_Date_Time;
 

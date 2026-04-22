@@ -100,7 +100,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Special_Info => 39,
      Event => (Index          => 0,
                Event          => 0,
-               Timestamp      => (Year => 0, Month => 0, Day => 0, Hour => 0, Minute => 0, Second => 0),
+               Timestamp      => (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0),
                Door           => 0,
                Direction      => 0,
                Card           => 0,
@@ -176,6 +176,36 @@ package Uhppoted.Lib.Integration_Tests.Expected is
    Delete_Card : constant Boolean := True;
 
    Delete_All_Cards : constant Boolean := True;
+
+   Get_Event : constant Event_Type := (
+     Index          => 13579,
+     Event          => 2,
+     Timestamp      => (Year => 2025, Month => 11, Day => 17, Hour => 12, Minute => 34, Second => 56),
+     Door           => 4,
+     Direction      => 2,
+     Card           => 10058400,
+     Access_Granted => True,
+     Reason         => 21);
+
+   Get_Event_Not_Found : constant Event_Type := (
+     Index          => 24680,
+     Event          => 0,
+     Timestamp      => (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0),
+     Door           => 0,
+     Direction      => 0,
+     Card           => 0,
+     Access_Granted => False,
+     Reason         => 0);
+
+   Get_Event_Overwritten : constant Event_Type := (
+     Index          => 98765,
+     Event          => 255,
+     Timestamp      => (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0),
+     Door           => 0,
+     Direction      => 0,
+     Card           => 0,
+     Access_Granted => False,
+     Reason         => 0);
 
    Get_Event_Index : constant Unsigned_32 := 13579;
 

@@ -320,6 +320,24 @@ package body Handlers is
       Put_Line ("");
    end Delete_All_Cards;
 
+   --  Executes the get-event command.
+   procedure Get_Event (Args : ArgParse.Args) is
+      R : constant Event_Type := Get_Event (U, Args.Controller, Args.Event_Index, Timeout);
+   begin
+      Put_Line ("--- get-event");
+      Put_Line ("controller:" & Args.Controller.ID'Image);
+      Put_Line ("  index:          " & R.Index'Image);
+      Put_Line ("  event:          " & R.Event'Image);
+      Put_Line ("  timestamp:       " & Image (R.Timestamp));
+      Put_Line ("  door:           " & R.Door'Image);
+      Put_Line ("  direction:      " & R.Direction'Image);
+      Put_Line ("  card:           " & R.Card'Image);
+      Put_Line ("  access granted:  " & R.Access_Granted'Image);
+      Put_Line ("  reason:         " & R.Reason'Image);
+
+      Put_Line ("");
+   end Get_Event;
+
    --  Executes the get-event-index command.
    procedure Get_Event_Index (Args : ArgParse.Args) is
       R : constant Unsigned_32 := Get_Event_Index (U, Args.Controller, Timeout);

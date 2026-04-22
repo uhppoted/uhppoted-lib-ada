@@ -35,6 +35,8 @@ package body ArgParse is
          return Parse_Put_Card;
       elsif Cmd = "delete-card" then
          return Parse_Delete_Card;
+      elsif Cmd = "get-event" then
+         return Parse_Get_Event;
       elsif Cmd = "set-event-index" then
          return Parse_Set_Event_Index;
       elsif Cmd = "record-special-events" then
@@ -46,10 +48,11 @@ package body ArgParse is
       Getopt (Config, Concatenate => True);
       Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
 
-      return (T          => ArgParse.General_Args,
-              Controller => C,
-              Door       => 0,
-              Card       => (others => <>));
+      return (T           => ArgParse.General_Args,
+              Controller  => C,
+              Door        => 0,
+              Card        => (others => <>),
+              Event_Index => 0);
    end Parse;
 
    procedure Add_Controller_Switches (Config               : in out Command_Line_Configuration;
@@ -154,13 +157,14 @@ package body ArgParse is
          M : String renames Netmask.all;
          G : String renames Gateway.all;
       begin
-         return (T          => ArgParse.Set_IPv4_Args,
-                 Controller => C,
-                 Door       => 0,
-                 Card       => (others => <>),
-                 Address    => Inet_Addr (A),
-                 Netmask    => Inet_Addr (M),
-                 Gateway    => Inet_Addr (G));
+         return (T           => ArgParse.Set_IPv4_Args,
+                 Controller  => C,
+                 Door        => 0,
+                 Card        => (others => <>),
+                 Event_Index => 0,
+                 Address     => Inet_Addr (A),
+                 Netmask     => Inet_Addr (M),
+                 Gateway     => Inet_Addr (G));
       end;
 
    end Parse_Set_IPv4;
@@ -217,12 +221,13 @@ package body ArgParse is
          end if;
       end;
 
-      return (T          => ArgParse.Set_Listener_Args,
-              Controller => C,
-              Door       => 0,
-              Card       => (others => <>),
-              Listener   => AddrPort,
-              Interval   => Unsigned_8 (Listener_Interval));
+      return (T           => ArgParse.Set_Listener_Args,
+              Controller  => C,
+              Door        => 0,
+              Card        => (others => <>),
+              Event_Index => 0,
+              Listener    => AddrPort,
+              Interval    => Unsigned_8 (Listener_Interval));
 
    end Parse_Set_Listener;
 
@@ -247,10 +252,11 @@ package body ArgParse is
       Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
 
       --  return get-door command specific args
-      return (T          => ArgParse.Get_Door_Args,
-              Controller => C,
-              Door       => Unsigned_8 (Door),
-              Card       => (others => <>));
+      return (T           => ArgParse.Get_Door_Args,
+              Controller  => C,
+              Door        => Unsigned_8 (Door),
+              Card        => (others => <>),
+              Event_Index => 0);
 
    end Parse_Get_Door;
 
@@ -302,12 +308,13 @@ package body ArgParse is
          end if;
       end;
 
-      return (T          => ArgParse.Set_Door_Args,
-              Controller => C,
-              Door       => Unsigned_8 (Door),
-              Mode       => M,
-              OpenDelay  => Unsigned_8 (OpenDelay),
-              Card       => (others => <>));
+      return (T           => ArgParse.Set_Door_Args,
+              Controller  => C,
+              Door        => Unsigned_8 (Door),
+              Mode        => M,
+              OpenDelay   => Unsigned_8 (OpenDelay),
+              Card        => (others => <>),
+              Event_Index => 0);
 
    end Parse_Set_Door;
 
@@ -359,11 +366,12 @@ package body ArgParse is
          end loop;
       end;
 
-      return (T          => ArgParse.Set_Door_Passcodes_Args,
-              Controller => C,
-              Door       => Unsigned_8 (Door),
-              Passcodes  => Codes,
-              Card       => (others => <>));
+      return (T           => ArgParse.Set_Door_Passcodes_Args,
+              Controller  => C,
+              Door        => Unsigned_8 (Door),
+              Passcodes   => Codes,
+              Card        => (others => <>),
+              Event_Index => 0);
 
    end Parse_Set_Door_Passcodes;
 
@@ -388,10 +396,11 @@ package body ArgParse is
       Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
 
       --  return open-door command specific args
-      return (T          => ArgParse.Open_Door_Args,
-              Controller => C,
-              Door       => Unsigned_8 (Door),
-              Card       => (others => <>));
+      return (T           => ArgParse.Open_Door_Args,
+              Controller  => C,
+              Door        => Unsigned_8 (Door),
+              Card        => (others => <>),
+              Event_Index => 0);
 
    end Parse_Open_Door;
 
@@ -416,10 +425,11 @@ package body ArgParse is
       Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
 
       --  return get-card command specific args
-      return (T          => ArgParse.Get_Card_Args,
-              Controller => C,
-              Door       => 0,
-              Card       => (Card => Unsigned_32 (Card), others => <>));
+      return (T           => ArgParse.Get_Card_Args,
+              Controller  => C,
+              Door        => 0,
+              Card        => (Card => Unsigned_32 (Card), others => <>),
+              Event_Index => 0);
 
    end Parse_Get_Card;
 
@@ -444,11 +454,12 @@ package body ArgParse is
       Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
 
       --  return get-card command specific args
-      return (T          => ArgParse.Get_Card_At_Index_Args,
-              Controller => C,
-              Door       => 0,
-              Card       => (others => <>),
-              Card_Index => Unsigned_32 (Index));
+      return (T           => ArgParse.Get_Card_At_Index_Args,
+              Controller  => C,
+              Door        => 0,
+              Card        => (others => <>),
+              Card_Index  => Unsigned_32 (Index),
+              Event_Index => 0);
 
    end Parse_Get_Card_At_Index;
 
@@ -533,21 +544,22 @@ package body ArgParse is
             end;
          end loop;
 
-         return (T          => ArgParse.Put_Card_Args,
-                 Controller => C,
-                 Door       => 0,
-                 Card       => (Card       => Unsigned_32 (Card),
-                                Start_Date => (Year  => Unsigned_16'Value (S (1 .. 4)),
-                                               Month => Unsigned_8'Value  (S (6 .. 7)),
-                                               Day   => Unsigned_8'Value  (S (9 .. 10))),
-                                End_Date   => (Year  => Unsigned_16'Value (E (1 .. 4)),
-                                               Month => Unsigned_8'Value  (E (6 .. 7)),
-                                               Day   => Unsigned_8'Value  (E (9 .. 10))),
-                                Door_1     => Door_1,
-                                Door_2     => Door_2,
-                                Door_3     => Door_3,
-                                Door_4     => Door_4,
-                                PIN        => Unsigned_24 (PIN)));
+         return (T           => ArgParse.Put_Card_Args,
+                 Controller  => C,
+                 Door        => 0,
+                 Card        => (Card       => Unsigned_32 (Card),
+                                 Start_Date => (Year  => Unsigned_16'Value (S (1 .. 4)),
+                                                Month => Unsigned_8'Value  (S (6 .. 7)),
+                                                Day   => Unsigned_8'Value  (S (9 .. 10))),
+                                 End_Date   => (Year  => Unsigned_16'Value (E (1 .. 4)),
+                                                Month => Unsigned_8'Value  (E (6 .. 7)),
+                                                Day   => Unsigned_8'Value  (E (9 .. 10))),
+                                 Door_1     => Door_1,
+                                 Door_2     => Door_2,
+                                 Door_3     => Door_3,
+                                 Door_4     => Door_4,
+                                 PIN        => Unsigned_24 (PIN)),
+                 Event_Index => 0);
       end;
 
    end Parse_Put_Card;
@@ -573,12 +585,42 @@ package body ArgParse is
       Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
 
       --  return delete-card command specific args
-      return (T          => ArgParse.Delete_Card_Args,
-              Controller => C,
-              Door       => 0,
-              Card       => (Card => Unsigned_32 (Card), others => <>));
+      return (T           => ArgParse.Delete_Card_Args,
+              Controller  => C,
+              Door        => 0,
+              Card        => (Card => Unsigned_32 (Card), others => <>),
+              Event_Index => 0);
 
    end Parse_Delete_Card;
+
+   function Parse_Get_Event return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Index                : aliased Integer       := 0;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Index'Access,
+                     Long_Switch => "--index:",
+                     Help        => "index",
+                     Argument    => "EVENT INDEX");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return set-event-index command specific args
+      return (T           => ArgParse.Set_Event_Index_Args,
+              Controller  => C,
+              Door        => 0,
+              Card        => (others => <>),
+              Event_Index => Unsigned_32 (Index));
+
+   end Parse_Get_Event;
 
    function Parse_Set_Event_Index return Args is
       Config               : Command_Line_Configuration;
@@ -632,12 +674,13 @@ package body ArgParse is
       --  return record-special-events command specific args
       declare
          S : String renames Enabled.all;
-         E : constant Boolean := S = "yes" or S = "YES";
+         E : constant Boolean := S = "yes" or else S = "YES";
       begin
          return (T           => ArgParse.Record_Special_Events_Args,
                  Controller  => C,
                  Door        => 0,
                  Card        => (others => <>),
+                 Event_Index => 0,
                  Enabled     => E);
       end;
 

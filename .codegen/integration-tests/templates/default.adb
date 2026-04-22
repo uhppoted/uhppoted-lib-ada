@@ -119,6 +119,40 @@ package body Uhppoted.Lib.Integration_Tests.Default is
          Assert (False, "Expected Card_Deleted_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Get_Card_At_Index_Deleted;
 
+   procedure Test_Get_Event_Not_Found (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+   begin
+      declare
+         Unused : constant Event_Type := Get_Event (U, 405419896, 24680, 0.5);
+      begin
+         Assert (False, "Expected 'event not found' error");
+      end;
+
+   exception
+      when Event_Not_Found_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Event_Not_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Not_Found;
+
+   procedure Test_Get_Event_Overwritten (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+   begin
+      declare
+         Unused : constant Event_Type := Get_Event (U, 405419896, 98765, 0.5);
+      begin
+         Assert (False, "Expected 'event not found' error");
+      end;
+
+   exception
+      when Event_Overwritten_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Event_Overwritten_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Overwritten;
+
 end Uhppoted.Lib.Integration_Tests.Default;
 {{ define "unittest" }}
    procedure Test_{{ printf "%v" .Name }} (T : in out Test_Case'Class) is

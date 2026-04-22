@@ -71,3 +71,13 @@ end Uhppoted.Lib.Integration_Tests.Expected;
      Door_3     => {{ get $v "door 3"}},
      Door_4     => {{ get $v "door 4"}},
      PIN        => {{ get $v "PIN"}}{{ end }}){{ end }}
+
+{{- define "event" }}({{ with $v := .Returns.Value }}
+     Index          => {{ get $v "index"          }},
+     Event          => {{ get $v "event type"     }},
+     Timestamp      => {{ get $v "timestamp"      }},
+     Door           => {{ get $v "door"           }},
+     Direction      => {{ get $v "direction"      }},
+     Card           => {{ get $v "card"           }},
+     Access_Granted => {{ get $v "access granted" }},
+     Reason         => {{ get $v "reason"         }}{{ end }}){{ end }}

@@ -25,7 +25,7 @@ var API = []types.Function{
 	lib.PutCard,
 	lib.DeleteCard,
 	lib.DeleteAllCards,
-	// &GetEvent,
+	lib.GetEvent,
 	lib.GetEventIndex,
 	lib.SetEventIndex,
 	lib.RecordSpecialEvents,

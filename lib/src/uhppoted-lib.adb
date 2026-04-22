@@ -628,6 +628,53 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Delete_All_Cards;
 
+   --  Retrieves an event from the controller. Restricted to the local LAN.
+   function Get_Event (U       : UHPPOTE;
+                       C       : Unsigned_32;
+                       Index   : Unsigned_32;
+                       Timeout : Duration := 2.5) return Event_Type is
+   begin
+      return Get_Event (U, To_Controller (C), Index, Timeout);
+   end Get_Event;
+
+   --  Retrieves an event from the controller.
+   function Get_Event (U       : UHPPOTE;
+                       C       : Controller;
+                       Index   : Unsigned_32;
+                       Timeout : Duration := 2.5) return Event_Type is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Event (C.ID, Index);
+      Reply   : Packet;
+      R       : Get_Event_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Event (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Index /= Index then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Event_Type = 16#00# then
+         raise Event_Not_Found_Error;
+      end if;
+
+      if R.Event_Type = 16#ff# then
+         raise Event_Overwritten_Error;
+      end if;
+
+      return (Index          => R.Index,
+              Event          => R.Event_Type,
+              Timestamp      => R.Timestamp,
+              Door           => R.Door,
+              Direction      => R.Direction,
+              Card           => R.Card,
+              Access_Granted => R.Access_Granted,
+              Reason         => R.Reason);
+   end Get_Event;
+
    --  Retrieves the downloaded event index from the controller. Restricted to the local LAN.
    function Get_Event_Index (U       : UHPPOTE;
                              C       : Unsigned_32;

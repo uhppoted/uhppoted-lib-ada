@@ -426,6 +426,29 @@ package Uhppoted.Lib.Requests is
    for Delete_Cards_Request'Bit_Order use System.Low_Order_First;
    for Delete_Cards_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a get-event request.
+   type Get_Event_Request is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Get_Event;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Index      : Unsigned_32;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+   end record;
+
+   for Get_Event_Request use record
+      SOM        at  0 range 0 ..   7;
+      OpCode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      Index      at  8 range 0 ..  31;
+      Padding    at 12 range 0 .. 415;
+   end record;
+
+   for Get_Event_Request'Size use 64 * 8;
+   for Get_Event_Request'Bit_Order use System.Low_Order_First;
+   for Get_Event_Request'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a get-event-index request.
    type Get_Event_Index_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -455,7 +478,7 @@ package Uhppoted.Lib.Requests is
       Controller : Unsigned_32;
       Index      : Unsigned_32;
       MagicWord  : Unsigned_32;
-      Padding    : Ada.Streams.Stream_Element_Array (1 .. 45) := [others => 0];
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 48) := [others => 0];
    end record;
 
    for Set_Event_Index_Request use record
@@ -465,7 +488,7 @@ package Uhppoted.Lib.Requests is
       Controller at  4 range 0 ..  31;
       Index      at  8 range 0 ..  31;
       MagicWord  at 12 range 0 ..  31;
-      Padding    at 16 range 0 .. 359;
+      Padding    at 16 range 0 .. 383;
    end record;
 
    for Set_Event_Index_Request'Size use 64 * 8;

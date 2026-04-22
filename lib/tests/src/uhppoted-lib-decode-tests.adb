@@ -36,6 +36,9 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Put_Card'Access,     "test decode Put_Card response");
       Register_Routine (T, Test_Decode_Delete_Card'Access,  "test decode Delete_Card response");
       Register_Routine (T, Test_Decode_Delete_All_Cards'Access, "test decode Delete_All_Cards response");
+      Register_Routine (T, Test_Decode_Get_Event'Access,    "test decode Get_Event response");
+      Register_Routine (T, Test_Decode_Get_Event_Not_Found'Access, "test decode Get_Event_Not_Found response");
+      Register_Routine (T, Test_Decode_Get_Event_Overwritten'Access, "test decode Get_Event_Overwritten response");
       Register_Routine (T, Test_Decode_Get_Event_Index'Access, "test decode Get_Event_Index response");
       Register_Routine (T, Test_Decode_Set_Event_Index'Access, "test decode Set_Event_Index response");
       Register_Routine (T, Test_Decode_Record_Special_Events'Access, "test decode Record_Special_Events response");
@@ -476,6 +479,84 @@ package body Uhppoted.Lib.Decode.Tests is
       Assert (Response = Expected, "incorrectly decoded delete-all-cards response: got" & Response'Image);
    end Test_Decode_Delete_All_Cards;
 
+   procedure Test_Decode_Get_Event (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Get_Event_Response := (
+         Controller     => 405419896,
+         Index          => 13579,
+         Timestamp      => (Year => 2025, Month => 11, Day => 17, Hour => 12, Minute => 34, Second => 56),
+         Event_Type     => 2,
+         Access_Granted => True,
+         Door           => 4,
+         Direction      => 2,
+         Card           => 10058400,
+         Reason         => 21);
+
+      Reply : constant Packet := [
+         16#17#, 16#b0#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#0b#, 16#35#, 16#00#, 16#00#, 16#02#, 16#01#, 16#04#, 16#02#,
+         16#a0#, 16#7a#, 16#99#, 16#00#, 16#20#, 16#25#, 16#11#, 16#17#,  16#12#, 16#34#, 16#56#, 16#15#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Get_Event_Response := Uhppoted.Lib.Decode.Get_Event (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded get-event response: got" & Response'Image);
+   end Test_Decode_Get_Event;
+
+   procedure Test_Decode_Get_Event_Not_Found (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Get_Event_Response := (
+         Controller     => 405419896,
+         Index          => 24680,
+         Timestamp      => (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0),
+         Event_Type     => 0,
+         Access_Granted => False,
+         Door           => 0,
+         Direction      => 0,
+         Card           => 0,
+         Reason         => 0);
+
+      Reply : constant Packet := [
+         16#17#, 16#b0#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#68#, 16#60#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Get_Event_Response := Uhppoted.Lib.Decode.Get_Event (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded get-event response: got" & Response'Image);
+   end Test_Decode_Get_Event_Not_Found;
+
+   procedure Test_Decode_Get_Event_Overwritten (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Get_Event_Response := (
+         Controller     => 405419896,
+         Index          => 98765,
+         Timestamp      => (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0),
+         Event_Type     => 255,
+         Access_Granted => False,
+         Door           => 0,
+         Direction      => 0,
+         Card           => 0,
+         Reason         => 0);
+
+      Reply : constant Packet := [
+         16#17#, 16#b0#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#cd#, 16#81#, 16#01#, 16#00#, 16#ff#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Get_Event_Response := Uhppoted.Lib.Decode.Get_Event (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded get-event response: got" & Response'Image);
+   end Test_Decode_Get_Event_Overwritten;
+
    procedure Test_Decode_Get_Event_Index (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
 
@@ -500,7 +581,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Expected : constant Set_Event_Index_Response := (
          Controller => 405419896,
-         Ok         => true);
+         Ok         => True);
 
       Reply : constant Packet := [
          16#17#, 16#b2#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,

@@ -15,6 +15,12 @@ package Uhppoted.Types is
    --  Custom exception for card deleted errors.
    Card_Deleted_Error : exception;
 
+   --  Custom exception for event not found errors.
+   Event_Not_Found_Error : exception;
+
+   --  Custom exception for event overwritten errors.
+   Event_Overwritten_Error : exception;
+
    --  Custom exception for invalid response errors.
    Invalid_Response_Error : exception;
 

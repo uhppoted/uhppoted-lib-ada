@@ -17,6 +17,7 @@
 - [`Put_Card`](#put_card)
 - [`Delete_Card`](#delete_card)
 - [`Delete_All_Cards`](#delete_all_cards)
+- [`Get_Event`](#get_event)
 - [`Get_Event_Index`](#get_event_index)
 - [`Set_Event_Index`](#set_event_index)
 - [`Record_Special_Events`](#record_special_events)
@@ -643,7 +644,7 @@ where:
 
 Returns a `Card_Record`:
 ```
-   typeCard_Record is record
+   type Card_Record is record
       Card       : Unsigned_32;
       Start_Date : DateOnly;
       End_Date   : DateOnly;
@@ -656,10 +657,10 @@ Returns a `Card_Record`:
 ```
 
 Raises:
-- `Timeout_Error` if the controller does not respond
-- `Invalid_Response_Error` if the returned response is incorrect
 - `Card_Not_Found_Error` if there is no record at the index
 - `Card_Deleted_Error` if the record at the index has been deleted
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
 
 
 ### `Put_Card`
@@ -683,7 +684,7 @@ where:
 - C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
 - Card       Card_Record     Card information:
 
-   typeCard_Record is record
+   type Card_Record is record
       Card       : Unsigned_32;
       Start_Date : DateOnly;
       End_Date   : DateOnly;
@@ -753,6 +754,49 @@ where:
 Returns `True` if all card records were deleted from the controller.
 
 Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Get_Event`
+
+**Get_Event** sets the downloaded event index on a controller.
+
+```
+function Get_Event (U         : UHPPOTE;
+                    C         : Unsigned_32;
+                    Index     : Unsigned_32;
+                    Timeout   : Duration) return Unsigned_32;
+
+function Get_Event (U         : Uhppoted.Lib.UHPPOTE;
+                    C         : Controller;
+                    Index     : Unsigned_32;
+                    Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Index      Unsigned_32     Index of event index to fetch.
+```
+
+Returns an `Event_Type`:
+```
+   type Event_Type is record
+      Index          : Unsigned_32;
+      Event          : Unsigned_8;
+      Timestamp      : DateTime;
+      Door           : Unsigned_8;
+      Direction      : Unsigned_8;
+      Card           : Unsigned_32;
+      Access_Granted : Boolean;
+      Reason         : Unsigned_8;
+   end record;
+```
+
+Raises:
+- `Event_Not_Found_Error` if there is no event at the index
+- `Event_Overwritten_Error` if the event at the index has been overwritten
 - `Timeout_Error` if the controller does not respond
 - `Invalid_Response_Error` if the returned response is incorrect
 

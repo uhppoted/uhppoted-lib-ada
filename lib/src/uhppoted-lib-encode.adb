@@ -274,6 +274,17 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Delete_Cards;
 
+   --  Encodes a get-event request as a 64 byte array.
+   function Get_Event (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Get_Event_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Index := Index;
+
+      return Buffer;
+   end Get_Event;
+
    --  Encodes a get-event-index request as a 64 byte array.
    function Get_Event_Index (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Get_Event_Index_Request;

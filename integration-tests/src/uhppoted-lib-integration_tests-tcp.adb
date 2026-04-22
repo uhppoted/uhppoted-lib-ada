@@ -59,6 +59,9 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Put_Card'Access,                    "Put_Card");
       Register_Routine (T, Test_Delete_Card'Access,                 "Delete_Card");
       Register_Routine (T, Test_Delete_All_Cards'Access,            "Delete_All_Cards");
+      Register_Routine (T, Test_Get_Event'Access,                   "Get_Event");
+      Register_Routine (T, Test_Get_Event_Not_Found'Access,         "Get_Event_Not_Found");
+      Register_Routine (T, Test_Get_Event_Overwritten'Access,       "Get_Event_Overwritten");
       Register_Routine (T, Test_Get_Event_Index'Access,             "Get_Event_Index");
       Register_Routine (T, Test_Set_Event_Index'Access,             "Set_Event_Index");
       Register_Routine (T, Test_Record_Special_Events'Access,       "Record_Special_Events");
@@ -355,6 +358,20 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Assert (V = Expected.Delete_All_Cards, "invalid result" & V'Image);
    end Test_Delete_All_Cards;
 
+   procedure Test_Get_Event (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Event_Type := Get_Event (U, C, 13579, 0.5);
+   begin
+      Assert (V = Expected.Get_Event, "invalid result" & V'Image);
+   end Test_Get_Event;
+
    procedure Test_Get_Event_Index (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
@@ -496,5 +513,49 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       when E : others =>
          Assert (False, "Expected Socket_Error.Connection_Refused, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Connection_Refused;
+
+   procedure Test_Get_Event_Not_Found (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+   begin
+      declare
+         Unused : constant Event_Type := Get_Event (U, C, 24680, 0.5);
+      begin
+         Assert (False, "Expected 'event not found' error");
+      end;
+
+   exception
+      when Event_Not_Found_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Event_Not_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Not_Found;
+
+   procedure Test_Get_Event_Overwritten (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+   begin
+      declare
+         Unused : constant Event_Type := Get_Event (U, C, 98765, 0.5);
+      begin
+         Assert (False, "Expected 'event not found' error");
+      end;
+
+   exception
+      when Event_Overwritten_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Event_Overwritten_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Event_Overwritten;
 
 end Uhppoted.Lib.Integration_Tests.TCP;

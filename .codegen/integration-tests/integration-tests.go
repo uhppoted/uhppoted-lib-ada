@@ -47,7 +47,7 @@ var translations = map[string]string{
 	"set IPv4 response":               "Boolean",
 	"get time response":               "DateTime",
 	"set time response":               "DateTime",
-	"get listener response":           "Listener_Record",
+	"get listener response":           "Listener_Type",
 	"set listener addr:port response": "Boolean",
 	"get status response":             "Controller_Status",
 	"get door response":               "Door_Type",
@@ -330,7 +330,7 @@ func response(f lib.Function, t lib.FuncTest) returns {
 			r.Template = "controller"
 			r.Value = t.Replies[0].Response
 
-		case "Listener_Record":
+		case "Listener_Type":
 			r.Template = "listener"
 			r.Value = t.Replies[0].Response
 

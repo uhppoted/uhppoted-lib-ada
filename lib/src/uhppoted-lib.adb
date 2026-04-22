@@ -171,7 +171,7 @@ package body Uhppoted.Lib is
    --  Retrieves the access controller listener address:port and auto-send interval. Restricted to the local LAN.
    function Get_Listener (U : UHPPOTE;
                           C : Unsigned_32;
-                          Timeout : Duration := 2.5) return Listener_Record is
+                          Timeout : Duration := 2.5) return Listener_Type is
    begin
       return Get_Listener (U, To_Controller (C), Timeout);
    end Get_Listener;
@@ -179,7 +179,7 @@ package body Uhppoted.Lib is
    --  Retrieves the access controller listener address:port and auto-send interval.
    function Get_Listener (U : UHPPOTE;
                           C : Controller;
-                          Timeout : Duration := 2.5) return Listener_Record is
+                          Timeout : Duration := 2.5) return Listener_Type is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Listener_Addr_Port (C.ID);
       Reply   : Packet;
       R       : Get_Listener_Addr_Port_Response;

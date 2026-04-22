@@ -43,9 +43,9 @@
 - [ ] rename
      - [x] Card_Record => Card_Type
      - [x] Door_Record => Door_Type
+     - [x] Listener_Record => Listener_Type
      - (?) Controller_Record => Controller_Type
      - (?) Controller_Status => Controller_Status_Type
-     - (?) Listener_Record => Listener_Type
 
 - [ ] UDP
     - [ ] listen

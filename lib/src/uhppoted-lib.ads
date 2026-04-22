@@ -26,7 +26,7 @@ package Uhppoted.Lib is
    subtype Controller_Record is Uhppoted.Types.Controller_Record;
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
    subtype Controller_Status is Uhppoted.Types.Controller_Status;
-   subtype Listener_Record is Uhppoted.Types.Listener_Record;
+   subtype Listener_Type is Uhppoted.Types.Listener_Type;
    subtype Door_Type is Uhppoted.Types.Door_Type;
    subtype Card_Type is Uhppoted.Types.Card_Type;
    subtype Event_Type is Uhppoted.Types.Event_Type;
@@ -186,28 +186,28 @@ package Uhppoted.Lib is
 
    function Get_Listener (U : UHPPOTE;
                           C : Unsigned_32;
-                          Timeout : Duration := 2.5) return Listener_Record;
+                          Timeout : Duration := 2.5) return Listener_Type;
    --  Retrieves the access controller listener address:port and auto-send interval. Restricted to the local LAN.
    --
    --  @param  U        UHPPOTE configuration.
    --  @param  C        Controller serial number.
    --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return          Listener_Record with the listener address:port and auto-send interval.
+   --  @return          Listener_Type with the listener address:port and auto-send interval.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
    function Get_Listener (U : UHPPOTE;
                           C : Controller;
-                          Timeout : Duration := 2.5) return Listener_Record;
+                          Timeout : Duration := 2.5) return Listener_Type;
    --  Retrieves the access controller listener address:port and auto-send interval.
    --
    --  @param  U        UHPPOTE configuration.
    --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
    --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return          Listener_Record with the listener address:port and auto-send interval.
+   --  @return          Listener_Type with the listener address:port and auto-send interval.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.

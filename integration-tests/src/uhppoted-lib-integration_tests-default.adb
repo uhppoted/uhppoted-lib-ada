@@ -136,7 +136,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Listener (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Listener_Record := Get_Listener (U, 405419896, 0.5);
+      V : constant Listener_Type := Get_Listener (U, 405419896, 0.5);
    begin
       Assert (V = Expected.Get_Listener, "invalid result" & V'Image);
    end Test_Get_Listener;

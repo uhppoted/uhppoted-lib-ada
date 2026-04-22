@@ -142,7 +142,7 @@ package body Handlers is
 
    --  Executes the get-listener command.
    procedure Get_Listener (Args : ArgParse.Args) is
-      R : constant Listener_Record := Get_Listener (U, Args.Controller, Timeout);
+      R : constant Listener_Type := Get_Listener (U, Args.Controller, Timeout);
    begin
       Put_Line ("--- get-listener");
       Put_Line ("controller:" & Args.Controller.ID'Image);

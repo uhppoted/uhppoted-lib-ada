@@ -159,7 +159,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.TCP);
 
-      V : constant Listener_Record := Get_Listener (U, C, 0.5);
+      V : constant Listener_Type := Get_Listener (U, C, 0.5);
    begin
       Assert (V = Expected.Get_Listener, "invalid result" & V'Image);
    end Test_Get_Listener;

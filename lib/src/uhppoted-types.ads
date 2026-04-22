@@ -64,7 +64,7 @@ package Uhppoted.Types is
 
    type Controller_Record_List is array (Positive range <>) of Controller_Record;
 
-   type Listener_Record is record
+   type Listener_Type is record
       Listener : GNAT.Sockets.Sock_Addr_Type;
       Interval : Unsigned_8;
    end record;

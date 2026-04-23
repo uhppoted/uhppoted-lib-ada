@@ -29,7 +29,7 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
 
    begin
       declare
-         Unused : constant {{ var .Response }}_Response := Uhppoted.Lib.Decode.{{ var .Response }} (Reply);
+         Unused : constant {{ var .Response }} := Uhppoted.Lib.Decode.{{ var .Function }} (Reply);
       begin
          Assert (False, "Expected 'invalid response' error");
       end;

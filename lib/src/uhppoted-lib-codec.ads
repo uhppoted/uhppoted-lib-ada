@@ -1,6 +1,7 @@
 package Uhppoted.Lib.Codec is
 
    SOM       : Unsigned_8  := 16#17#;
+   SOM_v6_62 : Unsigned_8  := 16#19#;
    MagicWord : Unsigned_32 := 16#55aaaa55#;
 
    type Op_Code is (

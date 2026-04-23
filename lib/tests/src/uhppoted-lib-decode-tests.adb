@@ -42,6 +42,8 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Get_Event_Index'Access, "test decode Get_Event_Index response");
       Register_Routine (T, Test_Decode_Set_Event_Index'Access, "test decode Set_Event_Index response");
       Register_Routine (T, Test_Decode_Record_Special_Events'Access, "test decode Record_Special_Events response");
+      Register_Routine (T, Test_Decode_Listener_Event'Access, "test decode Listener_Event");
+      Register_Routine (T, Test_Decode_Listener_Event_V6_62'Access, "test decode Listener_Event_V6_62");
    end Register_Tests;
 
    procedure Test_Decode_Get_Controller (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -65,7 +67,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Controller_Response := Uhppoted.Lib.Decode.Get_Controller (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-controller response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-controller-response response: got" & Response'Image);
    end Test_Decode_Get_Controller;
 
    procedure Test_Decode_Set_IPv4 (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -84,7 +86,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Set_IPv4_Response := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded set-ipv4 response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded set-ipv4-response response: got" & Response'Image);
    end Test_Decode_Set_IPv4;
 
    procedure Test_Decode_Get_Time (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -103,7 +105,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Time_Response := Uhppoted.Lib.Decode.Get_Time (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-time response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-time-response response: got" & Response'Image);
    end Test_Decode_Get_Time;
 
    procedure Test_Decode_Set_Time (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -122,7 +124,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Set_Time_Response := Uhppoted.Lib.Decode.Set_Time (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded set-time response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded set-time-response response: got" & Response'Image);
    end Test_Decode_Set_Time;
 
    procedure Test_Decode_Get_Listener (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -143,7 +145,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Listener_Response := Uhppoted.Lib.Decode.Get_Listener (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-listener response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-listener-response response: got" & Response'Image);
    end Test_Decode_Get_Listener;
 
    procedure Test_Decode_Set_Listener (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -162,7 +164,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Set_Listener_Response := Uhppoted.Lib.Decode.Set_Listener (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded set-listener response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded set-listener-response response: got" & Response'Image);
    end Test_Decode_Set_Listener;
 
    procedure Test_Decode_Get_Status (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -203,7 +205,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Status_Response := Uhppoted.Lib.Decode.Get_Status (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-status response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-status-response response: got" & Response'Image);
    end Test_Decode_Get_Status;
 
    procedure Test_Decode_Get_Listener_Address_Port (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -223,7 +225,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Listener_Addr_Port_Response := Uhppoted.Lib.Decode.Get_Listener_Addr_Port (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-listener-addr:port response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-listener-addr:port-response response: got" & Response'Image);
    end Test_Decode_Get_Listener_Address_Port;
 
    procedure Test_Decode_Set_Listener_Address_Port (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -242,7 +244,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Set_Listener_Addr_Port_Response := Uhppoted.Lib.Decode.Set_Listener_Addr_Port (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded set-listener-addr:port response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded set-listener-addr:port-response response: got" & Response'Image);
    end Test_Decode_Set_Listener_Address_Port;
 
    procedure Test_Decode_Get_Door (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -263,7 +265,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Door_Response := Uhppoted.Lib.Decode.Get_Door (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-door response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-door-response response: got" & Response'Image);
    end Test_Decode_Get_Door;
 
    procedure Test_Decode_Set_Door (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -284,7 +286,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Set_Door_Response := Uhppoted.Lib.Decode.Set_Door (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded set-door response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded set-door-response response: got" & Response'Image);
    end Test_Decode_Set_Door;
 
    procedure Test_Decode_Set_Door_Passcodes (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -303,7 +305,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Set_Door_Passcodes_Response := Uhppoted.Lib.Decode.Set_Door_Passcodes (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded set-door-passcodes response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded set-door-passcodes-response response: got" & Response'Image);
    end Test_Decode_Set_Door_Passcodes;
 
    procedure Test_Decode_Open_Door (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -322,7 +324,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Open_Door_Response := Uhppoted.Lib.Decode.Open_Door (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded open-door response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded open-door-response response: got" & Response'Image);
    end Test_Decode_Open_Door;
 
    procedure Test_Decode_Get_Cards (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -341,7 +343,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Cards_Response := Uhppoted.Lib.Decode.Get_Cards (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-cards response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-cards-response response: got" & Response'Image);
    end Test_Decode_Get_Cards;
 
    procedure Test_Decode_Get_Card (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -367,7 +369,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Card_Response := Uhppoted.Lib.Decode.Get_Card (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-card response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-card-response response: got" & Response'Image);
    end Test_Decode_Get_Card;
 
    procedure Test_Decode_Get_Card_Not_Found (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -393,7 +395,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Card_Response := Uhppoted.Lib.Decode.Get_Card (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-card response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-card-response response: got" & Response'Image);
    end Test_Decode_Get_Card_Not_Found;
 
    procedure Test_Decode_Get_Card_At_Index (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -419,7 +421,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Card_At_Index_Response := Uhppoted.Lib.Decode.Get_Card_At_Index (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-card-at-index response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-card-at-index-response response: got" & Response'Image);
    end Test_Decode_Get_Card_At_Index;
 
    procedure Test_Decode_Put_Card (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -438,7 +440,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Put_Card_Response := Uhppoted.Lib.Decode.Put_Card (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded put-card response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded put-card-response response: got" & Response'Image);
    end Test_Decode_Put_Card;
 
    procedure Test_Decode_Delete_Card (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -457,7 +459,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Delete_Card_Response := Uhppoted.Lib.Decode.Delete_Card (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded delete-card response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded delete-card-response response: got" & Response'Image);
    end Test_Decode_Delete_Card;
 
    procedure Test_Decode_Delete_All_Cards (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -476,7 +478,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Delete_All_Cards_Response := Uhppoted.Lib.Decode.Delete_All_Cards (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded delete-all-cards response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded delete-all-cards-response response: got" & Response'Image);
    end Test_Decode_Delete_All_Cards;
 
    procedure Test_Decode_Get_Event (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -502,7 +504,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Event_Response := Uhppoted.Lib.Decode.Get_Event (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-event response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-event-response response: got" & Response'Image);
    end Test_Decode_Get_Event;
 
    procedure Test_Decode_Get_Event_Not_Found (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -528,7 +530,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Event_Response := Uhppoted.Lib.Decode.Get_Event (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-event response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-event-response response: got" & Response'Image);
    end Test_Decode_Get_Event_Not_Found;
 
    procedure Test_Decode_Get_Event_Overwritten (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -554,7 +556,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Event_Response := Uhppoted.Lib.Decode.Get_Event (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-event response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-event-response response: got" & Response'Image);
    end Test_Decode_Get_Event_Overwritten;
 
    procedure Test_Decode_Get_Event_Index (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -573,7 +575,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Get_Event_Index_Response := Uhppoted.Lib.Decode.Get_Event_Index (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded get-event-index response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded get-event-index-response response: got" & Response'Image);
    end Test_Decode_Get_Event_Index;
 
    procedure Test_Decode_Set_Event_Index (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -592,7 +594,7 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Set_Event_Index_Response := Uhppoted.Lib.Decode.Set_Event_Index (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded set-event-index response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded set-event-index-response response: got" & Response'Image);
    end Test_Decode_Set_Event_Index;
 
    procedure Test_Decode_Record_Special_Events (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -611,7 +613,89 @@ package body Uhppoted.Lib.Decode.Tests is
 
       Response : constant Record_Special_Events_Response := Uhppoted.Lib.Decode.Record_Special_Events (Reply);
    begin
-      Assert (Response = Expected, "incorrectly decoded record-special-events response: got" & Response'Image);
+      Assert (Response = Expected, "incorrectly decoded record-special-events-response response: got" & Response'Image);
    end Test_Decode_Record_Special_Events;
+
+   procedure Test_Decode_Listener_Event (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Responses.Listener_Event := (
+         Controller           => 405419896,
+         System_Date          => (Year => 2022, Month => 8, Day => 23),
+         System_Time          => (Hour => 9, Minute => 49, Second => 39),
+         Door_1_Open          => False,
+         Door_2_Open          => True,
+         Door_3_Open          => False,
+         Door_4_Open          => False,
+         Door_1_Button        => False,
+         Door_2_Button        => False,
+         Door_3_Button        => False,
+         Door_4_Button        => True,
+         Relays               => 7,
+         Inputs               => 9,
+         System_Error         => 3,
+         Special_Info         => 39,
+         Event_Index          => 78,
+         Event_Type           => 2,
+         Event_Access_Granted => True,
+         Event_Door           => 3,
+         Event_Direction      => 1,
+         Event_Card           => 8165537,
+         Event_Timestamp      => (Year => 2022, Month => 8, Day => 23, Hour => 9, Minute => 47, Second => 6),
+         Event_Reason         => 44,
+         Sequence_No          => 0);
+
+      Reply : constant Packet := [
+         16#17#, 16#20#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#4e#, 16#00#, 16#00#, 16#00#, 16#02#, 16#01#, 16#03#, 16#01#,
+         16#a1#, 16#98#, 16#7c#, 16#00#, 16#20#, 16#22#, 16#08#, 16#23#,  16#09#, 16#47#, 16#06#, 16#2c#, 16#00#, 16#01#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#01#, 16#03#, 16#09#, 16#49#, 16#39#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#27#, 16#07#, 16#09#, 16#22#, 16#08#, 16#23#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Responses.Listener_Event := Uhppoted.Lib.Decode.Listener_Event (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded Responses.Listener_Event response: got" & Response'Image);
+   end Test_Decode_Listener_Event;
+
+   procedure Test_Decode_Listener_Event_V6_62 (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Responses.Listener_Event := (
+         Controller           => 405419896,
+         System_Date          => (Year => 2022, Month => 8, Day => 23),
+         System_Time          => (Hour => 9, Minute => 49, Second => 39),
+         Door_1_Open          => False,
+         Door_2_Open          => True,
+         Door_3_Open          => False,
+         Door_4_Open          => False,
+         Door_1_Button        => False,
+         Door_2_Button        => False,
+         Door_3_Button        => False,
+         Door_4_Button        => True,
+         Relays               => 7,
+         Inputs               => 9,
+         System_Error         => 3,
+         Special_Info         => 39,
+         Event_Index          => 78,
+         Event_Type           => 2,
+         Event_Access_Granted => True,
+         Event_Door           => 3,
+         Event_Direction      => 1,
+         Event_Card           => 8165537,
+         Event_Timestamp      => (Year => 2022, Month => 8, Day => 23, Hour => 9, Minute => 47, Second => 6),
+         Event_Reason         => 44,
+         Sequence_No          => 0);
+
+      Reply : constant Packet := [
+         16#19#, 16#20#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#4e#, 16#00#, 16#00#, 16#00#, 16#02#, 16#01#, 16#03#, 16#01#,
+         16#a1#, 16#98#, 16#7c#, 16#00#, 16#20#, 16#22#, 16#08#, 16#23#,  16#09#, 16#47#, 16#06#, 16#2c#, 16#00#, 16#01#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#01#, 16#03#, 16#09#, 16#49#, 16#39#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#27#, 16#07#, 16#09#, 16#22#, 16#08#, 16#23#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Responses.Listener_Event := Uhppoted.Lib.Decode.Listener_Event (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded Responses.Listener_Event response: got" & Response'Image);
+   end Test_Decode_Listener_Event_V6_62;
 
 end Uhppoted.Lib.Decode.Tests;

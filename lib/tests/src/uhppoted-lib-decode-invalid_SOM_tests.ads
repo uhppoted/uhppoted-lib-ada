@@ -33,5 +33,7 @@ package Uhppoted.Lib.Decode.Invalid_SOM_Tests is
    procedure Test_Get_Event_Index_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Set_Event_Index_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Record_Special_Events_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Listener_Event_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Listener_Event_V6_62_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Decode.Invalid_SOM_Tests;

@@ -23,4 +23,5 @@ package Handlers is
    procedure Get_Event_Index       (Args : ArgParse.Args);
    procedure Set_Event_Index       (Args : ArgParse.Args);
    procedure Record_Special_Events (Args : ArgParse.Args);
+   procedure Listen                (Args : ArgParse.Args);
 end Handlers;

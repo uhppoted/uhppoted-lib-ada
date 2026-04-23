@@ -736,6 +736,11 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
+   procedure Listen (U : UHPPOTE);
+   --  Establishes a UDP connection to receive controller events.
+   --
+   --  @param  U          UHPPOTE configuration.
+
    function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").
    --

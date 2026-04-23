@@ -38,6 +38,11 @@ package Uhppoted.Lib.Transport.UDP is
                          Request  : Uhppoted.Lib.Types.Packet;
                          Timeout  : Duration) return Uhppoted.Lib.Types.Packet;
 
+   --  Establishes a listening socket to receive controller events.
+   --
+   --  @param  U         UHPPOTE configuration.
+   procedure Listen (U : UHPPOTE; X : Event_Handler'Class);
+
    --  Controlled_Type wrapper for GNAT.Socket.
    type S is tagged limited private;
 

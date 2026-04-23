@@ -42,6 +42,8 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
       Register_Routine (T, Test_Get_Event_Index_Invalid_SOM'Access, "test decode Get_Event_Index with invalid SOM");
       Register_Routine (T, Test_Set_Event_Index_Invalid_SOM'Access, "test decode Set_Event_Index with invalid SOM");
       Register_Routine (T, Test_Record_Special_Events_Invalid_SOM'Access, "test decode Record_Special_Events with invalid SOM");
+      Register_Routine (T, Test_Listener_Event_Invalid_SOM'Access,  "test decode Listener_Event with invalid SOM");
+      Register_Routine (T, Test_Listener_Event_V6_62_Invalid_SOM'Access, "test decode Listener_Event_V6_62 with invalid SOM");
    end Register_Tests;
 
    procedure Test_Get_Controller_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -667,5 +669,53 @@ package body Uhppoted.Lib.Decode.Invalid_SOM_Tests is
       when E : others =>
          Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Record_Special_Events_Invalid_SOM;
+
+   procedure Test_Listener_Event_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#13#, 16#20#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#4e#, 16#00#, 16#00#, 16#00#, 16#02#, 16#01#, 16#03#, 16#01#,
+         16#a1#, 16#98#, 16#7c#, 16#00#, 16#20#, 16#22#, 16#08#, 16#23#,  16#09#, 16#47#, 16#06#, 16#2c#, 16#00#, 16#01#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#01#, 16#03#, 16#09#, 16#49#, 16#39#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#27#, 16#07#, 16#09#, 16#22#, 16#08#, 16#23#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+   begin
+      declare
+         Unused : constant Responses.Listener_Event := Uhppoted.Lib.Decode.Listener_Event (Reply);
+      begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Listener_Event_Invalid_SOM;
+
+   procedure Test_Listener_Event_V6_62_Invalid_SOM (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#13#, 16#20#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#4e#, 16#00#, 16#00#, 16#00#, 16#02#, 16#01#, 16#03#, 16#01#,
+         16#a1#, 16#98#, 16#7c#, 16#00#, 16#20#, 16#22#, 16#08#, 16#23#,  16#09#, 16#47#, 16#06#, 16#2c#, 16#00#, 16#01#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#01#, 16#03#, 16#09#, 16#49#, 16#39#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#27#, 16#07#, 16#09#, 16#22#, 16#08#, 16#23#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+   begin
+      declare
+         Unused : constant Responses.Listener_Event := Uhppoted.Lib.Decode.Listener_Event (Reply);
+      begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Listener_Event_V6_62_Invalid_SOM;
 
 end Uhppoted.Lib.Decode.Invalid_SOM_Tests;

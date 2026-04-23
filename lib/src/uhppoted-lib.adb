@@ -1,3 +1,5 @@
+with Ada.Text_IO; use Ada.Text_IO;
+
 with Uhppoted.Lib.Types;
 with Uhppoted.Lib.Encode;
 with Uhppoted.Lib.Decode;
@@ -773,5 +775,22 @@ package body Uhppoted.Lib is
          return Uhppoted.Lib.Transport.UDP.BroadcastTo (U, Request, Timeout);
       end if;
    end Dispatch;
+
+   --  Handler for received events.
+   type Handler is new Uhppoted.Lib.Transport.Event_Handler with record
+      null;
+   end record;
+
+   overriding procedure On_Event (Self : Handler; Msg : Packet) is
+   begin
+      Put_Line ("AWOOOOGAH!!!" & Msg'Image);
+   end On_Event;
+
+   --  Establishes a UDP connection to receive controller events.
+   procedure Listen (U : UHPPOTE) is
+      H : Handler;
+   begin
+      Uhppoted.Lib.Transport.UDP.Listen (U, H);
+   end Listen;
 
 end Uhppoted.Lib;

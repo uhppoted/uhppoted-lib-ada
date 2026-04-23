@@ -1,3 +1,4 @@
+with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Streams;
 with Ada.Calendar;
 
@@ -268,5 +269,49 @@ package body Uhppoted.Lib.Transport.UDP is
       end loop;
 
    end SendTo;
+
+   --  Establishes a listening socket to receive controller events.
+   procedure Listen (U : UHPPOTE; X : Event_Handler'Class) is
+      Sock      : S;
+      Selector  : H;
+      Read_Set  : Socket_Set_Type;
+      Write_Set : Socket_Set_Type;
+      Status    : Selector_Status;
+   begin
+      Bind_Socket (Sock.Client, U.Listen_Addr);
+
+      loop
+         declare
+            Buffer : Ada.Streams.Stream_Element_Array (1 .. 64);
+            Offset : Ada.Streams.Stream_Element_Offset;
+            From   : Sock_Addr_Type;
+            Msg    : Packet;
+
+         begin
+            Empty (Read_Set);
+            Empty (Write_Set);
+            Set   (Read_Set, Sock.Client);
+
+            Check_Selector (Selector.Selector,
+                            R_Socket_Set => Read_Set,
+                            W_Socket_Set => Write_Set,
+                            Status       => Status);
+
+            if Status = Completed then
+               Receive_Socket (Sock.Client, Buffer, Offset, From);
+
+               if Offset = 64 then
+                  Msg := To_Packet (Buffer);
+
+                  if U.Debug then
+                     Dump ("... received from " & Image (From) & " (UDP)", Msg);
+                  end if;
+
+                  X.On_Event (Msg);
+               end if;
+            end if;
+         end;
+      end loop;
+   end;
 
 end Uhppoted.Lib.Transport.UDP;

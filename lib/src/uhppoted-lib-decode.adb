@@ -451,6 +451,45 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Record_Special_Events;
 
+   --  Decodes a 64 byte listener-event message as a Listener_Event record.
+   function Listener_Event (Reply : Packet) return Responses.Listener_Event is
+      R : Replies.Listener_Event with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM and then (R.SOM /= Codec.SOM_v6_62 or else R.OpCode /= 16#20#) then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= 16#20# then
+         raise Invalid_Response_Error;
+      end if;
+
+      return
+         (Controller           => R.Controller,
+          System_Date          => Unpack_Short_Date (R.System_Date),
+          System_Time          => Unpack_Time (R.System_Time),
+          Door_1_Open          => Unpack_Boolean (R.Door_1_Open),
+          Door_2_Open          => Unpack_Boolean (R.Door_2_Open),
+          Door_3_Open          => Unpack_Boolean (R.Door_3_Open),
+          Door_4_Open          => Unpack_Boolean (R.Door_4_Open),
+          Door_1_Button        => Unpack_Boolean (R.Door_1_Button),
+          Door_2_Button        => Unpack_Boolean (R.Door_2_Button),
+          Door_3_Button        => Unpack_Boolean (R.Door_3_Button),
+          Door_4_Button        => Unpack_Boolean (R.Door_4_Button),
+          Relays               => Relay_State (R.Relays),
+          Inputs               => Inputs_State (R.Inputs),
+          System_Error         => R.System_Error,
+          Special_Info         => R.Special_Info,
+          Event_Index          => R.Event_Index,
+          Event_Type           => R.Event_Type,
+          Event_Access_Granted => Unpack_Boolean (R.Event_Access_Granted),
+          Event_Door           => R.Event_Door,
+          Event_Direction      => R.Event_Direction,
+          Event_Card           => R.Event_Card,
+          Event_Timestamp      => Unpack_Date_Time (R.Event_Timestamp),
+          Event_Reason         => R.Event_Reason,
+          Sequence_No          => R.Sequence_No);
+   end Listener_Event;
+
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
    function Unpack_Boolean (B : Unsigned_8) return Boolean is
    begin

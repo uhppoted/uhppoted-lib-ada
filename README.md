@@ -40,6 +40,18 @@ cd ../examples/cli && alr build
 cd ../integration-tests && alr build
 ```
 
+**Notes:**
+1. Building on MacOS Tahoe generates the following warning:
+```
+`clang: warning: overriding deployment version from '16.0' to '26.0' [-Woverriding-deployment-version]`
+```
+
+This is known bug in the GNAT FSF builds which mistakenly interprets the OS version for Tahoe (v26.x) as version 16.0:
+   - https://forum.ada-lang.io/t/gnat-toolchain-now-broken-after-os-upgrade-to-macos-26-tahoe-arm64/3843/8
+   - https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120645
+   - https://github.com/alire-project/GNAT-FSF-builds/issues/94
+
+
 ## API
 
 The API is documented in the [API.md](API.md) file - for convenience the available functions are listed below:

@@ -21,6 +21,7 @@ type test struct {
 	Name        string
 	Description string
 	Response    string
+	Function    string
 	Reply       []string
 	Expected    []codegen.KV
 
@@ -37,7 +38,7 @@ func UnitTests() {
 	if templates, err := templates.Funcs(funcs).ParseFS(templateFS, "templates/*"); err != nil {
 		log.Fatal(err)
 	} else {
-		tests := transmogrify(model.Responses)
+		tests := transmogrify(model.Responses, model.Events)
 
 		decodeTests(templates, tests)
 		invalidSOMTests(templates, tests)
@@ -80,7 +81,7 @@ func generate(templates *template.Template, tests []test, template string, file 
 	}
 }
 
-func transmogrify(responses []lib.Response) []test {
+func transmogrify(responses []lib.Response, events []lib.Response) []test {
 	transmogrified := []test{}
 
 	for _, response := range responses {
@@ -91,7 +92,27 @@ func transmogrify(responses []lib.Response) []test {
 			transmogrified = append(transmogrified, test{
 				Name:        fmt.Sprintf("%v", codegen.AdaName(t.Name)),
 				Description: fmt.Sprintf("test decode %v response", codegen.AdaName(t.Name)),
-				Response:    fmt.Sprintf("%v", codegen.KebabCase(strings.TrimSuffix(response.Name, " response"))),
+				Response:    fmt.Sprintf("%v", codegen.KebabCase(response.Name)),
+				Function:    fmt.Sprintf("%v", codegen.KebabCase(strings.TrimSuffix(response.Name, " response"))),
+				Reply:       packet(t.Response),
+				Expected:    expected(t),
+
+				InvalidSOM:    packet(invalidSOM),
+				InvalidOpCode: packet(invalidOpCode),
+			})
+		}
+	}
+
+	for _, event := range events {
+		for _, t := range event.Tests {
+			invalidSOM := append([]byte{0x13}, t.Response[1:]...)
+			invalidOpCode := append([]byte{0x17, t.Response[1] + 1}, t.Response[2:]...)
+
+			transmogrified = append(transmogrified, test{
+				Name:        fmt.Sprintf("%v", codegen.AdaName(t.Name)),
+				Description: fmt.Sprintf("test decode %v", codegen.AdaName(t.Name)),
+				Response:    fmt.Sprintf("Responses.%v", codegen.AdaName(event.Name)),
+				Function:    fmt.Sprintf("%v", codegen.KebabCase(event.Name)),
 				Reply:       packet(t.Response),
 				Expected:    expected(t),
 

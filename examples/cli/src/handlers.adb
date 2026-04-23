@@ -370,4 +370,11 @@ package body Handlers is
       Put_Line ("");
    end Record_Special_Events;
 
+   --  Executes the listen command.
+   procedure Listen (Args : ArgParse.Args) is
+   begin
+      Put_Line ("--- Listen");
+      Listen (U);
+   end Listen;
+
 end Handlers;

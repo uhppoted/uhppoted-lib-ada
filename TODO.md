@@ -33,10 +33,11 @@
 - [x] set-event-index
 - [x] record-special-events
 - [x] get-event
-    - [x] API
-    - [x] CLI
-    - [x] README
-    - [x] integration tests
+- [ ] listen
+    - [ ] API
+    - [ ] CLI
+    - [ ] README
+    - [ ] integration tests
 
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 - [ ] enums for event-type, event-reason, event-direction
@@ -49,6 +50,7 @@
 
 - [ ] UDP
     - [ ] listen
+       - [ ] terminate signal
 
 - [ ] integration tests
     - [ ] v6.62
@@ -62,8 +64,3 @@
       "Uhppoted.Lib.Decode"
    );
 ```
-
-- [ ] `clang: warning: overriding deployment version from '16.0' to '26.0' [-Woverriding-deployment-version]`
-   - https://forum.ada-lang.io/t/gnat-toolchain-now-broken-after-os-upgrade-to-macos-26-tahoe-arm64/3843/8
-   - https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120645
-   - https://github.com/alire-project/GNAT-FSF-builds/issues/94

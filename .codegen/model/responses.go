@@ -49,21 +49,3 @@ var FindControllersResponse = types.Response{
 		Name: "find controllers response",
 	},
 }
-
-var DeleteAllCardsResponse = lib.DeleteAllCardsResponse
-var GetEventResponse = lib.GetEventResponse
-var GetEventIndexResponse = lib.GetEventIndexResponse
-var SetEventIndexResponse = lib.SetEventIndexResponse
-var RecordSpecialEventsResponse = lib.RecordSpecialEventsResponse
-var GetTimeProfileResponse = lib.GetTimeProfileResponse
-var SetTimeProfileResponse = lib.SetTimeProfileResponse
-var ClearTimeProfilesResponse = lib.ClearTimeProfilesResponse
-var AddTaskResponse = lib.AddTaskResponse
-var RefreshTaskListResponse = lib.RefreshTaskListResponse
-var ClearTaskListResponse = lib.ClearTaskListResponse
-var SetPCControlResponse = lib.SetPCControlResponse
-var SetInterlockResponse = lib.SetInterlockResponse
-var ActivateKeypadsResponse = lib.ActivateKeypadsResponse
-var GetAntiPassbackResponse = lib.GetAntiPassbackResponse
-var SetAntiPassbackResponse = lib.SetAntiPassbackResponse
-var RestoreDefaultParametersResponse = lib.RestoreDefaultParametersResponse

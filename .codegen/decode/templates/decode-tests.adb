@@ -32,14 +32,14 @@ end Uhppoted.Lib.Decode.Tests;
    procedure Test_Decode_{{ .Name }} (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
 
-      Expected : constant {{ var .Response }}_Response := {{ record .Expected }};
+      Expected : constant {{ var .Response }} := {{ record .Expected }};
 
       Reply : constant Packet := [
          {{- range $bytes := .Reply }}
          {{ $bytes }}{{ end }}
       ];
 
-      Response : constant {{ var .Response }}_Response := Uhppoted.Lib.Decode.{{ var .Response }} (Reply);
+      Response : constant {{ var .Response }} := Uhppoted.Lib.Decode.{{ var .Function }} (Reply);
    begin
       Assert (Response = Expected, "incorrectly decoded {{ .Response }} response: got" & Response'Image);
    end Test_Decode_{{ .Name }};

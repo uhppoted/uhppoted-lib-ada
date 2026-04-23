@@ -17,6 +17,11 @@ package Uhppoted.Lib.Transport is
    --  Converts a Stream_Packet to a Packet.
    function To_Packet is new Ada.Unchecked_Conversion (Source => Stream_Packet, Target => Uhppoted.Lib.Types.Packet);
 
+   --  Interface type for an event handler.
+   type Event_Handler is interface;
+
+   procedure On_Event (Self : Event_Handler; Msg : Uhppoted.Lib.Types.Packet) is abstract;
+
 private
    --  Controlled Type for a socket selector.
    type H is new Ada.Finalization.Limited_Controlled with record

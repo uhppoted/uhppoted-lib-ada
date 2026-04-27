@@ -152,7 +152,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Status (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Controller_Status := Get_Status (U, 405419896, 0.5);
+      V : constant Controller_Status_Type := Get_Status (U, 405419896, 0.5);
    begin
       Assert (V = Expected.Get_Status, "invalid result" & V'Image);
    end Test_Get_Status;
@@ -160,7 +160,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Status_No_Event (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Controller_Status := Get_Status (U, 405419897, 0.5);
+      V : constant Controller_Status_Type := Get_Status (U, 405419897, 0.5);
    begin
       Assert (V = Expected.Get_Status_No_Event, "invalid result" & V'Image);
    end Test_Get_Status_No_Event;

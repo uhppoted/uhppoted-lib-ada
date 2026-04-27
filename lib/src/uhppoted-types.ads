@@ -102,13 +102,9 @@ package Uhppoted.Types is
       Reason         : Unsigned_8;
    end record;
 
-   type Controller_Status is record
-      System_Date_Time : DateTime;
-      Doors            : Doors_State;
-      Alarms           : Alarms_Type;
-      System_Error     : Unsigned_8;
-      Special_Info     : Unsigned_8;
-      Event            : Event_Type;
+   type Controller_Status_Type is record
+      State : Controller_State_Type;
+      Event : Event_Type;
    end record;
 
    type Control_Mode is (Normally_Open, Normally_Closed, Controlled);

@@ -187,7 +187,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.TCP);
 
-      V : constant Controller_Status := Get_Status (U, C, 0.5);
+      V : constant Controller_Status_Type := Get_Status (U, C, 0.5);
    begin
       Assert (V = Expected.Get_Status, "invalid result" & V'Image);
    end Test_Get_Status;
@@ -201,7 +201,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.TCP);
 
-      V : constant Controller_Status := Get_Status (U, C, 0.5);
+      V : constant Controller_Status_Type := Get_Status (U, C, 0.5);
    begin
       Assert (V = Expected.Get_Status_No_Event, "invalid result" & V'Image);
    end Test_Get_Status_No_Event;

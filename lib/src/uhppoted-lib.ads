@@ -33,7 +33,7 @@ package Uhppoted.Lib is
 
    subtype Controller_Record      is Uhppoted.Types.Controller_Record;
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
-   subtype Controller_Status      is Uhppoted.Types.Controller_Status;
+   subtype Controller_Status_Type is Uhppoted.Types.Controller_Status_Type;
    subtype Controller_State_Type  is Uhppoted.Types.Controller_State_Type;
    subtype Event_Type             is Uhppoted.Types.Event_Type;
    subtype Door_Type              is Uhppoted.Types.Door_Type;
@@ -259,7 +259,7 @@ package Uhppoted.Lib is
 
    function Get_Status (U : UHPPOTE;
                         C : Unsigned_32;
-                        Timeout : Duration := 2.5) return Controller_Status;
+                        Timeout : Duration := 2.5) return Controller_Status_Type;
    --  Retrieves the access controller status. Restricted to the local LAN.
    --
    --  @param  U        UHPPOTE configuration.
@@ -273,7 +273,7 @@ package Uhppoted.Lib is
 
    function Get_Status (U : UHPPOTE;
                         C : Controller;
-                        Timeout : Duration := 2.5) return Controller_Status;
+                        Timeout : Duration := 2.5) return Controller_Status_Type;
    --  Retrieves the access controller status.
    --
    --  @param  U        UHPPOTE configuration.

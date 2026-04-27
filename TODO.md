@@ -33,11 +33,8 @@
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 - [ ] enums for event-type, event-reason, event-direction
 - [ ] rename
-     - [x] Card_Record => Card_Type
-     - [x] Door_Record => Door_Type
-     - [x] Listener_Record => Listener_Type
+     - [x] Controller_Status => Controller_Status_Type
      - (?) Controller_Record => Controller_Type
-     - (?) Controller_Status => Controller_Status_Type
 
 - [ ] UDP
     - [ ] listen

@@ -455,7 +455,7 @@ package body Uhppoted.Lib.Decode is
    function Listener_Event (Reply : Packet) return Responses.Listener_Event is
       R : Replies.Listener_Event with Import, Address => Reply'Address;
    begin
-      if R.SOM /= Codec.SOM and then (R.SOM /= Codec.SOM_v6_62 or else R.OpCode /= 16#20#) then
+      if R.SOM /= Codec.SOM and then (R.SOM /= Codec.SOM_v6_62 or else R.Opcode /= 16#20#) then
          raise Invalid_Response_Error;
       end if;
 

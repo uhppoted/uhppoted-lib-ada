@@ -11,33 +11,24 @@
     - [ ] types
     - [ ] codec
 
-- [x] find-controllers
-- [x] get-controller
-- [x] set-IPv4
-- [x] get-time
-- [x] set-time
-- [x] get-status
-- [x] get-listener
-- [x] set-listener
-- [x] get-door
-- [x] set-door
-- [x] set-door-passcodes
-- [x] open-door
-- [x] get-cards
-- [x] get-card
-- [x] get-card-by-index
-- [x] put-card
-- [x] delete-card
-- [x] delete-cards
-- [x] get-event-index
-- [x] set-event-index
-- [x] record-special-events
-- [x] get-event
 - [ ] listen
     - [ ] API
     - [ ] CLI
     - [ ] README
     - [ ] integration tests
+
+- [ ] get-time-profile
+- [ ] set-time-profile
+- [ ] clear-time-profiles
+- [ ] add-task
+- [ ] refresh-tasklist
+- [ ] clear-tasklist
+- [ ] set-pc-control
+- [ ] set-interlock
+- [ ] activate-keypads
+- [ ] get-antipassback
+- [ ] set-antipassback
+- [ ] restore-default-parameters
 
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 - [ ] enums for event-type, event-reason, event-direction

@@ -83,6 +83,14 @@ package Uhppoted.Types is
       Lock_Forced : Boolean;
    end record;
 
+   type Controller_State_Type is record
+      System_Date_Time : DateTime;
+      Doors            : Doors_State;
+      Alarms           : Alarms_Type;
+      System_Error     : Unsigned_8;
+      Special_Info     : Unsigned_8;
+   end record;
+
    type Event_Type is record
       Index          : Unsigned_32;
       Event          : Unsigned_8;

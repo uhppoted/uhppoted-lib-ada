@@ -1,5 +1,3 @@
-with Ada.Text_IO; use Ada.Text_IO;
-
 with Uhppoted.Lib.Types;
 with Uhppoted.Lib.Encode;
 with Uhppoted.Lib.Decode;
@@ -759,6 +757,66 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Record_Special_Events;
 
+   --  Handler for received events.
+   type Handler is new Uhppoted.Lib.Transport.Event_Handler with record
+      Listener : access Event_Listener'Class;
+   end record;
+
+   overriding procedure On_Event (Self : Handler; Msg : Packet) is
+      E          : constant Listener_Event := Uhppoted.Lib.Decode.Listener_Event (Msg);
+      Controller : constant Unsigned_32    := E.Controller;
+      State      : constant Controller_State_Type :=
+         (System_Date_Time => (Year   => E.System_Date.Year,
+                               Month  => E.System_Date.Month,
+                               Day    => E.System_Date.Day,
+                               Hour   => E.System_Time.Hour,
+                               Minute => E.System_Time.Minute,
+                               Second => E.System_Time.Second),
+
+          Doors => [1 => (Open     => E.Door_1_Open,
+                          Button   => E.Door_1_Button,
+                          Unlocked => (E.Relays and 16#01#) = 16#01#),
+                    2 => (Open => E.Door_2_Open,
+                          Button => E.Door_2_Button,
+                          Unlocked => (E.Relays and 16#02#) = 16#02#),
+                    3 => (Open => E.Door_3_Open,
+                          Button => E.Door_3_Button,
+                          Unlocked => (E.Relays and 16#04#) = 16#04#),
+                    4 => (Open => E.Door_4_Open,
+                          Button => E.Door_4_Button,
+                          Unlocked => (E.Relays and 16#08#) = 16#08#)],
+
+          Alarms => (Flags       => Unsigned_8 (E.Inputs),
+                     Fire        => (E.Inputs and 16#01#) = 16#01#,
+                     Lock_Forced => (E.Inputs and 16#02#) = 16#02#),
+
+           System_Error => E.System_Error,
+           Special_Info => E.Special_Info);
+
+      Event : constant Event_Type :=
+         (Index          => E.Event_Index,
+          Event          => E.Event_Type,
+          Timestamp      => E.Event_Timestamp,
+          Door           => E.Event_Door,
+          Direction      => E.Event_Direction,
+          Card           => E.Event_Card,
+          Access_Granted => E.Event_Access_Granted,
+          Reason         => E.Event_Reason);
+   begin
+      if Self.Listener /= null then
+         Self.Listener.On_Event (Controller, State, Event);
+      end if;
+   end On_Event;
+
+   --  Establishes a UDP connection to receive controller events.
+   procedure Listen (U : UHPPOTE; Listener : Event_Listener'Class) is
+      H : Handler;
+   begin
+      H.Listener := Listener'Unrestricted_Access;
+
+      Uhppoted.Lib.Transport.UDP.Listen (U, H);
+   end Listen;
+
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
    function Dispatch (U        : UHPPOTE;
@@ -775,22 +833,5 @@ package body Uhppoted.Lib is
          return Uhppoted.Lib.Transport.UDP.BroadcastTo (U, Request, Timeout);
       end if;
    end Dispatch;
-
-   --  Handler for received events.
-   type Handler is new Uhppoted.Lib.Transport.Event_Handler with record
-      null;
-   end record;
-
-   overriding procedure On_Event (Self : Handler; Msg : Packet) is
-   begin
-      Put_Line ("AWOOOOGAH!!!" & Msg'Image);
-   end On_Event;
-
-   --  Establishes a UDP connection to receive controller events.
-   procedure Listen (U : UHPPOTE) is
-      H : Handler;
-   begin
-      Uhppoted.Lib.Transport.UDP.Listen (U, H);
-   end Listen;
 
 end Uhppoted.Lib;

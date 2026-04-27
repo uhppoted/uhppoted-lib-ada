@@ -23,13 +23,22 @@ package Uhppoted.Lib is
       Protocol : Protocol_Type  := Default;
    end record;
 
-   subtype Controller_Record is Uhppoted.Types.Controller_Record;
+   --  Interface type for an event handler.
+   type Event_Listener is interface;
+
+   procedure On_Event (Self       : Event_Listener;
+                       Controller : Unsigned_32;
+                       State      : Controller_State_Type;
+                       Event      : Event_Type) is abstract;
+
+   subtype Controller_Record      is Uhppoted.Types.Controller_Record;
    subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
-   subtype Controller_Status is Uhppoted.Types.Controller_Status;
-   subtype Listener_Type is Uhppoted.Types.Listener_Type;
-   subtype Door_Type is Uhppoted.Types.Door_Type;
-   subtype Card_Type is Uhppoted.Types.Card_Type;
-   subtype Event_Type is Uhppoted.Types.Event_Type;
+   subtype Controller_Status      is Uhppoted.Types.Controller_Status;
+   subtype Controller_State_Type  is Uhppoted.Types.Controller_State_Type;
+   subtype Event_Type             is Uhppoted.Types.Event_Type;
+   subtype Door_Type              is Uhppoted.Types.Door_Type;
+   subtype Card_Type              is Uhppoted.Types.Card_Type;
+   subtype Listener_Type          is Uhppoted.Types.Listener_Type;
 
    subtype DateTime is Uhppoted.Types.DateTime;
    subtype Control_Mode is Uhppoted.Types.Control_Mode;
@@ -736,10 +745,11 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
-   procedure Listen (U : UHPPOTE);
+   procedure Listen (U : UHPPOTE; Listener : Event_Listener'Class);
    --  Establishes a UDP connection to receive controller events.
    --
    --  @param  U          UHPPOTE configuration.
+   --  @param  Listener   Event_Listener implementation.
 
    function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").

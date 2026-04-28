@@ -33,12 +33,12 @@
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 - [ ] enums for event-type, event-reason, event-direction
 - [ ] rename
-     - [x] Controller_Status => Controller_Status_Type
-     - (?) Controller_Record => Controller_Type
+     - (?) Controller_Record
+- [ ] revert *_Type* renaming
 
-- [ ] UDP
-    - [ ] listen
-       - [ ] terminate signal
+- [x] UDP
+    - [x] listen
+       - [x] terminate signal
 
 - [ ] integration tests
     - [ ] v6.62

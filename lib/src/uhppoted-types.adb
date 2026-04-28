@@ -3,6 +3,21 @@ with Ada.Strings.Fixed;
 package body Uhppoted.Types is
    use Ada.Strings;
 
+   overriding procedure Initialize (S : in out Signal) is
+   begin
+      GNAT.Sockets.Create_Selector (S.Selector);
+   end Initialize;
+
+   overriding procedure Finalize (S : in out Signal) is
+   begin
+      GNAT.Sockets.Close_Selector (S.Selector);
+   end Finalize;
+
+   procedure Trigger (S : in out Signal) is
+   begin
+      GNAT.Sockets.Abort_Selector (S.Selector);
+   end Trigger;
+
    function To_Control_Mode (V : Unsigned_8) return Control_Mode is
    begin
       case V is

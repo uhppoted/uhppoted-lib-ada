@@ -270,9 +270,8 @@ package body Uhppoted.Lib.Transport.UDP is
    end SendTo;
 
    --  Establishes a listening socket to receive controller events.
-   procedure Listen (U : UHPPOTE; X : Event_Handler'Class) is
+   procedure Listen (U : UHPPOTE; X : Event_Handler'Class; H : Selector_Type) is
       Sock      : S;
-      Selector  : H;
       Read_Set  : Socket_Set_Type;
       Write_Set : Socket_Set_Type;
       Status    : Selector_Status;
@@ -291,10 +290,12 @@ package body Uhppoted.Lib.Transport.UDP is
             Empty (Write_Set);
             Set   (Read_Set, Sock.Client);
 
-            Check_Selector (Selector.Selector,
+            Check_Selector (H,
                             R_Socket_Set => Read_Set,
                             W_Socket_Set => Write_Set,
                             Status       => Status);
+
+            exit when Status = Aborted;
 
             if Status = Completed then
                Receive_Socket (Sock.Client, Buffer, Offset, From);

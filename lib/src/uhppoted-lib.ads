@@ -39,9 +39,12 @@ package Uhppoted.Lib is
    subtype Door_Type              is Uhppoted.Types.Door_Type;
    subtype Card_Type              is Uhppoted.Types.Card_Type;
    subtype Listener_Type          is Uhppoted.Types.Listener_Type;
+   subtype Signal                 is Uhppoted.Types.Signal;
 
-   subtype DateTime is Uhppoted.Types.DateTime;
-   subtype Control_Mode is Uhppoted.Types.Control_Mode;
+   procedure Trigger (S : in out Signal) renames Uhppoted.Types.Trigger;
+
+   subtype DateTime       is Uhppoted.Types.DateTime;
+   subtype Control_Mode   is Uhppoted.Types.Control_Mode;
    subtype Passcodes_List is Uhppoted.Types.Passcodes_List;
 
    Normally_Open   : Control_Mode renames Uhppoted.Types.Normally_Open;
@@ -745,7 +748,7 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
-   procedure Listen (U : UHPPOTE; Listener : Event_Listener'Class);
+   procedure Listen (U : UHPPOTE; Listener : Event_Listener'Class; S : Signal);
    --  Establishes a UDP connection to receive controller events.
    --
    --  @param  U          UHPPOTE configuration.

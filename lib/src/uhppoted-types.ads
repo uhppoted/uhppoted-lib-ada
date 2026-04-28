@@ -1,4 +1,5 @@
 with Interfaces;
+with Ada.Finalization;
 with Ada.Strings.Unbounded;
 with GNAT.Sockets;
 
@@ -133,6 +134,14 @@ package Uhppoted.Types is
    function To_Control_Mode (V : Unsigned_8) return Control_Mode;
 
    type Passcodes_List is array (Positive range <>) of Unsigned_32;
+
+   type Signal is new Ada.Finalization.Limited_Controlled with record
+      Selector : GNAT.Sockets.Selector_Type;
+   end record;
+
+   overriding procedure Initialize (S : in out Signal);
+   overriding procedure Finalize   (S : in out Signal);
+   procedure Trigger (S : in out Signal);
 
    function Image (Addr : IPv4) return String;
    function Image (MAC : Hardware_Addr) return String;

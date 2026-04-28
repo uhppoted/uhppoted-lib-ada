@@ -418,9 +418,30 @@ package body Handlers is
       pragma Unreferenced (Args);
 
       L : Listener;
+      S : Signal;
+
+      task T;
+
+      task body T is
+      begin
+         Put_Line ("--- listening");
+         Listen (U, L, S);
+         Put_Line ("--- listened");
+      end T;
+
+      task D;
+
+      task body D is
+      begin
+         Put_Line ("... sleep");
+         delay 5.0;
+         Put_Line ("... slept");
+         Uhppoted.Lib.Trigger (S);
+         Put_Line ("... triggered");
+      end D;
+
    begin
-      Put_Line ("--- listening");
-      Listen (U, L);
+      null;
    end Listen;
 
 end Handlers;

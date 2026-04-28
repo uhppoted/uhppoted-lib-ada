@@ -815,12 +815,12 @@ package body Uhppoted.Lib is
    end On_Event;
 
    --  Establishes a UDP connection to receive controller events.
-   procedure Listen (U : UHPPOTE; Listener : Event_Listener'Class) is
+   procedure Listen (U : UHPPOTE; Listener : Event_Listener'Class; S : Signal) is
       H : Handler;
    begin
       H.Listener := Listener'Unrestricted_Access;
 
-      Uhppoted.Lib.Transport.UDP.Listen (U, H);
+      Uhppoted.Lib.Transport.UDP.Listen (U, H, S.Selector);
    end Listen;
 
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the

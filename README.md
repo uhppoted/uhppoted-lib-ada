@@ -78,6 +78,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Get_Event_Index`](API.md#get_event_index)
 - [`Set_Event_Index`](API.md#set_event_index)
 - [`Record_Special_Events`](API.md#record_special_events)
+- [`Listen`](API.md#listen)
 
 
 ## License

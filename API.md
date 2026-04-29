@@ -21,6 +21,7 @@
 - [`Get_Event_Index`](#get_event_index)
 - [`Set_Event_Index`](#set_event_index)
 - [`Record_Special_Events`](#record_special_events)
+- [`Listen`](#listen)
 
 ---
 Invoking an API function requires an instance of the `UHPPOTE` struct initialised with the information required
@@ -148,7 +149,7 @@ function Get_Controller (U       : UHPPOTE;
                          C       : Unsigned_32; 
                          Timeout : Duration) return Controller_Record;
 
-function Get_Controller (U       : Uhppoted.Lib.UHPPOTE;
+function Get_Controller (U       : UHPPOTE;
                          C       : Controller;
                          Timeout : Duration) return Controller_Record;
 
@@ -222,7 +223,7 @@ function Get_Time (U       : UHPPOTE;
                    C       : Unsigned_32; 
                    Timeout : Duration) return Controller_Record;
 
-function Get_Time (U       : Uhppoted.Lib.UHPPOTE;
+function Get_Time (U       : UHPPOTE;
                    C       : Controller;
                    Timeout : Duration) return Controller_Record;
 
@@ -259,7 +260,7 @@ function Set_Time (U       : UHPPOTE;
                    DT      : DateTime;
                    Timeout : Duration) return Controller_Record;
 
-function Set_Time (U       : Uhppoted.Lib.UHPPOTE;
+function Set_Time (U       : UHPPOTE;
                    C       : Controller;
                    DT      : DateTime;
                    Timeout : Duration) return Controller_Record;
@@ -298,7 +299,7 @@ function Get_Listener (U       : UHPPOTE;
                        C       : Unsigned_32; 
                        Timeout : Duration) return Listener_Record;
 
-function Get_Listener (U       : Uhppoted.Lib.UHPPOTE;
+function Get_Listener (U       : UHPPOTE;
                        C       : Controller;
                        Timeout : Duration) return Listener_Record;
 
@@ -332,7 +333,7 @@ function Set_Listener (U        : UHPPOTE;
                        Interval : Unsigned_8;
                        Timeout  : Duration) return Boolean;
 
-function Set_Listener (U        : Uhppoted.Lib.UHPPOTE;
+function Set_Listener (U        : UHPPOTE;
                        C        : Controller;
                        Listener : GNAT.Sockets.Sock_Addr_Type;
                        Interval : Unsigned_8;
@@ -362,7 +363,7 @@ function Get_Status (U       : UHPPOTE;
                      C       : Unsigned_32; 
                      Timeout : Duration) return Controller_Status;
 
-function Get_Status (U       : Uhppoted.Lib.UHPPOTE;
+function Get_Status (U       : UHPPOTE;
                      C       : Controller;
                      Timeout : Duration) return Controller_Status;
 
@@ -426,7 +427,7 @@ function Get_Door (U       : UHPPOTE;
                    Door    : Unsigned_8;
                    Timeout : Duration) return Door_Record;
 
-function Get_Door (U       : Uhppoted.Lib.UHPPOTE;
+function Get_Door (U       : UHPPOTE;
                    C       : Controller;
                    Door    : Unsigned_8;
                    Timeout : Duration) return Returns a `Door_Record`:
@@ -464,7 +465,7 @@ function Set_Door (U         : UHPPOTE;
                    OpenDelay : Unsigned_8;
                    Timeout   : Duration) return Door_Record;
 
-function Set_Door (U         : Uhppoted.Lib.UHPPOTE;
+function Set_Door (U         : UHPPOTE;
                    C         : Controller;
                    Door      : Unsigned_8;
                    Mode      : Control_Mode;
@@ -504,7 +505,7 @@ function Set_Door_Passcodes (U         : UHPPOTE;
                              Passcodes : Passcodes_List;
                              Timeout   : Duration) return Boolean;
 
-function Set_Door_Passcodes (U         : Uhppoted.Lib.UHPPOTE;
+function Set_Door_Passcodes (U         : UHPPOTE;
                              C         : Controller;
                              Door      : Unsigned_8;
                              Passcodes : Passcodes_List;
@@ -535,7 +536,7 @@ function Open_Door (U         : UHPPOTE;
                     Door      : Unsigned_8;
                     Timeout   : Duration) return Boolean;
 
-function Open_Door (U         : Uhppoted.Lib.UHPPOTE;
+function Open_Door (U         : UHPPOTE;
                     C         : Controller;
                     Door      : Unsigned_8;
                     Timeout   : Duration) return Boolean;
@@ -563,7 +564,7 @@ function Get_Cards (U         : UHPPOTE;
                     C         : Unsigned_32; 
                     Timeout   : Duration) return Unsigned_32;
 
-function Get_Cards (U         : Uhppoted.Lib.UHPPOTE;
+function Get_Cards (U         : UHPPOTE;
                     C         : Controller;
                     Timeout   : Duration) return Unsigned_32;
 
@@ -588,7 +589,7 @@ function Get_Card (U         : UHPPOTE;
                    Card      : Unsigned_32;
                    Timeout   : Duration) return Card_Record;
 
-function Get_Card (U         : Uhppoted.Lib.UHPPOTE;
+function Get_Card (U         : UHPPOTE;
                    C         : Controller;
                    Card      : Unsigned_32
                    Timeout   : Duration) return Card_Record;
@@ -630,7 +631,7 @@ function Get_Card_At_Index (U         : UHPPOTE;
                             Index     : Unsigned_32;
                             Timeout   : Duration) return Unsigned_32;
 
-function Get_Card_At_Index (U         : Uhppoted.Lib.UHPPOTE;
+function Get_Card_At_Index (U         : UHPPOTE;
                             C         : Controller;
                             Index     : Unsigned_32
                             Timeout   : Duration) return Unsigned_32;
@@ -673,7 +674,7 @@ function Put_Card (U         : UHPPOTE;
                    Card      : Card_Record;
                    Timeout   : Duration) return Boolean;
 
-function Put_Card (U         : Uhppoted.Lib.UHPPOTE;
+function Put_Card (U         : UHPPOTE;
                    C         : Controller;
                    Card      : Card_Record
                    Timeout   : Duration) return Boolean;
@@ -713,7 +714,7 @@ function Delete_Card (U         : UHPPOTE;
                       Card      : Unsigned_32;
                       Timeout   : Duration) return Boolean;
 
-function Delete_Card (U         : Uhppoted.Lib.UHPPOTE;
+function Delete_Card (U         : UHPPOTE;
                       C         : Controller;
                       Card      : Unsigned_32
                       Timeout   : Duration) return Boolean;
@@ -741,7 +742,7 @@ function Delete_All_Cards (U         : UHPPOTE;
                            C         : Unsigned_32;
                            Timeout   : Duration) return Boolean;
 
-function Delete_All_Cards (U         : Uhppoted.Lib.UHPPOTE;
+function Delete_All_Cards (U         : UHPPOTE;
                            C         : Controller;
                            Timeout   : Duration) return Boolean;
 
@@ -768,7 +769,7 @@ function Get_Event (U         : UHPPOTE;
                     Index     : Unsigned_32;
                     Timeout   : Duration) return Unsigned_32;
 
-function Get_Event (U         : Uhppoted.Lib.UHPPOTE;
+function Get_Event (U         : UHPPOTE;
                     C         : Controller;
                     Index     : Unsigned_32;
                     Timeout   : Duration) return Unsigned_32;
@@ -810,7 +811,7 @@ function Get_Event_Index (U         : UHPPOTE;
                           C         : Unsigned_32;
                           Timeout   : Duration) return Unsigned_32;
 
-function Get_Event_Index (U         : Uhppoted.Lib.UHPPOTE;
+function Get_Event_Index (U         : UHPPOTE;
                           C         : Controller;
                           Timeout   : Duration) return Unsigned_32;
 
@@ -837,7 +838,7 @@ function Set_Event_Index (U         : UHPPOTE;
                           Index     : Unsigned_32;
                           Timeout   : Duration) return Unsigned_32;
 
-function Set_Event_Index (U         : Uhppoted.Lib.UHPPOTE;
+function Set_Event_Index (U         : UHPPOTE;
                           C         : Controller;
                           Index     : Unsigned_32;
                           Timeout   : Duration) return Unsigned_32;
@@ -866,7 +867,7 @@ function Record_Special_Events (U         : UHPPOTE;
                                 Enabled   : Boolean;
                                 Timeout   : Duration) return Unsigned_32;
 
-function Record_Special_Events (U         : Uhppoted.Lib.UHPPOTE;
+function Record_Special_Events (U         : UHPPOTE;
                                 C         : Controller;
                                 Enabled   : Boolean;
                                 Timeout   : Duration) return Unsigned_32;
@@ -883,3 +884,107 @@ Returns `True` if the controller record special events was enabled/disabled.
 Raises:
 - `Timeout_Error` if the controller does not respond
 - `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Listen`
+
+**Listen** invokes a user-defined handler to process events from an access controller.
+
+```
+procedure Listen (U       : UHPPOTE;
+                  Handler : Event_Handler;
+                  Cancel  : Signal);
+
+where:
+- U         UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- Handler   Event_Handler   Event_Handler interface implementation.
+- Cancel    Signal          Cancel signal to terminate event listener.
+```
+
+The `Event_Handler` interface is defined as:
+```
+   type Event_Listener is interface;
+
+   procedure On_Event (Self       : Event_Listener;
+                       Controller : Unsigned_32;
+                       State      : Controller_State_Type;
+                       Event      : Event_Type) is abstract;
+
+   where:
+
+   type Controller_State_Type is record
+      System_Date_Time : DateTime;
+      Doors            : Doors_State;
+      Alarms           : Alarms_Type;
+      System_Error     : Unsigned_8;
+      Special_Info     : Unsigned_8;
+   end record;
+
+   type Doors_State is array (1 .. 4) of Door_State;
+
+   type Door_State is record
+      Open     : Boolean;
+      Button   : Boolean;
+      Unlocked : Boolean;
+   end record;
+
+   type Alarms_Type is record
+      Flags       : Unsigned_8;
+      Fire        : Boolean;
+      Lock_Forced : Boolean;
+   end record;
+
+   type Event_Type is record
+      Index          : Unsigned_32;
+      Event          : Unsigned_8;
+      Timestamp      : DateTime;
+      Door           : Unsigned_8;
+      Direction      : Unsigned_8;
+      Card           : Unsigned_32;
+      Access_Granted : Boolean;
+      Reason         : Unsigned_8;
+   end record;
+```
+
+e.g.:
+```
+   S : Signal;
+
+   type Listener is new Uhppoted.Lib.Event_Listener with record
+      null;
+   end record;
+
+   overriding procedure On_Event (Self       : Listener;
+                                  Controller : Unsigned_32;
+                                  State      : Uhppoted.Lib.Controller_State_Type;
+                                  Event      : Uhppoted.Lib.Event_Type) is
+   begin
+      Put_Line ("--- listen-event");
+      Put_Line (" controller:" & Controller'Image);
+      Put_Line ("");
+      Put_Line ("   system date/time:        " & Image (State.System_Date_Time));
+      ...
+      Put_Line ("     event index:          " & Event.Index'Image);
+      Put_Line ("           type:           " & Event.Event'Image);
+      ...
+   end On_Event;
+
+   procedure SIGINT is
+   begin
+      Trigger (S);
+   end SIGINT;
+
+   procedure Listen () is
+      L : Listener;
+
+      task T;
+
+      task body T is
+      begin
+         Listen (U, L, S);
+      end T;
+
+   begin
+      Install_Handler (Handler => SIGINT'Access);
+   end Listen;
+```

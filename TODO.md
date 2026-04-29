@@ -12,9 +12,9 @@
     - [ ] codec
 
 - [ ] listen
-    - [ ] API
-    - [ ] CLI
-    - [ ] README
+    - [x] API
+    - [x] CLI
+    - [x] README
     - [ ] integration tests
 
 - [ ] get-time-profile
@@ -35,10 +35,6 @@
 - [ ] rename
      - (?) Controller_Record
 - [ ] revert *_Type* renaming
-
-- [x] UDP
-    - [x] listen
-       - [x] terminate signal
 
 - [ ] integration tests
     - [ ] v6.62

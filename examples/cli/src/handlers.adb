@@ -1,5 +1,6 @@
 with Interfaces;
 with GNAT.Sockets;
+with GNAT.Ctrl_C;
 with Ada.Text_IO;
 with Ada.Strings.Unbounded;
 with Ada.Calendar;
@@ -15,6 +16,7 @@ package body Handlers is
    use Ada.Calendar.Formatting;
    use Ada.Calendar.Time_Zones;
    use GNAT.Sockets;
+   use GNAT.Ctrl_C;
 
    use Uhppoted.Lib;
 
@@ -373,6 +375,8 @@ package body Handlers is
    end Record_Special_Events;
 
    --  Executes the listen command.
+   S : Signal;
+
    type Listener is new Uhppoted.Lib.Event_Listener with record
       null;
    end record;
@@ -412,13 +416,18 @@ package body Handlers is
       Put_Line ("           card:           " & Event.Card'Image);
       Put_Line ("           access granted:  " & Event.Access_Granted'Image);
       Put_Line ("           reason:         " & Event.Reason'Image);
+      Put_Line ("");
    end On_Event;
+
+   procedure SIGINT is
+   begin
+      Trigger (S);
+   end SIGINT;
 
    procedure Listen (Args : ArgParse.Args) is
       pragma Unreferenced (Args);
 
       L : Listener;
-      S : Signal;
 
       task T;
 
@@ -426,22 +435,10 @@ package body Handlers is
       begin
          Put_Line ("--- listening");
          Listen (U, L, S);
-         Put_Line ("--- listened");
       end T;
 
-      task D;
-
-      task body D is
-      begin
-         Put_Line ("... sleep");
-         delay 5.0;
-         Put_Line ("... slept");
-         Uhppoted.Lib.Trigger (S);
-         Put_Line ("... triggered");
-      end D;
-
    begin
-      null;
+      Install_Handler (Handler => SIGINT'Access);
    end Listen;
 
 end Handlers;

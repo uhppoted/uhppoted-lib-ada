@@ -270,7 +270,7 @@ package body Uhppoted.Lib.Transport.UDP is
    end SendTo;
 
    --  Establishes a listening socket to receive controller events.
-   procedure Listen (U : UHPPOTE; X : Event_Handler'Class; H : Selector_Type) is
+   procedure Listen (U : UHPPOTE; X : Event_Dispatcher'Class; H : Selector_Type) is
       Sock      : S;
       Read_Set  : Socket_Set_Type;
       Write_Set : Socket_Set_Type;

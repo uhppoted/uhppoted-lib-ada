@@ -764,11 +764,11 @@ package body Uhppoted.Lib is
    end Record_Special_Events;
 
    --  Handler for received events.
-   type Handler is new Uhppoted.Lib.Transport.Event_Handler with record
-      Listener : access Event_Listener'Class;
+   type Dispatcher is new Uhppoted.Lib.Transport.Event_Dispatcher with record
+      Handler : access Event_Handler'Class;
    end record;
 
-   overriding procedure On_Event (Self : Handler; Msg : Packet) is
+   overriding procedure On_Event (Self : Dispatcher; Msg : Packet) is
       E          : constant Listener_Event := Uhppoted.Lib.Decode.Listener_Event (Msg);
       Controller : constant Unsigned_32    := E.Controller;
       State      : constant Controller_State_Type :=
@@ -809,18 +809,18 @@ package body Uhppoted.Lib is
           Access_Granted => E.Event_Access_Granted,
           Reason         => E.Event_Reason);
    begin
-      if Self.Listener /= null then
-         Self.Listener.On_Event (Controller, State, Event);
+      if Self.Handler /= null then
+         Self.Handler.On_Event (Controller, State, Event);
       end if;
    end On_Event;
 
    --  Establishes a UDP connection to receive controller events.
-   procedure Listen (U : UHPPOTE; Listener : Event_Listener'Class; S : Signal) is
-      H : Handler;
+   procedure Listen (U : UHPPOTE; Handler : Event_Handler'Class; Cancel : Signal) is
+      D : Dispatcher;
    begin
-      H.Listener := Listener'Unrestricted_Access;
+      D.Handler := Handler'Unrestricted_Access;
 
-      Uhppoted.Lib.Transport.UDP.Listen (U, H, S.Selector);
+      Uhppoted.Lib.Transport.UDP.Listen (U, D, Cancel.Selector);
    end Listen;
 
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the

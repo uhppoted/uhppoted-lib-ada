@@ -377,7 +377,7 @@ package body Handlers is
    --  Executes the listen command.
    S : Signal;
 
-   type Listener is new Uhppoted.Lib.Event_Listener with record
+   type Listener is new Uhppoted.Lib.Event_Handler with record
       null;
    end record;
 

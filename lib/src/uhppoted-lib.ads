@@ -24,9 +24,9 @@ package Uhppoted.Lib is
    end record;
 
    --  Interface type for an event handler.
-   type Event_Listener is interface;
+   type Event_Handler is interface;
 
-   procedure On_Event (Self       : Event_Listener;
+   procedure On_Event (Self       : Event_Handler;
                        Controller : Unsigned_32;
                        State      : Controller_State_Type;
                        Event      : Event_Type) is abstract;
@@ -748,11 +748,12 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
-   procedure Listen (U : UHPPOTE; Listener : Event_Listener'Class; S : Signal);
+   procedure Listen (U : UHPPOTE; Handler : Event_Handler'Class; Cancel : Signal);
    --  Establishes a UDP connection to receive controller events.
    --
    --  @param  U          UHPPOTE configuration.
-   --  @param  Listener   Event_Listener implementation.
+   --  @param  Listener   Event_Handler implementation.
+   --  @param  Cancel     Cancel signal to terminate event listener.
 
    function Image (Addr : IPv4) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given IPv4 address in dotted-decimal format (e.g., "192.168.1.1").

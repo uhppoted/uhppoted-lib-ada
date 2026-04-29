@@ -158,7 +158,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Listener_Type := Get_Listener (U, C, 0.5);
+      V : constant Listener_Record := Get_Listener (U, C, 0.5);
    begin
       Assert (V = Expected.Get_Listener, "invalid result" & V'Image);
    end Test_Get_Listener;
@@ -186,7 +186,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Controller_Status_Type := Get_Status (U, C, 0.5);
+      V : constant Controller_Status := Get_Status (U, C, 0.5);
    begin
       Assert (V = Expected.Get_Status, "invalid result" & V'Image);
    end Test_Get_Status;
@@ -200,7 +200,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Controller_Status_Type := Get_Status (U, C, 0.5);
+      V : constant Controller_Status := Get_Status (U, C, 0.5);
    begin
       Assert (V = Expected.Get_Status_No_Event, "invalid result" & V'Image);
    end Test_Get_Status_No_Event;
@@ -214,7 +214,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Door_Type := Get_Door (U, C, 4, 0.5);
+      V : constant Door_Record := Get_Door (U, C, 4, 0.5);
    begin
       Assert (V = Expected.Get_Door, "invalid result" & V'Image);
    end Test_Get_Door;
@@ -228,7 +228,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Door_Type := Set_Door (U, C, 4, To_Control_Mode (2), 17, 0.5);
+      V : constant Door_Record := Set_Door (U, C, 4, To_Control_Mode (2), 17, 0.5);
    begin
       Assert (V = Expected.Set_Door, "invalid result" & V'Image);
    end Test_Set_Door;
@@ -286,7 +286,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Card_Type := Get_Card (U, C, 10058400, 0.5);
+      V : constant Card_Record := Get_Card (U, C, 10058400, 0.5);
    begin
       Assert (V = Expected.Get_Card, "invalid result" & V'Image);
    end Test_Get_Card;
@@ -300,7 +300,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Card_Type := Get_Card_At_Index (U, C, 135, 0.5);
+      V : constant Card_Record := Get_Card_At_Index (U, C, 135, 0.5);
    begin
       Assert (V = Expected.Get_Card_At_Index, "invalid result" & V'Image);
    end Test_Get_Card_At_Index;
@@ -314,7 +314,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      Card : constant Uhppoted.Lib.Card_Type := (
+      Card : constant Uhppoted.Lib.Card_Record := (
          Card       => 10058400,
          Start_Date => (Year => 2025, Month => 1, Day => 1),
          End_Date   => (Year => 2025, Month => 12, Day => 31),
@@ -366,7 +366,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.UDP);
 
-      V : constant Event_Type := Get_Event (U, C, 13579, 0.5);
+      V : constant Controller_Event := Get_Event (U, C, 13579, 0.5);
    begin
       Assert (V = Expected.Get_Event, "invalid result" & V'Image);
    end Test_Get_Event;
@@ -424,7 +424,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                   Protocol => Uhppoted.Lib.UDP);
    begin
       declare
-         Unused : constant Card_Type := Get_Card (U, C, 10058401, 0.5);
+         Unused : constant Card_Record := Get_Card (U, C, 10058401, 0.5);
       begin
          Assert (False, "Expected 'card not found' error");
       end;
@@ -446,7 +446,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                   Protocol => Uhppoted.Lib.UDP);
    begin
       declare
-         Unused : constant Card_Type := Get_Card_At_Index (U, C, 136, 0.5);
+         Unused : constant Card_Record := Get_Card_At_Index (U, C, 136, 0.5);
       begin
          Assert (False, "Expected 'card not found' error");
       end;
@@ -468,7 +468,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                   Protocol => Uhppoted.Lib.UDP);
    begin
       declare
-         Unused : constant Card_Type := Get_Card_At_Index (U, C, 137, 0.5);
+         Unused : constant Card_Record := Get_Card_At_Index (U, C, 137, 0.5);
       begin
          Assert (False, "Expected 'card deleted' error");
       end;
@@ -518,7 +518,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                   Protocol => Uhppoted.Lib.UDP);
    begin
       declare
-         Unused : constant Event_Type := Get_Event (U, C, 24680, 0.5);
+         Unused : constant Controller_Event := Get_Event (U, C, 24680, 0.5);
       begin
          Assert (False, "Expected 'event not found' error");
       end;
@@ -540,7 +540,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
                                   Protocol => Uhppoted.Lib.UDP);
    begin
       declare
-         Unused : constant Event_Type := Get_Event (U, C, 98765, 0.5);
+         Unused : constant Controller_Event := Get_Event (U, C, 98765, 0.5);
       begin
          Assert (False, "Expected 'event not found' error");
       end;

@@ -47,20 +47,20 @@ var translations = map[string]string{
 	"set IPv4 response":               "Boolean",
 	"get time response":               "DateTime",
 	"set time response":               "DateTime",
-	"get listener response":           "Listener_Type",
+	"get listener response":           "Listener_Record",
 	"set listener addr:port response": "Boolean",
-	"get status response":             "Controller_Status_Type",
-	"get door response":               "Door_Type",
-	"set door response":               "Door_Type",
+	"get status response":             "Controller_Status",
+	"get door response":               "Door_Record",
+	"set door response":               "Door_Record",
 	"set door passcodes response":     "Boolean",
 	"open door response":              "Boolean",
 	"get cards response":              "Unsigned_32",
-	"get card response":               "Card_Type",
-	"get card at index response":      "Card_Type",
+	"get card response":               "Card_Record",
+	"get card at index response":      "Card_Record",
 	"put card response":               "Boolean",
 	"delete card response":            "Boolean",
 	"delete all cards response":       "Boolean",
-	"get event response":              "Event_Type",
+	"get event response":              "Controller_Event",
 	"get event index response":        "Unsigned_32",
 	"set event index response":        "Boolean",
 	"record special events response":  "Boolean",
@@ -214,7 +214,7 @@ func vars(t lib.FuncTest) []any {
 			}
 		}
 
-		m = append(m, fmt.Sprintf(`Card : constant Uhppoted.Lib.Card_Type := (
+		m = append(m, fmt.Sprintf(`Card : constant Uhppoted.Lib.Card_Record := (
          Card       => %v,
          Start_Date => %v,
          End_Date   => %v,
@@ -330,23 +330,23 @@ func response(f lib.Function, t lib.FuncTest) returns {
 			r.Template = "controller"
 			r.Value = t.Replies[0].Response
 
-		case "Listener_Type":
+		case "Listener_Record":
 			r.Template = "listener"
 			r.Value = t.Replies[0].Response
 
-		case "Controller_Status_Type":
+		case "Controller_Status":
 			r.Template = "status"
 			r.Value = t.Replies[0].Response
 
-		case "Door_Type":
+		case "Door_Record":
 			r.Template = "door"
 			r.Value = t.Replies[0].Response
 
-		case "Card_Type":
+		case "Card_Record":
 			r.Template = "card"
 			r.Value = t.Replies[0].Response
 
-		case "Event_Type":
+		case "Controller_Event":
 			r.Template = "event"
 			r.Value = t.Replies[0].Response
 		}

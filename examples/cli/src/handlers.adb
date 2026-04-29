@@ -144,7 +144,7 @@ package body Handlers is
 
    --  Executes the get-listener command.
    procedure Get_Listener (Args : ArgParse.Args) is
-      R : constant Listener_Type := Get_Listener (U, Args.Controller, Timeout);
+      R : constant Listener_Record := Get_Listener (U, Args.Controller, Timeout);
    begin
       Put_Line ("--- get-listener");
       Put_Line ("controller:" & Args.Controller.ID'Image);
@@ -165,7 +165,7 @@ package body Handlers is
 
    --  Executes the get-status command.
    procedure Get_Status (Args : ArgParse.Args) is
-      R : constant Controller_Status_Type := Get_Status (U, Args.Controller, Timeout);
+      R : constant Controller_Status := Get_Status (U, Args.Controller, Timeout);
    begin
       Put_Line ("--- get-status");
       Put_Line ("controller:" & Args.Controller.ID'Image);
@@ -203,7 +203,7 @@ package body Handlers is
 
    --  Executes the get-door command.
    procedure Get_Door (Args : ArgParse.Args) is
-      R : constant Door_Type := Get_Door (U, Args.Controller, Args.Door, Timeout);
+      R : constant Door_Record := Get_Door (U, Args.Controller, Args.Door, Timeout);
    begin
       Put_Line ("--- get-door");
       Put_Line ("controller:" & Args.Controller.ID'Image);
@@ -215,7 +215,7 @@ package body Handlers is
 
    --  Executes the set-door command.
    procedure Set_Door (Args : ArgParse.Args) is
-      R : constant Door_Type := Set_Door (U, Args.Controller, Args.Door, Args.Mode, Args.OpenDelay, Timeout);
+      R : constant Door_Record := Set_Door (U, Args.Controller, Args.Door, Args.Mode, Args.OpenDelay, Timeout);
    begin
       Put_Line ("--- set-door");
       Put_Line ("controller:" & Args.Controller.ID'Image);
@@ -259,7 +259,7 @@ package body Handlers is
 
    --  Executes the get-card command.
    procedure Get_Card (Args : ArgParse.Args) is
-      R : constant Card_Type := Get_Card (U, Args.Controller, Args.Card.Card, Timeout);
+      R : constant Card_Record := Get_Card (U, Args.Controller, Args.Card.Card, Timeout);
    begin
       Put_Line ("--- get-card");
       Put_Line (" controller:" & Args.Controller.ID'Image);
@@ -276,7 +276,7 @@ package body Handlers is
 
    --  Executes the get-card-at-index command.
    procedure Get_Card_At_Index (Args : ArgParse.Args) is
-      R : constant Card_Type := Get_Card_At_Index (U, Args.Controller, Args.Card_Index, Timeout);
+      R : constant Card_Record := Get_Card_At_Index (U, Args.Controller, Args.Card_Index, Timeout);
    begin
       Put_Line ("--- get-card-at-index");
       Put_Line (" controller:" & Args.Controller.ID'Image);
@@ -326,7 +326,7 @@ package body Handlers is
 
    --  Executes the get-event command.
    procedure Get_Event (Args : ArgParse.Args) is
-      R : constant Event_Type := Get_Event (U, Args.Controller, Args.Event_Index, Timeout);
+      R : constant Controller_Event := Get_Event (U, Args.Controller, Args.Event_Index, Timeout);
    begin
       Put_Line ("--- get-event");
       Put_Line ("controller:" & Args.Controller.ID'Image);
@@ -383,8 +383,8 @@ package body Handlers is
 
    overriding procedure On_Event (Self       : Listener;
                                   Controller : Unsigned_32;
-                                  State      : Uhppoted.Lib.Controller_State_Type;
-                                  Event      : Uhppoted.Lib.Event_Type) is
+                                  State      : Uhppoted.Lib.Controller_State;
+                                  Event      : Uhppoted.Lib.Controller_Event) is
    begin
       Put_Line ("--- listen-event");
       Put_Line (" controller:" & Controller'Image);

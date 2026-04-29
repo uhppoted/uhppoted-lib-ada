@@ -35,7 +35,7 @@ package ArgParse is
    type Args (T : Args_Type) is record
       Controller  : Uhppoted.Lib.Controller;
       Door        : Unsigned_8;
-      Card        : Uhppoted.Lib.Card_Type;
+      Card        : Uhppoted.Lib.Card_Record;
       Event_Index : Unsigned_32;
 
       case T is

@@ -65,7 +65,7 @@ package Uhppoted.Types is
 
    type Controller_Record_List is array (Positive range <>) of Controller_Record;
 
-   type Listener_Type is record
+   type Listener_Record is record
       Listener : GNAT.Sockets.Sock_Addr_Type;
       Interval : Unsigned_8;
    end record;
@@ -78,21 +78,21 @@ package Uhppoted.Types is
 
    type Doors_State is array (1 .. 4) of Door_State;
 
-   type Alarms_Type is record
+   type Alarms_Record is record
       Flags       : Unsigned_8;
       Fire        : Boolean;
       Lock_Forced : Boolean;
    end record;
 
-   type Controller_State_Type is record
+   type Controller_State is record
       System_Date_Time : DateTime;
       Doors            : Doors_State;
-      Alarms           : Alarms_Type;
+      Alarms           : Alarms_Record;
       System_Error     : Unsigned_8;
       Special_Info     : Unsigned_8;
    end record;
 
-   type Event_Type is record
+   type Controller_Event is record
       Index          : Unsigned_32;
       Event          : Unsigned_8;
       Timestamp      : DateTime;
@@ -103,9 +103,9 @@ package Uhppoted.Types is
       Reason         : Unsigned_8;
    end record;
 
-   type Controller_Status_Type is record
-      State : Controller_State_Type;
-      Event : Event_Type;
+   type Controller_Status is record
+      State : Controller_State;
+      Event : Controller_Event;
    end record;
 
    type Control_Mode is (Normally_Open, Normally_Closed, Controlled);
@@ -115,12 +115,12 @@ package Uhppoted.Types is
       Normally_Closed => 2,
       Controlled      => 3);
 
-   type Door_Type is record
+   type Door_Record is record
       Mode      : Control_Mode;
       OpenDelay : Unsigned_8;
    end record;
 
-   type Card_Type is record
+   type Card_Record is record
       Card       : Unsigned_32;
       Start_Date : DateOnly;
       End_Date   : DateOnly;

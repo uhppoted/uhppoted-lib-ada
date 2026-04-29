@@ -45,13 +45,13 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Set_Time : constant DateTime := (Year => 2025, Month => 11, Day => 1, Hour => 12, Minute => 34, Second => 56);
 
-   Get_Listener : constant Listener_Type := (
+   Get_Listener : constant Listener_Record := (
      Listener => Network_Socket_Address (Addr => Inet_Addr ("192.168.1.100"), Port => Port_Type (60001)),
      Interval => 13);
 
    Set_Listener : constant Boolean := True;
 
-   Get_Status : constant Controller_Status_Type := (
+   Get_Status : constant Controller_Status := (
      State => 
         (System_Date_Time => (Year => 2022, Month => 8, Day => 23, Hour => 9, Minute => 49, Second => 39),
          Doors => [1 => (Open     => False,
@@ -80,7 +80,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
                Access_Granted => True,
                Reason         => 44));
 
-   Get_Status_No_Event : constant Controller_Status_Type := (
+   Get_Status_No_Event : constant Controller_Status := (
      State => 
         (System_Date_Time => (Year => 2025, Month => 11, Day => 23, Hour => 14, Minute => 37, Second => 53),
          Doors => [1 => (Open     => True,
@@ -109,11 +109,11 @@ package Uhppoted.Lib.Integration_Tests.Expected is
                Access_Granted => False,
                Reason         => 0));
 
-   Get_Door : constant Door_Type := (
+   Get_Door : constant Door_Record := (
      Mode      => To_Control_Mode (3),
      OpenDelay => 7);
 
-   Set_Door : constant Door_Type := (
+   Set_Door : constant Door_Record := (
      Mode      => To_Control_Mode (2),
      OpenDelay => 17);
 
@@ -123,7 +123,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Get_Cards : constant Unsigned_32 := 13579;
 
-   Get_Card : constant Card_Type := (
+   Get_Card : constant Card_Record := (
      Card       => 10058400,
      Start_Date => (Year => 2025, Month => 1, Day => 1),
      End_Date   => (Year => 2025, Month => 12, Day => 31),
@@ -133,7 +133,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4     => 1,
      PIN        => 7531);
 
-   Get_Card_Not_Found : constant Card_Type := (
+   Get_Card_Not_Found : constant Card_Record := (
      Card       => 0,
      Start_Date => (Year => 1, Month => 1, Day => 1),
      End_Date   => (Year => 1, Month => 1, Day => 1),
@@ -143,7 +143,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4     => 0,
      PIN        => 0);
 
-   Get_Card_At_Index : constant Card_Type := (
+   Get_Card_At_Index : constant Card_Record := (
      Card       => 10058400,
      Start_Date => (Year => 2025, Month => 1, Day => 1),
      End_Date   => (Year => 2025, Month => 12, Day => 31),
@@ -153,7 +153,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4     => 1,
      PIN        => 7531);
 
-   Get_Card_At_Index_Not_Found : constant Card_Type := (
+   Get_Card_At_Index_Not_Found : constant Card_Record := (
      Card       => 0,
      Start_Date => (Year => 1, Month => 1, Day => 1),
      End_Date   => (Year => 1, Month => 1, Day => 1),
@@ -163,7 +163,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4     => 0,
      PIN        => 0);
 
-   Get_Card_At_Index_Deleted : constant Card_Type := (
+   Get_Card_At_Index_Deleted : constant Card_Record := (
      Card       => 4294967295,
      Start_Date => (Year => 1, Month => 1, Day => 1),
      End_Date   => (Year => 1, Month => 1, Day => 1),
@@ -179,7 +179,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Delete_All_Cards : constant Boolean := True;
 
-   Get_Event : constant Event_Type := (
+   Get_Event : constant Controller_Event := (
      Index          => 13579,
      Event          => 2,
      Timestamp      => (Year => 2025, Month => 11, Day => 17, Hour => 12, Minute => 34, Second => 56),
@@ -189,7 +189,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Access_Granted => True,
      Reason         => 21);
 
-   Get_Event_Not_Found : constant Event_Type := (
+   Get_Event_Not_Found : constant Controller_Event := (
      Index          => 24680,
      Event          => 0,
      Timestamp      => (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0),
@@ -199,7 +199,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Access_Granted => False,
      Reason         => 0);
 
-   Get_Event_Overwritten : constant Event_Type := (
+   Get_Event_Overwritten : constant Controller_Event := (
      Index          => 98765,
      Event          => 255,
      Timestamp      => (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0),

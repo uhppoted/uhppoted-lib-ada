@@ -171,7 +171,7 @@ package body Uhppoted.Lib is
    --  Retrieves the access controller listener address:port and auto-send interval. Restricted to the local LAN.
    function Get_Listener (U : UHPPOTE;
                           C : Unsigned_32;
-                          Timeout : Duration := 2.5) return Listener_Type is
+                          Timeout : Duration := 2.5) return Listener_Record is
    begin
       return Get_Listener (U, To_Controller (C), Timeout);
    end Get_Listener;
@@ -179,7 +179,7 @@ package body Uhppoted.Lib is
    --  Retrieves the access controller listener address:port and auto-send interval.
    function Get_Listener (U : UHPPOTE;
                           C : Controller;
-                          Timeout : Duration := 2.5) return Listener_Type is
+                          Timeout : Duration := 2.5) return Listener_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Listener_Addr_Port (C.ID);
       Reply   : Packet;
       R       : Get_Listener_Addr_Port_Response;
@@ -228,7 +228,7 @@ package body Uhppoted.Lib is
    --  Retrieves the access controller status. Restricted to the local LAN.
    function Get_Status (U       : UHPPOTE;
                         C       : Unsigned_32;
-                        Timeout : Duration := 2.5) return Controller_Status_Type is
+                        Timeout : Duration := 2.5) return Controller_Status is
    begin
       return Get_Status (U, To_Controller (C), Timeout);
    end Get_Status;
@@ -236,7 +236,7 @@ package body Uhppoted.Lib is
    --  Retrieves the access controller status.
    function Get_Status (U       : UHPPOTE;
                         C       : Controller;
-                        Timeout : Duration := 2.5) return Controller_Status_Type is
+                        Timeout : Duration := 2.5) return Controller_Status is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Status (C.ID);
       Reply   : Packet;
       R       : Get_Status_Response;
@@ -249,7 +249,7 @@ package body Uhppoted.Lib is
       end if;
 
       declare
-         State : constant Controller_State_Type :=
+         State : constant Controller_State :=
             (System_Date_Time => (Year   => R.System_Date.Year,
                                   Month  => R.System_Date.Month,
                                   Day    => R.System_Date.Day,
@@ -276,7 +276,7 @@ package body Uhppoted.Lib is
              System_Error => R.System_Error,
              Special_Info => R.Special_Info);
 
-         Event : constant Event_Type :=
+         Event : constant Controller_Event :=
             (Index          => R.Event_Index,
              Event          => R.Event_Type,
              Timestamp      => R.Event_Timestamp,
@@ -294,7 +294,7 @@ package body Uhppoted.Lib is
    function Get_Door (U       : UHPPOTE;
                       C       : Unsigned_32;
                       Door    : Unsigned_8;
-                      Timeout : Duration := 2.5) return Door_Type is
+                      Timeout : Duration := 2.5) return Door_Record is
    begin
       return Get_Door (U, To_Controller (C), Door, Timeout);
    end Get_Door;
@@ -303,7 +303,7 @@ package body Uhppoted.Lib is
    function Get_Door (U       : UHPPOTE;
                       C       : Controller;
                       Door    : Unsigned_8;
-                      Timeout : Duration := 2.5) return Door_Type is
+                      Timeout : Duration := 2.5) return Door_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Door (C.ID, Door);
       Reply   : Packet;
       R       : Get_Door_Response;
@@ -325,7 +325,7 @@ package body Uhppoted.Lib is
                       Door      : Unsigned_8;
                       Mode      : Control_Mode;
                       OpenDelay : Unsigned_8;
-                      Timeout   : Duration := 2.5) return Door_Type is
+                      Timeout   : Duration := 2.5) return Door_Record is
    begin
       return Set_Door (U, To_Controller (C), Door, Mode, OpenDelay, Timeout);
    end Set_Door;
@@ -336,7 +336,7 @@ package body Uhppoted.Lib is
                       Door      : Unsigned_8;
                       Mode      : Control_Mode;
                       OpenDelay : Unsigned_8;
-                      Timeout   : Duration := 2.5) return Door_Type is
+                      Timeout   : Duration := 2.5) return Door_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Set_Door (C.ID, Door, Mode, OpenDelay);
       Reply   : Packet;
       R       : Set_Door_Response;
@@ -462,7 +462,7 @@ package body Uhppoted.Lib is
    function Get_Card (U       : UHPPOTE;
                       C       : Unsigned_32;
                       Card    : Unsigned_32;
-                      Timeout : Duration := 2.5) return Card_Type is
+                      Timeout : Duration := 2.5) return Card_Record is
    begin
       return Get_Card (U, To_Controller (C), Card, Timeout);
    end Get_Card;
@@ -471,7 +471,7 @@ package body Uhppoted.Lib is
    function Get_Card (U       : UHPPOTE;
                       C       : Controller;
                       Card    : Unsigned_32;
-                      Timeout : Duration := 2.5) return Card_Type is
+                      Timeout : Duration := 2.5) return Card_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Card (C.ID, Card);
       Reply   : Packet;
       R       : Get_Card_Response;
@@ -505,7 +505,7 @@ package body Uhppoted.Lib is
    function Get_Card_At_Index (U       : UHPPOTE;
                                C       : Unsigned_32;
                                Index   : Unsigned_32;
-                               Timeout : Duration := 2.5) return Card_Type is
+                               Timeout : Duration := 2.5) return Card_Record is
    begin
       return Get_Card_At_Index (U, To_Controller (C), Index, Timeout);
    end Get_Card_At_Index;
@@ -514,7 +514,7 @@ package body Uhppoted.Lib is
    function Get_Card_At_Index (U       : UHPPOTE;
                                C       : Controller;
                                Index   : Unsigned_32;
-                               Timeout : Duration := 2.5) return Card_Type is
+                               Timeout : Duration := 2.5) return Card_Record is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Card_At_Index (C.ID, Index);
       Reply   : Packet;
       R       : Get_Card_At_Index_Response;
@@ -547,7 +547,7 @@ package body Uhppoted.Lib is
    --  Adds/updates a card record stored on the controller. Restricted to the local LAN.
    function Put_Card (U       : UHPPOTE;
                       C       : Unsigned_32;
-                      Card    : Card_Type;
+                      Card    : Card_Record;
                       Timeout : Duration := 2.5) return Boolean is
    begin
       return Put_Card (U, To_Controller (C), Card, Timeout);
@@ -556,7 +556,7 @@ package body Uhppoted.Lib is
    --  Adds/updates a card record stored on the controller.
    function Put_Card (U       : UHPPOTE;
                       C       : Controller;
-                      Card    : Card_Type;
+                      Card    : Card_Record;
                       Timeout : Duration := 2.5) return Boolean is
       Request : constant Packet := Uhppoted.Lib.Encode.Put_Card (C.ID,
                                                                  Card.Card,
@@ -638,7 +638,7 @@ package body Uhppoted.Lib is
    function Get_Event (U       : UHPPOTE;
                        C       : Unsigned_32;
                        Index   : Unsigned_32;
-                       Timeout : Duration := 2.5) return Event_Type is
+                       Timeout : Duration := 2.5) return Controller_Event is
    begin
       return Get_Event (U, To_Controller (C), Index, Timeout);
    end Get_Event;
@@ -647,7 +647,7 @@ package body Uhppoted.Lib is
    function Get_Event (U       : UHPPOTE;
                        C       : Controller;
                        Index   : Unsigned_32;
-                       Timeout : Duration := 2.5) return Event_Type is
+                       Timeout : Duration := 2.5) return Controller_Event is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Event (C.ID, Index);
       Reply   : Packet;
       R       : Get_Event_Response;
@@ -771,7 +771,7 @@ package body Uhppoted.Lib is
    overriding procedure On_Event (Self : Dispatcher; Msg : Packet) is
       E          : constant Listener_Event := Uhppoted.Lib.Decode.Listener_Event (Msg);
       Controller : constant Unsigned_32    := E.Controller;
-      State      : constant Controller_State_Type :=
+      State      : constant Controller_State :=
          (System_Date_Time => (Year   => E.System_Date.Year,
                                Month  => E.System_Date.Month,
                                Day    => E.System_Date.Day,
@@ -799,7 +799,7 @@ package body Uhppoted.Lib is
            System_Error => E.System_Error,
            Special_Info => E.Special_Info);
 
-      Event : constant Event_Type :=
+      Event : constant Controller_Event :=
          (Index          => E.Event_Index,
           Event          => E.Event_Type,
           Timestamp      => E.Event_Timestamp,

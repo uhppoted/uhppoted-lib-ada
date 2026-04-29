@@ -32,9 +32,7 @@
 
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 - [ ] enums for event-type, event-reason, event-direction
-- [ ] rename
-     - (?) Controller_Record
-- [ ] revert *_Type* renaming
+- [x] revert *_Type* renaming
 
 - [ ] integration tests
     - [ ] v6.62

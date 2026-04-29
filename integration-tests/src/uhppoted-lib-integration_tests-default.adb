@@ -136,7 +136,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Listener (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Listener_Type := Get_Listener (U, 405419896, 0.5);
+      V : constant Listener_Record := Get_Listener (U, 405419896, 0.5);
    begin
       Assert (V = Expected.Get_Listener, "invalid result" & V'Image);
    end Test_Get_Listener;
@@ -152,7 +152,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Status (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Controller_Status_Type := Get_Status (U, 405419896, 0.5);
+      V : constant Controller_Status := Get_Status (U, 405419896, 0.5);
    begin
       Assert (V = Expected.Get_Status, "invalid result" & V'Image);
    end Test_Get_Status;
@@ -160,7 +160,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Status_No_Event (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Controller_Status_Type := Get_Status (U, 405419897, 0.5);
+      V : constant Controller_Status := Get_Status (U, 405419897, 0.5);
    begin
       Assert (V = Expected.Get_Status_No_Event, "invalid result" & V'Image);
    end Test_Get_Status_No_Event;
@@ -168,7 +168,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Door_Type := Get_Door (U, 405419896, 4, 0.5);
+      V : constant Door_Record := Get_Door (U, 405419896, 4, 0.5);
    begin
       Assert (V = Expected.Get_Door, "invalid result" & V'Image);
    end Test_Get_Door;
@@ -176,7 +176,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Set_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Door_Type := Set_Door (U, 405419896, 4, To_Control_Mode (2), 17, 0.5);
+      V : constant Door_Record := Set_Door (U, 405419896, 4, To_Control_Mode (2), 17, 0.5);
    begin
       Assert (V = Expected.Set_Door, "invalid result" & V'Image);
    end Test_Set_Door;
@@ -210,7 +210,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Card (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Card_Type := Get_Card (U, 405419896, 10058400, 0.5);
+      V : constant Card_Record := Get_Card (U, 405419896, 10058400, 0.5);
    begin
       Assert (V = Expected.Get_Card, "invalid result" & V'Image);
    end Test_Get_Card;
@@ -218,7 +218,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Card_At_Index (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Card_Type := Get_Card_At_Index (U, 405419896, 135, 0.5);
+      V : constant Card_Record := Get_Card_At_Index (U, 405419896, 135, 0.5);
    begin
       Assert (V = Expected.Get_Card_At_Index, "invalid result" & V'Image);
    end Test_Get_Card_At_Index;
@@ -226,7 +226,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Put_Card (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      Card : constant Uhppoted.Lib.Card_Type := (
+      Card : constant Uhppoted.Lib.Card_Record := (
          Card       => 10058400,
          Start_Date => (Year => 2025, Month => 1, Day => 1),
          End_Date   => (Year => 2025, Month => 12, Day => 31),
@@ -260,7 +260,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    procedure Test_Get_Event (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      V : constant Event_Type := Get_Event (U, 405419896, 13579, 0.5);
+      V : constant Controller_Event := Get_Event (U, 405419896, 13579, 0.5);
    begin
       Assert (V = Expected.Get_Event, "invalid result" & V'Image);
    end Test_Get_Event;
@@ -295,7 +295,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
    begin
       declare
-         Unused : constant Card_Type := Get_Card (U, 405419896, 10058401, 0.5);
+         Unused : constant Card_Record := Get_Card (U, 405419896, 10058401, 0.5);
       begin
          Assert (False, "Expected 'card not found' error");
       end;
@@ -312,7 +312,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
    begin
       declare
-         Unused : constant Card_Type := Get_Card_At_Index (U, 405419896, 136, 0.5);
+         Unused : constant Card_Record := Get_Card_At_Index (U, 405419896, 136, 0.5);
       begin
          Assert (False, "Expected 'card not found' error");
       end;
@@ -329,7 +329,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
    begin
       declare
-         Unused : constant Card_Type := Get_Card_At_Index (U, 405419896, 137, 0.5);
+         Unused : constant Card_Record := Get_Card_At_Index (U, 405419896, 137, 0.5);
       begin
          Assert (False, "Expected 'card deleted' error");
       end;
@@ -346,7 +346,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
    begin
       declare
-         Unused : constant Event_Type := Get_Event (U, 405419896, 24680, 0.5);
+         Unused : constant Controller_Event := Get_Event (U, 405419896, 24680, 0.5);
       begin
          Assert (False, "Expected 'event not found' error");
       end;
@@ -363,7 +363,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
 
    begin
       declare
-         Unused : constant Event_Type := Get_Event (U, 405419896, 98765, 0.5);
+         Unused : constant Controller_Event := Get_Event (U, 405419896, 98765, 0.5);
       begin
          Assert (False, "Expected 'event not found' error");
       end;

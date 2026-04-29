@@ -377,30 +377,30 @@ Returns a `Controller_Status`:
 ```
    type Controller_Status is record
       System_Date_Time : DateTime;
-      Doors            : Doors_Type;
-      Alarms           : Alarms_Type;
+      Doors            : DoorsRecordType;
+      Alarms           : Alarms_Record;
       System_Error     : Unsigned_8;
       Special_Info     : Unsigned_8;
-      Event            : Event_Type;
+      Event            : Controller_Event;
    end record;
 
 where:
 
-   type Door_Type is record
+   type Door_State is record
       Open     : Boolean;
       Button   : Boolean;
       Unlocked : Boolean;
    end record;
 
-   type Doors_Type is array (1 .. 4) of Door_Type;
+   type Doors_State is array (1 .. 4) of Door_State;
 
-   type Alarms_Type is record
+   type Alarms_Record is record
       Flags       : Unsigned_8;
       Fire        : Boolean;
       Lock_Forced : Boolean;
    end record;
 
-   type Event_Type is record
+   type Controller_Event is record
       Index          : Unsigned_32;
       Event          : Unsigned_8;
       Timestamp      : DateTime;
@@ -767,12 +767,12 @@ Raises:
 function Get_Event (U         : UHPPOTE;
                     C         : Unsigned_32;
                     Index     : Unsigned_32;
-                    Timeout   : Duration) return Unsigned_32;
+                    Timeout   : Duration) return Controller_Event;
 
 function Get_Event (U         : UHPPOTE;
                     C         : Controller;
                     Index     : Unsigned_32;
-                    Timeout   : Duration) return Unsigned_32;
+                    Timeout   : Duration) return Controller_Event;
 
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
@@ -781,9 +781,9 @@ where:
 - Index      Unsigned_32     Index of event index to fetch.
 ```
 
-Returns an `Event_Type`:
+Returns a `Controller_Event`:
 ```
-   type Event_Type is record
+   type Controller_Event is record
       Index          : Unsigned_32;
       Event          : Unsigned_8;
       Timestamp      : DateTime;
@@ -907,15 +907,15 @@ The `Event_Handler` interface is defined as:
 
    procedure On_Event (Self       : Event_Listener;
                        Controller : Unsigned_32;
-                       State      : Controller_State_Type;
-                       Event      : Event_Type) is abstract;
+                       State      : Controller_State;
+                       Event      : Controller_Event) is abstract;
 
    where:
 
-   type Controller_State_Type is record
+   type Controller_State is record
       System_Date_Time : DateTime;
       Doors            : Doors_State;
-      Alarms           : Alarms_Type;
+      Alarms           : Alarms_Record;
       System_Error     : Unsigned_8;
       Special_Info     : Unsigned_8;
    end record;
@@ -928,13 +928,13 @@ The `Event_Handler` interface is defined as:
       Unlocked : Boolean;
    end record;
 
-   type Alarms_Type is record
+   type Alarms_Record is record
       Flags       : Unsigned_8;
       Fire        : Boolean;
       Lock_Forced : Boolean;
    end record;
 
-   type Event_Type is record
+   type Controller_Event is record
       Index          : Unsigned_32;
       Event          : Unsigned_8;
       Timestamp      : DateTime;
@@ -956,8 +956,8 @@ e.g.:
 
    overriding procedure On_Event (Self       : Listener;
                                   Controller : Unsigned_32;
-                                  State      : Uhppoted.Lib.Controller_State_Type;
-                                  Event      : Uhppoted.Lib.Event_Type) is
+                                  State      : Uhppoted.Lib.Controller_State;
+                                  Event      : Uhppoted.Lib.Controller_Event) is
    begin
       Put_Line ("--- listen-event");
       Put_Line (" controller:" & Controller'Image);

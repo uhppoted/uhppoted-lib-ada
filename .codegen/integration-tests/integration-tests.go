@@ -29,6 +29,11 @@ type test struct {
 	Returns  returns
 }
 
+type event struct {
+	Name    string
+	Message []string
+}
+
 type reply struct {
 	Index int
 	Reply []string
@@ -92,6 +97,7 @@ func IntegrationTests() {
 		requestsADS(templates, functions)
 		repliesADS(templates, functions)
 		messages(templates, functions)
+		events(templates)
 		expected(templates, functions)
 		defaultTests(templates, functions)
 		udpTests(templates, udp)
@@ -105,6 +111,38 @@ func requestsADS(templates *template.Template, tests []test) {
 
 func repliesADS(templates *template.Template, tests []test) {
 	generate(templates, tests, "replies.ads", "../integration-tests/src/uhppoted-lib-integration_tests-stub-replies.ads")
+}
+
+func events(templates *template.Template) {
+	file := "../integration-tests/src/uhppoted-lib-integration_tests-stub-events.ads"
+	transmogrified := []event{}
+
+	for _, f := range model.Events {
+		for _, t := range f.Tests {
+			transmogrified = append(transmogrified, event{
+				Name:    codegen.AdaName(t.Name),
+				Message: packet(t.Response),
+			})
+		}
+	}
+
+	if f, err := os.Create(file); err != nil {
+		log.Fatalf("%v", err)
+	} else {
+		defer f.Close()
+
+		var data = struct {
+			Tests []event
+		}{
+			Tests: transmogrified,
+		}
+
+		if err := templates.ExecuteTemplate(f, "events.ads", data); err != nil {
+			log.Fatalf("%v", err)
+		}
+
+		log.Printf("... generated %s", file)
+	}
 }
 
 func messages(templates *template.Template, tests []test) {

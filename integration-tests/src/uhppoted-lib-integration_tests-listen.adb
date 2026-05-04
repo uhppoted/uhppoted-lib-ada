@@ -3,6 +3,7 @@ with Ada.Streams;
 with Ada.Unchecked_Conversion;
 with Ada.Containers.Vectors;
 with GNAT.Sockets;
+
 with Uhppoted.Lib.Integration_Tests.Stub.Events;
 
 package body Uhppoted.Lib.Integration_Tests.Listen is
@@ -76,6 +77,7 @@ package body Uhppoted.Lib.Integration_Tests.Listen is
    protected type EventsList is
       procedure Append (E : ListenEvent);
       function Length return Ada.Containers.Count_Type;
+      function Get (I : Natural) return ListenEvent;
    private
       List : ListenEvents_Vector.Vector;
    end EventsList;
@@ -90,6 +92,11 @@ package body Uhppoted.Lib.Integration_Tests.Listen is
       begin
          return List.Length;
       end Length;
+
+      function Get (I : Natural) return ListenEvent is
+      begin
+         return List (I);
+      end Get;
    end EventsList;
 
    type EventsList_Access is access all EventsList;
@@ -136,7 +143,7 @@ package body Uhppoted.Lib.Integration_Tests.Listen is
          delay 0.5;
 
          Create_Socket (Socket, Family_Inet, Socket_Datagram);
-         for V of Uhppoted.Lib.Integration_Tests.Stub.Events.Events loop
+         for V of Events loop
             declare
                Offset    : Stream_Element_Offset;
             begin
@@ -156,6 +163,18 @@ package body Uhppoted.Lib.Integration_Tests.Listen is
       D.Done;
 
       Assert (L.Q.Length = N, "incorrect number of events (" & L.Q.Length'Image & ")");
+
+      for I in 1 .. N loop
+         declare
+            IX : constant Natural := Natural (I);
+            U  : constant ListenEvent := L.Q.Get (IX);
+            V  : constant Event := Events (IX);
+         begin
+            Assert (U.State = V.State, "incorrect event state: " & U.State'Image);
+            Assert (U.Event = V.event, "incorrect event event: " & U.Event'Image);
+         end;
+      end loop;
+
    end Test_Listen;
 
 end Uhppoted.Lib.Integration_Tests.Listen;

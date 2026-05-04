@@ -30,8 +30,9 @@ type test struct {
 }
 
 type event struct {
-	Name    string
-	Message []string
+	Name     string
+	Message  []string
+	Expected map[string]any
 }
 
 type reply struct {
@@ -119,9 +120,55 @@ func events(templates *template.Template) {
 
 	for _, f := range model.Events {
 		for _, t := range f.Tests {
+			lookup := func(key string) any {
+				for _, v := range t.Expected {
+					if v.Name == key {
+						return v.Value
+					}
+				}
+
+				panic(fmt.Sprintf("missing expected value '%v", key))
+
+			}
+
+			expected := map[string]any{
+				"system-date-time": datetime(fmt.Sprintf("%v %v", lookup("system date"), lookup("system time"))),
+				"door-1-open":      boolean(lookup("door 1 open")),
+				"door-2-open":      boolean(lookup("door 2 open")),
+				"door-3-open":      boolean(lookup("door 3 open")),
+				"door-4-open":      boolean(lookup("door 4 open")),
+
+				"door-1-button": boolean(lookup("door 1 button")),
+				"door-2-button": boolean(lookup("door 2 button")),
+				"door-3-button": boolean(lookup("door 3 button")),
+				"door-4-button": boolean(lookup("door 4 button")),
+
+				"door-1-unlocked": boolean(uint8(lookup("relays").(int))&0x01 == 0x01),
+				"door-2-unlocked": boolean(uint8(lookup("relays").(int))&0x02 == 0x02),
+				"door-3-unlocked": boolean(uint8(lookup("relays").(int))&0x04 == 0x04),
+				"door-4-unlocked": boolean(uint8(lookup("relays").(int))&0x08 == 0x08),
+
+				"alarm-flags":  lookup("inputs"),
+				"alarm-fire":   boolean(uint8(lookup("inputs").(int))&0x01 == 0x01),
+				"alarm-forced": boolean(uint8(lookup("inputs").(int))&0x02 == 0x02),
+
+				"system-error": lookup("system error"),
+				"special-info": lookup("special info"),
+
+				"event-index":     lookup("event index"),
+				"event-timestamp": datetime(lookup("event timestamp")),
+				"event-event":     lookup("event type"),
+				"event-door":      lookup("event door"),
+				"event-direction": lookup("event direction"),
+				"event-card":      lookup("event card"),
+				"event-granted":   lookup("event access granted"),
+				"event-reason":    lookup("event reason"),
+			}
+
 			transmogrified = append(transmogrified, event{
-				Name:    codegen.AdaName(t.Name),
-				Message: packet(t.Response),
+				Name:     codegen.AdaName(t.Name),
+				Message:  packet(t.Response),
+				Expected: expected,
 			})
 		}
 	}
@@ -435,7 +482,7 @@ func render(templates *template.Template, name string, data any) (string, error)
 func datetime(v any) string {
 	s := fmt.Sprintf("%v", v)
 	if datetime, err := time.ParseInLocation("2006-01-02 15:04:05", s, time.Local); err != nil {
-		panic(fmt.Sprintf("invalid date (%v)", v))
+		panic(fmt.Sprintf("---- invalid date %v (%v)", v, err))
 	} else {
 		year, month, day := datetime.Date()
 		hour := datetime.Hour()

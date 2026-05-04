@@ -11,11 +11,11 @@
     - [ ] types
     - [ ] codec
 
-- [ ] listen
+- [x] listen
     - [x] API
     - [x] CLI
     - [x] README
-    - [ ] integration tests
+    - [x] integration tests
 
 - [ ] get-time-profile
 - [ ] set-time-profile

@@ -3,15 +3,7 @@
 - https://github.com/ohenley/awesome-ada
 - https://github.com/simonjwright/alire-index.mac
 
-- [ ] format
-- [ ] lint
-     - https://www.adalog.fr/en/adacontrol.html#download
-- [ ] adadoc
-    - [ ] exceptions
-    - [ ] types
-    - [ ] codec
-
-- [x] listen
+- [x] restore-default-parameters
     - [x] API
     - [x] CLI
     - [x] README
@@ -28,14 +20,12 @@
 - [ ] activate-keypads
 - [ ] get-antipassback
 - [ ] set-antipassback
-- [ ] restore-default-parameters
 
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 - [ ] enums for event-type, event-reason, event-direction
-- [x] revert *_Type* renaming
 
-- [ ] integration tests
-    - [ ] v6.62
+- [x] integration tests
+    - [x] v6.62
 
 - [ ] fix _Library_Interface_ in .gpr file
 ```
@@ -46,3 +36,12 @@
       "Uhppoted.Lib.Decode"
    );
 ```
+- [ ] format
+- [ ] lint
+     - https://www.adalog.fr/en/adacontrol.html#download
+- [ ] adadoc
+    - [ ] exceptions
+    - [ ] types
+    - [ ] codec
+- [ ] package & publish
+

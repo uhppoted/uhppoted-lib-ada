@@ -98,5 +98,8 @@ set-event-index: build
 record-special-events: build
 	$(CLI) record-special-events --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --enabled $(RECORD_SPECIAL_EVENTS)
 
+restore-default-parameters: build
+	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+
 listen: build
 	$(CLI) listen

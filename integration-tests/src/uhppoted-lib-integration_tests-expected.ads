@@ -215,4 +215,6 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Record_Special_Events : constant Boolean := True;
 
+   Restore_Default_Parameters : constant Boolean := True;
+
 end Uhppoted.Lib.Integration_Tests.Expected;

@@ -318,6 +318,17 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Record_Special_Events;
 
+   --  Encodes a restore-default-parameters request as a 64 byte array.
+   function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Restore_Default_Parameters_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.MagicWord  := 16#55AA_AA55#;
+
+      return Buffer;
+   end Restore_Default_Parameters;
+
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is
       V : constant IPv4 := [

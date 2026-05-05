@@ -40,7 +40,7 @@ var Requests = []types.Request{
 	// ActivateKeypadsRequest,
 	// GetAntiPassbackRequest,
 	// SetAntiPassbackRequest,
-	// RestoreDefaultParametersRequest,
+	lib.RestoreDefaultParametersRequest,
 }
 
 var FindControllersRequest = types.Request{}

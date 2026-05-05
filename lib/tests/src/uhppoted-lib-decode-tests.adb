@@ -42,6 +42,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Get_Event_Index'Access, "test decode Get_Event_Index response");
       Register_Routine (T, Test_Decode_Set_Event_Index'Access, "test decode Set_Event_Index response");
       Register_Routine (T, Test_Decode_Record_Special_Events'Access, "test decode Record_Special_Events response");
+      Register_Routine (T, Test_Decode_Restore_Default_Parameters'Access, "test decode Restore_Default_Parameters response");
       Register_Routine (T, Test_Decode_Listener_Event'Access, "test decode Listener_Event");
       Register_Routine (T, Test_Decode_Listener_Event_V6_62'Access, "test decode Listener_Event_V6_62");
    end Register_Tests;
@@ -615,6 +616,25 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded record-special-events-response response: got" & Response'Image);
    end Test_Decode_Record_Special_Events;
+
+   procedure Test_Decode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Restore_Default_Parameters_Response := (
+         Controller => 405419896,
+         Ok         => True);
+
+      Reply : constant Packet := [
+         16#17#, 16#c8#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Restore_Default_Parameters_Response := Uhppoted.Lib.Decode.Restore_Default_Parameters (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded restore-default-parameters-response response: got" & Response'Image);
+   end Test_Decode_Restore_Default_Parameters;
 
    procedure Test_Decode_Listener_Event (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

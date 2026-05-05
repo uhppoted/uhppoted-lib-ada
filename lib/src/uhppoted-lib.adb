@@ -763,6 +763,32 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Record_Special_Events;
 
+   --  Resets the controller to the manufacturer default settings. Restricted to the local LAN.
+   function Restore_Default_Parameters (U       : UHPPOTE;
+                                        C       : Unsigned_32;
+                                        Timeout : Duration := 2.5) return Boolean is
+   begin
+      return Restore_Default_Parameters (U, To_Controller (C), Timeout);
+   end Restore_Default_Parameters;
+
+   --  Resets the controller to the manufacturer default settings.
+   function Restore_Default_Parameters (U       : UHPPOTE;
+                                        C       : Controller;
+                                        Timeout : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Restore_Default_Parameters (C.ID);
+      Reply   : Packet;
+      R       : Restore_Default_Parameters_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Restore_Default_Parameters (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Restore_Default_Parameters;
+
    --  Handler for received events.
    type Dispatcher is new Uhppoted.Lib.Transport.Event_Dispatcher with record
       Handler : access Event_Handler'Class;

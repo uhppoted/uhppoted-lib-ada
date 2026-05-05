@@ -359,7 +359,7 @@ package body Handlers is
       Put_Line ("--- set-event-index");
       Put_Line (" controller:" & Args.Controller.ID'Image);
       Put_Line ("      index:" & Args.Event_Index'Image);
-      Put_Line ("         ok:" & R'Image);
+      Put_Line ("         ok: " & R'Image);
       Put_Line ("");
    end Set_Event_Index;
 
@@ -369,10 +369,20 @@ package body Handlers is
    begin
       Put_Line ("--- record-special-events");
       Put_Line (" controller:" & Args.Controller.ID'Image);
-      Put_Line ("    enabled:" & Args.Enabled'Image);
-      Put_Line ("         ok:" & R'Image);
+      Put_Line ("    enabled: " & Args.Enabled'Image);
+      Put_Line ("         ok: " & R'Image);
       Put_Line ("");
    end Record_Special_Events;
+
+   --  Executes the restore-default-parameters command.
+   procedure Restore_Default_Parameters (Args : ArgParse.Args) is
+      R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);
+   begin
+      Put_Line ("--- restore-default-parameters");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("         ok: " & R'Image);
+      Put_Line ("");
+   end Restore_Default_Parameters;
 
    --  Executes the listen command.
    S : Signal;

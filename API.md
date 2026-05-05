@@ -21,6 +21,7 @@
 - [`Get_Event_Index`](#get_event_index)
 - [`Set_Event_Index`](#set_event_index)
 - [`Record_Special_Events`](#record_special_events)
+- [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
 ---
@@ -880,6 +881,32 @@ where:
 ```
 
 Returns `True` if the controller record special events was enabled/disabled.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Restore_Default_Parameters`
+
+**Restore_Default_Parameters** resets the controller to the manufacturer default settings.
+
+```
+function Restore_Default_Parameters (U         : UHPPOTE;
+                                     C         : Unsigned_32;
+                                     Timeout   : Duration) return Unsigned_32;
+
+function Restore_Default_Parameters (U         : UHPPOTE;
+                                     C         : Controller;
+                                     Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
+
+Returns `True` if the controller was reset to the manufacturer defaults.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

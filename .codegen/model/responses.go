@@ -41,7 +41,7 @@ var Responses = []types.Response{
 	// &ActivateKeypadsResponse,
 	// &GetAntiPassbackResponse,
 	// &SetAntiPassbackResponse,
-	// &RestoreDefaultParametersResponse,
+	lib.RestoreDefaultParametersResponse,
 }
 
 var FindControllersResponse = types.Response{

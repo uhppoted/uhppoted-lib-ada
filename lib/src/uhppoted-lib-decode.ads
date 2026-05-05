@@ -97,6 +97,10 @@ package Uhppoted.Lib.Decode is
       return Uhppoted.Lib.Responses.Record_Special_Events_Response;
    --  Decodes a 64 byte record-special-events reply as a Record_Special_Events_Response record.
 
+   function Restore_Default_Parameters (Reply : Uhppoted.Lib.Types.Packet)
+      return Uhppoted.Lib.Responses.Restore_Default_Parameters_Response;
+   --  Decodes a 64 byte record-special-events reply as a Restore_Default_Parameters_Response record.
+
    function Listener_Event (Reply : Uhppoted.Lib.Types.Packet)
       return Uhppoted.Lib.Responses.Listener_Event;
    --  Decodes a 64 byte listener-event packet as a Listener_Event record.

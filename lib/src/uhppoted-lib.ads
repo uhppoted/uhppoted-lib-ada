@@ -748,6 +748,34 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
+   function Restore_Default_Parameters (U       : UHPPOTE;
+                                        C       : Unsigned_32;
+                                        Timeout : Duration := 2.5) return Boolean;
+   --  Resets the controller to the manufacturer settings. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if controller was reset to the manufacturer defaults.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Restore_Default_Parameters (U       : UHPPOTE;
+                                        C       : Controller;
+                                        Timeout : Duration := 2.5) return Boolean;
+   --  Resets the controller to the manufacturer settings.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if controller was reset to the manufacturer defaults.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    procedure Listen (U : UHPPOTE; Handler : Event_Handler'Class; Cancel : Signal);
    --  Establishes a UDP connection to receive controller events.
    --

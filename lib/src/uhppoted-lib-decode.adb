@@ -451,6 +451,22 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Record_Special_Events;
 
+   --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.
+   function Restore_Default_Parameters (Reply : Packet) return Responses.Restore_Default_Parameters_Response is
+      R : Replies.Restore_Default_Parameters_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Restore_Default_Parameters then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Restore_Default_Parameters;
+
    --  Decodes a 64 byte listener-event message as a Listener_Event record.
    function Listener_Event (Reply : Packet) return Responses.Listener_Event is
       R : Replies.Listener_Event with Import, Address => Reply'Address;

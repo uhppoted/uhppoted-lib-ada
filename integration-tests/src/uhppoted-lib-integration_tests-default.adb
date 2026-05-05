@@ -65,6 +65,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Register_Routine (T, Test_Get_Event_Index'Access,     "Get_Event_Index");
       Register_Routine (T, Test_Set_Event_Index'Access,     "Set_Event_Index");
       Register_Routine (T, Test_Record_Special_Events'Access, "Record_Special_Events");
+      Register_Routine (T, Test_Restore_Default_Parameters'Access, "Restore_Default_Parameters");
    end Register_Tests;
 
    overriding procedure Set_Up_Case (T : in out Integration_Test) is
@@ -288,6 +289,14 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    begin
       Assert (V = Expected.Record_Special_Events, "invalid result" & V'Image);
    end Test_Record_Special_Events;
+
+   procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      V : constant Boolean := Restore_Default_Parameters (U, 405419896, 0.5);
+   begin
+      Assert (V = Expected.Restore_Default_Parameters, "invalid result" & V'Image);
+   end Test_Restore_Default_Parameters;
 
    --  custom test cases
    procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is

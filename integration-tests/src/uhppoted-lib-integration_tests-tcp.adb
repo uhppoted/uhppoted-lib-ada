@@ -65,6 +65,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Get_Event_Index'Access,             "Get_Event_Index");
       Register_Routine (T, Test_Set_Event_Index'Access,             "Set_Event_Index");
       Register_Routine (T, Test_Record_Special_Events'Access,       "Record_Special_Events");
+      Register_Routine (T, Test_Restore_Default_Parameters'Access,  "Restore_Default_Parameters");
       Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
 
@@ -413,6 +414,20 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.Record_Special_Events, "invalid result" & V'Image);
    end Test_Record_Special_Events;
+
+   procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Boolean := Restore_Default_Parameters (U, C, 0.5);
+   begin
+      Assert (V = Expected.Restore_Default_Parameters, "invalid result" & V'Image);
+   end Test_Restore_Default_Parameters;
 
    --  custom tests
    procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is

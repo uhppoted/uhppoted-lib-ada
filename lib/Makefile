@@ -94,5 +94,8 @@ set-event-index: build
 record-special-events: build
 	cd ../examples/cli && make record-special-events CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) RECORD_SPECIAL_EVENTS=$(RECORD_SPECIAL_EVENTS) 
 
+restore-default-parameters: build
+	cd ../examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+
 listen: build
 	cd ../examples/cli && make listen

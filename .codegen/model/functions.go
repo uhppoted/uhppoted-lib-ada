@@ -40,7 +40,7 @@ var API = []types.Function{
 	// &ActivateKeypads,
 	// &GetAntiPassback,
 	// &SetAntiPassback,
-	// &RestoreDefaultParameters,
+	lib.RestoreDefaultParameters,
 }
 
 // -- not implemented --

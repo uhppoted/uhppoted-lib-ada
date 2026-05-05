@@ -50,14 +50,14 @@ end Uhppoted.Lib.Integration_Tests.Expected;
                     Lock_Forced => {{ get $v "alarms.lock-forced" }}),
          System_Error => {{ get $v "system.error" }},
          Special_Info => {{ get $v "system.special-info" }}),
-     Event => (Index          => {{ get $v "event.index"          }},
-               Event          => {{ get $v "event.type"           }},
-               Timestamp      => {{ get $v "event.timestamp"      }},
-               Door           => {{ get $v "event.door"           }},
-               Direction      => {{ get $v "event.direction"      }},
-               Card           => {{ get $v "event.card"           }},
+     Event => (Index          => {{ get $v "event.index" }},
+               Event          => To_Event_Type ({{ get $v "event.type"}}),
+               Timestamp      => {{ get $v "event.timestamp" }},
+               Door           => {{ get $v "event.door" }},
+               Direction      => To_Event_Direction ({{ get $v "event.direction"}}),
+               Card           => {{ get $v "event.card" }},
                Access_Granted => {{ get $v "event.access-granted" }},
-               Reason         => {{ get $v "event.reason"         }}){{ end }}){{ end }}
+               Reason         => To_Event_Reason ({{ get $v "event.reason"}})){{ end }}){{ end }}
 
 {{- define "door" }}({{ with $v := .Returns.Value }}
      Mode      => To_Control_Mode ({{ get $v "mode"}}),
@@ -74,11 +74,11 @@ end Uhppoted.Lib.Integration_Tests.Expected;
      PIN        => {{ get $v "PIN"}}{{ end }}){{ end }}
 
 {{- define "event" }}({{ with $v := .Returns.Value }}
-     Index          => {{ get $v "index"          }},
-     Event          => {{ get $v "event type"     }},
-     Timestamp      => {{ get $v "timestamp"      }},
-     Door           => {{ get $v "door"           }},
-     Direction      => {{ get $v "direction"      }},
-     Card           => {{ get $v "card"           }},
+     Index          => {{ get $v "index" }},
+     Event          => To_Event_Type ({{ get $v "event type"}}),
+     Timestamp      => {{ get $v "timestamp" }},
+     Door           => {{ get $v "door" }},
+     Direction      => To_Event_Direction ({{ get $v "direction" }}),
+     Card           => {{ get $v "card" }},
      Access_Granted => {{ get $v "access granted" }},
-     Reason         => {{ get $v "reason"         }}{{ end }}){{ end }}
+     Reason         => To_Event_Reason ({{ get $v "reason" }}){{ end }}){{ end }}

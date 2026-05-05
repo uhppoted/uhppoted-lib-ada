@@ -32,6 +32,106 @@ package body Uhppoted.Types is
       end case;
    end To_Control_Mode;
 
+   function To_Event_Type (V : Unsigned_8) return Event_Type is
+   begin
+      case V is
+         when 1 =>
+            return Swipe;
+         when 2 =>
+            return Door;
+         when 3 =>
+            return Alarm;
+         when 255 =>
+            return Overwritten;
+         when others =>
+            return Unknown;
+      end case;
+   end To_Event_Type;
+
+   function To_Event_Direction (V : Unsigned_8) return Event_Direction is
+   begin
+      case V is
+         when 1 =>
+            return Direction_In;
+         when 2 =>
+            return Direction_Out;
+         when others =>
+            return Direction_Unknown;
+      end case;
+   end To_Event_Direction;
+
+   function To_Event_Reason (V : Unsigned_8) return Event_Reason is
+   begin
+      case V is
+         when 16#01# =>
+            return SwipeOk;
+         when 16#05# =>
+            return Denied_PC_Control;
+         when 16#06# =>
+            return Denied_Not_Allowed;
+         when 16#07# =>
+            return Denied_Incorrect_PIN;
+         when 16#08# =>
+            return Denied_Anti_Passback;
+         when 16#09# =>
+            return Denied_More_Cards;
+         when 16#0A# =>
+            return Denied_First_Card_Required;
+         when 16#0B# =>
+            return Denied_Door_Normally_Closed;
+         when 16#0C# =>
+            return Denied_Door_InterLock;
+         when 16#0D# =>
+            return Denied_Time_Profile;
+         when 16#0F# =>
+            return Denied_Invalid_Timezone;
+         when 16#12# =>
+            return Denied_Invalid;
+         when 16#14# =>
+            return Push_Button_Ok;
+         when 16#17# =>
+            return Door_Open;
+         when 16#18# =>
+            return Door_Closed;
+         when 16#19# =>
+            return Supervisor_Override;
+         when 16#1C# =>
+            return Controller_Power_On;
+         when 16#1D# =>
+            return Controller_Reset;
+         when 16#1E# =>
+            return Push_Button_Disabled;
+         when 16#1F# =>
+            return Push_Button_Lock_Forced;
+         when 16#20# =>
+            return Push_Button_Offline;
+         when 16#21# =>
+            return Push_Button_Door_InterLock;
+         when 16#22# =>
+            return Threat;
+         when 16#25# =>
+            return Open_Too_Long;
+         when 16#26# =>
+            return Forced_Open;
+         when 16#27# =>
+            return Fire;
+         when 16#28# =>
+            return Forced_Close;
+         when 16#29# =>
+            return Theft_Prevention;
+         when 16#2A# =>
+            return Zone_24x7;
+         when 16#2B# =>
+            return Emergency_Call;
+         when 16#2C# =>
+            return Remote_Open_Door;
+         when 16#2D# =>
+            return Remote_Open_Door_USB;
+         when others =>
+            return Other;
+      end case;
+   end To_Event_Reason;
+
    function Image (Addr : IPv4) return String is
       use Ada.Strings.Fixed;
    begin
@@ -92,6 +192,18 @@ package body Uhppoted.Types is
       SS      : constant String := (if DT.Second < 10 then "0" else "") & Trim (DT.Second'Image, Both);
    begin
       return YYYY & "-" & MM & "-" & DD & " " & HH & ":" & Minutes & ":" & SS;
+   end Image;
+
+   function Image (V : Event_Direction) return String is
+   begin
+      case V is
+         when Direction_In =>
+            return "IN";
+         when Direction_Out =>
+            return "OUT";
+         when others =>
+            return "UNKNOWN";
+      end case;
    end Image;
 
 end Uhppoted.Types;

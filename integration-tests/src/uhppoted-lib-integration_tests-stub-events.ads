@@ -72,23 +72,23 @@ package Uhppoted.Lib.Integration_Tests.Stub.Events is
 
    Listener_Event_Event : constant Controller_Event := (
       Index          => 78,
-      Event          => 2,
+      Event          => To_Event_Type (2),
       Timestamp      => (Year => 2022, Month => 8, Day => 23, Hour => 9, Minute => 47, Second => 6),
       Door           => 3,
-      Direction      => 1,
+      Direction      => To_Event_Direction (1),
       Card           => 8165537,
       Access_Granted => true,
-      Reason         => 44);
+      Reason         => To_Event_Reason (44));
 
    Listener_Event_V6_62_Event : constant Controller_Event := (
       Index          => 78,
-      Event          => 2,
+      Event          => To_Event_Type (2),
       Timestamp      => (Year => 2022, Month => 8, Day => 23, Hour => 9, Minute => 47, Second => 6),
       Door           => 3,
-      Direction      => 1,
+      Direction      => To_Event_Direction (1),
       Card           => 8165537,
       Access_Granted => true,
-      Reason         => 44);
+      Reason         => To_Event_Reason (44));
 
    Events : constant Events_List := [
       (Listener_Event_Message,       Listener_Event_State,       Listener_Event_Event),

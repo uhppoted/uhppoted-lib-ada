@@ -190,13 +190,13 @@ package body Handlers is
       Put_Line ("   special info:           " & R.State.Special_Info'Image);
       Put_Line ("");
       Put_Line ("     event index:          " & R.Event.Index'Image);
-      Put_Line ("           type:           " & R.Event.Event'Image);
+      Put_Line ("           type:            " & R.Event.Event'Image);
       Put_Line ("           timestamp:       " & Image (R.Event.Timestamp));
       Put_Line ("           door:           " & R.Event.Door'Image);
-      Put_Line ("           direction:      " & R.Event.Direction'Image);
+      Put_Line ("           direction:        " & Image (R.Event.Direction));
       Put_Line ("           card:           " & R.Event.Card'Image);
       Put_Line ("           access granted:  " & R.Event.Access_Granted'Image);
-      Put_Line ("           reason:         " & R.Event.Reason'Image);
+      Put_Line ("           reason:          " & R.Event.Reason'Image);
 
       Put_Line ("");
    end Get_Status;
@@ -331,13 +331,13 @@ package body Handlers is
       Put_Line ("--- get-event");
       Put_Line ("controller:" & Args.Controller.ID'Image);
       Put_Line ("  index:          " & R.Index'Image);
-      Put_Line ("  event:          " & R.Event'Image);
+      Put_Line ("  event:           " & R.Event'Image);
       Put_Line ("  timestamp:       " & Image (R.Timestamp));
       Put_Line ("  door:           " & R.Door'Image);
-      Put_Line ("  direction:      " & R.Direction'Image);
+      Put_Line ("  direction:       " & Image (R.Direction));
       Put_Line ("  card:           " & R.Card'Image);
       Put_Line ("  access granted:  " & R.Access_Granted'Image);
-      Put_Line ("  reason:         " & R.Reason'Image);
+      Put_Line ("  reason:          " & R.Reason'Image);
 
       Put_Line ("");
    end Get_Event;
@@ -422,10 +422,10 @@ package body Handlers is
       Put_Line ("           type:           " & Event.Event'Image);
       Put_Line ("           timestamp:       " & Image (Event.Timestamp));
       Put_Line ("           door:           " & Event.Door'Image);
-      Put_Line ("           direction:      " & Event.Direction'Image);
+      Put_Line ("           direction:       " & Event.Direction'Image);
       Put_Line ("           card:           " & Event.Card'Image);
       Put_Line ("           access granted:  " & Event.Access_Granted'Image);
-      Put_Line ("           reason:         " & Event.Reason'Image);
+      Put_Line ("           reason:          " & Event.Reason'Image);
       Put_Line ("");
    end On_Event;
 

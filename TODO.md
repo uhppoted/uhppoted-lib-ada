@@ -22,7 +22,10 @@
 - [ ] set-antipassback
 
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
-- [ ] enums for event-type, event-reason, event-direction
+- [x] enums
+   - [x] event-type
+   - [x] event-reason
+   - [x] event-direction
 
 - [x] integration tests
     - [x] v6.62

@@ -171,7 +171,7 @@ package body Uhppoted.Lib.Integration_Tests.Listen is
             V  : constant Event := Events (IX);
          begin
             Assert (U.State = V.State, "incorrect event state: " & U.State'Image);
-            Assert (U.Event = V.event, "incorrect event event: " & U.Event'Image);
+            Assert (U.Event = V.Event, "incorrect event event: " & U.Event'Image);
          end;
       end loop;
 

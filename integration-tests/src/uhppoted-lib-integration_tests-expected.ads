@@ -72,13 +72,13 @@ package Uhppoted.Lib.Integration_Tests.Expected is
          System_Error => 3,
          Special_Info => 39),
      Event => (Index          => 78,
-               Event          => 2,
+               Event          => To_Event_Type (2),
                Timestamp      => (Year => 2022, Month => 8, Day => 23, Hour => 9, Minute => 47, Second => 6),
                Door           => 3,
-               Direction      => 1,
+               Direction      => To_Event_Direction (1),
                Card           => 8165537,
                Access_Granted => True,
-               Reason         => 44));
+               Reason         => To_Event_Reason (44)));
 
    Get_Status_No_Event : constant Controller_Status := (
      State => 
@@ -101,13 +101,13 @@ package Uhppoted.Lib.Integration_Tests.Expected is
          System_Error => 27,
          Special_Info => 39),
      Event => (Index          => 0,
-               Event          => 0,
+               Event          => To_Event_Type (0),
                Timestamp      => (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0),
                Door           => 0,
-               Direction      => 0,
+               Direction      => To_Event_Direction (0),
                Card           => 0,
                Access_Granted => False,
-               Reason         => 0));
+               Reason         => To_Event_Reason (0)));
 
    Get_Door : constant Door_Record := (
      Mode      => To_Control_Mode (3),
@@ -181,33 +181,33 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Get_Event : constant Controller_Event := (
      Index          => 13579,
-     Event          => 2,
+     Event          => To_Event_Type (2),
      Timestamp      => (Year => 2025, Month => 11, Day => 17, Hour => 12, Minute => 34, Second => 56),
      Door           => 4,
-     Direction      => 2,
+     Direction      => To_Event_Direction (2),
      Card           => 10058400,
      Access_Granted => True,
-     Reason         => 21);
+     Reason         => To_Event_Reason (21));
 
    Get_Event_Not_Found : constant Controller_Event := (
      Index          => 24680,
-     Event          => 0,
+     Event          => To_Event_Type (0),
      Timestamp      => (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0),
      Door           => 0,
-     Direction      => 0,
+     Direction      => To_Event_Direction (0),
      Card           => 0,
      Access_Granted => False,
-     Reason         => 0);
+     Reason         => To_Event_Reason (0));
 
    Get_Event_Overwritten : constant Controller_Event := (
      Index          => 98765,
-     Event          => 255,
+     Event          => To_Event_Type (255),
      Timestamp      => (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0),
      Door           => 0,
-     Direction      => 0,
+     Direction      => To_Event_Direction (0),
      Card           => 0,
      Access_Granted => False,
-     Reason         => 0);
+     Reason         => To_Event_Reason (0));
 
    Get_Event_Index : constant Unsigned_32 := 13579;
 

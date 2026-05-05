@@ -56,12 +56,12 @@ end Uhppoted.Lib.Integration_Tests.Stub.Events;
 {{ end }}
 {{- define "listen-event"}}
    {{ .Name }}_Event : constant Controller_Event := (
-      Index          => {{ index .Expected "event-index"     }},
-      Event          => {{ index .Expected "event-event"     }},
+      Index          => {{ index .Expected "event-index" }},
+      Event          => To_Event_Type ({{ index .Expected "event-event" }}),
       Timestamp      => {{ index .Expected "event-timestamp" }},
       Door           => {{ index .Expected "event-door"      }},
-      Direction      => {{ index .Expected "event-direction" }},
+      Direction      => To_Event_Direction ({{ index .Expected "event-direction" }}),
       Card           => {{ index .Expected "event-card"      }},
       Access_Granted => {{ index .Expected "event-granted"   }},
-      Reason         => {{ index .Expected "event-reason"    }});
+      Reason         => To_Event_Reason ({{ index .Expected "event-reason" }}));
 {{ end }}

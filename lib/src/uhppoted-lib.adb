@@ -278,13 +278,13 @@ package body Uhppoted.Lib is
 
          Event : constant Controller_Event :=
             (Index          => R.Event_Index,
-             Event          => R.Event_Type,
+             Event          => To_Event_Type (R.Event_Type),
              Timestamp      => R.Event_Timestamp,
              Door           => R.Event_Door,
-             Direction      => R.Event_Direction,
+             Direction      => To_Event_Direction (R.Event_Direction),
              Card           => R.Event_Card,
              Access_Granted => R.Event_Access_Granted,
-             Reason         => R.Event_Reason);
+             Reason         => To_Event_Reason (R.Event_Reason));
       begin
          return (State, Event);
       end;
@@ -659,10 +659,6 @@ package body Uhppoted.Lib is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Index /= Index then
-         raise Invalid_Response_Error;
-      end if;
-
       if R.Event_Type = 16#00# then
          raise Event_Not_Found_Error;
       end if;
@@ -671,14 +667,18 @@ package body Uhppoted.Lib is
          raise Event_Overwritten_Error;
       end if;
 
+      if R.Index /= Index then
+         raise Invalid_Response_Error;
+      end if;
+
       return (Index          => R.Index,
-              Event          => R.Event_Type,
+              Event          => To_Event_Type (R.Event_Type),
               Timestamp      => R.Timestamp,
               Door           => R.Door,
-              Direction      => R.Direction,
+              Direction      => To_Event_Direction (R.Direction),
               Card           => R.Card,
               Access_Granted => R.Access_Granted,
-              Reason         => R.Reason);
+              Reason         => To_Event_Reason (R.Reason));
    end Get_Event;
 
    --  Retrieves the downloaded event index from the controller. Restricted to the local LAN.
@@ -827,13 +827,13 @@ package body Uhppoted.Lib is
 
       Event : constant Controller_Event :=
          (Index          => E.Event_Index,
-          Event          => E.Event_Type,
+          Event          => To_Event_Type (E.Event_Type),
           Timestamp      => E.Event_Timestamp,
           Door           => E.Event_Door,
-          Direction      => E.Event_Direction,
+          Direction      => To_Event_Direction (E.Event_Direction),
           Card           => E.Event_Card,
           Access_Granted => E.Event_Access_Granted,
-          Reason         => E.Event_Reason);
+          Reason         => To_Event_Reason (E.Event_Reason));
    begin
       if Self.Handler /= null then
          Self.Handler.On_Event (Controller, State, Event);

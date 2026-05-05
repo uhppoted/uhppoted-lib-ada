@@ -811,4 +811,11 @@ package Uhppoted.Lib is
    --  @return    A string containing the formatted date/time.
    --  @see Uhppoted.Types.Image
 
+   function Image (V : Event_Direction) return String renames Uhppoted.Types.Image;
+   --  Returns a string representation of an event direction enum..
+   --
+   --  @param V   The event direction  to be converted.
+   --  @return    IN, OUT or UNKNOWN
+   --  @see Uhppoted.Types.Image
+
 end Uhppoted.Lib;

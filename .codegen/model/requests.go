@@ -29,7 +29,7 @@ var Requests = []types.Request{
 	lib.GetEventIndexRequest,
 	lib.SetEventIndexRequest,
 	lib.RecordSpecialEventsRequest,
-	// GetTimeProfileRequest,
+	lib.GetTimeProfileRequest,
 	// SetTimeProfileRequest,
 	// ClearTimeProfilesRequest,
 	// AddTaskRequest,

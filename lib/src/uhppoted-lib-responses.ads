@@ -199,6 +199,28 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for a get-time-profile response.
+   type Get_Time_Profile_Response is record
+      Controller      : Unsigned_32;
+      Profile         : Unsigned_8;
+      Start_Date      : DateOnly;
+      End_Date        : DateOnly;
+      Monday          : Boolean;
+      Tuesday         : Boolean;
+      Wednesday       : Boolean;
+      Thursday        : Boolean;
+      Friday          : Boolean;
+      Saturday        : Boolean;
+      Sunday          : Boolean;
+      Segment_1_Start : HHmm;
+      Segment_1_End   : HHmm;
+      Segment_2_Start : HHmm;
+      Segment_2_End   : HHmm;
+      Segment_3_Start : HHmm;
+      Segment_3_End   : HHmm;
+      Linked_Profile  : Unsigned_8;
+   end record;
+
    --  Message definition for a restore-default-parameters response.
    type Restore_Default_Parameters_Response is record
       Controller : Unsigned_32;

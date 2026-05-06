@@ -451,6 +451,38 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Record_Special_Events;
 
+   --  Decodes a 64 byte rget-time-profile reply as a Get_Time_Profile_Response record.
+   function Get_Time_Profile (Reply : Packet) return Responses.Get_Time_Profile_Response is
+      R : Replies.Get_Time_Profile_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Time_Profile then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller      => R.Controller,
+              Profile         => R.Profile,
+              Start_Date      => Unpack_Date (R.Start_Date),
+              End_Date        => Unpack_Date (R.End_Date),
+              Monday          => Unpack_Boolean (R.Monday),
+              Tuesday         => Unpack_Boolean (R.Tuesday),
+              Wednesday       => Unpack_Boolean (R.Wednesday),
+              Thursday        => Unpack_Boolean (R.Thursday),
+              Friday          => Unpack_Boolean (R.Friday),
+              Saturday        => Unpack_Boolean (R.Saturday),
+              Sunday          => Unpack_Boolean (R.Sunday),
+              Segment_1_Start => Unpack_HHmm (R.Segment_1_Start),
+              Segment_1_End   => Unpack_HHmm (R.Segment_1_End),
+              Segment_2_Start => Unpack_HHmm (R.Segment_2_Start),
+              Segment_2_End   => Unpack_HHmm (R.Segment_2_End),
+              Segment_3_Start => Unpack_HHmm (R.Segment_3_Start),
+              Segment_3_End   => Unpack_HHmm (R.Segment_3_End),
+              Linked_Profile  => R.Linked_Profile);
+   end Get_Time_Profile;
+
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.
    function Restore_Default_Parameters (Reply : Packet) return Responses.Restore_Default_Parameters_Response is
       R : Replies.Restore_Default_Parameters_Reply with Import, Address => Reply'Address;
@@ -567,6 +599,15 @@ package body Uhppoted.Lib.Decode is
 
       return (Year => Year, Month => Month, Day => Day, Hour => Hour, Minute => Minute, Second => Second);
    end Unpack_Date_Time;
+
+   --  Translates a BCD coded time to an HHmm.
+   function Unpack_HHmm (Bytes : BCD) return HHmm is
+      HHMM : constant String     := BCD_To_String (Bytes);
+      HH   : constant Unsigned_8 := Unsigned_8'Value (HHMM (1 .. 2));
+      MM   : constant Unsigned_8 := Unsigned_8'Value (HHMM (3 .. 4));
+   begin
+      return (Hour => HH, Minute => MM);
+   end Unpack_HHmm;
 
    --  Translates a BCD coded string in a byte array to a string.
    function BCD_To_String (Bytes : BCD) return String is

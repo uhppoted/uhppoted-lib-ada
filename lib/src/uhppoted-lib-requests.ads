@@ -518,6 +518,29 @@ package Uhppoted.Lib.Requests is
    for Record_Special_Events_Request'Bit_Order use System.Low_Order_First;
    for Record_Special_Events_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a get-time-profile request.
+   type Get_Time_Profile_Request is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Get_Time_Profile;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Profile    : Unsigned_8;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
+   end record;
+
+   for Get_Time_Profile_Request use record
+      SOM        at 0 range 0 ..   7;
+      OpCode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Profile    at 8 range 0 ..   7;
+      Padding    at 9 range 0 .. 439;
+   end record;
+
+   for Get_Time_Profile_Request'Size use 64 * 8;
+   for Get_Time_Profile_Request'Bit_Order use System.Low_Order_First;
+   for Get_Time_Profile_Request'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a restore-default-parameters request.
    type Restore_Default_Parameters_Request is record
       SOM        : Unsigned_8    := Codec.SOM;

@@ -18,6 +18,7 @@ PIN        ?= 7531
 
 EVENT_INDEX ?= 23
 RECORD_SPECIAL_EVENTS ?= yes
+TIME_PROFILE ?= 29
 
 clean:
 	alr clean
@@ -93,6 +94,9 @@ set-event-index: build
 
 record-special-events: build
 	cd ../examples/cli && make record-special-events CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) RECORD_SPECIAL_EVENTS=$(RECORD_SPECIAL_EVENTS) 
+
+get-time-profile: build
+	cd ../examples/cli && make get-time-profile CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) TIME_PROFILE=$(TIME_PROFILE) 
 
 restore-default-parameters: build
 	cd ../examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)

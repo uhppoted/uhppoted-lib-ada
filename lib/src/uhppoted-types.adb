@@ -206,4 +206,13 @@ package body Uhppoted.Types is
       end case;
    end Image;
 
+   function Image (T : HHmm) return String is
+      use Ada.Strings.Fixed;
+
+      HH : constant String := (if T.Hour   < 10 then "0" else "") & Trim (T.Hour'Image,   Both);
+      MM : constant String := (if T.Minute < 10 then "0" else "") & Trim (T.Minute'Image, Both);
+   begin
+      return HH & ":" & MM;
+   end Image;
+
 end Uhppoted.Types;

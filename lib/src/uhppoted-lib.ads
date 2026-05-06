@@ -39,6 +39,7 @@ package Uhppoted.Lib is
    subtype Door_Record            is Uhppoted.Types.Door_Record;
    subtype Card_Record            is Uhppoted.Types.Card_Record;
    subtype Listener_Record        is Uhppoted.Types.Listener_Record;
+   subtype Time_Profile           is Uhppoted.Types.Time_Profile;
    subtype Signal                 is Uhppoted.Types.Signal;
 
    procedure Trigger (S : in out Signal) renames Uhppoted.Types.Trigger;
@@ -51,13 +52,14 @@ package Uhppoted.Lib is
    Normally_Closed : Control_Mode renames Uhppoted.Types.Normally_Closed;
    Controlled      : Control_Mode renames Uhppoted.Types.Controlled;
 
-   Invalid_Address_Error   : exception renames Uhppoted.Types.Invalid_Address_Error;
-   Card_Not_Found_Error    : exception renames Uhppoted.Types.Card_Not_Found_Error;
-   Card_Deleted_Error      : exception renames Uhppoted.Types.Card_Deleted_Error;
-   Event_Not_Found_Error   : exception renames Uhppoted.Types.Event_Not_Found_Error;
-   Event_Overwritten_Error : exception renames Uhppoted.Types.Event_Overwritten_Error;
-   Invalid_Response_Error  : exception renames Uhppoted.Types.Invalid_Response_Error;
-   Timeout_Error           : exception renames Uhppoted.Types.Timeout_Error;
+   Invalid_Address_Error        : exception renames Uhppoted.Types.Invalid_Address_Error;
+   Card_Not_Found_Error         : exception renames Uhppoted.Types.Card_Not_Found_Error;
+   Card_Deleted_Error           : exception renames Uhppoted.Types.Card_Deleted_Error;
+   Event_Not_Found_Error        : exception renames Uhppoted.Types.Event_Not_Found_Error;
+   Event_Overwritten_Error      : exception renames Uhppoted.Types.Event_Overwritten_Error;
+   Time_Profile_Not_Found_Error : exception renames Uhppoted.Types.Time_Profile_Not_Found_Error;
+   Invalid_Response_Error       : exception renames Uhppoted.Types.Invalid_Response_Error;
+   Timeout_Error                : exception renames Uhppoted.Types.Timeout_Error;
 
    function Find_Controllers (U       : UHPPOTE;
                               Timeout : Duration := 2.5) return Controller_Record_List;
@@ -748,6 +750,40 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
+   function Get_Time_Profile (U       : UHPPOTE;
+                              C       : Unsigned_32;
+                              Profile : Unsigned_8;
+                              Timeout : Duration := 2.5) return Time_Profile;
+   --  Retrieves a stored time profile from the controller. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Profile    Time profile ID ([2..254]).
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Stored time profile.
+   --
+   --  @exception Time_Profile_Not_Found if the controller does not have a corresponding time profile.
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
+
+   function Get_Time_Profile (U       : UHPPOTE;
+                              C       : Controller;
+                              Profile : Unsigned_8;
+                              Timeout : Duration := 2.5) return Time_Profile;
+   --  Retrieves a stored time profile from the controller.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Profile    Time profile ID ([2..254]).
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Stored time profile.
+   --
+   --  @exception Time_Profile_Not_Found if the controller does not have a corresponding time profile.
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
+
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;
                                         Timeout : Duration := 2.5) return Boolean;
@@ -807,15 +843,21 @@ package Uhppoted.Lib is
    function Image (DT : DateTime) return String renames Uhppoted.Types.Image;
    --  Returns a string representation of the given date/time in yyyy-mm-dd HH:mm:ssformat (e.g. "2026-02-26 15:23:45").
    --
-   --  @param DT  The date/time  to be converted.
+   --  @param DT  The date/time to be converted.
    --  @return    A string containing the formatted date/time.
    --  @see Uhppoted.Types.Image
 
    function Image (V : Event_Direction) return String renames Uhppoted.Types.Image;
-   --  Returns a string representation of an event direction enum..
+   --  Returns a string representation of an event direction enum.
    --
-   --  @param V   The event direction  to be converted.
+   --  @param V   The event direction to be converted.
    --  @return    IN, OUT or UNKNOWN
    --  @see Uhppoted.Types.Image
 
+   function Image (T : HHmm) return String renames Uhppoted.Types.Image;
+   --  Returns a string representation of an HHmm.
+   --
+   --  @param T   HHmm to be converted.
+   --  @return    Time formatted as "HH:mm"
+   --  @see Uhppoted.Types.Image
 end Uhppoted.Lib;

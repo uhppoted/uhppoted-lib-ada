@@ -374,6 +374,32 @@ package body Handlers is
       Put_Line ("");
    end Record_Special_Events;
 
+   --  Executes the get-time-profile command.
+   procedure Get_Time_Profile (Args : ArgParse.Args) is
+      R : constant Time_Profile := Get_Time_Profile (U, Args.Controller, Args.Profile_ID, Timeout);
+   begin
+      Put_Line ("--- get-time-profile ");
+      Put_Line ("         controller:" & Args.Controller.ID'Image);
+      Put_Line ("            profile:" & Args.Profile_ID'Image);
+      Put_Line ("         start-date: " & Image (R.Start_Date));
+      Put_Line ("           end-date: " & Image (R.End_Date));
+      Put_Line ("             monday: " & R.Weekdays.Monday'Image);
+      Put_Line ("            tuesday: " & R.Weekdays.Tuesday'Image);
+      Put_Line ("          wednesday: " & R.Weekdays.Wednesday'Image);
+      Put_Line ("           thursday: " & R.Weekdays.Thursday'Image);
+      Put_Line ("             friday: " & R.Weekdays.Friday'Image);
+      Put_Line ("           saturday: " & R.Weekdays.Saturday'Image);
+      Put_Line ("             sunday: " & R.Weekdays.Sunday'Image);
+      Put_Line ("    segment 1 start: " & Image (R.Segments (1).Start_Time));
+      Put_Line ("                end: " & Image (R.Segments (1).End_Time));
+      Put_Line ("    segment 2 start: " & Image (R.Segments (2).Start_Time));
+      Put_Line ("                end: " & Image (R.Segments (2).End_Time));
+      Put_Line ("    segment 3 start: " & Image (R.Segments (3).Start_Time));
+      Put_Line ("                end: " & Image (R.Segments (3).End_Time));
+      Put_Line ("     linked profile:" & R.Linked_Profile'Image);
+      Put_Line ("");
+   end Get_Time_Profile;
+
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is
       R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);

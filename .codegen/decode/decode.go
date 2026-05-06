@@ -156,15 +156,3 @@ func name(v lib.Value) string {
 func value(v lib.Value) string {
 	return codegen.AdaValue(v.Type, v.Value)
 }
-
-func boolean(v any) string {
-	if v == true {
-		return "True"
-	}
-
-	if v == false {
-		return "False"
-	}
-
-	panic(fmt.Sprintf("invalid boolean value (%v)", v))
-}

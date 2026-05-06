@@ -658,6 +658,61 @@ package Uhppoted.Lib.Replies is
    for Record_Special_Events_Reply'Bit_Order use System.Low_Order_First;
    for Record_Special_Events_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a get-time-profile reply.
+   type Get_Time_Profile_Reply is record
+      SOM             : Unsigned_8    := Codec.SOM;
+      Opcode          : Codec.Op_Code := Codec.Get_Time_Profile;
+      Reserved        : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller      : Unsigned_32;
+      Profile         : Unsigned_8;
+      Start_Date      : Uhppoted.Lib.Types.BCD (1 .. 4);
+      End_Date        : Uhppoted.Lib.Types.BCD (1 .. 4);
+      Monday          : Unsigned_8;
+      Tuesday         : Unsigned_8;
+      Wednesday       : Unsigned_8;
+      Thursday        : Unsigned_8;
+      Friday          : Unsigned_8;
+      Saturday        : Unsigned_8;
+      Sunday          : Unsigned_8;
+      Segment_1_Start : Uhppoted.Lib.Types.BCD (1 .. 2);
+      Segment_1_End   : Uhppoted.Lib.Types.BCD (1 .. 2);
+      Segment_2_Start : Uhppoted.Lib.Types.BCD (1 .. 2);
+      Segment_2_End   : Uhppoted.Lib.Types.BCD (1 .. 2);
+      Segment_3_Start : Uhppoted.Lib.Types.BCD (1 .. 2);
+      Segment_3_End   : Uhppoted.Lib.Types.BCD (1 .. 2);
+      Linked_Profile  : Unsigned_8;
+      Padding         : Ada.Streams.Stream_Element_Array (1 .. 27);
+   end record;
+
+   for Get_Time_Profile_Reply use record
+      SOM             at  0 range 0 ..   7;
+      Opcode          at  1 range 0 ..   7;
+      Reserved        at  2 range 0 ..  15;
+      Controller      at  4 range 0 ..  31;
+      Profile         at  8 range 0 ..   7;
+      Start_Date      at  9 range 0 ..  31;
+      End_Date        at 13 range 0 ..  31;
+      Monday          at 17 range 0 ..   7;
+      Tuesday         at 18 range 0 ..   7;
+      Wednesday       at 19 range 0 ..   7;
+      Thursday        at 20 range 0 ..   7;
+      Friday          at 21 range 0 ..   7;
+      Saturday        at 22 range 0 ..   7;
+      Sunday          at 23 range 0 ..   7;
+      Segment_1_Start at 24 range 0 ..  15;
+      Segment_1_End   at 26 range 0 ..  15;
+      Segment_2_Start at 28 range 0 ..  15;
+      Segment_2_End   at 30 range 0 ..  15;
+      Segment_3_Start at 32 range 0 ..  15;
+      Segment_3_End   at 34 range 0 ..  15;
+      Linked_Profile  at 36 range 0 ..  7;
+      Padding         at 37 range 0 .. 215;
+   end record;
+
+   for Get_Time_Profile_Reply'Size use 64 * 8;
+   for Get_Time_Profile_Reply'Bit_Order use System.Low_Order_First;
+   for Get_Time_Profile_Reply'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a restore-default-parameters reply.
    type Restore_Default_Parameters_Reply is record
       SOM        : Unsigned_8    := Codec.SOM;

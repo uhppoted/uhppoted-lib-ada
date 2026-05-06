@@ -215,6 +215,22 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Record_Special_Events : constant Boolean := True;
 
+   Get_Time_Profile : constant Time_Profile := (
+     Start_Date => (Year => 2025, Month => 11, Day => 26),
+     End_Date   => (Year => 2025, Month => 12, Day => 29),
+     Weekdays   => (Monday    => True,
+                    Tuesday   => True,
+                    Wednesday => False,
+                    Thursday  => True,
+                    Friday    => False,
+                    Saturday  => True,
+                    Sunday    => True),
+     Segments   => [1 => ((Hour => 8, Minute => 30), (Hour => 9, Minute => 45)),
+                    2 => ((Hour => 11, Minute => 35), (Hour => 13, Minute => 15)),
+                    3 => ((Hour => 14, Minute => 1), (Hour => 17, Minute => 59))],
+     Linked_Profile => 19);
+
    Restore_Default_Parameters : constant Boolean := True;
 
 end Uhppoted.Lib.Integration_Tests.Expected;
+

@@ -65,6 +65,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Get_Event_Index'Access,             "Get_Event_Index");
       Register_Routine (T, Test_Set_Event_Index'Access,             "Set_Event_Index");
       Register_Routine (T, Test_Record_Special_Events'Access,       "Record_Special_Events");
+      Register_Routine (T, Test_Get_Time_Profile'Access,            "Get_Time_Profile");
       Register_Routine (T, Test_Restore_Default_Parameters'Access,  "Restore_Default_Parameters");
       Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
@@ -414,6 +415,20 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.Record_Special_Events, "invalid result" & V'Image);
    end Test_Record_Special_Events;
+
+   procedure Test_Get_Time_Profile (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Time_Profile := Get_Time_Profile (U, C, 37, 0.5);
+   begin
+      Assert (V = Expected.Get_Time_Profile, "invalid result" & V'Image);
+   end Test_Get_Time_Profile;
 
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
       pragma Unreferenced (T);

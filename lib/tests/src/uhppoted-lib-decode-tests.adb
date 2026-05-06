@@ -42,6 +42,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Get_Event_Index'Access, "test decode Get_Event_Index response");
       Register_Routine (T, Test_Decode_Set_Event_Index'Access, "test decode Set_Event_Index response");
       Register_Routine (T, Test_Decode_Record_Special_Events'Access, "test decode Record_Special_Events response");
+      Register_Routine (T, Test_Decode_Get_Time_Profile'Access, "test decode Get_Time_Profile response");
       Register_Routine (T, Test_Decode_Restore_Default_Parameters'Access, "test decode Restore_Default_Parameters response");
       Register_Routine (T, Test_Decode_Listener_Event'Access, "test decode Listener_Event");
       Register_Routine (T, Test_Decode_Listener_Event_V6_62'Access, "test decode Listener_Event_V6_62");
@@ -616,6 +617,41 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded record-special-events-response response: got" & Response'Image);
    end Test_Decode_Record_Special_Events;
+
+   procedure Test_Decode_Get_Time_Profile (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Get_Time_Profile_Response := (
+         Controller      => 405419896,
+         Profile         => 37,
+         Start_Date      => (Year => 2025, Month => 11, Day => 26),
+         End_Date        => (Year => 2025, Month => 12, Day => 29),
+         Monday          => True,
+         Tuesday         => True,
+         Wednesday       => False,
+         Thursday        => True,
+         Friday          => False,
+         Saturday        => True,
+         Sunday          => True,
+         Segment_1_Start => (Hour => 8, Minute => 30),
+         Segment_1_End   => (Hour => 9, Minute => 45),
+         Segment_2_Start => (Hour => 11, Minute => 35),
+         Segment_2_End   => (Hour => 13, Minute => 15),
+         Segment_3_Start => (Hour => 14, Minute => 1),
+         Segment_3_End   => (Hour => 17, Minute => 59),
+         Linked_Profile  => 19);
+
+      Reply : constant Packet := [
+         16#17#, 16#98#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#25#, 16#20#, 16#25#, 16#11#, 16#26#, 16#20#, 16#25#, 16#12#,
+         16#29#, 16#01#, 16#01#, 16#00#, 16#01#, 16#00#, 16#01#, 16#01#,  16#08#, 16#30#, 16#09#, 16#45#, 16#11#, 16#35#, 16#13#, 16#15#,
+         16#14#, 16#01#, 16#17#, 16#59#, 16#13#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Get_Time_Profile_Response := Uhppoted.Lib.Decode.Get_Time_Profile (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded get-time-profile-response response: got" & Response'Image);
+   end Test_Decode_Get_Time_Profile;
 
    procedure Test_Decode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

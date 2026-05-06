@@ -70,6 +70,7 @@ var translations = map[string]string{
 	"get event index response":            "Unsigned_32",
 	"set event index response":            "Boolean",
 	"record special events response":      "Boolean",
+	"get time profile response":           "Time_Profile",
 	"restore default parameters response": "Boolean",
 }
 
@@ -162,7 +163,7 @@ func events(templates *template.Template) {
 				"event-door":      lookup("event door"),
 				"event-direction": lookup("event direction"),
 				"event-card":      lookup("event card"),
-				"event-granted":   lookup("event access granted"),
+				"event-granted":   boolean(lookup("event access granted")),
 				"event-reason":    lookup("event reason"),
 			}
 
@@ -278,10 +279,10 @@ func vars(t lib.FuncTest) []any {
 				card = v.Value
 
 			case v.Name == "start date":
-				startDate = codegen.Date(v.Value)
+				startDate = codegen.DateOnly(v.Value)
 
 			case v.Name == "end date":
-				endDate = codegen.Date(v.Value)
+				endDate = codegen.DateOnly(v.Value)
 
 			case v.Name == "door 1":
 				door1 = v.Value
@@ -434,6 +435,10 @@ func response(f lib.Function, t lib.FuncTest) returns {
 
 		case "Controller_Event":
 			r.Template = "event"
+			r.Value = t.Replies[0].Response
+
+		case "Time_Profile":
+			r.Template = "time-profile"
 			r.Value = t.Replies[0].Response
 		}
 	}

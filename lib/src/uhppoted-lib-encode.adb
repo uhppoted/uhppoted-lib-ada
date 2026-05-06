@@ -318,6 +318,17 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Record_Special_Events;
 
+   --  Encodes a get-time-profile request as a 64 byte array.
+   function Get_Time_Profile (Controller : Unsigned_32; Profile : Unsigned_8) return Uhppoted.Lib.Types.Packet is
+      Request : Get_Time_Profile_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Profile := Profile;
+
+      return Buffer;
+   end Get_Time_Profile;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;

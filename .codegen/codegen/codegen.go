@@ -56,13 +56,16 @@ func AdaValue(t string, v any) string {
 		return fmt.Sprintf(`To_Unbounded_String ("%v")`, v)
 
 	case t == "date" || t == "shortdate" || t == "optional date":
-		return Date(v)
+		return DateOnly(v)
 
 	case t == "time":
 		return _time(v)
 
 	case t == "datetime" || t == "optional datetime":
 		return datetime(v)
+
+	case t == "HHmm":
+		return HHmm(v)
 
 	case t == "bool" && v == true:
 		return "True"
@@ -114,7 +117,7 @@ func mac(v any) string {
 	}
 }
 
-func Date(v any) string {
+func DateOnly(v any) string {
 	s := fmt.Sprintf("%v", v)
 	if date, err := time.ParseInLocation("2006-01-02", s, time.Local); err != nil {
 		panic(fmt.Sprintf("invalid date (%v)", v))
@@ -153,6 +156,15 @@ func datetime(v any) string {
 			"(Year => %v, Month => %v, Day => %v, Hour => %v, Minute => %v, Second => %v)",
 			uint16(year), uint8(month), uint8(day),
 			uint8(hour), uint8(minute), uint8(second))
+	}
+}
+
+func HHmm(v any) string {
+	s := fmt.Sprintf("%v", v)
+	if datetime, err := time.ParseInLocation("15:04", s, time.Local); err != nil {
+		panic(fmt.Sprintf("invalid HHmm (%v)", v))
+	} else {
+		return fmt.Sprintf("(Hour => %v, Minute => %v)", uint8(datetime.Hour()), uint8(datetime.Minute()))
 	}
 }
 

@@ -763,6 +763,54 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Record_Special_Events;
 
+   --  Retrieves a time profile from the controller. Restricted to the local LAN.
+   function Get_Time_Profile (U       : UHPPOTE;
+                              C       : Unsigned_32;
+                              Profile : Unsigned_8;
+                              Timeout : Duration := 2.5) return Time_Profile is
+   begin
+      return Get_Time_Profile (U, To_Controller (C), Profile, Timeout);
+   end Get_Time_Profile;
+
+   --  Retrieves a time profile from the controller.
+   function Get_Time_Profile (U       : UHPPOTE;
+                              C       : Controller;
+                              Profile : Unsigned_8;
+                              Timeout : Duration := 2.5) return Time_Profile is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Time_Profile (C.ID, Profile);
+      Reply   : Packet;
+      R       : Get_Time_Profile_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Time_Profile (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Profile = 0 then
+         raise Time_Profile_Not_Found_Error;
+      end if;
+
+      if R.Profile /= Profile then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Start_Date => R.Start_Date,
+              End_Date   => R.End_Date,
+              Weekdays   => (Monday    => R.Monday,
+                             Tuesday   => R.Tuesday,
+                             Wednesday => R.Wednesday,
+                             Thursday  => R.Thursday,
+                             Friday    => R.Friday,
+                             Saturday  => R.Saturday,
+                             Sunday    => R.Sunday),
+              Segments   => [ 1 => (R.Segment_1_Start, R.Segment_1_End),
+                              2 => (R.Segment_2_Start, R.Segment_2_End),
+                              3 => (R.Segment_3_Start, R.Segment_3_End)],
+              Linked_Profile => R.Linked_Profile);
+   end Get_Time_Profile;
+
    --  Resets the controller to the manufacturer default settings. Restricted to the local LAN.
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;

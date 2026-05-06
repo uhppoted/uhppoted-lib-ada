@@ -97,6 +97,10 @@ package Uhppoted.Lib.Decode is
       return Uhppoted.Lib.Responses.Record_Special_Events_Response;
    --  Decodes a 64 byte record-special-events reply as a Record_Special_Events_Response record.
 
+   function Get_Time_Profile (Reply : Uhppoted.Lib.Types.Packet)
+      return Uhppoted.Lib.Responses.Get_Time_Profile_Response;
+   --  Decodes a 64 byte record-special-events reply as a Get_Time_Profile_Response record.
+
    function Restore_Default_Parameters (Reply : Uhppoted.Lib.Types.Packet)
       return Uhppoted.Lib.Responses.Restore_Default_Parameters_Response;
    --  Decodes a 64 byte record-special-events reply as a Restore_Default_Parameters_Response record.
@@ -126,5 +130,8 @@ private
 
    function Unpack_Date_Time (Bytes : Uhppoted.Lib.Types.BCD) return DateTime;
    --  Translates a BCD coded date/time to a DateTime.
+
+   function Unpack_HHmm (Bytes : Uhppoted.Lib.Types.BCD) return HHmm;
+   --  Translates a BCD coded time to an HHmm.
 
 end Uhppoted.Lib.Decode;

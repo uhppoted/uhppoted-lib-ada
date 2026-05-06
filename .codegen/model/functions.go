@@ -29,7 +29,7 @@ var API = []types.Function{
 	lib.GetEventIndex,
 	lib.SetEventIndex,
 	lib.RecordSpecialEvents,
-	// &GetTimeProfile,
+	lib.GetTimeProfile,
 	// &SetTimeProfile,
 	// &ClearTimeProfiles,
 	// &AddTask,

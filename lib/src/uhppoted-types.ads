@@ -22,6 +22,9 @@ package Uhppoted.Types is
    --  Custom exception for event overwritten errors.
    Event_Overwritten_Error : exception;
 
+   --  Custom exception for time profile not found errors.
+   Time_Profile_Not_Found_Error : exception;
+
    --  Custom exception for invalid response errors.
    Invalid_Response_Error : exception;
 
@@ -51,6 +54,11 @@ package Uhppoted.Types is
       Hour   : Unsigned_8;
       Minute : Unsigned_8;
       Second : Unsigned_8;
+   end record;
+
+   type HHmm is record
+      Hour   : Unsigned_8;
+      Minute : Unsigned_8;
    end record;
 
    type Controller_Record is record
@@ -227,6 +235,31 @@ package Uhppoted.Types is
 
    type Passcodes_List is array (Positive range <>) of Unsigned_32;
 
+   type Weekdays_Type is record
+      Monday          : Boolean;
+      Tuesday         : Boolean;
+      Wednesday       : Boolean;
+      Thursday        : Boolean;
+      Friday          : Boolean;
+      Saturday        : Boolean;
+      Sunday          : Boolean;
+   end record;
+
+   type Segment is record
+      Start_Time : HHmm;
+      End_Time   : HHmm;
+   end record;
+
+   type Segments_List is array (1 .. 3) of Segment;
+
+   type Time_Profile is record
+      Start_Date     : DateOnly;
+      End_Date       : DateOnly;
+      Weekdays       : Weekdays_Type;
+      Segments       : Segments_List;
+      Linked_Profile : Unsigned_8;
+   end record;
+
    type Signal is new Ada.Finalization.Limited_Controlled with record
       Selector : GNAT.Sockets.Selector_Type;
    end record;
@@ -241,5 +274,6 @@ package Uhppoted.Types is
    function Image (T    : TimeOnly) return String;
    function Image (DT   : DateTime) return String;
    function Image (V    : Event_Direction) return String;
+   function Image (T    : HHmm) return String;
 
 end Uhppoted.Types;

@@ -30,7 +30,8 @@ package ArgParse is
       Delete_Card_Args,
       Get_Event_Args,
       Set_Event_Index_Args,
-      Record_Special_Events_Args);
+      Record_Special_Events_Args,
+      Get_Time_Profile_Args);
 
    type Args (T : Args_Type) is record
       Controller  : Uhppoted.Lib.Controller;
@@ -82,6 +83,9 @@ package ArgParse is
          when Record_Special_Events_Args =>
             Enabled : Boolean;
 
+         when Get_Time_Profile_Args =>
+            Profile_ID : Unsigned_8;
+
          when others =>
             null;
       end case;
@@ -113,5 +117,6 @@ private
    function Parse_Get_Event             return Args;
    function Parse_Set_Event_Index       return Args;
    function Parse_Record_Special_Events return Args;
+   function Parse_Get_Time_Profile      return Args;
 
 end ArgParse;

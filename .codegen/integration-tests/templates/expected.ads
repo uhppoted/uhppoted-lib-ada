@@ -82,3 +82,19 @@ end Uhppoted.Lib.Integration_Tests.Expected;
      Card           => {{ get $v "card" }},
      Access_Granted => {{ get $v "access granted" }},
      Reason         => To_Event_Reason ({{ get $v "reason" }}){{ end }}){{ end }}
+
+{{- define "time-profile" }}({{ with $v := .Returns.Value }}
+     Start_Date => {{ get $v "start date"}},
+     End_Date   => {{ get $v "end date"}},
+     Weekdays   => (Monday    => {{ get $v "monday" }},
+                    Tuesday   => {{ get $v "tuesday" }},
+                    Wednesday => {{ get $v "wednesday" }},
+                    Thursday  => {{ get $v "thursday" }},
+                    Friday    => {{ get $v "friday" }},
+                    Saturday  => {{ get $v "saturday" }},
+                    Sunday    => {{ get $v "sunday" }}),
+     Segments   => [1 => ({{ get $v "segment 1 start"}}, {{ get $v "segment 1 end"}}),
+                    2 => ({{ get $v "segment 2 start"}}, {{ get $v "segment 2 end"}}),
+                    3 => ({{ get $v "segment 3 start"}}, {{ get $v "segment 3 end"}})],
+     Linked_Profile => {{ get $v "linked profile"}}{{ end }}){{ end }}
+

@@ -98,6 +98,9 @@ package Uhppoted.Lib.Encode is
    --  Encodes a record-special-events request as a 64 byte array.
    function Record_Special_Events (Controller : Unsigned_32; Enabled : Boolean) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a get-time-profile request as a 64 byte array.
+   function Get_Time_Profile (Controller : Unsigned_32; Profile : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 

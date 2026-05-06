@@ -41,6 +41,8 @@ package body ArgParse is
          return Parse_Set_Event_Index;
       elsif Cmd = "record-special-events" then
          return Parse_Record_Special_Events;
+      elsif Cmd = "get-time-profile" then
+         return Parse_Get_Time_Profile;
       end if;
 
       --  default to general command
@@ -685,5 +687,35 @@ package body ArgParse is
       end;
 
    end Parse_Record_Special_Events;
+
+   function Parse_Get_Time_Profile return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Profile              : aliased Integer       := 0;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Profile'Access,
+                     Long_Switch => "--profile:",
+                     Help        => "time profile ID [2..254]",
+                     Argument    => "[2..254]");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return get-time-profile command specific args
+      return (T           => ArgParse.Get_Time_Profile_Args,
+              Controller  => C,
+              Door        => 0,
+              Card        => (others => <>),
+              Event_Index => 0,
+              Profile_ID  => Unsigned_8 (Profile));
+
+   end Parse_Get_Time_Profile;
 
 end ArgParse;

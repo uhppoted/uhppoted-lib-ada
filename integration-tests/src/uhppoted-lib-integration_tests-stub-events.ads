@@ -77,7 +77,7 @@ package Uhppoted.Lib.Integration_Tests.Stub.Events is
       Door           => 3,
       Direction      => To_Event_Direction (1),
       Card           => 8165537,
-      Access_Granted => true,
+      Access_Granted => True,
       Reason         => To_Event_Reason (44));
 
    Listener_Event_V6_62_Event : constant Controller_Event := (
@@ -87,7 +87,7 @@ package Uhppoted.Lib.Integration_Tests.Stub.Events is
       Door           => 3,
       Direction      => To_Event_Direction (1),
       Card           => 8165537,
-      Access_Granted => true,
+      Access_Granted => True,
       Reason         => To_Event_Reason (44));
 
    Events : constant Events_List := [

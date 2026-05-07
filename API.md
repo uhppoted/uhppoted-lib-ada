@@ -22,6 +22,7 @@
 - [`Set_Event_Index`](#set_event_index)
 - [`Record_Special_Events`](#record_special_events)
 - [`Get_Time_Profile`](#get_time_profile)
+- [`Set_Time_Profile`](#set_time_profile)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -893,21 +894,21 @@ Raises:
 **Get_Time_Profile** retrieves a time profile from a controller.
 
 ```
-function Get_Time_Profile (U       : UHPPOTE;
-                           C       : Unsigned_32;
-                           Profile : Unsigned_8;
-                           Timeout : Duration) return Controller_Event;
+function Get_Time_Profile (U          : UHPPOTE;
+                           C          : Unsigned_32;
+                           Profile_ID : Unsigned_8;
+                           Timeout    : Duration) return Time_Profile;
 
-function Get_Time_Profile (U       : UHPPOTE;
-                           C       : Controller;
-                           Profile : Unsigned_8;
-                           Timeout : Duration) return Controller_Event;
+function Get_Time_Profile (U          : UHPPOTE;
+                           C          : Controller;
+                           Profile_ID : Unsigned_8;
+                           Timeout    : Duration) return Time_Profile;
 
 where:
-- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
-- C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
-- Profile    Unsigned_8      Time profile ID ([2..254]).
+- U           UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C           Unsigned_32     Controller serial number.
+- C           Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Profile_ID  Unsigned_8      Time profile ID ([2..254]).
 ```
 
 Returns a `Time_Profile`:
@@ -940,6 +941,63 @@ Returns a `Time_Profile`:
 
 Raises:
 - `Time_Profile_Not_Found_Error` if there is no event at the index
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Set_Time_Profile`
+
+**Set_Time_Profile** adds or updates a time profile on a controller.
+
+```
+function Set_Time_Profile (U          : UHPPOTE;
+                           C          : Unsigned_32;
+                           Profile_ID : Unsigned_8;
+                           Profile    : Time_Profile;
+                           Timeout    : Duration) return Boolean;
+
+function Set_Time_Profile (U          : UHPPOTE;
+                           C          : Controller;
+                           Profile_ID : Unsigned_8;
+                           Profile    : Time_Profile;
+                           Timeout    : Duration) return Boolean;
+
+where:
+- U           UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C           Unsigned_32     Controller serial number.
+- C           Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Profile_ID  Unsigned_8      Time profile ID ([2..254]).
+- Profile     Time_Profile    Time profile assigned to the profile ID.
+
+   type Time_Profile is record
+      Start_Date     : DateOnly;
+      End_Date       : DateOnly;
+      Weekdays       : Weekdays_Type;
+      Segments       : Segments_List;
+      Linked_Profile : Unsigned_8;
+   end record;
+
+   type Weekdays_Type is record
+      Monday          : Boolean;
+      Tuesday         : Boolean;
+      Wednesday       : Boolean;
+      Thursday        : Boolean;
+      Friday          : Boolean;
+      Saturday        : Boolean;
+      Sunday          : Boolean;
+   end record;
+
+   type Segments_List is array (1 .. 3) of Segment;
+
+   type Segment is record
+      Start_Time : HHmm;
+      End_Time   : HHmm;
+   end record;
+```
+
+Returns `True` if the profile was added or updated.
+
+Raises:
 - `Timeout_Error` if the controller does not respond
 - `Invalid_Response_Error` if the returned response is incorrect
 

@@ -8,6 +8,7 @@ package body Uhppoted.Lib.Encode is
    function Pack_IPv4     (Addr : Inet_Addr_Type) return IPv4;
    function Pack_DateTime (DT   : DateTime)       return BCD7;
    function Pack_Date     (D    : DateOnly)       return BCD4;
+   function Pack_HHmm     (T    : HHmm)           return BCD2;
    function Pack_Boolean  (B    : Boolean)        return Unsigned_8;
 
    --  Encodes a get-controller request as a 64 byte array.
@@ -329,6 +330,50 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Get_Time_Profile;
 
+   --  Encodes a set-time-profile request as a 64 byte array.
+   function Set_Time_Profile (Controller      : Unsigned_32;
+                              Profile         : Unsigned_8;
+                              Start_Date      : DateOnly;
+                              End_Date        : DateOnly;
+                              Monday          : Boolean;
+                              Tuesday         : Boolean;
+                              Wednesday       : Boolean;
+                              Thursday        : Boolean;
+                              Friday          : Boolean;
+                              Saturday        : Boolean;
+                              Sunday          : Boolean;
+                              Segment_1_Start : HHmm;
+                              Segment_1_End   : HHmm;
+                              Segment_2_Start : HHmm;
+                              Segment_2_End   : HHmm;
+                              Segment_3_Start : HHmm;
+                              Segment_3_End   : HHmm;
+                              Linked_Profile  : Unsigned_8) return Uhppoted.Lib.Types.Packet is
+      Request : Set_Time_Profile_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller      := Controller;
+      Request.Profile         := Profile;
+      Request.Start_Date      := Pack_Date (Start_Date);
+      Request.End_Date        := Pack_Date (End_Date);
+      Request.Monday          := Pack_Boolean (Monday);
+      Request.Tuesday         := Pack_Boolean (Tuesday);
+      Request.Wednesday       := Pack_Boolean (Wednesday);
+      Request.Thursday        := Pack_Boolean (Thursday);
+      Request.Friday          := Pack_Boolean (Friday);
+      Request.Saturday        := Pack_Boolean (Saturday);
+      Request.Sunday          := Pack_Boolean (Sunday);
+      Request.Segment_1_Start := Pack_HHmm (Segment_1_Start);
+      Request.Segment_1_End   := Pack_HHmm (Segment_1_End);
+      Request.Segment_2_Start := Pack_HHmm (Segment_2_Start);
+      Request.Segment_2_End   := Pack_HHmm (Segment_2_End);
+      Request.Segment_3_Start := Pack_HHmm (Segment_3_Start);
+      Request.Segment_3_End   := Pack_HHmm (Segment_3_End);
+      Request.Linked_Profile  := Linked_Profile;
+
+      return Buffer;
+   end Set_Time_Profile;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;
@@ -391,6 +436,19 @@ package body Uhppoted.Lib.Encode is
 
       return V;
    end Pack_Date;
+
+   --  Packs an HH:mm value into 2 bytes of BCD.
+   function Pack_HHmm (T : HHmm) return BCD2 is
+      V : BCD2 := [others => 0];
+
+      HH : constant Unsigned_8 := T.Hour;
+      MM : constant Unsigned_8 := T.Minute;
+   begin
+      V (1) := Shift_Left (HH / 10, 4) + (HH mod 10);
+      V (2) := Shift_Left (MM / 10, 4) + (MM mod 10);
+
+      return V;
+   end Pack_HHmm;
 
    --  Packs a Boolean value into a single byte.
    function Pack_Boolean (B : Boolean) return Unsigned_8 is

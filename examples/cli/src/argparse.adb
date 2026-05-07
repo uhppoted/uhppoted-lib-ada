@@ -1,8 +1,11 @@
+with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings.Fixed;
+with Ada.Characters.Handling;
 with GNAT.Regpat;
 
 package body ArgParse is
    use GNAT.Regpat;
+   use Ada.Characters.Handling;
 
    use Uhppoted.Lib;
 
@@ -43,6 +46,8 @@ package body ArgParse is
          return Parse_Record_Special_Events;
       elsif Cmd = "get-time-profile" then
          return Parse_Get_Time_Profile;
+      elsif Cmd = "set-time-profile" then
+         return Parse_Set_Time_Profile;
       end if;
 
       --  default to general command
@@ -54,7 +59,8 @@ package body ArgParse is
               Controller  => C,
               Door        => 0,
               Card        => (others => <>),
-              Event_Index => 0);
+              Event_Index => 0,
+              Profile_ID  => 0);
    end Parse;
 
    procedure Add_Controller_Switches (Config               : in out Command_Line_Configuration;
@@ -164,6 +170,7 @@ package body ArgParse is
                  Door        => 0,
                  Card        => (others => <>),
                  Event_Index => 0,
+                 Profile_ID  => 0,
                  Address     => Inet_Addr (A),
                  Netmask     => Inet_Addr (M),
                  Gateway     => Inet_Addr (G));
@@ -228,6 +235,7 @@ package body ArgParse is
               Door        => 0,
               Card        => (others => <>),
               Event_Index => 0,
+              Profile_ID  => 0,
               Listener    => AddrPort,
               Interval    => Unsigned_8 (Listener_Interval));
 
@@ -258,7 +266,8 @@ package body ArgParse is
               Controller  => C,
               Door        => Unsigned_8 (Door),
               Card        => (others => <>),
-              Event_Index => 0);
+              Event_Index => 0,
+              Profile_ID  => 0);
 
    end Parse_Get_Door;
 
@@ -316,7 +325,8 @@ package body ArgParse is
               Mode        => M,
               OpenDelay   => Unsigned_8 (OpenDelay),
               Card        => (others => <>),
-              Event_Index => 0);
+              Event_Index => 0,
+              Profile_ID  => 0);
 
    end Parse_Set_Door;
 
@@ -373,7 +383,8 @@ package body ArgParse is
               Door        => Unsigned_8 (Door),
               Passcodes   => Codes,
               Card        => (others => <>),
-              Event_Index => 0);
+              Event_Index => 0,
+              Profile_ID  => 0);
 
    end Parse_Set_Door_Passcodes;
 
@@ -402,7 +413,8 @@ package body ArgParse is
               Controller  => C,
               Door        => Unsigned_8 (Door),
               Card        => (others => <>),
-              Event_Index => 0);
+              Event_Index => 0,
+              Profile_ID  => 0);
 
    end Parse_Open_Door;
 
@@ -431,7 +443,8 @@ package body ArgParse is
               Controller  => C,
               Door        => 0,
               Card        => (Card => Unsigned_32 (Card), others => <>),
-              Event_Index => 0);
+              Event_Index => 0,
+              Profile_ID  => 0);
 
    end Parse_Get_Card;
 
@@ -461,7 +474,8 @@ package body ArgParse is
               Door        => 0,
               Card        => (others => <>),
               Card_Index  => Unsigned_32 (Index),
-              Event_Index => 0);
+              Event_Index => 0,
+              Profile_ID  => 0);
 
    end Parse_Get_Card_At_Index;
 
@@ -561,7 +575,8 @@ package body ArgParse is
                                  Door_3     => Door_3,
                                  Door_4     => Door_4,
                                  PIN        => Unsigned_24 (PIN)),
-                 Event_Index => 0);
+                 Event_Index => 0,
+                 Profile_ID  => 0);
       end;
 
    end Parse_Put_Card;
@@ -591,7 +606,8 @@ package body ArgParse is
               Controller  => C,
               Door        => 0,
               Card        => (Card => Unsigned_32 (Card), others => <>),
-              Event_Index => 0);
+              Event_Index => 0,
+              Profile_ID  => 0);
 
    end Parse_Delete_Card;
 
@@ -620,7 +636,8 @@ package body ArgParse is
               Controller  => C,
               Door        => 0,
               Card        => (others => <>),
-              Event_Index => Unsigned_32 (Index));
+              Event_Index => Unsigned_32 (Index),
+              Profile_ID  => 0);
 
    end Parse_Get_Event;
 
@@ -649,7 +666,8 @@ package body ArgParse is
               Controller  => C,
               Door        => 0,
               Card        => (others => <>),
-              Event_Index => Unsigned_32 (Index));
+              Event_Index => Unsigned_32 (Index),
+              Profile_ID  => 0);
 
    end Parse_Set_Event_Index;
 
@@ -683,6 +701,7 @@ package body ArgParse is
                  Door        => 0,
                  Card        => (others => <>),
                  Event_Index => 0,
+                 Profile_ID  => 0,
                  Enabled     => E);
       end;
 
@@ -693,15 +712,15 @@ package body ArgParse is
       Controller_ID        : aliased Integer       := 0;
       Controller_Addr      : aliased String_Access := null;
       Controller_Transport : aliased String_Access := null;
-      Profile              : aliased Integer       := 0;
+      Profile_ID           : aliased Integer       := 0;
 
       C  : Controller;
    begin
       Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
 
       Define_Switch (Config,
-                     Output      => Profile'Access,
-                     Long_Switch => "--profile:",
+                     Output      => Profile_ID'Access,
+                     Long_Switch => "--profile-id:",
                      Help        => "time profile ID [2..254]",
                      Argument    => "[2..254]");
 
@@ -714,8 +733,127 @@ package body ArgParse is
               Door        => 0,
               Card        => (others => <>),
               Event_Index => 0,
-              Profile_ID  => Unsigned_8 (Profile));
+              Profile_ID  => Unsigned_8 (Profile_ID));
 
    end Parse_Get_Time_Profile;
+
+   function Parse_Set_Time_Profile return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Profile_ID           : aliased Integer       := 0;
+      Profile              : aliased String_Access := null;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Profile_ID'Access,
+                     Long_Switch => "--profile-id:",
+                     Help        => "time profile ID [2..254]",
+                     Argument    => "[2..254]");
+
+      Define_Switch (Config,
+                     Output      => Profile'Access,
+                     Long_Switch => "--profile:",
+                     Help        => "time profile",
+                     Argument    => "<start>,<end>,[<weekdays>],[<segments>],<linked>");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return set-time-profile command specific args
+      declare
+         S : String renames Profile.all;
+         P : Time_Profile;
+
+         I : constant Natural := Ada.Strings.Fixed.Index (S, ",", 1);
+         J : constant Natural := Ada.Strings.Fixed.Index (S, ",", I + 1);
+         K : constant Natural := Ada.Strings.Fixed.Index (S, "[", J + 1);
+         L : constant Natural := Ada.Strings.Fixed.Index (S, "]", K + 1);
+         M : constant Natural := Ada.Strings.Fixed.Index (S, "[", L + 1);
+         N : constant Natural := Ada.Strings.Fixed.Index (S, "]", M + 1);
+         O : constant Natural := Ada.Strings.Fixed.Index (S, ",", N + 1);
+
+         Start_Date : constant String (1 .. I - 1)     := S (1 .. I - 1);
+         End_Date   : constant String (1 .. J - I - 1) := S (I + 1 .. J - 1);
+         Weekdays   : constant String (1 .. L - K - 1) := S (K + 1 .. L - 1);
+         Segments   : constant String (1 .. N - M - 1) := S (M + 1 .. N - 1);
+         Linked     : constant String                  := S (O + 1 .. S'Last);
+
+         Segment_1 : Time_Segment := (Start_Time => (0, 0), End_Time => (0, 0));
+         Segment_2 : Time_Segment := (Start_Time => (0, 0), End_Time => (0, 0));
+         Segment_3 : Time_Segment := (Start_Time => (0, 0), End_Time => (0, 0));
+      begin
+         declare
+            IX    : constant Natural := Ada.Strings.Fixed.Index (Segments, ",");
+            Token : constant String  := (if IX = 0 then Segments else Segments (Segments'First .. IX - 1));
+         begin
+            if Token'Length = 11 then
+               Segment_1 := (Start_Time => (Hour   => Unsigned_8'Value (Token (Token'First .. Token'First + 1)),
+                                            Minute => Unsigned_8'Value (Token (Token'First + 3 .. Token'First + 4))),
+                             End_Time   => (Hour   => Unsigned_8'Value (Token (Token'First + 6 .. Token'First + 7)),
+                                            Minute => Unsigned_8'Value (Token (Token'First + 9 .. Token'First +  10))));
+            end if;
+
+            if IX /= 0 then
+               declare
+                  JX    : constant Natural := Ada.Strings.Fixed.Index (Segments (IX + 1 .. Segments'Last), ",");
+                  Token : constant String := (if JX = 0 then Segments (IX + 1 .. Segments'Last) else Segments (IX + 1 .. JX - 1));
+               begin
+                  if Token'Length = 11 then
+                     Segment_2 := (Start_Time => (Hour   => Unsigned_8'Value (Token (Token'First .. Token'First + 1)),
+                                                  Minute => Unsigned_8'Value (Token (Token'First + 3 .. Token'First + 4))),
+                                   End_Time   => (Hour   => Unsigned_8'Value (Token (Token'First + 6 .. Token'First + 7)),
+                                                  Minute => Unsigned_8'Value (Token (Token'First + 9 .. Token'First + 10))));
+                  end if;
+
+                  if JX /= 0 then
+                     declare
+                        KX    : constant Natural := Ada.Strings.Fixed.Index (Segments (JX + 1 .. Segments'Last), ",");
+                        Token : constant String := (if KX = 0 then Segments (JX + 1 .. Segments'Last) else Segments (JX + 1 .. KX - 1));
+                     begin
+                        if Token'Length = 11 then
+                           Segment_3 := (Start_Time => (Hour   => Unsigned_8'Value (Token (Token'First .. Token'First + 1)),
+                                                        Minute => Unsigned_8'Value (Token (Token'First + 3 .. Token'First + 4))),
+                                         End_Time   => (Hour   => Unsigned_8'Value (Token (Token'First + 6 .. Token'First + 7)),
+                                                        Minute => Unsigned_8'Value (Token (Token'First + 9 .. Token'First + 10))));
+                        end if;
+                     end;
+                  end if;
+               end;
+            end if;
+         end;
+
+         P := (Start_Date => (Year  => Unsigned_16'Value (Start_Date (1 .. 4)),
+                              Month => Unsigned_8'Value  (Start_Date (6 .. 7)),
+                              Day   => Unsigned_8'Value  (Start_Date (9 .. 10))),
+               End_Date   => (Year  => Unsigned_16'Value (End_Date (1 .. 4)),
+                              Month => Unsigned_8'Value  (End_Date (6 .. 7)),
+                              Day   => Unsigned_8'Value  (End_Date (9 .. 10))),
+               Weekdays   => (Monday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "MON") > 0,
+                              Tuesday   => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "TUE") > 0,
+                              Wednesday => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "WED") > 0,
+                              Thursday  => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "THU") > 0,
+                              Friday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "FRI") > 0,
+                              Saturday  => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "SAT") > 0,
+                              Sunday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "SUN") > 0),
+               Segments   => [1 => Segment_1,
+                              2 => Segment_2,
+                              3 => Segment_3],
+               Linked_Profile => Unsigned_8'Value (Linked));
+
+         return (T           => ArgParse.Set_Time_Profile_Args,
+                 Controller  => C,
+                 Door        => 0,
+                 Card        => (others => <>),
+                 Event_Index => 0,
+                 Profile_ID  => Unsigned_8 (Profile_ID),
+                 Profile     => P);
+      end;
+
+   end Parse_Set_Time_Profile;
 
 end ArgParse;

@@ -40,6 +40,7 @@ package Uhppoted.Lib is
    subtype Card_Record            is Uhppoted.Types.Card_Record;
    subtype Listener_Record        is Uhppoted.Types.Listener_Record;
    subtype Time_Profile           is Uhppoted.Types.Time_Profile;
+   subtype Time_Segment           is Uhppoted.Types.Segment;
    subtype Signal                 is Uhppoted.Types.Signal;
 
    procedure Trigger (S : in out Signal) renames Uhppoted.Types.Trigger;
@@ -781,6 +782,40 @@ package Uhppoted.Lib is
    --  @return            Stored time profile.
    --
    --  @exception Time_Profile_Not_Found if the controller does not have a corresponding time profile.
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
+
+   function Set_Time_Profile (U          : UHPPOTE;
+                              C          : Unsigned_32;
+                              Profile_ID : Unsigned_8;
+                              Profile    : Time_Profile;
+                              Timeout    : Duration := 2.5) return Boolean;
+   --  Adds/update a time profile on a controller. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Profile    Time profile ID ([2..254]).
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if the profile was added or updated.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
+
+   function Set_Time_Profile (U          : UHPPOTE;
+                              C          : Controller;
+                              Profile_ID : Unsigned_8;
+                              Profile    : Time_Profile;
+                              Timeout    : Duration := 2.5) return Boolean;
+   --  Adds/update a time profile on a controller.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Profile    Time profile ID ([2..254]).
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if the profile was added or updated.
+   --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
 

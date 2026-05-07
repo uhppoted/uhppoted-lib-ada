@@ -805,11 +805,58 @@ package body Uhppoted.Lib is
                              Friday    => R.Friday,
                              Saturday  => R.Saturday,
                              Sunday    => R.Sunday),
-              Segments   => [ 1 => (R.Segment_1_Start, R.Segment_1_End),
-                              2 => (R.Segment_2_Start, R.Segment_2_End),
-                              3 => (R.Segment_3_Start, R.Segment_3_End)],
+              Segments   => [1 => (R.Segment_1_Start, R.Segment_1_End),
+                             2 => (R.Segment_2_Start, R.Segment_2_End),
+                             3 => (R.Segment_3_Start, R.Segment_3_End)],
               Linked_Profile => R.Linked_Profile);
    end Get_Time_Profile;
+
+   --  Adds or updates a time profile stored on a a controller. Restricted to the local LAN.
+   function Set_Time_Profile (U          : UHPPOTE;
+                              C          : Unsigned_32;
+                              Profile_ID : Unsigned_8;
+                              Profile    : Time_Profile;
+                              Timeout    : Duration := 2.5) return Boolean is
+   begin
+      return Set_Time_Profile (U, To_Controller (C), Profile_ID, Profile, Timeout);
+   end Set_Time_Profile;
+
+   --  Adds or updates a time profile stored on a a controller.
+   function Set_Time_Profile (U          : UHPPOTE;
+                              C          : Controller;
+                              Profile_ID : Unsigned_8;
+                              Profile    : Time_Profile;
+                              Timeout    : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Time_Profile (C.ID, 
+                                                                         Profile_ID,
+                                                                         Profile.Start_Date,
+                                                                         Profile.End_Date,
+                                                                         Profile.Weekdays.Monday,
+                                                                         Profile.Weekdays.Tuesday,
+                                                                         Profile.Weekdays.Wednesday,
+                                                                         Profile.Weekdays.Thursday,
+                                                                         Profile.Weekdays.Friday,
+                                                                         Profile.Weekdays.Saturday,
+                                                                         Profile.Weekdays.Sunday,
+                                                                         Profile.Segments (1).Start_Time,
+                                                                         Profile.Segments (1).End_Time,
+                                                                         Profile.Segments (2).Start_Time,
+                                                                         Profile.Segments (2).End_Time,
+                                                                         Profile.Segments (3).Start_Time,
+                                                                         Profile.Segments (3).End_Time,
+                                                                         Profile.Linked_Profile);
+      Reply   : Packet;
+      R       : Set_Time_Profile_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Set_Time_Profile (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Set_Time_Profile;
 
    --  Resets the controller to the manufacturer default settings. Restricted to the local LAN.
    function Restore_Default_Parameters (U       : UHPPOTE;

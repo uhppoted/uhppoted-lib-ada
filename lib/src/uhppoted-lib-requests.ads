@@ -4,6 +4,7 @@ with Uhppoted.Lib.Codec;
 
 package Uhppoted.Lib.Requests is
 
+   type BCD2 is array (1 .. 2) of Unsigned_8;
    type BCD4 is array (1 .. 4) of Unsigned_8;
    type BCD7 is array (1 .. 7) of Unsigned_8;
 
@@ -540,6 +541,61 @@ package Uhppoted.Lib.Requests is
    for Get_Time_Profile_Request'Size use 64 * 8;
    for Get_Time_Profile_Request'Bit_Order use System.Low_Order_First;
    for Get_Time_Profile_Request'Scalar_Storage_Order use System.Low_Order_First;
+
+   --  Message definition for a set-time-profile request.
+   type Set_Time_Profile_Request is record
+      SOM             : Unsigned_8    := Codec.SOM;
+      OpCode          : Codec.Op_Code := Codec.Set_Time_Profile;
+      Reserved        : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller      : Unsigned_32;
+      Profile         : Unsigned_8;
+      Start_Date      : BCD4;
+      End_Date        : BCD4;
+      Monday          : Unsigned_8;
+      Tuesday         : Unsigned_8;
+      Wednesday       : Unsigned_8;
+      Thursday        : Unsigned_8;
+      Friday          : Unsigned_8;
+      Saturday        : Unsigned_8;
+      Sunday          : Unsigned_8;
+      Segment_1_Start : BCD2;
+      Segment_1_End   : BCD2;
+      Segment_2_Start : BCD2;
+      Segment_2_End   : BCD2;
+      Segment_3_Start : BCD2;
+      Segment_3_End   : BCD2;
+      Linked_Profile  : Unsigned_8;
+      Padding         : Ada.Streams.Stream_Element_Array (1 .. 27) := [others => 0];
+   end record;
+
+   for Set_Time_Profile_Request use record
+      SOM             at  0 range 0 ..   7;
+      OpCode          at  1 range 0 ..   7;
+      Reserved        at  2 range 0 ..  15;
+      Controller      at  4 range 0 ..  31;
+      Profile         at  8 range 0 ..   7;
+      Start_Date      at  9 range 0 ..   31;
+      End_Date        at 13 range 0 ..   31;
+      Monday          at 17 range 0 ..   7;
+      Tuesday         at 18 range 0 ..   7;
+      Wednesday       at 19 range 0 ..   7;
+      Thursday        at 20 range 0 ..   7;
+      Friday          at 21 range 0 ..   7;
+      Saturday        at 22 range 0 ..   7;
+      Sunday          at 23 range 0 ..   7;
+      Segment_1_Start at 24 range 0 ..  15;
+      Segment_1_End   at 26 range 0 ..  15;
+      Segment_2_Start at 28 range 0 ..  15;
+      Segment_2_End   at 30 range 0 ..  15;
+      Segment_3_Start at 32 range 0 ..  15;
+      Segment_3_End   at 34 range 0 ..  15;
+      Linked_Profile  at 36 range 0 ..   7;
+      Padding         at 37 range 0 .. 215;
+   end record;
+
+   for Set_Time_Profile_Request'Size use 64 * 8;
+   for Set_Time_Profile_Request'Bit_Order use System.Low_Order_First;
+   for Set_Time_Profile_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a restore-default-parameters request.
    type Restore_Default_Parameters_Request is record

@@ -71,6 +71,7 @@ var translations = map[string]string{
 	"set event index response":            "Boolean",
 	"record special events response":      "Boolean",
 	"get time profile response":           "Time_Profile",
+	"set time profile response":           "Boolean",
 	"restore default parameters response": "Boolean",
 }
 
@@ -135,24 +136,24 @@ func events(templates *template.Template) {
 
 			expected := map[string]any{
 				"system-date-time": datetime(fmt.Sprintf("%v %v", lookup("system date"), lookup("system time"))),
-				"door-1-open":      boolean(lookup("door 1 open")),
-				"door-2-open":      boolean(lookup("door 2 open")),
-				"door-3-open":      boolean(lookup("door 3 open")),
-				"door-4-open":      boolean(lookup("door 4 open")),
+				"door-1-open":      codegen.Boolean(lookup("door 1 open")),
+				"door-2-open":      codegen.Boolean(lookup("door 2 open")),
+				"door-3-open":      codegen.Boolean(lookup("door 3 open")),
+				"door-4-open":      codegen.Boolean(lookup("door 4 open")),
 
-				"door-1-button": boolean(lookup("door 1 button")),
-				"door-2-button": boolean(lookup("door 2 button")),
-				"door-3-button": boolean(lookup("door 3 button")),
-				"door-4-button": boolean(lookup("door 4 button")),
+				"door-1-button": codegen.Boolean(lookup("door 1 button")),
+				"door-2-button": codegen.Boolean(lookup("door 2 button")),
+				"door-3-button": codegen.Boolean(lookup("door 3 button")),
+				"door-4-button": codegen.Boolean(lookup("door 4 button")),
 
-				"door-1-unlocked": boolean(uint8(lookup("relays").(int))&0x01 == 0x01),
-				"door-2-unlocked": boolean(uint8(lookup("relays").(int))&0x02 == 0x02),
-				"door-3-unlocked": boolean(uint8(lookup("relays").(int))&0x04 == 0x04),
-				"door-4-unlocked": boolean(uint8(lookup("relays").(int))&0x08 == 0x08),
+				"door-1-unlocked": codegen.Boolean(uint8(lookup("relays").(int))&0x01 == 0x01),
+				"door-2-unlocked": codegen.Boolean(uint8(lookup("relays").(int))&0x02 == 0x02),
+				"door-3-unlocked": codegen.Boolean(uint8(lookup("relays").(int))&0x04 == 0x04),
+				"door-4-unlocked": codegen.Boolean(uint8(lookup("relays").(int))&0x08 == 0x08),
 
 				"alarm-flags":  lookup("inputs"),
-				"alarm-fire":   boolean(uint8(lookup("inputs").(int))&0x01 == 0x01),
-				"alarm-forced": boolean(uint8(lookup("inputs").(int))&0x02 == 0x02),
+				"alarm-fire":   codegen.Boolean(uint8(lookup("inputs").(int))&0x01 == 0x01),
+				"alarm-forced": codegen.Boolean(uint8(lookup("inputs").(int))&0x02 == 0x02),
 
 				"system-error": lookup("system error"),
 				"special-info": lookup("special info"),
@@ -163,7 +164,7 @@ func events(templates *template.Template) {
 				"event-door":      lookup("event door"),
 				"event-direction": lookup("event direction"),
 				"event-card":      lookup("event card"),
-				"event-granted":   boolean(lookup("event access granted")),
+				"event-granted":   codegen.Boolean(lookup("event access granted")),
 				"event-reason":    lookup("event reason"),
 			}
 
@@ -312,6 +313,98 @@ func vars(t lib.FuncTest) []any {
          PIN        => %v);`, card, startDate, endDate, door1, door2, door3, door4, PIN))
 	}
 
+	if t.Name == "set-time-profile" {
+		var startDate any
+		var endDate any
+		var monday any
+		var tuesday any
+		var wednesday any
+		var thursday any
+		var friday any
+		var saturday any
+		var sunday any
+		var segment_1_start any
+		var segment_1_end any
+		var segment_2_start any
+		var segment_2_end any
+		var segment_3_start any
+		var segment_3_end any
+		var linked any
+
+		for _, v := range t.Args {
+			switch {
+			case v.Name == "start date":
+				startDate = codegen.DateOnly(v.Value)
+
+			case v.Name == "end date":
+				endDate = codegen.DateOnly(v.Value)
+
+			case v.Name == "monday":
+				monday = codegen.Boolean(v.Value)
+
+			case v.Name == "tuesday":
+				tuesday = codegen.Boolean(v.Value)
+
+			case v.Name == "wednesday":
+				wednesday = codegen.Boolean(v.Value)
+
+			case v.Name == "thursday":
+				thursday = codegen.Boolean(v.Value)
+
+			case v.Name == "friday":
+				friday = codegen.Boolean(v.Value)
+
+			case v.Name == "saturday":
+				saturday = codegen.Boolean(v.Value)
+
+			case v.Name == "sunday":
+				sunday = codegen.Boolean(v.Value)
+
+			case v.Name == "segment 1 start":
+				segment_1_start = codegen.HHmm(v.Value)
+
+			case v.Name == "segment 1 end":
+				segment_1_end = codegen.HHmm(v.Value)
+
+			case v.Name == "segment 2 start":
+				segment_2_start = codegen.HHmm(v.Value)
+
+			case v.Name == "segment 2 end":
+				segment_2_end = codegen.HHmm(v.Value)
+
+			case v.Name == "segment 3 start":
+				segment_3_start = codegen.HHmm(v.Value)
+
+			case v.Name == "segment 3 end":
+				segment_3_end = codegen.HHmm(v.Value)
+
+			case v.Name == "linked profile id":
+				linked = v.Value
+			}
+		}
+
+		m = append(m, fmt.Sprintf(`Profile : constant Uhppoted.Lib.Time_Profile := (
+         Start_Date => %v,
+         End_Date   => %v,
+         Weekdays   => (Monday    => %v,
+                        Tuesday   => %v,
+                        Wednesday => %v,
+                        Thursday  => %v,
+                        Friday    => %v,
+                        Saturday  => %v,
+                        Sunday    => %v),
+        Segments   => [1 => (Start_Time => %v, End_Time => %v),
+                       2 => (Start_Time => %v, End_Time => %v),
+                       3 => (Start_Time => %v, End_Time => %v)],
+         Linked_Profile => %v);`,
+			startDate, endDate,
+			monday, tuesday, wednesday, thursday, friday, saturday, sunday,
+			segment_1_start, segment_1_end,
+			segment_2_start, segment_2_end,
+			segment_3_start, segment_3_end,
+			linked))
+	}
+
 	return m
 }
 
@@ -320,21 +413,6 @@ func args(t lib.FuncTest) []any {
 
 	for _, v := range t.Args {
 		switch {
-		case v.Type == "IPv4":
-			args = append(args, fmt.Sprintf(`Inet_Addr ("%v")`, v.Value))
-
-		case v.Type == "address:port":
-			args = append(args, fmt.Sprintf(`(Family_Inet, Inet_Addr ("192.168.1.100"), 60001)`))
-
-		case v.Type == "datetime":
-			args = append(args, datetime(v.Value))
-
-		case v.Type == "mode":
-			args = append(args, fmt.Sprintf("To_Control_Mode (%v)", v.Value))
-
-		case v.Type == "bool":
-			args = append(args, boolean(v.Value))
-
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 1":
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 2":
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 3":
@@ -349,6 +427,39 @@ func args(t lib.FuncTest) []any {
 		case t.Name == "put-card" && v.Name == "door 4":
 		case t.Name == "put-card" && v.Name == "PIN":
 
+		case t.Name == "set-time-profile" && v.Name == "start date":
+		case t.Name == "set-time-profile" && v.Name == "end date":
+		case t.Name == "set-time-profile" && v.Name == "monday":
+		case t.Name == "set-time-profile" && v.Name == "tuesday":
+		case t.Name == "set-time-profile" && v.Name == "wednesday":
+		case t.Name == "set-time-profile" && v.Name == "thursday":
+		case t.Name == "set-time-profile" && v.Name == "friday":
+		case t.Name == "set-time-profile" && v.Name == "saturday":
+		case t.Name == "set-time-profile" && v.Name == "sunday":
+		case t.Name == "set-time-profile" && v.Name == "segment 1 start":
+		case t.Name == "set-time-profile" && v.Name == "segment 1 end":
+		case t.Name == "set-time-profile" && v.Name == "segment 2 start":
+		case t.Name == "set-time-profile" && v.Name == "segment 2 end":
+		case t.Name == "set-time-profile" && v.Name == "segment 3 start":
+		case t.Name == "set-time-profile" && v.Name == "segment 3 end":
+		case t.Name == "set-time-profile" && v.Name == "linked profile id":
+			// SKIP
+
+		case v.Type == "IPv4":
+			args = append(args, fmt.Sprintf(`Inet_Addr ("%v")`, v.Value))
+
+		case v.Type == "address:port":
+			args = append(args, fmt.Sprintf(`(Family_Inet, Inet_Addr ("192.168.1.100"), 60001)`))
+
+		case v.Type == "datetime":
+			args = append(args, datetime(v.Value))
+
+		case v.Type == "mode":
+			args = append(args, fmt.Sprintf("To_Control_Mode (%v)", v.Value))
+
+		case v.Type == "bool":
+			args = append(args, codegen.Boolean(v.Value))
+
 		default:
 			args = append(args, v.Value)
 		}
@@ -360,6 +471,10 @@ func args(t lib.FuncTest) []any {
 
 	if t.Name == "put-card" {
 		args = append(args, "Card")
+	}
+
+	if t.Name == "set-time-profile" {
+		args = append(args, "Profile")
 	}
 
 	return args
@@ -500,18 +615,6 @@ func datetime(v any) string {
 			uint16(year), uint8(month), uint8(day),
 			uint8(hour), uint8(minute), uint8(second))
 	}
-}
-
-func boolean(v any) string {
-	if b, ok := v.(bool); ok {
-		if b {
-			return "True"
-		} else {
-			return "False"
-		}
-	}
-
-	panic(fmt.Sprintf("invalid boolean (%v)", v))
 }
 
 func field(v string) string {

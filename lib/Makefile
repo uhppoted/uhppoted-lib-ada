@@ -18,7 +18,8 @@ PIN        ?= 7531
 
 EVENT_INDEX ?= 23
 RECORD_SPECIAL_EVENTS ?= yes
-TIME_PROFILE ?= 29
+TIME_PROFILE_ID ?= 29
+TIME_PROFILE ?= 2026-01-01,2026-12-31,[Mon,Tues,Fri],[08:30-16:45,19:15-22:00],17
 
 clean:
 	alr clean
@@ -96,7 +97,10 @@ record-special-events: build
 	cd ../examples/cli && make record-special-events CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) RECORD_SPECIAL_EVENTS=$(RECORD_SPECIAL_EVENTS) 
 
 get-time-profile: build
-	cd ../examples/cli && make get-time-profile CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) TIME_PROFILE=$(TIME_PROFILE) 
+	cd ../examples/cli && make get-time-profile CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) TIME_PROFILE_ID=$(TIME_PROFILE_ID) 
+
+set-time-profile: build
+	cd ../examples/cli && make set-time-profile CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) TIME_PROFILE_ID=$(TIME_PROFILE_ID) TIME_PROFILE="$(TIME_PROFILE)""
 
 restore-default-parameters: build
 	cd ../examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)

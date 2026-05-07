@@ -138,6 +138,9 @@ func args(t lib.RequestTest) []arg {
 		case "date":
 			args = append(args, arg{date(a.Value), comma})
 
+		case "HHmm":
+			args = append(args, arg{HHmm(a.Value), comma})
+
 		case "mode":
 			args = append(args, arg{fmt.Sprintf("To_Control_Mode (%v)", a.Value), comma})
 
@@ -191,6 +194,18 @@ func date(v any) string {
 		return fmt.Sprintf(
 			"(Year => %v, Month => %v, Day => %v)",
 			uint16(year), uint8(month), uint8(day))
+	}
+}
+
+func HHmm(v any) string {
+	s := fmt.Sprintf("%v", v)
+	if hhmm, err := time.ParseInLocation("15:04", s, time.Local); err != nil {
+		panic(fmt.Sprintf("invalid HHmm (%v)", v))
+	} else {
+		hour := hhmm.Hour()
+		minute := hhmm.Minute()
+
+		return fmt.Sprintf("(Hour => %v, Minute => %v)", uint8(hour), uint8(minute))
 	}
 }
 

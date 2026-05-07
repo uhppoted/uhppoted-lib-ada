@@ -31,6 +31,7 @@ package body Registry is
       CS.Internal_Map.Insert ("set-event-index",            Set_Event_Index'Access);
       CS.Internal_Map.Insert ("record-special-events",      Record_Special_Events'Access);
       CS.Internal_Map.Insert ("get-time-profile",           Get_Time_Profile'Access);
+      CS.Internal_Map.Insert ("set-time-profile",           Set_Time_Profile'Access);
       CS.Internal_Map.Insert ("restore-default-parameters", Restore_Default_Parameters'Access);
       CS.Internal_Map.Insert ("listen",                     Listen'Access);
 

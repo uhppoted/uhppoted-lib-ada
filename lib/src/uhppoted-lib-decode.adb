@@ -483,6 +483,22 @@ package body Uhppoted.Lib.Decode is
               Linked_Profile  => R.Linked_Profile);
    end Get_Time_Profile;
 
+   --  Decodes a 64 byte set-time-profile reply as a Set_Time_Profile_Response record.
+   function Set_Time_Profile (Reply : Packet) return Responses.Set_Time_Profile_Response is
+      R : Replies.Set_Time_Profile_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Set_Time_Profile then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Set_Time_Profile;
+
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.
    function Restore_Default_Parameters (Reply : Packet) return Responses.Restore_Default_Parameters_Response is
       R : Replies.Restore_Default_Parameters_Reply with Import, Address => Reply'Address;

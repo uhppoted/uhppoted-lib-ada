@@ -230,6 +230,8 @@ package Uhppoted.Lib.Integration_Tests.Expected is
                     3 => ((Hour => 14, Minute => 1), (Hour => 17, Minute => 59))],
      Linked_Profile => 19);
 
+   Set_Time_Profile : constant Boolean := True;
+
    Restore_Default_Parameters : constant Boolean := True;
 
 end Uhppoted.Lib.Integration_Tests.Expected;

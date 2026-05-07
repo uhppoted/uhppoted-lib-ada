@@ -38,6 +38,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Set_Event_Index_Request'Access, "test encode Set_Event_Index_Request request");
       Register_Routine (T, Test_Encode_Record_Special_Events_Request'Access, "test encode Record_Special_Events_Request request");
       Register_Routine (T, Test_Encode_Get_Time_Profile'Access, "test encode Get_Time_Profile request");
+      Register_Routine (T, Test_Encode_Set_Time_Profile'Access, "test encode Set_Time_Profile request");
       Register_Routine (T, Test_Encode_Restore_Default_Parameters'Access, "test encode Restore_Default_Parameters request");
    end Register_Tests;
 
@@ -495,6 +496,39 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded get-time-profile request: got" & Request'Image);
    end Test_Encode_Get_Time_Profile;
+
+   procedure Test_Encode_Set_Time_Profile (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#88#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#25#, 16#20#, 16#25#, 16#11#, 16#26#, 16#20#, 16#25#, 16#12#,
+         16#29#, 16#01#, 16#01#, 16#00#, 16#01#, 16#00#, 16#01#, 16#01#,  16#08#, 16#30#, 16#09#, 16#45#, 16#11#, 16#35#, 16#13#, 16#15#,
+         16#14#, 16#01#, 16#17#, 16#59#, 16#13#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Time_Profile (
+         405419896,
+         37,
+         (Year => 2025, Month => 11, Day => 26),
+         (Year => 2025, Month => 12, Day => 29),
+         True,
+         True,
+         False,
+         True,
+         False,
+         True,
+         True,
+         (Hour => 8, Minute => 30),
+         (Hour => 9, Minute => 45),
+         (Hour => 11, Minute => 35),
+         (Hour => 13, Minute => 15),
+         (Hour => 14, Minute => 1),
+         (Hour => 17, Minute => 59),
+         19);
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-time-profile request: got" & Request'Image);
+   end Test_Encode_Set_Time_Profile;
 
    procedure Test_Encode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

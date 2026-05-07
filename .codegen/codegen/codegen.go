@@ -168,6 +168,18 @@ func HHmm(v any) string {
 	}
 }
 
+func Boolean(v any) string {
+	if b, ok := v.(bool); ok {
+		if b {
+			return "True"
+		} else {
+			return "False"
+		}
+	}
+
+	panic(fmt.Sprintf("invalid boolean (%v)", v))
+}
+
 func capitalize(s string) string {
 	runes := []rune(s)
 

@@ -65,6 +65,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       Register_Routine (T, Test_Set_Event_Index'Access,             "Set_Event_Index");
       Register_Routine (T, Test_Record_Special_Events'Access,       "Record_Special_Events");
       Register_Routine (T, Test_Get_Time_Profile'Access,            "Get_Time_Profile");
+      Register_Routine (T, Test_Set_Time_Profile'Access,            "Set_Time_Profile");
       Register_Routine (T, Test_Restore_Default_Parameters'Access,  "Restore_Default_Parameters");
       Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
@@ -428,6 +429,35 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    begin
       Assert (V = Expected.Get_Time_Profile, "invalid result" & V'Image);
    end Test_Get_Time_Profile;
+
+   procedure Test_Set_Time_Profile (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.UDP);
+
+      Profile : constant Uhppoted.Lib.Time_Profile := (
+         Start_Date => (Year => 2025, Month => 11, Day => 26),
+         End_Date   => (Year => 2025, Month => 12, Day => 29),
+         Weekdays   => (Monday    => True,
+                        Tuesday   => True,
+                        Wednesday => False,
+                        Thursday  => True,
+                        Friday    => False,
+                        Saturday  => True,
+                        Sunday    => True),
+        Segments   => [1 => (Start_Time => (Hour => 8, Minute => 30), End_Time => (Hour => 9, Minute => 45)),
+                       2 => (Start_Time => (Hour => 11, Minute => 35), End_Time => (Hour => 13, Minute => 15)),
+                       3 => (Start_Time => (Hour => 14, Minute => 1), End_Time => (Hour => 17, Minute => 59))],
+         Linked_Profile => 19);
+
+      V : constant Boolean := Set_Time_Profile (U, C, 37, Profile, 0.5);
+   begin
+      Assert (V = Expected.Set_Time_Profile, "invalid result" & V'Image);
+   end Test_Set_Time_Profile;
 
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
       pragma Unreferenced (T);

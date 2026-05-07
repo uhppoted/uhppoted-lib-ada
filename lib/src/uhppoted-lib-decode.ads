@@ -99,11 +99,15 @@ package Uhppoted.Lib.Decode is
 
    function Get_Time_Profile (Reply : Uhppoted.Lib.Types.Packet)
       return Uhppoted.Lib.Responses.Get_Time_Profile_Response;
-   --  Decodes a 64 byte record-special-events reply as a Get_Time_Profile_Response record.
+   --  Decodes a 64 byte get-time-profile reply as a Get_Time_Profile_Response record.
+
+   function Set_Time_Profile (Reply : Uhppoted.Lib.Types.Packet)
+      return Uhppoted.Lib.Responses.set_Time_Profile_Response;
+   --  Decodes a 64 byte set-time-profile reply as a Get_Time_Profile_Response record.
 
    function Restore_Default_Parameters (Reply : Uhppoted.Lib.Types.Packet)
       return Uhppoted.Lib.Responses.Restore_Default_Parameters_Response;
-   --  Decodes a 64 byte record-special-events reply as a Restore_Default_Parameters_Response record.
+   --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.
 
    function Listener_Event (Reply : Uhppoted.Lib.Types.Packet)
       return Uhppoted.Lib.Responses.Listener_Event;

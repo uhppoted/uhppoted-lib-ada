@@ -24,6 +24,7 @@ package Handlers is
    procedure Set_Event_Index            (Args : ArgParse.Args);
    procedure Record_Special_Events      (Args : ArgParse.Args);
    procedure Get_Time_Profile           (Args : ArgParse.Args);
+   procedure Set_Time_Profile           (Args : ArgParse.Args);
    procedure Restore_Default_Parameters (Args : ArgParse.Args);
    procedure Listen                     (Args : ArgParse.Args);
 end Handlers;

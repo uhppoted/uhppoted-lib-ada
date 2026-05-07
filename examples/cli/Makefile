@@ -25,7 +25,8 @@ PIN        ?= 7531
 
 EVENT_INDEX ?= 23
 RECORD_SPECIAL_EVENTS ?= yes
-TIME_PROFILE ?= 29
+TIME_PROFILE_ID ?= 29
+TIME_PROFILE ?= 2026-01-01,2026-12-31,[Mon,Tues,Fri],[08:30-16:45,19:15-22:00],17
 
 clean:
 	alr clean
@@ -100,7 +101,10 @@ record-special-events: build
 	$(CLI) record-special-events --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --enabled $(RECORD_SPECIAL_EVENTS)
 
 get-time-profile: build
-	$(CLI) get-time-profile --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --profile $(TIME_PROFILE)
+	$(CLI) get-time-profile --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --profile-id $(TIME_PROFILE_ID)
+
+set-time-profile: build
+	$(CLI) set-time-profile --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --profile-id $(TIME_PROFILE_ID) --profile "$(TIME_PROFILE)"
 
 restore-default-parameters: build
 	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)

@@ -31,13 +31,15 @@ package ArgParse is
       Get_Event_Args,
       Set_Event_Index_Args,
       Record_Special_Events_Args,
-      Get_Time_Profile_Args);
+      Get_Time_Profile_Args,
+      Set_Time_Profile_Args);
 
    type Args (T : Args_Type) is record
       Controller  : Uhppoted.Lib.Controller;
       Door        : Unsigned_8;
       Card        : Uhppoted.Lib.Card_Record;
       Event_Index : Unsigned_32;
+      Profile_ID  : Unsigned_8;
 
       case T is
          when Set_IPv4_Args =>
@@ -84,7 +86,10 @@ package ArgParse is
             Enabled : Boolean;
 
          when Get_Time_Profile_Args =>
-            Profile_ID : Unsigned_8;
+            null;
+
+         when Set_Time_Profile_Args =>
+            Profile : Uhppoted.Lib.Time_Profile;
 
          when others =>
             null;
@@ -118,5 +123,6 @@ private
    function Parse_Set_Event_Index       return Args;
    function Parse_Record_Special_Events return Args;
    function Parse_Get_Time_Profile      return Args;
+   function Parse_Set_Time_Profile      return Args;
 
 end ArgParse;

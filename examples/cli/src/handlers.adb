@@ -400,6 +400,33 @@ package body Handlers is
       Put_Line ("");
    end Get_Time_Profile;
 
+   --  Executes the set-time-profile command.
+   procedure Set_Time_Profile (Args : ArgParse.Args) is
+      R : constant Boolean := Set_Time_Profile (U, Args.Controller, Args.Profile_ID, Args.Profile, Timeout);
+   begin
+      Put_Line ("--- set-time-profile ");
+      Put_Line ("         controller:" & Args.Controller.ID'Image);
+      Put_Line ("            profile:" & Args.Profile_ID'Image);
+      Put_Line ("         start-date: " & Image (Args.Profile.Start_Date));
+      Put_Line ("           end-date: " & Image (Args.Profile.End_Date));
+      Put_Line ("             monday: " & Args.Profile.Weekdays.Monday'Image);
+      Put_Line ("            tuesday: " & Args.Profile.Weekdays.Tuesday'Image);
+      Put_Line ("          wednesday: " & Args.Profile.Weekdays.Wednesday'Image);
+      Put_Line ("           thursday: " & Args.Profile.Weekdays.Thursday'Image);
+      Put_Line ("             friday: " & Args.Profile.Weekdays.Friday'Image);
+      Put_Line ("           saturday: " & Args.Profile.Weekdays.Saturday'Image);
+      Put_Line ("             sunday: " & Args.Profile.Weekdays.Sunday'Image);
+      Put_Line ("    segment 1 start: " & Image (Args.Profile.Segments (1).Start_Time));
+      Put_Line ("                end: " & Image (Args.Profile.Segments (1).End_Time));
+      Put_Line ("    segment 2 start: " & Image (Args.Profile.Segments (2).Start_Time));
+      Put_Line ("                end: " & Image (Args.Profile.Segments (2).End_Time));
+      Put_Line ("    segment 3 start: " & Image (Args.Profile.Segments (3).Start_Time));
+      Put_Line ("                end: " & Image (Args.Profile.Segments (3).End_Time));
+      Put_Line ("     linked profile:" & Args.Profile.Linked_Profile'Image);
+      Put_Line ("");
+      Put_Line ("                 ok: " & R'Image);
+   end Set_Time_Profile;
+
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is
       R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);

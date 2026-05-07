@@ -31,7 +31,7 @@ var Responses = []types.Response{
 	lib.SetEventIndexResponse,
 	lib.RecordSpecialEventsResponse,
 	lib.GetTimeProfileResponse,
-	// &SetTimeProfileResponse,
+	lib.SetTimeProfileResponse,
 	// &ClearTimeProfilesResponse,
 	// &AddTaskResponse,
 	// &RefreshTaskListResponse,

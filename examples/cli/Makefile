@@ -106,6 +106,9 @@ get-time-profile: build
 set-time-profile: build
 	$(CLI) set-time-profile --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --profile-id $(TIME_PROFILE_ID) --profile "$(TIME_PROFILE)"
 
+clear-time-profiles: build
+	$(CLI) clear-time-profiles --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+
 restore-default-parameters: build
 	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
 

@@ -33,7 +33,6 @@ package body Uhppoted.Lib.Encode is
       Request.Addr       := Pack_IPv4 (Addr);
       Request.Netmask    := Pack_IPv4 (Netmask);
       Request.Gateway    := Pack_IPv4 (Gateway);
-      Request.MagicWord  := 16#55AA_AA55#;
 
       return Buffer;
    end Set_IPv4;
@@ -303,7 +302,6 @@ package body Uhppoted.Lib.Encode is
    begin
       Request.Controller := Controller;
       Request.Index := Index;
-      Request.MagicWord  := 16#55AA_AA55#;
 
       return Buffer;
    end Set_Event_Index;
@@ -374,13 +372,22 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Set_Time_Profile;
 
+   --  Encodes a clear-time-profiles request as a 64 byte array.
+   function Clear_Time_Profiles (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Clear_Time_Profiles_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+
+      return Buffer;
+   end Clear_Time_Profiles;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.MagicWord  := 16#55AA_AA55#;
 
       return Buffer;
    end Restore_Default_Parameters;

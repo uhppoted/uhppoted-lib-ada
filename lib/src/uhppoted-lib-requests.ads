@@ -38,7 +38,7 @@ package Uhppoted.Lib.Requests is
       Addr       : IPv4;
       Netmask    : IPv4;
       Gateway    : IPv4;
-      MagicWord  : Unsigned_32;
+      MagicWord  : Unsigned_32 := Codec.MagicWord;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 40) := [others => 0];
    end record;
 
@@ -478,7 +478,7 @@ package Uhppoted.Lib.Requests is
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Index      : Unsigned_32;
-      MagicWord  : Unsigned_32;
+      MagicWord  : Unsigned_32 := Codec.MagicWord;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48) := [others => 0];
    end record;
 
@@ -597,13 +597,36 @@ package Uhppoted.Lib.Requests is
    for Set_Time_Profile_Request'Bit_Order use System.Low_Order_First;
    for Set_Time_Profile_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a clear-time-profiles request.
+   type Clear_Time_Profiles_Request is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Clear_Time_Profiles;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      MagicWord  : Unsigned_32 := Codec.MagicWord;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+   end record;
+
+   for Clear_Time_Profiles_Request use record
+      SOM        at  0 range 0 ..   7;
+      OpCode     at  1 range 0 ..   7;
+      Reserved   at  2 range 0 ..  15;
+      Controller at  4 range 0 ..  31;
+      MagicWord  at  8 range 0 ..  31;
+      Padding    at 12 range 0 .. 415;
+   end record;
+
+   for Clear_Time_Profiles_Request'Size use 64 * 8;
+   for Clear_Time_Profiles_Request'Bit_Order use System.Low_Order_First;
+   for Clear_Time_Profiles_Request'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a restore-default-parameters request.
    type Restore_Default_Parameters_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Restore_Default_Parameters;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
-      MagicWord  : Unsigned_32;
+      MagicWord  : Unsigned_32 := Codec.MagicWord;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 

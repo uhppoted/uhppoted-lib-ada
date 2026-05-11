@@ -123,6 +123,9 @@ get-time-profile: build
 set-time-profile: build
 	cd examples/cli && make set-time-profile CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) TIME_PROFILE_ID=$(TIME_PROFILE_ID) TIME_PROFILE="$(TIME_PROFILE)"
 
+clear-time-profiles: build
+	cd examples/cli && make clear-time-profiles CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+
 restore-default-parameters: build
 	cd examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
 

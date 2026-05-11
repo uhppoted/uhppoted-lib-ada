@@ -46,6 +46,7 @@ private
    procedure Test_Record_Special_Events       (T : in out Test_Case'Class);
    procedure Test_Get_Time_Profile            (T : in out Test_Case'Class);
    procedure Test_Set_Time_Profile            (T : in out Test_Case'Class);
+   procedure Test_Clear_Time_Profiles         (T : in out Test_Case'Class);
    procedure Test_Restore_Default_Parameters  (T : in out Test_Case'Class);
    procedure Test_Connection_Refused (T : in out Test_Case'Class);
 

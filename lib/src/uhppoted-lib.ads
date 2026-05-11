@@ -790,14 +790,15 @@ package Uhppoted.Lib is
                               Profile_ID : Unsigned_8;
                               Profile    : Time_Profile;
                               Timeout    : Duration := 2.5) return Boolean;
-   --  Adds/update a time profile on a controller. Restricted to the local LAN.
+   --  Adds/updates a time profile on a controller. Restricted to the local LAN.
    --
-   --  @param  U          UHPPOTE configuration.
-   --  @param  C          Controller serial number.
-   --  @param  Profile    Time profile ID ([2..254]).
-   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --  @param  U           UHPPOTE configuration.
+   --  @param  C           Controller serial number.
+   --  @param  Profile_ID  Time profile ID ([2..254]).
+   --  @param  Profile     Time profile record.
+   --  @param  Timeout     Operation timeout (defaults to 2.5s).
    --
-   --  @return            True if the profile was added or updated.
+   --  @return             True if the profile was added or updated.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
@@ -807,14 +808,43 @@ package Uhppoted.Lib is
                               Profile_ID : Unsigned_8;
                               Profile    : Time_Profile;
                               Timeout    : Duration := 2.5) return Boolean;
-   --  Adds/update a time profile on a controller.
+   --  Adds/updates a time profile on a controller.
+   --
+   --  @param  U           UHPPOTE configuration.
+   --  @param  C           Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Profile_ID  Time profile ID ([2..254]).
+   --  @param  Profile     Time profile record.
+   --  @param  Timeout     Operation timeout (defaults to 2.5s).
+   --
+   --  @return             True if the profile was added or updated.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
+
+   function Clear_Time_Profiles (U          : UHPPOTE;
+                                 C          : Unsigned_32;
+                                 Timeout    : Duration := 2.5) return Boolean;
+   --  Clears all time profiles stored on a controller. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if the stored profiles were cleared.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
+
+   function Clear_Time_Profiles (U          : UHPPOTE;
+                                 C          : Controller;
+                                 Timeout    : Duration := 2.5) return Boolean;
+   --  Clears all time profiles stored on a controller.
    --
    --  @param  U          UHPPOTE configuration.
    --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
-   --  @param  Profile    Time profile ID ([2..254]).
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
    --
-   --  @return            True if the profile was added or updated.
+   --  @return            True if the stored profiles were cleared.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.

@@ -32,7 +32,7 @@ var Responses = []types.Response{
 	lib.RecordSpecialEventsResponse,
 	lib.GetTimeProfileResponse,
 	lib.SetTimeProfileResponse,
-	// &ClearTimeProfilesResponse,
+	lib.ClearTimeProfilesResponse,
 	// &AddTaskResponse,
 	// &RefreshTaskListResponse,
 	// &ClearTaskListResponse,
@@ -41,6 +41,7 @@ var Responses = []types.Response{
 	// &ActivateKeypadsResponse,
 	// &GetAntiPassbackResponse,
 	// &SetAntiPassbackResponse,
+	// &SetFirstCardResponse,
 	lib.RestoreDefaultParametersResponse,
 }
 

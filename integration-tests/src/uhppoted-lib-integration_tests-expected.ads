@@ -52,7 +52,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
    Set_Listener : constant Boolean := True;
 
    Get_Status : constant Controller_Status := (
-     State => 
+     State =>
         (System_Date_Time => (Year => 2022, Month => 8, Day => 23, Hour => 9, Minute => 49, Second => 39),
          Doors => [1 => (Open     => False,
                          Button   => False,
@@ -81,7 +81,7 @@ package Uhppoted.Lib.Integration_Tests.Expected is
                Reason         => To_Event_Reason (44)));
 
    Get_Status_No_Event : constant Controller_Status := (
-     State => 
+     State =>
         (System_Date_Time => (Year => 2025, Month => 11, Day => 23, Hour => 14, Minute => 37, Second => 53),
          Doors => [1 => (Open     => True,
                          Button   => True,
@@ -231,6 +231,8 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Linked_Profile => 19);
 
    Set_Time_Profile : constant Boolean := True;
+
+   Clear_Time_Profiles : constant Boolean := True;
 
    Restore_Default_Parameters : constant Boolean := True;
 

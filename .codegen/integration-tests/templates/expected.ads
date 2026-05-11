@@ -31,7 +31,7 @@ end Uhppoted.Lib.Integration_Tests.Expected;
      Interval => {{ get $v "interval" }}{{end}}){{ end }}
 
 {{- define "status" }}({{ with $v := .Returns.Value }}
-     State => 
+     State =>
         (System_Date_Time => {{ get $v "system.datetime"}},
          Doors => [1 => (Open     => {{ get $v "door-1.open"     }},
                          Button   => {{ get $v "door-1.button"   }},

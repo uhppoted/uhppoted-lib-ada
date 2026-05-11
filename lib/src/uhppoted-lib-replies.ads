@@ -736,6 +736,29 @@ package Uhppoted.Lib.Replies is
    for Set_Time_Profile_Reply'Bit_Order use System.Low_Order_First;
    for Set_Time_Profile_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a clear-time-profiles reply.
+   type Clear_Time_Profiles_Reply is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      Opcode     : Codec.Op_Code := Codec.Clear_Time_Profiles;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Ok         : Unsigned_8;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
+   end record;
+
+   for Clear_Time_Profiles_Reply use record
+      SOM        at 0 range 0 ..   7;
+      Opcode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Ok         at 8 range 0 ..   7;
+      Padding    at 9 range 0 .. 439;
+   end record;
+
+   for Clear_Time_Profiles_Reply'Size use 64 * 8;
+   for Clear_Time_Profiles_Reply'Bit_Order use System.Low_Order_First;
+   for Clear_Time_Profiles_Reply'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a restore-default-parameters reply.
    type Restore_Default_Parameters_Reply is record
       SOM        : Unsigned_8    := Codec.SOM;

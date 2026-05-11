@@ -23,6 +23,7 @@
 - [`Record_Special_Events`](#record_special_events)
 - [`Get_Time_Profile`](#get_time_profile)
 - [`Set_Time_Profile`](#set_time_profile)
+- [`Clear_Time_Profiles`](#clear_time_profiles)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -1002,18 +1003,18 @@ Raises:
 - `Invalid_Response_Error` if the returned response is incorrect
 
 
-### `Restore_Default_Parameters`
+### `Clear_Time_Profile`
 
-**Restore_Default_Parameters** resets the controller to the manufacturer default settings.
+**Clear_Time_Profile** clears all time profiles stored on a controller.
 
 ```
-function Restore_Default_Parameters (U         : UHPPOTE;
-                                     C         : Unsigned_32;
-                                     Timeout   : Duration) return Unsigned_32;
+function Clear_Time_Profile (U         : UHPPOTE;
+                             C         : Unsigned_32;
+                             Timeout   : Duration) return Unsigned_32;
 
-function Restore_Default_Parameters (U         : UHPPOTE;
-                                     C         : Controller;
-                                     Timeout   : Duration) return Unsigned_32;
+function Clear_Time_Profile (U         : UHPPOTE;
+                             C         : Controller;
+                             Timeout   : Duration) return Unsigned_32;
 
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
@@ -1021,7 +1022,7 @@ where:
 - C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
 ```
 
-Returns `True` if the controller was reset to the manufacturer defaults.
+Returns `True` if the controller time profiles were cleared.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

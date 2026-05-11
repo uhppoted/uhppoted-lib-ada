@@ -121,6 +121,9 @@ package Uhppoted.Lib.Encode is
                               Segment_3_End   : HHmm;
                               Linked_Profile  : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a clear-time-profiles request as a 64 byte array.
+   function Clear_Time_Profiles (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 

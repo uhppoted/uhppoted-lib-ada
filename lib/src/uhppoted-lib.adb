@@ -827,7 +827,7 @@ package body Uhppoted.Lib is
                               Profile_ID : Unsigned_8;
                               Profile    : Time_Profile;
                               Timeout    : Duration := 2.5) return Boolean is
-      Request : constant Packet := Uhppoted.Lib.Encode.Set_Time_Profile (C.ID, 
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Time_Profile (C.ID,
                                                                          Profile_ID,
                                                                          Profile.Start_Date,
                                                                          Profile.End_Date,
@@ -857,6 +857,32 @@ package body Uhppoted.Lib is
 
       return R.Ok;
    end Set_Time_Profile;
+
+   --  Clears all time profiles stored on a a controller. Restricted to the local LAN.
+   function Clear_Time_Profiles (U          : UHPPOTE;
+                                 C          : Unsigned_32;
+                                 Timeout    : Duration := 2.5) return Boolean is
+   begin
+      return Clear_Time_Profiles (U, To_Controller (C), Timeout);
+   end Clear_Time_Profiles;
+
+   --  Clears all time profiles stored on a a controller.
+   function Clear_Time_Profiles (U          : UHPPOTE;
+                                 C          : Controller;
+                                 Timeout    : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Clear_Time_Profiles (C.ID);
+      Reply   : Packet;
+      R       : Clear_Time_Profiles_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Clear_Time_Profiles (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Clear_Time_Profiles;
 
    --  Resets the controller to the manufacturer default settings. Restricted to the local LAN.
    function Restore_Default_Parameters (U       : UHPPOTE;

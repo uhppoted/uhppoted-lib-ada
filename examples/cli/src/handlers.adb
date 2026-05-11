@@ -427,6 +427,15 @@ package body Handlers is
       Put_Line ("                 ok: " & R'Image);
    end Set_Time_Profile;
 
+   --  Executes the clear-time-profiles command.
+   procedure Clear_Time_Profiles (Args : ArgParse.Args) is
+      R : constant Boolean := Clear_Time_Profiles (U, Args.Controller, Timeout);
+   begin
+      Put_Line ("--- clear-time-profiles ");
+      Put_Line ("         controller:" & Args.Controller.ID'Image);
+      Put_Line ("                 ok: " & R'Image);
+   end Clear_Time_Profiles;
+
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is
       R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);

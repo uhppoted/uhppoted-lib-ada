@@ -31,7 +31,7 @@ var Requests = []types.Request{
 	lib.RecordSpecialEventsRequest,
 	lib.GetTimeProfileRequest,
 	lib.SetTimeProfileRequest,
-	// ClearTimeProfilesRequest,
+	lib.ClearTimeProfilesRequest,
 	// AddTaskRequest,
 	// RefreshTaskListRequest,
 	// ClearTaskListRequest,
@@ -40,6 +40,7 @@ var Requests = []types.Request{
 	// ActivateKeypadsRequest,
 	// GetAntiPassbackRequest,
 	// SetAntiPassbackRequest,
+	// SetFirstCardRequest,
 	lib.RestoreDefaultParametersRequest,
 }
 

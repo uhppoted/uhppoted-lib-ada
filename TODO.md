@@ -4,12 +4,12 @@
 - https://github.com/simonjwright/alire-index.mac
 
 - [x] set-time-profile
+- [x] clear-time-profiles
     - [x] API
     - [x] CLI
     - [x] README
     - [x] integration tests
 
-- [ ] clear-time-profiles
 - [ ] add-task
 - [ ] refresh-tasklist
 - [ ] clear-tasklist
@@ -18,6 +18,7 @@
 - [ ] activate-keypads
 - [ ] get-antipassback
 - [ ] set-antipassback
+- [ ] set-firstcard
 
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 

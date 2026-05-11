@@ -72,6 +72,7 @@ var translations = map[string]string{
 	"record special events response":      "Boolean",
 	"get time profile response":           "Time_Profile",
 	"set time profile response":           "Boolean",
+	"clear time profiles response":        "Boolean",
 	"restore default parameters response": "Boolean",
 }
 

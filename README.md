@@ -80,6 +80,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Record_Special_Events`](API.md#record_special_events)
 - [`Get_Time_Profile`](API.md#get_time_profile)
 - [`Set_Time_Profile`](API.md#set_time_profile)
+- [`Clear_Time_Profiles`](API.md#clear_time_profiles)
 - [`Restore_Default_Parameters`](API.md#restore_default_parameters)
 - [`Listen`](API.md#listen)
 

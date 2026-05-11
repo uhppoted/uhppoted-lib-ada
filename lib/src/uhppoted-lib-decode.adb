@@ -499,6 +499,22 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Set_Time_Profile;
 
+   --  Decodes a 64 byte clear-time-profiles reply as a Clear_Time_Profiles_Response record.
+   function Clear_Time_Profiles (Reply : Packet) return Responses.Clear_Time_Profiles_Response is
+      R : Replies.Clear_Time_Profiles_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Clear_Time_Profiles then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Clear_Time_Profiles;
+
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.
    function Restore_Default_Parameters (Reply : Packet) return Responses.Restore_Default_Parameters_Response is
       R : Replies.Restore_Default_Parameters_Reply with Import, Address => Reply'Address;

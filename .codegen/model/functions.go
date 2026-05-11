@@ -31,7 +31,7 @@ var API = []types.Function{
 	lib.RecordSpecialEvents,
 	lib.GetTimeProfile,
 	lib.SetTimeProfile,
-	// &ClearTimeProfiles,
+	lib.ClearTimeProfiles,
 	// &AddTask,
 	// &RefreshTaskList,
 	// &ClearTaskList,
@@ -40,6 +40,7 @@ var API = []types.Function{
 	// &ActivateKeypads,
 	// &GetAntiPassback,
 	// &SetAntiPassback,
+	// &SetFirstCard,
 	lib.RestoreDefaultParameters,
 }
 

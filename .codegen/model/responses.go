@@ -33,7 +33,7 @@ var Responses = []types.Response{
 	lib.GetTimeProfileResponse,
 	lib.SetTimeProfileResponse,
 	lib.ClearTimeProfilesResponse,
-	// &AddTaskResponse,
+	lib.AddTaskResponse,
 	// &RefreshTaskListResponse,
 	// &ClearTaskListResponse,
 	// &SetPCControlResponse,

@@ -73,6 +73,7 @@ var translations = map[string]string{
 	"get time profile response":           "Time_Profile",
 	"set time profile response":           "Boolean",
 	"clear time profiles response":        "Boolean",
+	"add task response":                   "Boolean",
 	"restore default parameters response": "Boolean",
 }
 
@@ -406,6 +407,86 @@ func vars(t lib.FuncTest) []any {
 			linked))
 	}
 
+	if t.Name == "add-task" {
+		var task any
+		var startDate any
+		var endDate any
+		var monday any
+		var tuesday any
+		var wednesday any
+		var thursday any
+		var friday any
+		var saturday any
+		var sunday any
+		var startTime any
+		var door any
+		var moreCards any
+
+		for _, v := range t.Args {
+			switch {
+			case v.Name == "task":
+				task = fmt.Sprintf("To_Task_Type (%v)", v.Value)
+
+			case v.Name == "start date":
+				startDate = codegen.DateOnly(v.Value)
+
+			case v.Name == "end date":
+				endDate = codegen.DateOnly(v.Value)
+
+			case v.Name == "monday":
+				monday = codegen.Boolean(v.Value)
+
+			case v.Name == "tuesday":
+				tuesday = codegen.Boolean(v.Value)
+
+			case v.Name == "wednesday":
+				wednesday = codegen.Boolean(v.Value)
+
+			case v.Name == "thursday":
+				thursday = codegen.Boolean(v.Value)
+
+			case v.Name == "friday":
+				friday = codegen.Boolean(v.Value)
+
+			case v.Name == "saturday":
+				saturday = codegen.Boolean(v.Value)
+
+			case v.Name == "sunday":
+				sunday = codegen.Boolean(v.Value)
+
+			case v.Name == "start time":
+				startTime = codegen.HHmm(v.Value)
+
+			case v.Name == "door":
+				door = v.Value
+
+			case v.Name == "more cards":
+				moreCards = v.Value
+			}
+		}
+
+		m = append(m, fmt.Sprintf(`TaskT : constant Uhppoted.Lib.Task_Record := (
+			Task_ID    => %v,
+         Start_Date => %v,
+         End_Date   => %v,
+         Weekdays   => (Monday    => %v,
+                        Tuesday   => %v,
+                        Wednesday => %v,
+                        Thursday  => %v,
+                        Friday    => %v,
+                        Saturday  => %v,
+                        Sunday    => %v),
+         Start_Time => %v,
+         Door       => %v,
+         More_Cards => %v);`,
+			task,
+			startDate, endDate,
+			monday, tuesday, wednesday, thursday, friday, saturday, sunday,
+			startTime,
+			door,
+			moreCards))
+	}
+
 	return m
 }
 
@@ -418,6 +499,7 @@ func args(t lib.FuncTest) []any {
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 2":
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 3":
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 4":
+			// SKIP
 
 		case t.Name == "put-card" && v.Name == "card":
 		case t.Name == "put-card" && v.Name == "start date":
@@ -427,6 +509,7 @@ func args(t lib.FuncTest) []any {
 		case t.Name == "put-card" && v.Name == "door 3":
 		case t.Name == "put-card" && v.Name == "door 4":
 		case t.Name == "put-card" && v.Name == "PIN":
+			// SKIP
 
 		case t.Name == "set-time-profile" && v.Name == "start date":
 		case t.Name == "set-time-profile" && v.Name == "end date":
@@ -444,6 +527,21 @@ func args(t lib.FuncTest) []any {
 		case t.Name == "set-time-profile" && v.Name == "segment 3 start":
 		case t.Name == "set-time-profile" && v.Name == "segment 3 end":
 		case t.Name == "set-time-profile" && v.Name == "linked profile id":
+			// SKIP
+
+		case t.Name == "add-task" && v.Name == "task":
+		case t.Name == "add-task" && v.Name == "start date":
+		case t.Name == "add-task" && v.Name == "end date":
+		case t.Name == "add-task" && v.Name == "monday":
+		case t.Name == "add-task" && v.Name == "tuesday":
+		case t.Name == "add-task" && v.Name == "wednesday":
+		case t.Name == "add-task" && v.Name == "thursday":
+		case t.Name == "add-task" && v.Name == "friday":
+		case t.Name == "add-task" && v.Name == "saturday":
+		case t.Name == "add-task" && v.Name == "sunday":
+		case t.Name == "add-task" && v.Name == "start time":
+		case t.Name == "add-task" && v.Name == "door":
+		case t.Name == "add-task" && v.Name == "more cards":
 			// SKIP
 
 		case v.Type == "IPv4":
@@ -476,6 +574,10 @@ func args(t lib.FuncTest) []any {
 
 	if t.Name == "set-time-profile" {
 		args = append(args, "Profile")
+	}
+
+	if t.Name == "add-task" {
+		args = append(args, "TaskT")
 	}
 
 	return args

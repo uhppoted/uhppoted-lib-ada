@@ -620,6 +620,53 @@ package Uhppoted.Lib.Requests is
    for Clear_Time_Profiles_Request'Bit_Order use System.Low_Order_First;
    for Clear_Time_Profiles_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for an add-task request.
+   type Add_Task_Request is record
+      SOM             : Unsigned_8    := Codec.SOM;
+      OpCode          : Codec.Op_Code := Codec.Add_Task;
+      Reserved        : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller      : Unsigned_32;
+      Start_Date      : BCD4;
+      End_Date        : BCD4;
+      Monday          : Unsigned_8;
+      Tuesday         : Unsigned_8;
+      Wednesday       : Unsigned_8;
+      Thursday        : Unsigned_8;
+      Friday          : Unsigned_8;
+      Saturday        : Unsigned_8;
+      Sunday          : Unsigned_8;
+      Start_Time      : BCD2;
+      Door            : Unsigned_8;
+      Task_ID         : Task_Type;
+      More_Cards      : Unsigned_8;
+      Padding         : Ada.Streams.Stream_Element_Array (1 .. 35) := [others => 0];
+   end record;
+
+   for Add_Task_Request use record
+      SOM         at  0 range 0 ..   7;
+      OpCode      at  1 range 0 ..   7;
+      Reserved    at  2 range 0 ..  15;
+      Controller  at  4 range 0 ..  31;
+      Start_Date  at  8 range 0 ..  31;
+      End_Date    at 12 range 0 ..  31;
+      Monday      at 16 range 0 ..   7;
+      Tuesday     at 17 range 0 ..   7;
+      Wednesday   at 18 range 0 ..   7;
+      Thursday    at 19 range 0 ..   7;
+      Friday      at 20 range 0 ..   7;
+      Saturday    at 21 range 0 ..   7;
+      Sunday      at 22 range 0 ..   7;
+      Start_Time  at 23 range 0 ..  15;
+      Door        at 25 range 0 ..   7;
+      Task_ID     at 26 range 0 ..   7;
+      More_Cards  at 27 range 0 ..   7;
+      Padding     at 28 range 0 .. 279;
+   end record;
+
+   for Add_Task_Request'Size use 64 * 8;
+   for Add_Task_Request'Bit_Order use System.Low_Order_First;
+   for Add_Task_Request'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a restore-default-parameters request.
    type Restore_Default_Parameters_Request is record
       SOM        : Unsigned_8    := Codec.SOM;

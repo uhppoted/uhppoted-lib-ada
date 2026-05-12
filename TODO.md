@@ -3,14 +3,12 @@
 - https://github.com/ohenley/awesome-ada
 - https://github.com/simonjwright/alire-index.mac
 
-- [x] set-time-profile
-- [x] clear-time-profiles
+- [x] add-task
     - [x] API
     - [x] CLI
     - [x] README
     - [x] integration tests
 
-- [ ] add-task
 - [ ] refresh-tasklist
 - [ ] clear-tasklist
 - [ ] set-pc-control

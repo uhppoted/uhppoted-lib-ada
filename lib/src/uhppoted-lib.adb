@@ -884,7 +884,46 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Clear_Time_Profiles;
 
-   --  Resets the controller to the manufacturer default settings. Restricted to the local LAN.
+   --  Creates a scheduled task assigned to a controller managed door. Restricted to the local LAN.
+   function Add_Task (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      T       : Task_Record;
+                      Timeout : Duration := 2.5) return Boolean is
+   begin
+      return Add_Task (U, To_Controller (C), T, Timeout);
+   end Add_Task;
+
+   --  Creates a scheduled task assigned to a controller managed door.
+   function Add_Task (U       : UHPPOTE;
+                      C       : Controller;
+                      T       : Task_Record;
+                      Timeout : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Add_Task (C.ID, T.Task_ID,
+                                                                       T.Start_Date,
+                                                                       T.End_Date,
+                                                                       T.Weekdays.Monday,
+                                                                       T.Weekdays.Tuesday,
+                                                                       T.Weekdays.Wednesday,
+                                                                       T.Weekdays.Thursday,
+                                                                       T.Weekdays.Friday,
+                                                                       T.Weekdays.Saturday,
+                                                                       T.Weekdays.Sunday,
+                                                                       T.Start_Time,
+                                                                       T.Door,
+                                                                       T.More_Cards);
+      Reply   : Packet;
+      R       : Add_Task_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Add_Task (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Add_Task;
+
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;
                                         Timeout : Duration := 2.5) return Boolean is

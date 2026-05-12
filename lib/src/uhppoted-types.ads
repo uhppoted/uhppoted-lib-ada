@@ -155,40 +155,39 @@ package Uhppoted.Types is
       Remote_Open_Door_USB,
       Other);
 
-   for Event_Reason use (
-      SwipeOk                     => 16#01#,   --  1
-      Denied_PC_Control           => 16#05#,   --  5
-      Denied_Not_Allowed          => 16#06#,   --  6
-      Denied_Incorrect_PIN        => 16#07#,   --  7
-      Denied_Anti_Passback        => 16#08#,   --  8
-      Denied_More_Cards           => 16#09#,   --  9
-      Denied_First_Card_Required  => 16#0A#,   --  10
-      Denied_Door_Normally_Closed => 16#0B#,   --  11
-      Denied_Door_InterLock       => 16#0C#,   --  12
-      Denied_Time_Profile         => 16#0D#,   --  13
-      Denied_Invalid_Timezone     => 16#0F#,   --  15
-      Denied_Invalid              => 16#12#,   --  18
-      Push_Button_Ok              => 16#14#,   --  20
-      Door_Open                   => 16#17#,   --  23
-      Door_Closed                 => 16#18#,   --  24
-      Supervisor_Override         => 16#19#,   --  25
-      Controller_Power_On         => 16#1C#,   --  28
-      Controller_Reset            => 16#1D#,   --  29
-      Push_Button_Disabled        => 16#1E#,   --  30
-      Push_Button_Lock_Forced     => 16#1F#,   --  31
-      Push_Button_Offline         => 16#20#,   --  32
-      Push_Button_Door_InterLock  => 16#21#,   --  33
-      Threat                      => 16#22#,   --  34
-      Open_Too_Long               => 16#25#,   --  37
-      Forced_Open                 => 16#26#,   --  38
-      Fire                        => 16#27#,   --  39
-      Forced_Close                => 16#28#,   --  40
-      Theft_Prevention            => 16#29#,   --  41
-      Zone_24x7                   => 16#2A#,   --  42
-      Emergency_Call              => 16#2B#,   --  43
-      Remote_Open_Door            => 16#2C#,   --  44
-      Remote_Open_Door_USB        => 16#2D#,   --  45
-      Other                       => 16#FF#);  --  255
+   for Event_Reason use (SwipeOk                     => 16#01#,   --  1
+                         Denied_PC_Control           => 16#05#,   --  5
+                         Denied_Not_Allowed          => 16#06#,   --  6
+                         Denied_Incorrect_PIN        => 16#07#,   --  7
+                         Denied_Anti_Passback        => 16#08#,   --  8
+                         Denied_More_Cards           => 16#09#,   --  9
+                         Denied_First_Card_Required  => 16#0A#,   --  10
+                         Denied_Door_Normally_Closed => 16#0B#,   --  11
+                         Denied_Door_InterLock       => 16#0C#,   --  12
+                         Denied_Time_Profile         => 16#0D#,   --  13
+                         Denied_Invalid_Timezone     => 16#0F#,   --  15
+                         Denied_Invalid              => 16#12#,   --  18
+                         Push_Button_Ok              => 16#14#,   --  20
+                         Door_Open                   => 16#17#,   --  23
+                         Door_Closed                 => 16#18#,   --  24
+                         Supervisor_Override         => 16#19#,   --  25
+                         Controller_Power_On         => 16#1C#,   --  28
+                         Controller_Reset            => 16#1D#,   --  29
+                         Push_Button_Disabled        => 16#1E#,   --  30
+                         Push_Button_Lock_Forced     => 16#1F#,   --  31
+                         Push_Button_Offline         => 16#20#,   --  32
+                         Push_Button_Door_InterLock  => 16#21#,   --  33
+                         Threat                      => 16#22#,   --  34
+                         Open_Too_Long               => 16#25#,   --  37
+                         Forced_Open                 => 16#26#,   --  38
+                         Fire                        => 16#27#,   --  39
+                         Forced_Close                => 16#28#,   --  40
+                         Theft_Prevention            => 16#29#,   --  41
+                         Zone_24x7                   => 16#2A#,   --  42
+                         Emergency_Call              => 16#2B#,   --  43
+                         Remote_Open_Door            => 16#2C#,   --  44
+                         Remote_Open_Door_USB        => 16#2D#,   --  45
+                         Other                       => 16#FF#);  --  255
 
    function To_Event_Reason (V : Unsigned_8) return Event_Reason;
 
@@ -210,10 +209,9 @@ package Uhppoted.Types is
 
    type Control_Mode is (Normally_Open, Normally_Closed, Controlled);
 
-   for Control_Mode use (
-      Normally_Open   => 1,
-      Normally_Closed => 2,
-      Controlled      => 3);
+   for Control_Mode use (Normally_Open   => 1,
+                         Normally_Closed => 2,
+                         Controlled      => 3);
 
    type Door_Record is record
       Mode      : Control_Mode;
@@ -258,6 +256,46 @@ package Uhppoted.Types is
       Weekdays       : Weekdays_Type;
       Segments       : Segments_List;
       Linked_Profile : Unsigned_8;
+   end record;
+
+   type Task_Type is (Door_Controlled,
+                      Door_Normally_Open,
+                      Door_Normally_Closed,
+                      Disable_Time_Profile,
+                      Enable_Time_Profile,
+                      Card_No_Password,
+                      Card_In_Password,
+                      Card_InOut_Password,
+                      Enable_More_Cards,
+                      Disable_More_Cards,
+                      Trigger_Once,
+                      Disable_PushButton,
+                      Enable_PushButton);
+
+   for Task_Type use (Door_Controlled      => 0,
+                      Door_Normally_Open   => 1,
+                      Door_Normally_Closed => 2,
+                      Disable_Time_Profile => 3,
+                      Enable_Time_Profile  => 4,
+                      Card_No_Password     => 5,
+                      Card_In_Password     => 6,
+                      Card_InOut_Password  => 7,
+                      Enable_More_Cards    => 8,
+                      Disable_More_Cards   => 9,
+                      Trigger_Once         => 10,
+                      Disable_PushButton   => 11,
+                      Enable_PushButton    => 12);
+
+   function To_Task_Type (V : Unsigned_8) return Task_Type;
+
+   type Task_Record is record
+      Task_ID        : Task_Type;
+      Start_Date     : DateOnly;
+      End_Date       : DateOnly;
+      Weekdays       : Weekdays_Type;
+      Start_Time     : HHmm;
+      Door           : Unsigned_8;
+      More_Cards     : Unsigned_8;
    end record;
 
    type Signal is new Ada.Finalization.Limited_Controlled with record

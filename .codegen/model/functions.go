@@ -32,7 +32,7 @@ var API = []types.Function{
 	lib.GetTimeProfile,
 	lib.SetTimeProfile,
 	lib.ClearTimeProfiles,
-	// &AddTask,
+	lib.AddTask,
 	// &RefreshTaskList,
 	// &ClearTaskList,
 	// &SetPCControl,

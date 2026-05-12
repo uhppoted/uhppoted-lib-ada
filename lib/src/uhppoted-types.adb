@@ -132,6 +132,40 @@ package body Uhppoted.Types is
       end case;
    end To_Event_Reason;
 
+   function To_Task_Type (V : Unsigned_8) return Task_Type is
+   begin
+      case V is
+         when 0 =>
+            return Door_Controlled;
+         when 1 =>
+            return Door_Normally_Open;
+         when 2 =>
+            return Door_Normally_Closed;
+         when 3 =>
+            return Disable_Time_Profile;
+         when 4 =>
+            return Enable_Time_Profile;
+         when 5 =>
+            return Card_No_Password;
+         when 6 =>
+            return Card_In_Password;
+         when 7 =>
+            return Card_InOut_Password;
+         when 8 =>
+            return Enable_More_Cards;
+         when 9 =>
+            return Disable_More_Cards;
+         when 10 =>
+            return Trigger_Once;
+         when 11 =>
+            return Disable_PushButton;
+         when 12 =>
+            return Enable_PushButton;
+         when others =>
+            raise Constraint_Error with "Invalid Task type: " & V'Image;
+      end case;
+   end To_Task_Type;
+
    function Image (Addr : IPv4) return String is
       use Ada.Strings.Fixed;
    begin

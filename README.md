@@ -81,6 +81,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Get_Time_Profile`](API.md#get_time_profile)
 - [`Set_Time_Profile`](API.md#set_time_profile)
 - [`Clear_Time_Profiles`](API.md#clear_time_profiles)
+- [`Add_Task`](API.md#add_task)
 - [`Restore_Default_Parameters`](API.md#restore_default_parameters)
 - [`Listen`](API.md#listen)
 

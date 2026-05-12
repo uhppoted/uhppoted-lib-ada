@@ -24,6 +24,7 @@
 - [`Get_Time_Profile`](#get_time_profile)
 - [`Set_Time_Profile`](#set_time_profile)
 - [`Clear_Time_Profiles`](#clear_time_profiles)
+- [`Add_Task`](#add_task)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -997,6 +998,70 @@ where:
 ```
 
 Returns `True` if the profile was added or updated.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Add_Task`
+
+**Add_Task** adds scheduled task to the controller task list.
+
+```
+function Add_Task (U       : UHPPOTE;
+                   C       : Unsigned_32;
+                   T       : Task_Record;
+                   Timeout : Duration) return Boolean;
+
+function Add_Task (U       : UHPPOTE;
+                   C       : Controller;
+                   T       : Task_Record;
+                   Timeout : Duration) return Boolean;
+
+where:
+- U     UHPPOTE        UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C     Unsigned_32    Controller serial number.
+- C     Controller     Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- T     Task_Record    Task record for task to be added.
+
+   type Task_Record is record
+      Task_ID        : Task_Type;
+      Start_Date     : DateOnly;
+      End_Date       : DateOnly;
+      Weekdays       : Weekdays_Type;
+      Start_Time     : HHmm;
+      Door           : Unsigned_8;
+      More_Cards     : Unsigned_8;
+   end record;
+
+   type Task_Type is (Door_Controlled,
+                      Door_Normally_Open,
+                      Door_Normally_Closed,
+                      Disable_Time_Profile,
+                      Enable_Time_Profile,
+                      Card_No_Password,
+                      Card_In_Password,
+                      Card_InOut_Password,
+                      Enable_More_Cards,
+                      Disable_More_Cards,
+                      Trigger_Once,
+                      Disable_PushButton,
+                      Enable_PushButton);
+
+   type Weekdays_Type is record
+      Monday          : Boolean;
+      Tuesday         : Boolean;
+      Wednesday       : Boolean;
+      Thursday        : Boolean;
+      Friday          : Boolean;
+      Saturday        : Boolean;
+      Sunday          : Boolean;
+   end record;
+
+```
+
+Returns `True` if the task was added to the _pending_ list of tasks.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

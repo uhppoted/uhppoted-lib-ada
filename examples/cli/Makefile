@@ -27,6 +27,7 @@ EVENT_INDEX ?= 23
 RECORD_SPECIAL_EVENTS ?= yes
 TIME_PROFILE_ID ?= 29
 TIME_PROFILE ?= 2026-01-01,2026-12-31,[Mon,Tues,Fri],[08:30-16:45,19:15-22:00],17
+TASK ?= unlock door,2026-01-01,2026-12-31,[Mon,Tues,Fri],08:30,3,13
 
 clean:
 	alr clean
@@ -108,6 +109,9 @@ set-time-profile: build
 
 clear-time-profiles: build
 	$(CLI) clear-time-profiles --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+
+add-task: build
+	$(CLI) add-task --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --task "$(TASK)"
 
 restore-default-parameters: build
 	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)

@@ -382,6 +382,42 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Clear_Time_Profiles;
 
+   --  Encodes an add-task request as a 64 byte array.
+   function Add_Task (Controller : Unsigned_32;
+                      Task_ID    : Task_Type;
+                      Start_Date : DateOnly;
+                      End_Date   : DateOnly;
+                      Monday     : Boolean;
+                      Tuesday    : Boolean;
+                      Wednesday  : Boolean;
+                      Thursday   : Boolean;
+                      Friday     : Boolean;
+                      Saturday   : Boolean;
+                      Sunday     : Boolean;
+                      Start_Time : HHmm;
+                      Door       : Unsigned_8;
+                      More_Cards : Unsigned_8) return Uhppoted.Lib.Types.Packet is
+      Request : Add_Task_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Task_ID    := Task_ID;
+      Request.Start_Date := Pack_Date (Start_Date);
+      Request.End_Date   := Pack_Date (End_Date);
+      Request.Monday     := Pack_Boolean (Monday);
+      Request.Tuesday    := Pack_Boolean (Tuesday);
+      Request.Wednesday  := Pack_Boolean (Wednesday);
+      Request.Thursday   := Pack_Boolean (Thursday);
+      Request.Friday     := Pack_Boolean (Friday);
+      Request.Saturday   := Pack_Boolean (Saturday);
+      Request.Sunday     := Pack_Boolean (Sunday);
+      Request.Start_Time := Pack_HHmm (Start_Time);
+      Request.Door       := Door;
+      Request.More_Cards := More_Cards;
+
+      return Buffer;
+   end Add_Task;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;

@@ -1,4 +1,3 @@
-with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings.Fixed;
 with Ada.Characters.Handling;
 with GNAT.Regpat;
@@ -8,6 +7,14 @@ package body ArgParse is
    use Ada.Characters.Handling;
 
    use Uhppoted.Lib;
+
+   Invalid_Argument : exception;
+
+   function To_HHmm (S : String) return Uhppoted.Lib.HHmm is
+   begin
+      return (Hour   => Unsigned_8'Value (S (S'First .. S'First + 1)),
+              Minute => Unsigned_8'Value (S (S'First + 3 .. S'First + 4)));
+   end To_HHmm;
 
    function Parse (Cmd : String) return Args is
       Config               : Command_Line_Configuration;
@@ -48,6 +55,8 @@ package body ArgParse is
          return Parse_Get_Time_Profile;
       elsif Cmd = "set-time-profile" then
          return Parse_Set_Time_Profile;
+      elsif Cmd = "add-task" then
+         return Parse_Add_Task;
       end if;
 
       --  default to general command
@@ -792,34 +801,30 @@ package body ArgParse is
             Token : constant String  := (if IX = 0 then Segments else Segments (Segments'First .. IX - 1));
          begin
             if Token'Length = 11 then
-               Segment_1 := (Start_Time => (Hour   => Unsigned_8'Value (Token (Token'First .. Token'First + 1)),
-                                            Minute => Unsigned_8'Value (Token (Token'First + 3 .. Token'First + 4))),
-                             End_Time   => (Hour   => Unsigned_8'Value (Token (Token'First + 6 .. Token'First + 7)),
-                                            Minute => Unsigned_8'Value (Token (Token'First + 9 .. Token'First +  10))));
+               Segment_1 := (Start_Time => To_HHmm (Token (Token'First .. Token'First + Token'First + 4)),
+                             End_Time   => To_HHmm (Token (Token'First + 6 .. Token'First + 10)));
             end if;
 
             if IX /= 0 then
                declare
                   JX    : constant Natural := Ada.Strings.Fixed.Index (Segments (IX + 1 .. Segments'Last), ",");
-                  Token : constant String := (if JX = 0 then Segments (IX + 1 .. Segments'Last) else Segments (IX + 1 .. JX - 1));
+                  Token : constant String := (if JX = 0 then Segments (IX + 1 .. Segments'Last)
+                                                        else Segments (IX + 1 .. JX - 1));
                begin
                   if Token'Length = 11 then
-                     Segment_2 := (Start_Time => (Hour   => Unsigned_8'Value (Token (Token'First .. Token'First + 1)),
-                                                  Minute => Unsigned_8'Value (Token (Token'First + 3 .. Token'First + 4))),
-                                   End_Time   => (Hour   => Unsigned_8'Value (Token (Token'First + 6 .. Token'First + 7)),
-                                                  Minute => Unsigned_8'Value (Token (Token'First + 9 .. Token'First + 10))));
+                     Segment_2 := (Start_Time => To_HHmm (Token (Token'First .. Token'First + 4)),
+                                   End_Time   => To_HHmm (Token (Token'First + 6 .. Token'First + 10)));
                   end if;
 
                   if JX /= 0 then
                      declare
                         KX    : constant Natural := Ada.Strings.Fixed.Index (Segments (JX + 1 .. Segments'Last), ",");
-                        Token : constant String := (if KX = 0 then Segments (JX + 1 .. Segments'Last) else Segments (JX + 1 .. KX - 1));
+                        Token : constant String := (if KX = 0 then Segments (JX + 1 .. Segments'Last)
+                                                              else Segments (JX + 1 .. KX - 1));
                      begin
                         if Token'Length = 11 then
-                           Segment_3 := (Start_Time => (Hour   => Unsigned_8'Value (Token (Token'First .. Token'First + 1)),
-                                                        Minute => Unsigned_8'Value (Token (Token'First + 3 .. Token'First + 4))),
-                                         End_Time   => (Hour   => Unsigned_8'Value (Token (Token'First + 6 .. Token'First + 7)),
-                                                        Minute => Unsigned_8'Value (Token (Token'First + 9 .. Token'First + 10))));
+                           Segment_3 := (Start_Time => To_HHmm (Token (Token'First .. Token'First + 4)),
+                                         End_Time   => To_HHmm (Token (Token'First + 6 .. Token'First + 10)));
                         end if;
                      end;
                   end if;
@@ -855,5 +860,102 @@ package body ArgParse is
       end;
 
    end Parse_Set_Time_Profile;
+
+   function Parse_Add_Task return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      TaskT                : aliased String_Access := null;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => TaskT'Access,
+                     Long_Switch => "--task:",
+                     Help        => "scheduled task definition",
+                     Argument    => "<start>,<end>,[<weekdays>],[<segments>],<linked>");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return add-task command specific args
+      declare
+         S       : String renames TaskT.all;
+         Task_ID : Uhppoted.Lib.Task_Type;
+
+         I : constant Natural := Ada.Strings.Fixed.Index (S, ",", 1);
+         J : constant Natural := Ada.Strings.Fixed.Index (S, ",", I + 1);
+         K : constant Natural := Ada.Strings.Fixed.Index (S, "[", J + 1);
+         L : constant Natural := Ada.Strings.Fixed.Index (S, "],", K + 1);
+         M : constant Natural := Ada.Strings.Fixed.Index (S, ",", L + 2);
+         N : constant Natural := Ada.Strings.Fixed.Index (S, ",", M + 1);
+
+         Token_1    : constant String (1 .. I - 1)     := S (1 .. I - 1);
+         Start_Date : constant String (1 .. J - I - 1) := S (I + 1 .. J - 1);
+         End_Date   : constant String (1 .. K - J - 1) := S (J + 1 .. K - 1);
+         Weekdays   : constant String (1 .. L - K - 1) := S (K + 1 .. L - 1);
+         Start_Time : constant String (1 .. M - L - 2) := S (L + 2 .. M - 1);
+         Door       : constant String (1 .. N - M - 1) := S (M + 1 .. N - 1);
+         More_Cards : constant String                  := S (N + 1 .. S'Last);
+      begin
+         if Token_1 = "control door" then
+            Task_ID := Uhppoted.Lib.Door_Controlled;
+         elsif Token_1 = "unlock door" then
+            Task_ID := Uhppoted.Lib.Door_Normally_Open;
+         elsif Token_1 = "lock door" then
+            Task_ID := Uhppoted.Lib.Door_Normally_Closed;
+         elsif Token_1 = "disable time profiles" then
+            Task_ID := Uhppoted.Lib.Disable_Time_Profile;
+         elsif Token_1 = "enable time profiles" then
+            Task_ID := Enable_Time_Profile;
+         elsif Token_1 = "enable card (no PIN)" then
+            Task_ID := Card_No_Password;
+         elsif Token_1 = "enable card IN PIN" then
+            Task_ID := Card_In_Password;
+         elsif Token_1 = "enable card PIN" then
+            Task_ID := Card_InOut_Password;
+         elsif Token_1 = "enable more cards" then
+            Task_ID := Enable_More_Cards;
+         elsif Token_1 = "disable more cards" then
+            Task_ID := Disable_More_Cards;
+         elsif Token_1 = "trigger once" then
+            Task_ID := Trigger_Once;
+         elsif Token_1 = "disable pushbutton" then
+            Task_ID := Disable_PushButton;
+         elsif Token_1 = "enable pushbutton" then
+            Task_ID := Enable_PushButton;
+         else
+            raise Invalid_Argument with "invalid task type";
+         end if;
+
+         return (T           => ArgParse.Add_Task_Args,
+                 Controller  => C,
+                 Door        => 0,
+                 Card        => (others => <>),
+                 Event_Index => 0,
+                 Profile_ID  => 0,
+                 TaskT       => (Task_ID    => Task_ID,
+                                 Start_Date => (Year  => Unsigned_16'Value (Start_Date (1 .. 4)),
+                                                Month => Unsigned_8'Value  (Start_Date (6 .. 7)),
+                                                Day   => Unsigned_8'Value  (Start_Date (9 .. 10))),
+                                 End_Date   => (Year  => Unsigned_16'Value (End_Date (1 .. 4)),
+                                                Month => Unsigned_8'Value  (End_Date (6 .. 7)),
+                                                Day   => Unsigned_8'Value  (End_Date (9 .. 10))),
+                                 Weekdays   => (Monday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "MON") > 0,
+                                                Tuesday   => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "TUE") > 0,
+                                                Wednesday => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "WED") > 0,
+                                                Thursday  => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "THU") > 0,
+                                                Friday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "FRI") > 0,
+                                                Saturday  => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "SAT") > 0,
+                                                Sunday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "SUN") > 0),
+                                 Start_Time => To_HHmm (Start_Time),
+                                 Door       => Unsigned_8'Value (Door),
+                                 More_Cards => Unsigned_8'Value (More_Cards)));
+      end;
+
+   end Parse_Add_Task;
 
 end ArgParse;

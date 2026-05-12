@@ -144,6 +144,9 @@ func args(t lib.RequestTest) []arg {
 		case "mode":
 			args = append(args, arg{fmt.Sprintf("To_Control_Mode (%v)", a.Value), comma})
 
+		case "task":
+			args = append(args, arg{fmt.Sprintf("To_Task_Type (%v)", a.Value), comma})
+
 		case "address:port":
 			{
 				addrPort := netip.MustParseAddrPort(fmt.Sprintf("%v", a.Value))
@@ -153,7 +156,7 @@ func args(t lib.RequestTest) []arg {
 			}
 
 		case "bool":
-			args = append(args, arg{boolean(a.Value), comma})
+			args = append(args, arg{codegen.Boolean(a.Value), comma})
 
 		default:
 			args = append(args, arg{fmt.Sprintf("%v", a.Value), comma})
@@ -207,16 +210,4 @@ func HHmm(v any) string {
 
 		return fmt.Sprintf("(Hour => %v, Minute => %v)", uint8(hour), uint8(minute))
 	}
-}
-
-func boolean(v any) string {
-	if b, ok := v.(bool); ok {
-		if b {
-			return "True"
-		} else {
-			return "False"
-		}
-	}
-
-	panic(fmt.Sprintf("invalid bool (%v)", v))
 }

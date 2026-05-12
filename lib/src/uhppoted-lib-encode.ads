@@ -124,6 +124,22 @@ package Uhppoted.Lib.Encode is
    --  Encodes a clear-time-profiles request as a 64 byte array.
    function Clear_Time_Profiles (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes an add-task request as a 64 byte array.
+   function Add_Task (Controller : Unsigned_32;
+                      Task_ID    : Task_Type;
+                      Start_Date : DateOnly;
+                      End_Date   : DateOnly;
+                      Monday     : Boolean;
+                      Tuesday    : Boolean;
+                      Wednesday  : Boolean;
+                      Thursday   : Boolean;
+                      Friday     : Boolean;
+                      Saturday   : Boolean;
+                      Sunday     : Boolean;
+                      Start_Time : HHmm;
+                      Door       : Unsigned_8;
+                      More_Cards : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 

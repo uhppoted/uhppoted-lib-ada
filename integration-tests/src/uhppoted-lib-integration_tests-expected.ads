@@ -234,6 +234,8 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Clear_Time_Profiles : constant Boolean := True;
 
+   Add_Task : constant Boolean := True;
+
    Restore_Default_Parameters : constant Boolean := True;
 
 end Uhppoted.Lib.Integration_Tests.Expected;

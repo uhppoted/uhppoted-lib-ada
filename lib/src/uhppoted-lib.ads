@@ -41,17 +41,34 @@ package Uhppoted.Lib is
    subtype Listener_Record        is Uhppoted.Types.Listener_Record;
    subtype Time_Profile           is Uhppoted.Types.Time_Profile;
    subtype Time_Segment           is Uhppoted.Types.Segment;
+   subtype Task_Record            is Uhppoted.Types.Task_Record;
    subtype Signal                 is Uhppoted.Types.Signal;
 
    procedure Trigger (S : in out Signal) renames Uhppoted.Types.Trigger;
 
    subtype DateTime       is Uhppoted.Types.DateTime;
+   subtype HHmm           is Uhppoted.Types.HHmm;
    subtype Control_Mode   is Uhppoted.Types.Control_Mode;
    subtype Passcodes_List is Uhppoted.Types.Passcodes_List;
+   subtype Task_Type      is Uhppoted.Types.Task_Type;
 
-   Normally_Open   : Control_Mode renames Uhppoted.Types.Normally_Open;
-   Normally_Closed : Control_Mode renames Uhppoted.Types.Normally_Closed;
-   Controlled      : Control_Mode renames Uhppoted.Types.Controlled;
+   Normally_Open        : Control_Mode renames Uhppoted.Types.Normally_Open;
+   Normally_Closed      : Control_Mode renames Uhppoted.Types.Normally_Closed;
+   Controlled           : Control_Mode renames Uhppoted.Types.Controlled;
+
+   Door_Controlled      : Task_Type renames Uhppoted.Types.Door_Controlled;
+   Door_Normally_Open   : Task_Type renames Uhppoted.Types.Door_Normally_Open;
+   Door_Normally_Closed : Task_Type renames Uhppoted.Types.Door_Normally_Closed;
+   Disable_Time_Profile : Task_Type renames Uhppoted.Types.Disable_Time_Profile;
+   Enable_Time_Profile  : Task_Type renames Uhppoted.Types.Enable_Time_Profile;
+   Card_No_Password     : Task_Type renames Uhppoted.Types.Card_No_Password;
+   Card_In_Password     : Task_Type renames Uhppoted.Types.Card_In_Password;
+   Card_InOut_Password  : Task_Type renames Uhppoted.Types.Card_InOut_Password;
+   Enable_More_Cards    : Task_Type renames Uhppoted.Types.Enable_More_Cards;
+   Disable_More_Cards   : Task_Type renames Uhppoted.Types.Disable_More_Cards;
+   Trigger_Once         : Task_Type renames Uhppoted.Types.Trigger_Once;
+   Disable_PushButton   : Task_Type renames Uhppoted.Types.Disable_PushButton;
+   Enable_PushButton    : Task_Type renames Uhppoted.Types.Enable_PushButton;
 
    Invalid_Address_Error        : exception renames Uhppoted.Types.Invalid_Address_Error;
    Card_Not_Found_Error         : exception renames Uhppoted.Types.Card_Not_Found_Error;
@@ -845,6 +862,38 @@ package Uhppoted.Lib is
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
    --
    --  @return            True if the stored profiles were cleared.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
+
+   function Add_Task (U       : UHPPOTE;
+                      C       : Unsigned_32;
+                      T       : Task_Record;
+                      Timeout : Duration := 2.5) return Boolean;
+   --  Creates a scheduled task assigned to a controller managed door. Restricted to the local LAN.
+   --
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number.
+   --  @param  T        Task record.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          True if the task was added to the list of scheduled tasks.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
+
+   function Add_Task (U       : UHPPOTE;
+                      C       : Controller;
+                      T       : Task_Record;
+                      Timeout : Duration := 2.5) return Boolean;
+   --  Creates a scheduled task assigned to a controller managed door.
+   --
+   --  @param  U        UHPPOTE configuration.
+   --  @param  C        Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  T        Task record.
+   --  @param  Timeout  Operation timeout (defaults to 2.5s).
+   --
+   --  @return          True if the task was added to the list of scheduled tasks.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.

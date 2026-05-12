@@ -239,6 +239,12 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for an add-task response.
+   type Add_Task_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
    --  Message definition for a listener-event message.
    type Listener_Event is record
       Controller           : Unsigned_32;

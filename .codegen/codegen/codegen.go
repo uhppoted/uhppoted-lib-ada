@@ -177,6 +177,16 @@ func Boolean(v any) string {
 		}
 	}
 
+	if b, ok := v.(string); ok {
+		if b == "true" {
+			return "True"
+		}
+
+		if b == "false" {
+			return "False"
+		}
+	}
+
 	panic(fmt.Sprintf("invalid boolean (%v)", v))
 }
 

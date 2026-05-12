@@ -436,6 +436,30 @@ package body Handlers is
       Put_Line ("                 ok: " & R'Image);
    end Clear_Time_Profiles;
 
+   --  Executes the add-task command.
+   procedure Add_Task (Args : ArgParse.Args) is
+      R : constant Boolean := Add_Task (U, Args.Controller, Args.TaskT, Timeout);
+   begin
+      Put_Line ("--- add-task ");
+      Put_Line ("         controller:" & Args.Controller.ID'Image);
+      Put_Line ("               task: " & Args.TaskT.Task_ID'Image);
+      Put_Line ("               door:" & Args.TaskT.Door'Image);
+      Put_Line ("         start-date: " & Image (Args.TaskT.Start_Date));
+      Put_Line ("           end-date: " & Image (Args.TaskT.End_Date));
+      Put_Line ("             monday: " & Args.TaskT.Weekdays.Monday'Image);
+      Put_Line ("            tuesday: " & Args.TaskT.Weekdays.Tuesday'Image);
+      Put_Line ("          wednesday: " & Args.TaskT.Weekdays.Wednesday'Image);
+      Put_Line ("           thursday: " & Args.TaskT.Weekdays.Thursday'Image);
+      Put_Line ("             friday: " & Args.TaskT.Weekdays.Friday'Image);
+      Put_Line ("           saturday: " & Args.TaskT.Weekdays.Saturday'Image);
+      Put_Line ("             sunday: " & Args.TaskT.Weekdays.Sunday'Image);
+      Put_Line ("         start time: " & Image (Args.TaskT.Start_Time));
+      Put_Line ("         more cards:" & Args.TaskT.More_Cards'Image);
+      Put_Line ("");
+      Put_Line ("                 ok: " & R'Image);
+   end Add_Task;
+
+
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is
       R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);

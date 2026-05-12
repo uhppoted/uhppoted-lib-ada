@@ -40,6 +40,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Get_Time_Profile'Access, "test encode Get_Time_Profile request");
       Register_Routine (T, Test_Encode_Set_Time_Profile'Access, "test encode Set_Time_Profile request");
       Register_Routine (T, Test_Encode_Clear_Time_Profiles'Access, "test encode Clear_Time_Profiles request");
+      Register_Routine (T, Test_Encode_Add_Task'Access,         "test encode Add_Task request");
       Register_Routine (T, Test_Encode_Restore_Default_Parameters'Access, "test encode Restore_Default_Parameters request");
    end Register_Tests;
 
@@ -546,6 +547,35 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded clear-time-profiles request: got" & Request'Image);
    end Test_Encode_Clear_Time_Profiles;
+
+   procedure Test_Encode_Add_Task (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#a8#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#20#, 16#25#, 16#01#, 16#01#, 16#20#, 16#25#, 16#12#, 16#31#,
+         16#01#, 16#01#, 16#00#, 16#01#, 16#00#, 16#01#, 16#01#, 16#08#,  16#45#, 16#03#, 16#02#, 16#07#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Add_Task (
+         405419896,
+         To_Task_Type (2),
+         (Year => 2025, Month => 1, Day => 1),
+         (Year => 2025, Month => 12, Day => 31),
+         True,
+         True,
+         False,
+         True,
+         False,
+         True,
+         True,
+         (Hour => 8, Minute => 45),
+         3,
+         7);
+   begin
+      Assert (Request = Expected, "incorrectly encoded add-task request: got" & Request'Image);
+   end Test_Encode_Add_Task;
 
    procedure Test_Encode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

@@ -221,12 +221,6 @@ package Uhppoted.Lib.Responses is
       Linked_Profile  : Unsigned_8;
    end record;
 
-   --  Message definition for a restore-default-parameters response.
-   type Restore_Default_Parameters_Response is record
-      Controller : Unsigned_32;
-      Ok         : Boolean;
-   end record;
-
    --  Message definition for a set-time-profile response.
    type Set_Time_Profile_Response is record
       Controller : Unsigned_32;
@@ -241,6 +235,18 @@ package Uhppoted.Lib.Responses is
 
    --  Message definition for an add-task response.
    type Add_Task_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
+   --  Message definition for a refresh-tasklist response.
+   type Refresh_Task_List_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
+   --  Message definition for a restore-default-parameters response.
+   type Restore_Default_Parameters_Response is record
       Controller : Unsigned_32;
       Ok         : Boolean;
    end record;

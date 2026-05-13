@@ -140,6 +140,9 @@ package Uhppoted.Lib.Encode is
                       Door       : Unsigned_8;
                       More_Cards : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a refresh-tasklist request as a 64 byte array.
+   function Refresh_Task_List (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 

@@ -33,7 +33,7 @@ var Requests = []types.Request{
 	lib.SetTimeProfileRequest,
 	lib.ClearTimeProfilesRequest,
 	lib.AddTaskRequest,
-	// RefreshTaskListRequest,
+	lib.RefreshTaskListRequest,
 	// ClearTaskListRequest,
 	// SetPCControlRequest,
 	// SetInterlockRequest,

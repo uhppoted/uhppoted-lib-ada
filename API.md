@@ -25,6 +25,7 @@
 - [`Set_Time_Profile`](#set_time_profile)
 - [`Clear_Time_Profiles`](#clear_time_profiles)
 - [`Add_Task`](#add_task)
+- [`Refresh_Task_List`](#refresh_task_list)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -1004,6 +1005,32 @@ Raises:
 - `Invalid_Response_Error` if the returned response is incorrect
 
 
+### `Clear_Time_Profile`
+
+**Clear_Time_Profile** clears all time profiles stored on a controller.
+
+```
+function Clear_Time_Profile (U         : UHPPOTE;
+                             C         : Unsigned_32;
+                             Timeout   : Duration) return Unsigned_32;
+
+function Clear_Time_Profile (U         : UHPPOTE;
+                             C         : Controller;
+                             Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
+
+Returns `True` if the controller time profiles were cleared.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
 ### `Add_Task`
 
 **Add_Task** adds scheduled task to the controller task list.
@@ -1068,18 +1095,18 @@ Raises:
 - `Invalid_Response_Error` if the returned response is incorrect
 
 
-### `Clear_Time_Profile`
+### `Refresh_Task_list`
 
-**Clear_Time_Profile** clears all time profiles stored on a controller.
+**Refresh_Task_list** moves scheduled tasks and first-cards from the _pending_ list to the _active_ list.
 
 ```
-function Clear_Time_Profile (U         : UHPPOTE;
-                             C         : Unsigned_32;
-                             Timeout   : Duration) return Unsigned_32;
+function Refresh_Task_list (U         : UHPPOTE;
+                            C         : Unsigned_32;
+                            Timeout   : Duration) return Unsigned_32;
 
-function Clear_Time_Profile (U         : UHPPOTE;
-                             C         : Controller;
-                             Timeout   : Duration) return Unsigned_32;
+function Refresh_Task_list (U         : UHPPOTE;
+                            C         : Controller;
+                            Timeout   : Duration) return Unsigned_32;
 
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
@@ -1087,7 +1114,33 @@ where:
 - C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
 ```
 
-Returns `True` if the controller time profiles were cleared.
+Returns `True` if the _pending_ list was flushed to the _active_ list.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Restore_Default_Parameters`
+
+**Restore_Default_Parameters** resets the controller to the manufacturer default settings.
+
+```
+function Restore_Default_Parameters (U         : UHPPOTE;
+                                     C         : Unsigned_32;
+                                     Timeout   : Duration) return Unsigned_32;
+
+function Restore_Default_Parameters (U         : UHPPOTE;
+                                     C         : Controller;
+                                     Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
+
+Returns `True` if the controller was reset to the manufacturer defaults.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

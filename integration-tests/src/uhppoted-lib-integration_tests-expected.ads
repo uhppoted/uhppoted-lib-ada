@@ -236,7 +236,8 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Add_Task : constant Boolean := True;
 
+   Refresh_Task_List : constant Boolean := True;
+
    Restore_Default_Parameters : constant Boolean := True;
 
 end Uhppoted.Lib.Integration_Tests.Expected;
-

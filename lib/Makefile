@@ -109,6 +109,9 @@ clear-time-profiles: build
 add-task: build
 	cd ../examples/cli && make add-task CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) TASK="$(TASK)"
 
+refresh-tasklist: build
+	cd ../examples/cli && make refresh-tasklist CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+
 restore-default-parameters: build
 	cd ../examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
 

@@ -459,6 +459,15 @@ package body Handlers is
       Put_Line ("                 ok: " & R'Image);
    end Add_Task;
 
+   --  Executes the refresh-tasklist command.
+   procedure Refresh_Task_List (Args : ArgParse.Args) is
+      R : constant Boolean := Refresh_Task_List (U, Args.Controller,  Timeout);
+   begin
+      Put_Line ("--- refresh-tasklist");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("         ok: " & R'Image);
+      Put_Line ("");
+   end Refresh_Task_List;
 
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is

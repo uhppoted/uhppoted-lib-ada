@@ -69,6 +69,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Set_Time_Profile'Access,            "Set_Time_Profile");
       Register_Routine (T, Test_Clear_Time_Profiles'Access,         "Clear_Time_Profiles");
       Register_Routine (T, Test_Add_Task'Access,                    "Add_Task");
+      Register_Routine (T, Test_Refresh_Task_List'Access,           "Refresh_Task_List");
       Register_Routine (T, Test_Restore_Default_Parameters'Access,  "Restore_Default_Parameters");
       Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
@@ -122,7 +123,11 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                                Port => Port),
                                   Protocol => Uhppoted.Lib.TCP);
 
-      V : constant Boolean := Set_IPv4 (U, C, Inet_Addr ("192.168.1.125"), Inet_Addr ("255.255.255.0"), Inet_Addr ("192.168.1.1"), 0.5);
+      Address : constant Inet_Addr_Type := Inet_Addr ("192.168.1.125");
+      Netmask : constant Inet_Addr_Type := Inet_Addr ("255.255.255.0");
+      Gateway : constant Inet_Addr_Type := Inet_Addr ("192.168.1.1");
+
+      V : constant Boolean := Set_IPv4 (U, C, Address, Netmask, Gateway, 0.5);
    begin
       Assert (V = Expected.Set_IPv4, "invalid result" & V'Image);
    end Test_Set_IPv4;
@@ -486,7 +491,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
                                   Protocol => Uhppoted.Lib.TCP);
 
       TaskT : constant Uhppoted.Lib.Task_Record := (
-			Task_ID    => To_Task_Type (2),
+         Task_ID    => To_Task_Type (2),
          Start_Date => (Year => 2025, Month => 1, Day => 1),
          End_Date   => (Year => 2025, Month => 12, Day => 31),
          Weekdays   => (Monday    => True,
@@ -504,6 +509,20 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.Add_Task, "invalid result" & V'Image);
    end Test_Add_Task;
+
+   procedure Test_Refresh_Task_List (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Boolean := Refresh_Task_List (U, C, 0.5);
+   begin
+      Assert (V = Expected.Refresh_Task_List, "invalid result" & V'Image);
+   end Test_Refresh_Task_List;
 
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
       pragma Unreferenced (T);

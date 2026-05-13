@@ -37,6 +37,7 @@ package Uhppoted.Lib.Decode.Tests is
    procedure Test_Decode_Set_Time_Profile (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Clear_Time_Profiles (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Add_Task (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Decode_Refresh_Tasklist (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Listener_Event (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Listener_Event_V6_62 (T : in out AUnit.Test_Cases.Test_Case'Class);

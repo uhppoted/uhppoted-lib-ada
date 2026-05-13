@@ -74,6 +74,7 @@ var translations = map[string]string{
 	"set time profile response":           "Boolean",
 	"clear time profiles response":        "Boolean",
 	"add task response":                   "Boolean",
+	"refresh task list response":          "Boolean",
 	"restore default parameters response": "Boolean",
 }
 
@@ -243,6 +244,29 @@ func transmogrify(functions []lib.Function) []test {
 
 func vars(t lib.FuncTest) []any {
 	m := []any{}
+
+	if t.Name == "set-IPv4" {
+		var address any
+		var netmask any
+		var gateway any
+
+		for _, v := range t.Args {
+			switch {
+			case v.Name == "address":
+				address = fmt.Sprintf(`Inet_Addr ("%v")`, v.Value)
+
+			case v.Name == "netmask":
+				netmask = fmt.Sprintf(`Inet_Addr ("%v")`, v.Value)
+
+			case v.Name == "gateway":
+				gateway = fmt.Sprintf(`Inet_Addr ("%v")`, v.Value)
+			}
+		}
+
+		m = append(m, fmt.Sprintf("Address : constant Inet_Addr_Type := %v;", address))
+		m = append(m, fmt.Sprintf("Netmask : constant Inet_Addr_Type := %v;", netmask))
+		m = append(m, fmt.Sprintf("Gateway : constant Inet_Addr_Type := %v;", gateway))
+	}
 
 	if t.Name == "set-door-passcodes" {
 		passcodes := map[uint8]any{}
@@ -466,7 +490,7 @@ func vars(t lib.FuncTest) []any {
 		}
 
 		m = append(m, fmt.Sprintf(`TaskT : constant Uhppoted.Lib.Task_Record := (
-			Task_ID    => %v,
+         Task_ID    => %v,
          Start_Date => %v,
          End_Date   => %v,
          Weekdays   => (Monday    => %v,
@@ -495,6 +519,11 @@ func args(t lib.FuncTest) []any {
 
 	for _, v := range t.Args {
 		switch {
+		case t.Name == "set-IPv4" && v.Name == "address":
+		case t.Name == "set-IPv4" && v.Name == "netmask":
+		case t.Name == "set-IPv4" && v.Name == "gateway":
+			// SKIP
+
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 1":
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 2":
 		case t.Name == "set-door-passcodes" && v.Name == "passcode 3":
@@ -562,6 +591,12 @@ func args(t lib.FuncTest) []any {
 		default:
 			args = append(args, v.Value)
 		}
+	}
+
+	if t.Name == "set-IPv4" {
+		args = append(args, "Address")
+		args = append(args, "Netmask")
+		args = append(args, "Gateway")
 	}
 
 	if t.Name == "set-door-passcodes" {

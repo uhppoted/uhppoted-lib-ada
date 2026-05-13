@@ -898,6 +898,34 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
 
+   function Refresh_Task_List (U       : UHPPOTE;
+                               C       : Unsigned_32;
+                               Timeout : Duration := 2.5) return Boolean;
+   --  Moves pending tasks and first-cards from the pending list to the active list. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if pending list for tasks and first-cards was flushed to the active list.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Refresh_Task_List (U       : UHPPOTE;
+                               C       : Controller;
+                               Timeout : Duration := 2.5) return Boolean;
+   --  Moves pending tasks and first-cards from the pending list to the active list.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if pending list for tasks and first-cards was flushed to the active list.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;
                                         Timeout : Duration := 2.5) return Boolean;

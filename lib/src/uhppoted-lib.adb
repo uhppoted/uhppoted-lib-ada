@@ -924,6 +924,33 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Add_Task;
 
+   --  Moves pending tasks and first-cards from the pending list to the active list. Restricted to the local LAN.
+   function Refresh_Task_List (U       : UHPPOTE;
+                               C       : Unsigned_32;
+                               Timeout : Duration := 2.5) return Boolean is
+   begin
+      return Refresh_Task_List (U, To_Controller (C), Timeout);
+   end Refresh_Task_List;
+
+   --  Moves pending tasks and first-cards from the pending list to the active list.
+   function Refresh_Task_List (U       : UHPPOTE;
+                               C       : Controller;
+                               Timeout : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Refresh_Task_List (C.ID);
+      Reply   : Packet;
+      R       : Refresh_Task_List_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Refresh_Task_List (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Refresh_Task_List;
+
+   --  Resets the controller to the manufacturer settings. Restricted to the local LAN.
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;
                                         Timeout : Duration := 2.5) return Boolean is

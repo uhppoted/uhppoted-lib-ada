@@ -25,7 +25,10 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Get_Door'Access,         "test encode Get_Door request");
       Register_Routine (T, Test_Encode_Set_Door'Access,         "test encode Set_Door request");
       Register_Routine (T, Test_Encode_Set_Door_Passcodes'Access, "test encode Set_Door_Passcodes request");
-      Register_Routine (T, Test_Encode_Set_Door_Passcodes_With_Invalid_Passcode'Access, "test encode Set_Door_Passcodes_With_Invalid_Passcode request");
+      Register_Routine (T,
+                        Test_Encode_Set_Door_Passcodes_With_Invalid_Passcode'Access,
+                        "test encode Set_Door_Passcodes_With_Invalid_Passcode request");
+
       Register_Routine (T, Test_Encode_Open_Door'Access,        "test encode Open_Door request");
       Register_Routine (T, Test_Encode_Get_Cards'Access,        "test encode Get_Cards request");
       Register_Routine (T, Test_Encode_Get_Card'Access,         "test encode Get_Card request");
@@ -41,6 +44,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Set_Time_Profile'Access, "test encode Set_Time_Profile request");
       Register_Routine (T, Test_Encode_Clear_Time_Profiles'Access, "test encode Clear_Time_Profiles request");
       Register_Routine (T, Test_Encode_Add_Task'Access,         "test encode Add_Task request");
+      Register_Routine (T, Test_Encode_Refresh_Task_List'Access, "test encode Refresh_Task_List request");
       Register_Routine (T, Test_Encode_Restore_Default_Parameters'Access, "test encode Restore_Default_Parameters request");
    end Register_Tests;
 
@@ -576,6 +580,22 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded add-task request: got" & Request'Image);
    end Test_Encode_Add_Task;
+
+   procedure Test_Encode_Refresh_Task_List (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#ac#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#55#, 16#aa#, 16#aa#, 16#55#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Refresh_Task_List (
+         405419896);
+   begin
+      Assert (Request = Expected, "incorrectly encoded refresh-task-list request: got" & Request'Image);
+   end Test_Encode_Refresh_Task_List;
 
    procedure Test_Encode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

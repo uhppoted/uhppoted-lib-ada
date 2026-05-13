@@ -1,6 +1,5 @@
 with Ada.Exceptions;
 with AUnit.Assertions;
-with GNAT.Sockets;
 
 with Uhppoted.Lib.Integration_Tests.Stub;
 with Uhppoted.Lib.Integration_Tests.Expected;
@@ -157,8 +156,8 @@ end Uhppoted.Lib.Integration_Tests.Default;
 {{ define "unittest" }}
    procedure Test_{{ printf "%v" .Name }} (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
-{{ range $var := .Vars }}
-      {{ $var }}
+{{ if gt (len .Vars) 0 }}{{ range $var := .Vars }}
+      {{ $var }}{{ end }}
 {{ end }}
       V : constant {{ .Returns.Type }} := {{ .Function }} (U{{ range $arg := .Args }}, {{ $arg }}{{ end }}, 0.5);
    begin

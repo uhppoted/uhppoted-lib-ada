@@ -47,6 +47,7 @@ private
    procedure Test_Set_Time_Profile    (T : in out Test_Case'Class);
    procedure Test_Clear_Time_Profiles (T : in out Test_Case'Class);
    procedure Test_Add_Task            (T : in out Test_Case'Class);
+   procedure Test_Refresh_Task_List   (T : in out Test_Case'Class);
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class);
 
 end Uhppoted.Lib.Integration_Tests.Default;

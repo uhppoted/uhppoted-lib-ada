@@ -20,8 +20,12 @@ package body Uhppoted.Lib.Encode.Tests is
 end Uhppoted.Lib.Encode.Tests;
 
 {{- define "register"}}
-{{- range $test := .Tests }}
-      Register_Routine (T, {{ printf "Test_Encode_%s'Access," $test.Name | rpad 36 }} "{{ $test.Description }}");
+{{- range $test := .Tests }}{{ if gt (len .Name) 30 }}
+      Register_Routine (T,
+                        {{ printf "Test_Encode_%s'Access," .Name }}
+                        "{{ .Description }}");
+{{ else }}
+      Register_Routine (T, {{ printf "Test_Encode_%s'Access," .Name | rpad 36 }} "{{ .Description }}");{{ end }}
 {{- end }}{{end}}
 
 {{- define "unittest"}}

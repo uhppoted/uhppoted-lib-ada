@@ -113,6 +113,9 @@ clear-time-profiles: build
 add-task: build
 	$(CLI) add-task --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --task "$(TASK)"
 
+refresh-tasklist: build
+	$(CLI) refresh-tasklist --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+
 restore-default-parameters: build
 	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
 

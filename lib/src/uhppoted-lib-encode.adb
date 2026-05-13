@@ -418,6 +418,16 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Add_Task;
 
+   --  Encodes a refresh-tasklist request as a 64 byte array.
+   function Refresh_Task_List (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Refresh_Task_List_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+
+      return Buffer;
+   end Refresh_Task_List;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;

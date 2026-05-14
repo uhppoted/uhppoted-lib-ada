@@ -2,4 +2,4 @@ module codegen
 
 go 1.26
 
-require github.com/uhppoted/uhppoted-codegen v0.9.1-0.20260512183742-93f2376836ac
+require github.com/uhppoted/uhppoted-codegen v0.9.1-0.20260514154550-f2dec944b37e

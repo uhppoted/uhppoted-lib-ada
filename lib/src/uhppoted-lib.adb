@@ -950,6 +950,32 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Refresh_Task_List;
 
+   --  Clears all tasks from the scheduled tasks list. Restricted to the local LAN.
+   function Clear_Task_List (U       : UHPPOTE;
+                             C       : Unsigned_32;
+                             Timeout : Duration := 2.5) return Boolean is
+   begin
+      return Clear_Task_List (U, To_Controller (C), Timeout);
+   end Clear_Task_List;
+
+   --  Clears all tasks from the scheduled tasks list.
+   function Clear_Task_List (U       : UHPPOTE;
+                             C       : Controller;
+                             Timeout : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Clear_Task_List (C.ID);
+      Reply   : Packet;
+      R       : Clear_Task_List_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Clear_Task_List (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Clear_Task_List;
+
    --  Resets the controller to the manufacturer settings. Restricted to the local LAN.
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;

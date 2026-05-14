@@ -45,6 +45,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Clear_Time_Profiles'Access, "test encode Clear_Time_Profiles request");
       Register_Routine (T, Test_Encode_Add_Task'Access,         "test encode Add_Task request");
       Register_Routine (T, Test_Encode_Refresh_Task_List'Access, "test encode Refresh_Task_List request");
+      Register_Routine (T, Test_Encode_Clear_Task_List'Access,  "test encode Clear_Task_List request");
       Register_Routine (T, Test_Encode_Restore_Default_Parameters'Access, "test encode Restore_Default_Parameters request");
    end Register_Tests;
 
@@ -596,6 +597,22 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded refresh-task-list request: got" & Request'Image);
    end Test_Encode_Refresh_Task_List;
+
+   procedure Test_Encode_Clear_Task_List (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#a6#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#55#, 16#aa#, 16#aa#, 16#55#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Clear_Task_List (
+         405419896);
+   begin
+      Assert (Request = Expected, "incorrectly encoded clear-task-list request: got" & Request'Image);
+   end Test_Encode_Clear_Task_List;
 
    procedure Test_Encode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

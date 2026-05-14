@@ -34,7 +34,7 @@ var API = []types.Function{
 	lib.ClearTimeProfiles,
 	lib.AddTask,
 	lib.RefreshTaskList,
-	// &ClearTaskList,
+	lib.ClearTaskList,
 	// &SetPCControl,
 	// &SetInterlock,
 	// &ActivateKeypads,

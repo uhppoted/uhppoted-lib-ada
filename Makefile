@@ -133,6 +133,9 @@ add-task: build
 refresh-tasklist: build
 	cd examples/cli && make refresh-tasklist CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
 
+clear-tasklist: build
+	cd examples/cli && make clear-tasklist CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+
 restore-default-parameters: build
 	cd examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
 

@@ -36,6 +36,7 @@ package Uhppoted.Lib.Encode.Tests is
    procedure Test_Encode_Clear_Time_Profiles (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Add_Task (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Refresh_Task_List (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Encode_Clear_Task_List (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Encode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class);
 
 end Uhppoted.Lib.Encode.Tests;

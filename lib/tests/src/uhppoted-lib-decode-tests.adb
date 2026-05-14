@@ -47,6 +47,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Clear_Time_Profiles'Access, "test decode Clear_Time_Profiles response");
       Register_Routine (T, Test_Decode_Add_Task'Access,     "test decode Add_Task response");
       Register_Routine (T, Test_Decode_Refresh_Tasklist'Access, "test decode Refresh_Tasklist response");
+      Register_Routine (T, Test_Decode_Clear_Tasklist'Access, "test decode Clear_Tasklist response");
       Register_Routine (T, Test_Decode_Restore_Default_Parameters'Access, "test decode Restore_Default_Parameters response");
       Register_Routine (T, Test_Decode_Listener_Event'Access, "test decode Listener_Event");
       Register_Routine (T, Test_Decode_Listener_Event_V6_62'Access, "test decode Listener_Event_V6_62");
@@ -732,6 +733,25 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded refresh-task-list-response response: got" & Response'Image);
    end Test_Decode_Refresh_Tasklist;
+
+   procedure Test_Decode_Clear_Tasklist (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Clear_Task_List_Response := (
+         Controller => 405419896,
+         Ok         => true);
+
+      Reply : constant Packet := [
+         16#17#, 16#a6#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Clear_Task_List_Response := Uhppoted.Lib.Decode.Clear_Task_List (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded clear-task-list-response response: got" & Response'Image);
+   end Test_Decode_Clear_Tasklist;
 
    procedure Test_Decode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

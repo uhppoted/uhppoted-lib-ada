@@ -34,7 +34,7 @@ var Requests = []types.Request{
 	lib.ClearTimeProfilesRequest,
 	lib.AddTaskRequest,
 	lib.RefreshTaskListRequest,
-	// ClearTaskListRequest,
+	ClearTaskListRequest(),
 	// SetPCControlRequest,
 	// SetInterlockRequest,
 	// ActivateKeypadsRequest,
@@ -45,3 +45,11 @@ var Requests = []types.Request{
 }
 
 var FindControllersRequest = types.Request{}
+
+func ClearTaskListRequest() types.Request {
+	rq := lib.ClearTaskListRequest
+
+	rq.Message.Name = "clear task list request"
+
+	return rq
+}

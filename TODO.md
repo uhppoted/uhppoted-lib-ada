@@ -4,13 +4,13 @@
 - https://github.com/simonjwright/alire-index.mac
 
 - [x] add-task
-- [ ] refresh-tasklist
-    - [ ] API
-    - [ ] CLI
-    - [ ] README
-    - [ ] integration tests
+- [x] refresh-tasklist
+- [x] clear-tasklist
+    - [x] API
+    - [x] CLI
+    - [x] README
+    - [x] integration tests
 
-- [ ] clear-tasklist
 - [ ] set-pc-control
 - [ ] set-interlock
 - [ ] activate-keypads

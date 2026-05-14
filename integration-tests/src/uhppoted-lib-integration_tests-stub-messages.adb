@@ -36,6 +36,7 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
      (Clear_Time_Profiles_Request,         Clear_Time_Profiles_Reply),
      (Add_Task_Request,                    Add_Task_Reply),
      (Refresh_Task_List_Request,           Refresh_Task_List_Reply),
+     (Clear_Task_List_Request,             Clear_Task_List_Reply),
      (Restore_Default_Parameters_Request,  Restore_Default_Parameters_Reply),
      (Invalid_SOM_Request,                 Invalid_SOM_Reply),
      (Invalid_OpCode_Request,              Invalid_OpCode_Reply)

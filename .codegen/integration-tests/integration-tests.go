@@ -75,6 +75,7 @@ var translations = map[string]string{
 	"clear time profiles response":        "Boolean",
 	"add task response":                   "Boolean",
 	"refresh task list response":          "Boolean",
+	"clear task list response":            "Boolean",
 	"restore default parameters response": "Boolean",
 }
 

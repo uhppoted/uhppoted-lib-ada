@@ -469,6 +469,16 @@ package body Handlers is
       Put_Line ("");
    end Refresh_Task_List;
 
+   --  Executes the clear-tasklist command.
+   procedure Clear_Task_List (Args : ArgParse.Args) is
+      R : constant Boolean := Clear_Task_List (U, Args.Controller,  Timeout);
+   begin
+      Put_Line ("--- clear-tasklist");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("         ok: " & R'Image);
+      Put_Line ("");
+   end Clear_Task_List;
+
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is
       R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);

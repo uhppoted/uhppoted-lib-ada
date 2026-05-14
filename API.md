@@ -26,6 +26,7 @@
 - [`Clear_Time_Profiles`](#clear_time_profiles)
 - [`Add_Task`](#add_task)
 - [`Refresh_Task_List`](#refresh_task_list)
+- [`Clear_Task_List`](#clear_task_list)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -1115,6 +1116,32 @@ where:
 ```
 
 Returns `True` if the _pending_ list was flushed to the _active_ list.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Clear_Task_list`
+
+**Clear_Task_list** clears the list of scheduled tasks stored on the controller.
+
+```
+function Clear_Task_list (U         : UHPPOTE;
+                          C         : Unsigned_32;
+                          Timeout   : Duration) return Unsigned_32;
+
+function Clear_Task_list (U         : UHPPOTE;
+                          C         : Controller;
+                          Timeout   : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
+
+Returns `True` if the _scheduled tasks list_ was cleared.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

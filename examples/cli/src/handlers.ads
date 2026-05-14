@@ -28,6 +28,7 @@ package Handlers is
    procedure Clear_Time_Profiles        (Args : ArgParse.Args);
    procedure Add_Task                   (Args : ArgParse.Args);
    procedure Refresh_Task_List          (Args : ArgParse.Args);
+   procedure Clear_Task_List            (Args : ArgParse.Args);
    procedure Restore_Default_Parameters (Args : ArgParse.Args);
    procedure Listen                     (Args : ArgParse.Args);
 end Handlers;

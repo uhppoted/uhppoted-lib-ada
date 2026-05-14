@@ -70,6 +70,7 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
       Register_Routine (T, Test_Clear_Time_Profiles'Access,         "Clear_Time_Profiles");
       Register_Routine (T, Test_Add_Task'Access,                    "Add_Task");
       Register_Routine (T, Test_Refresh_Task_List'Access,           "Refresh_Task_List");
+      Register_Routine (T, Test_Clear_Task_List'Access,             "Clear_Task_List");
       Register_Routine (T, Test_Restore_Default_Parameters'Access,  "Restore_Default_Parameters");
       Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
@@ -523,6 +524,20 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    begin
       Assert (V = Expected.Refresh_Task_List, "invalid result" & V'Image);
    end Test_Refresh_Task_List;
+
+   procedure Test_Clear_Task_List (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.TCP);
+
+      V : constant Boolean := Clear_Task_List (U, C, 0.5);
+   begin
+      Assert (V = Expected.Clear_Task_List, "invalid result" & V'Image);
+   end Test_Clear_Task_List;
 
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
       pragma Unreferenced (T);

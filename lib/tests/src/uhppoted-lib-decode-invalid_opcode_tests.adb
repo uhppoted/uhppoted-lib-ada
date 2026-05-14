@@ -46,6 +46,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       Register_Routine (T, Test_Clear_Time_Profiles_Invalid_OpCode'Access, "test decode Clear_Time_Profiles with invalid opcode");
       Register_Routine (T, Test_Add_Task_Invalid_OpCode'Access,        "test decode Add_Task with invalid opcode");
       Register_Routine (T, Test_Refresh_Tasklist_Invalid_OpCode'Access, "test decode Refresh_Tasklist with invalid opcode");
+      Register_Routine (T, Test_Clear_Tasklist_Invalid_OpCode'Access,  "test decode Clear_Tasklist with invalid opcode");
       Register_Routine (T, Test_Restore_Default_Parameters_Invalid_OpCode'Access, "test decode Restore_Default_Parameters with invalid opcode");
       Register_Routine (T, Test_Listener_Event_Invalid_OpCode'Access,  "test decode Listener_Event with invalid opcode");
       Register_Routine (T, Test_Listener_Event_V6_62_Invalid_OpCode'Access, "test decode Listener_Event_V6_62 with invalid opcode");
@@ -794,6 +795,30 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when E : others =>
          Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Refresh_Tasklist_Invalid_OpCode;
+
+   procedure Test_Clear_Tasklist_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#17#, 16#a7#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+   begin
+      declare
+         Unused : constant Clear_Task_List_Response := Uhppoted.Lib.Decode.Clear_Task_List (Reply);
+      begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Clear_Tasklist_Invalid_OpCode;
 
    procedure Test_Restore_Default_Parameters_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

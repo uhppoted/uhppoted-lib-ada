@@ -143,6 +143,9 @@ package Uhppoted.Lib.Encode is
    --  Encodes a refresh-tasklist request as a 64 byte array.
    function Refresh_Task_List (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a clear-tasklist request as a 64 byte array.
+   function Clear_Task_List (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 

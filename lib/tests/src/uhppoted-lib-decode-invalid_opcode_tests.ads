@@ -38,6 +38,7 @@ package Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
    procedure Test_Clear_Time_Profiles_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Add_Task_Invalid_OpCode       (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Refresh_Tasklist_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Clear_Tasklist_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Restore_Default_Parameters_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Listener_Event_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Listener_Event_V6_62_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);

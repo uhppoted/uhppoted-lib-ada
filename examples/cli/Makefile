@@ -116,6 +116,9 @@ add-task: build
 refresh-tasklist: build
 	$(CLI) refresh-tasklist --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
 
+clear-tasklist: build
+	$(CLI) clear-tasklist --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+
 restore-default-parameters: build
 	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
 

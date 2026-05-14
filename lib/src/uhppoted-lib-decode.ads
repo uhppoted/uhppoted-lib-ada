@@ -117,6 +117,10 @@ package Uhppoted.Lib.Decode is
       return Uhppoted.Lib.Responses.Refresh_Task_List_Response;
    --  Decodes a 64 byte refresh-tasklist reply as a Refresh_Task_List_Response record.
 
+   function Clear_Task_List (Reply : Uhppoted.Lib.Types.Packet)
+      return Uhppoted.Lib.Responses.Clear_Task_List_Response;
+   --  Decodes a 64 byte clear-tasklist reply as a Clear_Task_List_Response record.
+
    function Restore_Default_Parameters (Reply : Uhppoted.Lib.Types.Packet)
       return Uhppoted.Lib.Responses.Restore_Default_Parameters_Response;
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.

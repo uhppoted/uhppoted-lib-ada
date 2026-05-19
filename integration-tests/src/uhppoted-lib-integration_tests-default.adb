@@ -70,6 +70,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Register_Routine (T, Test_Add_Task'Access,            "Add_Task");
       Register_Routine (T, Test_Refresh_Task_List'Access,   "Refresh_Task_List");
       Register_Routine (T, Test_Clear_Task_List'Access,     "Clear_Task_List");
+      Register_Routine (T, Test_Set_Pc_Control'Access,      "Set_Pc_Control");
       Register_Routine (T, Test_Restore_Default_Parameters'Access, "Restore_Default_Parameters");
    end Register_Tests;
 
@@ -376,6 +377,14 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    begin
       Assert (V = Expected.Clear_Task_List, "invalid result" & V'Image);
    end Test_Clear_Task_List;
+
+   procedure Test_Set_Pc_Control (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      V : constant Boolean := Set_PC_Control (U, 405419896, True, 0.5);
+   begin
+      Assert (V = Expected.Set_Pc_Control, "invalid result" & V'Image);
+   end Test_Set_Pc_Control;
 
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
       pragma Unreferenced (T);

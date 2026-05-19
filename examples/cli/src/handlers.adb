@@ -479,6 +479,17 @@ package body Handlers is
       Put_Line ("");
    end Clear_Task_List;
 
+   --  Executes the set-pc-control command.
+   procedure Set_PC_Control (Args : ArgParse.Args) is
+      R : constant Boolean := Set_PC_Control (U, Args.Controller, Args.Enable, Timeout);
+   begin
+      Put_Line ("--- set-pc-control");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("    enabled: " & Args.Enable'Image);
+      Put_Line ("         ok: " & R'Image);
+      Put_Line ("");
+   end Set_PC_Control;
+
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is
       R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);

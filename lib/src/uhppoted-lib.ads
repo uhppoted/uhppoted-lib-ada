@@ -954,6 +954,40 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
+   function Set_PC_Control (U       : UHPPOTE;
+                            C       : Unsigned_32;
+                            Enable  : Boolean;
+                            Timeout : Duration := 2.5) return Boolean;
+   --  Enables/disables remote access control - the access controller will revert to local access control
+   --  management if no message is received from the host for 30 seconds. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Enable     Enables/disables remote access control.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if remote access control was enabled/disabled.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Set_PC_Control (U       : UHPPOTE;
+                            C       : Controller;
+                            Enable  : Boolean;
+                            Timeout : Duration := 2.5) return Boolean;
+   --  Enables/disables remote access control - the access controller will revert to local access control
+   --  management if no message is received from the host for 30 seconds.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Enable     Enables/disables remote access control.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if remote access control was enabled/disabled.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;
                                         Timeout : Duration := 2.5) return Boolean;

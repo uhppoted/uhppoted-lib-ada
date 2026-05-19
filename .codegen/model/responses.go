@@ -36,7 +36,7 @@ var Responses = []types.Response{
 	lib.AddTaskResponse,
 	lib.RefreshTaskListResponse,
 	lib.ClearTaskListResponse,
-	// &SetPCControlResponse,
+	lib.SetPCControlResponse,
 	// &SetInterlockResponse,
 	// &ActivateKeypadsResponse,
 	// &GetAntiPassbackResponse,

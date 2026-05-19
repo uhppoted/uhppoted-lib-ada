@@ -563,6 +563,22 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Clear_Task_List;
 
+   --  Decodes a 64 byte set-pc-control reply as a Set_PC_Control_Response record.
+   function Set_PC_Control (Reply : Packet) return Responses.Set_PC_Control_Response is
+      R : Replies.Set_PC_Control_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Set_PC_Control then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Set_PC_Control;
+
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.
    function Restore_Default_Parameters (Reply : Packet) return Responses.Restore_Default_Parameters_Response is
       R : Replies.Restore_Default_Parameters_Reply with Import, Address => Reply'Address;

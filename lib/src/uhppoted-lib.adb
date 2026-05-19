@@ -976,6 +976,36 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Clear_Task_List;
 
+   --  Enables/disables remote access control - the access controller will revert to local access control
+   --  management if no message is received from the host for 30 seconds. Restricted to the local LAN.
+   function Set_PC_Control (U       : UHPPOTE;
+                            C       : Unsigned_32;
+                            Enable  : Boolean;
+                            Timeout : Duration := 2.5) return Boolean is
+   begin
+      return Set_PC_Control (U, To_Controller(C), Enable, Timeout);
+   end Set_PC_Control;
+
+   --  Enables/disables remote access control - the access controller will revert to local access control
+   --  management if no message is received from the host for 30 seconds.
+   function Set_PC_Control (U       : UHPPOTE;
+                            C       : Controller;
+                            Enable  : Boolean;
+                            Timeout : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_PC_Control (C.ID, Enable);
+      Reply   : Packet;
+      R       : Set_PC_Control_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Set_PC_Control (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Set_PC_Control;
+
    --  Resets the controller to the manufacturer settings. Restricted to the local LAN.
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;

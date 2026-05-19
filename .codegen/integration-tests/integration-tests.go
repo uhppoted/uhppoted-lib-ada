@@ -76,6 +76,7 @@ var translations = map[string]string{
 	"add task response":                   "Boolean",
 	"refresh task list response":          "Boolean",
 	"clear task list response":            "Boolean",
+	"set PC control response":             "Boolean",
 	"restore default parameters response": "Boolean",
 }
 

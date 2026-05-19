@@ -27,6 +27,7 @@
 - [`Add_Task`](#add_task)
 - [`Refresh_Task_List`](#refresh_task_list)
 - [`Clear_Task_List`](#clear_task_list)
+- [`Set_PC_Control`](#set_pc_control)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -1142,6 +1143,36 @@ where:
 ```
 
 Returns `True` if the _scheduled tasks list_ was cleared.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Set_PC_Control`
+
+**Set_PC_Control** enables/disables remote access control. The controller will revert to local access control if it goes
+more than 30 seconds without a message from the PC.
+
+```
+function Set_PC_Control (U       : UHPPOTE;
+                         C       : Unsigned_32;
+                         Enable  : Boolean;
+                         Timeout : Duration) return Unsigned_32;
+
+function Set_PC_Control (U       : UHPPOTE;
+                         C       : Controller;
+                         Enable  : Boolean;
+                         Timeout : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32     Controller serial number.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Enable     Boolean         Enables/disables remote access control.
+```
+
+Returns `True` if _remote access control_ was enabled/disabled.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

@@ -251,6 +251,12 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for a set-pc-control response.
+   type Set_PC_Control_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
    --  Message definition for a restore-default-parameters response.
    type Restore_Default_Parameters_Response is record
       Controller : Unsigned_32;

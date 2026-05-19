@@ -33,7 +33,8 @@ package ArgParse is
       Record_Special_Events_Args,
       Get_Time_Profile_Args,
       Set_Time_Profile_Args,
-      Add_Task_Args);
+      Add_Task_Args,
+      Set_PC_Control_Args);
 
    type Args (T : Args_Type) is record
       Controller  : Uhppoted.Lib.Controller;
@@ -95,6 +96,9 @@ package ArgParse is
          when Add_Task_Args =>
             TaskT : Uhppoted.Lib.Task_Record;
 
+         when Set_PC_Control_Args =>
+            Enable : Boolean;
+
          when others =>
             null;
       end case;
@@ -129,5 +133,6 @@ private
    function Parse_Get_Time_Profile      return Args;
    function Parse_Set_Time_Profile      return Args;
    function Parse_Add_Task              return Args;
+   function Parse_Set_PC_Control        return Args;
 
 end ArgParse;

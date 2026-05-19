@@ -84,6 +84,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Add_Task`](API.md#add_task)
 - [`Refresh_Task_List`](API.md#refresh_task_list)
 - [`Clear_Task_List`](API.md#clear_task_list)
+- [`Set_PC_Control`](API.md#set_pc_control)
 - [`Restore_Default_Parameters`](API.md#restore_default_parameters)
 - [`Listen`](API.md#listen)
 

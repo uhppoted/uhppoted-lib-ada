@@ -21,6 +21,7 @@ RECORD_SPECIAL_EVENTS ?= yes
 TIME_PROFILE_ID ?= 29
 TIME_PROFILE ?= 2026-01-01,2026-12-31,[Mon,Tues,Fri],[08:30-16:45,19:15-22:00],17
 TASK ?= unlock door,2026-01-01,2026-12-31,[Mon,Tues,Fri],08:30,3,13
+PC_CONTROL ?= yes
 
 clean:
 	cd lib && make clean
@@ -135,6 +136,9 @@ refresh-tasklist: build
 
 clear-tasklist: build
 	cd examples/cli && make clear-tasklist CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+
+set-pc-control: build
+	cd examples/cli && make set-pc-control CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) PC_CONTROL=$(PC_CONTROL)
 
 restore-default-parameters: build
 	cd examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)

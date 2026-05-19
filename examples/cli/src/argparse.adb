@@ -57,6 +57,8 @@ package body ArgParse is
          return Parse_Set_Time_Profile;
       elsif Cmd = "add-task" then
          return Parse_Add_Task;
+      elsif Cmd = "set-pc-control" then
+         return Parse_Set_PC_Control;
       end if;
 
       --  default to general command
@@ -957,5 +959,51 @@ package body ArgParse is
       end;
 
    end Parse_Add_Task;
+
+   function Parse_Set_PC_Control return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Enable               : aliased String_Access := null;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Enable'Access,
+                     Long_Switch => "--enable:",
+                     Help        => "enables/disables remote access",
+                     Argument    => "yes|no");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return set-pc-control command specific args
+      declare
+         S : String renames Enable.all;
+         E : Boolean := False;
+
+      begin
+         if To_Lower (S) = "yes" then
+            E := True;
+         elsif To_Lower (S) = "no" then
+            E := False;
+         else
+            raise Invalid_Argument with "invalid PC control";
+         end if;
+
+         return (T           => ArgParse.Set_PC_Control_Args,
+                 Controller  => C,
+                 Door        => 0,
+                 Card        => (others => <>),
+                 Event_Index => 0,
+                 Profile_ID  => 0,
+                 Enable      => E);
+      end;
+
+   end Parse_Set_PC_Control;
+
 
 end ArgParse;

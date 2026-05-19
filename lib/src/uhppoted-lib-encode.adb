@@ -438,6 +438,17 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Clear_Task_List;
 
+   --  Encodes a set-pc-control request as a 64 byte array.
+   function Set_PC_Control (Controller : Unsigned_32; Enable : Boolean) return Uhppoted.Lib.Types.Packet is
+      Request : Set_PC_Control_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Enable     := Pack_Boolean (Enable);
+
+      return Buffer;
+   end Set_PC_Control;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;

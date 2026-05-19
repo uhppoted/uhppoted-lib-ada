@@ -6,12 +6,12 @@
 - [x] add-task
 - [x] refresh-tasklist
 - [x] clear-tasklist
+- [x] set-pc-control
     - [x] API
     - [x] CLI
     - [x] README
     - [x] integration tests
 
-- [ ] set-pc-control
 - [ ] set-interlock
 - [ ] activate-keypads
 - [ ] get-antipassback

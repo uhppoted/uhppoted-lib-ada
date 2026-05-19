@@ -35,7 +35,7 @@ var API = []types.Function{
 	lib.AddTask,
 	lib.RefreshTaskList,
 	lib.ClearTaskList,
-	// &SetPCControl,
+	lib.SetPCControl,
 	// &SetInterlock,
 	// &ActivateKeypads,
 	// &GetAntiPassback,

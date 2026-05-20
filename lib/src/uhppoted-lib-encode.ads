@@ -149,6 +149,10 @@ package Uhppoted.Lib.Encode is
    --  Encodes a set-pc-control request as a 64 byte array.
    function Set_PC_Control (Controller : Unsigned_32; Enable : Boolean) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a set-interlock request as a 64 byte array.
+   function Set_Interlock (Controller : Unsigned_32; 
+                           Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 

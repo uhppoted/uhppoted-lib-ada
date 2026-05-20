@@ -77,6 +77,7 @@ var translations = map[string]string{
 	"refresh task list response":          "Boolean",
 	"clear task list response":            "Boolean",
 	"set PC control response":             "Boolean",
+	"set interlock response":              "Boolean",
 	"restore default parameters response": "Boolean",
 }
 
@@ -586,6 +587,9 @@ func args(t lib.FuncTest) []any {
 
 		case v.Type == "mode":
 			args = append(args, fmt.Sprintf("To_Control_Mode (%v)", v.Value))
+
+		case v.Type == "interlock":
+			args = append(args, fmt.Sprintf("To_Interlock (%v)", v.Value))
 
 		case v.Type == "bool":
 			args = append(args, codegen.Boolean(v.Value))

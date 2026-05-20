@@ -28,6 +28,7 @@
 - [`Refresh_Task_List`](#refresh_task_list)
 - [`Clear_Task_List`](#clear_task_list)
 - [`Set_PC_Control`](#set_pc_control)
+- [`Set_Interlock`](#set_interlock)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -1173,6 +1174,42 @@ where:
 ```
 
 Returns `True` if _remote access control_ was enabled/disabled.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Set_Interlock`
+
+**Set_Interlock** sets the controller door interlock mode.
+
+```
+function Set_Interlock (U         : UHPPOTE;
+                        C         : Unsigned_32;
+                        Interlock : Uhppoted.Lib.Interlock;
+                        Timeout : Duration) return Unsigned_32;
+
+function Set_Interlock (U       : UHPPOTE;
+                        C       : Controller;
+                        Interlock : Uhppoted.Lib.Interlock;
+                        Timeout : Duration) return Unsigned_32;
+
+where:
+- U          UHPPOTE                 UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C          Unsigned_32             Controller serial number.
+- C          Controller              Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Interlock  Uhppoted.Lib.Interlock  Door interlock mode:
+
+                                     No_Interlock      no interlock
+                                     Interlock_12      doors 1 and 2 interlocked
+                                     Interlock_34      doors 3 and 4 interlocked
+                                     Interlock_12_34   doors 1 and 2 interlocked, doors 3 and 4 interlocked
+                                     Interlock_123     doors 1,2 and 3 interlocked
+                                     Interlock_1234    doors 1,2,3 and 4 interlocked
+```
+
+Returns `True` if the _door interlock mode_ was set.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

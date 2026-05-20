@@ -579,6 +579,22 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Set_PC_Control;
 
+   --  Decodes a 64 byte set-interlock reply as a Set_Interlock_Response record.
+   function Set_Interlock (Reply : Packet) return Responses.Set_Interlock_Response is
+      R : Replies.Set_Interlock_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Set_Interlock then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Set_Interlock;
+
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.
    function Restore_Default_Parameters (Reply : Packet) return Responses.Restore_Default_Parameters_Response is
       R : Replies.Restore_Default_Parameters_Reply with Import, Address => Reply'Address;

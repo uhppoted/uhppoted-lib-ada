@@ -22,6 +22,7 @@ TIME_PROFILE_ID ?= 29
 TIME_PROFILE ?= 2026-01-01,2026-12-31,[Mon,Tues,Fri],[08:30-16:45,19:15-22:00],17
 TASK ?= unlock door,2026-01-01,2026-12-31,[Mon,Tues,Fri],08:30,3,13
 PC_CONTROL ?= yes
+INTERLOCK ?= 1&2,3&4
 
 clean:
 	cd lib && make clean
@@ -139,6 +140,9 @@ clear-tasklist: build
 
 set-pc-control: build
 	cd examples/cli && make set-pc-control CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) PC_CONTROL=$(PC_CONTROL)
+
+set-interlock: build
+	cd examples/cli && make set-interlock CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) INTERLOCK="$(INTERLOCK)"
 
 restore-default-parameters: build
 	cd examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)

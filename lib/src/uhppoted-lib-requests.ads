@@ -738,6 +738,29 @@ package Uhppoted.Lib.Requests is
    for Set_PC_Control_Request'Bit_Order use System.Low_Order_First;
    for Set_PC_Control_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a set-interlock request.
+   type Set_Interlock_Request is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Set_Interlock;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Interlock  : Uhppoted.Lib.Interlock;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
+   end record;
+
+   for Set_Interlock_Request use record
+      SOM        at 0 range 0 ..   7;
+      OpCode     at 1 range 0 ..   7;
+      Reserved   at 2 range 0 ..  15;
+      Controller at 4 range 0 ..  31;
+      Interlock  at 8 range 0 ..   7;
+      Padding    at 9 range 0 .. 439;
+   end record;
+
+   for Set_Interlock_Request'Size use 64 * 8;
+   for Set_Interlock_Request'Bit_Order use System.Low_Order_First;
+   for Set_Interlock_Request'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a restore-default-parameters request.
    type Restore_Default_Parameters_Request is record
       SOM        : Unsigned_8    := Codec.SOM;

@@ -59,6 +59,8 @@ package body ArgParse is
          return Parse_Add_Task;
       elsif Cmd = "set-pc-control" then
          return Parse_Set_PC_Control;
+      elsif Cmd = "set-interlock" then
+         return Parse_Set_Interlock;
       end if;
 
       --  default to general command
@@ -1005,5 +1007,59 @@ package body ArgParse is
 
    end Parse_Set_PC_Control;
 
+   function Parse_Set_Interlock return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Interlock            : aliased String_Access := null;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Interlock'Access,
+                     Long_Switch => "--interlock:",
+                     Help        => "sets the door interlock mode",
+                     Argument    => "disabled|1&2|3&4|1&2,3&4|1&2&3|1&2&3&4");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return set-interlock command specific args
+      declare
+         S : String renames Interlock.all;
+         I : Uhppoted.Lib.Interlock := No_Interlock;
+
+      begin
+         if To_Lower (S) = "disabled" then
+            I := No_Interlock;
+         elsif To_Lower (S) = "1&2" then
+            I := Interlock_12;
+         elsif To_Lower (S) = "3&4" then
+            I := Interlock_34;
+         elsif To_Lower (S) = "3&4" then
+            I := Interlock_34;
+         elsif To_Lower (S) = "1&2,3&4" then
+            I := Interlock_12_34;
+         elsif To_Lower (S) = "1&2&3" then
+            I := Interlock_123;
+         elsif To_Lower (S) = "1&2&3&4" then
+            I := Interlock_1234;
+         else
+            raise Invalid_Argument with "invalid interlock";
+         end if;
+
+         return (T           => ArgParse.Set_Interlock_Args,
+                 Controller  => C,
+                 Door        => 0,
+                 Card        => (others => <>),
+                 Event_Index => 0,
+                 Profile_ID  => 0,
+                 Interlock   => I);
+      end;
+
+   end Parse_Set_Interlock;
 
 end ArgParse;

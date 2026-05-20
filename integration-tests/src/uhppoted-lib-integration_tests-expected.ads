@@ -242,6 +242,8 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Set_Pc_Control : constant Boolean := True;
 
+   Set_Interlock : constant Boolean := True;
+
    Restore_Default_Parameters : constant Boolean := True;
 
 end Uhppoted.Lib.Integration_Tests.Expected;

@@ -49,6 +49,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Refresh_Tasklist'Access, "test decode Refresh_Tasklist response");
       Register_Routine (T, Test_Decode_Clear_Tasklist'Access, "test decode Clear_Tasklist response");
       Register_Routine (T, Test_Decode_Set_Pc_Control'Access, "test decode Set_Pc_Control response");
+      Register_Routine (T, Test_Decode_Set_Interlock'Access, "test decode Set_Interlock response");
       Register_Routine (T, Test_Decode_Restore_Default_Parameters'Access, "test decode Restore_Default_Parameters response");
       Register_Routine (T, Test_Decode_Listener_Event'Access, "test decode Listener_Event");
       Register_Routine (T, Test_Decode_Listener_Event_V6_62'Access, "test decode Listener_Event_V6_62");
@@ -772,6 +773,25 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded set-pc-control-response response: got" & Response'Image);
    end Test_Decode_Set_Pc_Control;
+
+   procedure Test_Decode_Set_Interlock (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Set_Interlock_Response := (
+         Controller => 405419896,
+         Ok         => True);
+
+      Reply : constant Packet := [
+         16#17#, 16#a2#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Set_Interlock_Response := Uhppoted.Lib.Decode.Set_Interlock (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded set-interlock-response response: got" & Response'Image);
+   end Test_Decode_Set_Interlock;
 
    procedure Test_Decode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

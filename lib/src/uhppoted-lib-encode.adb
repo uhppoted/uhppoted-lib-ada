@@ -449,6 +449,18 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Set_PC_Control;
 
+   --  Encodes a set-interlock request as a 64 byte array.
+   function Set_Interlock (Controller : Unsigned_32;
+                           Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet is
+      Request : Set_Interlock_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Interlock  := Interlock;
+
+      return Buffer;
+   end Set_Interlock;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;

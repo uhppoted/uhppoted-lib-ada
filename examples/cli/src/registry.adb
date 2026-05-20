@@ -37,6 +37,7 @@ package body Registry is
       CS.Internal_Map.Insert ("refresh-tasklist",           Refresh_Task_List'Access);
       CS.Internal_Map.Insert ("clear-tasklist",             Clear_Task_List'Access);
       CS.Internal_Map.Insert ("set-pc-control",             Set_PC_Control'Access);
+      CS.Internal_Map.Insert ("set-interlock",              Set_Interlock'Access);
       CS.Internal_Map.Insert ("restore-default-parameters", Restore_Default_Parameters'Access);
       CS.Internal_Map.Insert ("listen",                     Listen'Access);
 

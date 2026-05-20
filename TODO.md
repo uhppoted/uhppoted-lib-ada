@@ -7,12 +7,12 @@
 - [x] refresh-tasklist
 - [x] clear-tasklist
 - [x] set-pc-control
+- [x] set-interlock
     - [x] API
     - [x] CLI
     - [x] README
     - [x] integration tests
 
-- [ ] set-interlock
 - [ ] activate-keypads
 - [ ] get-antipassback
 - [ ] set-antipassback

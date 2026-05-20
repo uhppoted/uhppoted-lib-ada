@@ -490,6 +490,17 @@ package body Handlers is
       Put_Line ("");
    end Set_PC_Control;
 
+   --  Executes the set-interlock command.
+   procedure Set_Interlock (Args : ArgParse.Args) is
+      R : constant Boolean := Set_Interlock (U, Args.Controller, Args.Interlock, Timeout);
+   begin
+      Put_Line ("--- set-interlock");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("  interlock: " & Args.Interlock'Image);
+      Put_Line ("         ok: " & R'Image);
+      Put_Line ("");
+   end Set_Interlock;
+
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is
       R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);

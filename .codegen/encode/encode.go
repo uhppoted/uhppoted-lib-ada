@@ -144,6 +144,9 @@ func args(t lib.RequestTest) []arg {
 		case "mode":
 			args = append(args, arg{fmt.Sprintf("To_Control_Mode (%v)", a.Value), comma})
 
+		case "interlock":
+			args = append(args, arg{fmt.Sprintf("To_Interlock (%v)", a.Value), comma})
+
 		case "task":
 			args = append(args, arg{fmt.Sprintf("To_Task_Type (%v)", a.Value), comma})
 

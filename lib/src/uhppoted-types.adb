@@ -166,6 +166,26 @@ package body Uhppoted.Types is
       end case;
    end To_Task_Type;
 
+   function To_Interlock (V : Unsigned_8) return Interlock is
+   begin
+      case V is
+         when 0 =>
+            return No_Interlock;
+         when 1 =>
+            return Interlock_12;
+         when 2 =>
+            return Interlock_34;
+         when 3 =>
+            return Interlock_12_34;
+         when 4 =>
+            return Interlock_123;
+         when 8 =>
+            return Interlock_1234;
+         when others =>
+            raise Constraint_Error with "Invalid Interlock: " & V'Image;
+      end case;
+   end To_Interlock;
+
    function Image (Addr : IPv4) return String is
       use Ada.Strings.Fixed;
    begin

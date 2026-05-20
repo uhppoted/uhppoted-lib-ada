@@ -298,6 +298,17 @@ package Uhppoted.Types is
       More_Cards     : Unsigned_8;
    end record;
 
+   type Interlock is (No_Interlock, Interlock_12, Interlock_34, Interlock_12_34, Interlock_123, Interlock_1234);
+
+   for Interlock use (No_Interlock    => 16#00#,
+                      Interlock_12    => 16#01#,    --  doors (1,2)
+                      Interlock_34    => 16#02#,    --  doors (3,4)
+                      Interlock_12_34 => 16#03#,    --  doors (1,2) and (3,4)
+                      Interlock_123   => 16#04#,    --  doors (1,2,3)
+                      Interlock_1234  => 16#08#);   --  doors (1,2,3,4)
+
+   function To_Interlock (V : Unsigned_8) return Interlock;
+
    type Signal is new Ada.Finalization.Limited_Controlled with record
       Selector : GNAT.Sockets.Selector_Type;
    end record;

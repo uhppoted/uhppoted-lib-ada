@@ -47,6 +47,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Refresh_Task_List'Access, "test encode Refresh_Task_List request");
       Register_Routine (T, Test_Encode_Clear_Task_List'Access,  "test encode Clear_Task_List request");
       Register_Routine (T, Test_Encode_Set_Pc_Control_Request'Access, "test encode Set_Pc_Control_Request request");
+      Register_Routine (T, Test_Encode_Set_Interlock_Request'Access, "test encode Set_Interlock_Request request");
       Register_Routine (T, Test_Encode_Restore_Default_Parameters'Access, "test encode Restore_Default_Parameters request");
    end Register_Tests;
 
@@ -631,6 +632,23 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded set-pc-control request: got" & Request'Image);
    end Test_Encode_Set_Pc_Control_Request;
+
+   procedure Test_Encode_Set_Interlock_Request (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#a2#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#08#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Interlock (
+         405419896,
+         To_Interlock (8));
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-interlock request: got" & Request'Image);
+   end Test_Encode_Set_Interlock_Request;
 
    procedure Test_Encode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

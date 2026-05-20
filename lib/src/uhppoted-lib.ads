@@ -51,6 +51,7 @@ package Uhppoted.Lib is
    subtype Control_Mode   is Uhppoted.Types.Control_Mode;
    subtype Passcodes_List is Uhppoted.Types.Passcodes_List;
    subtype Task_Type      is Uhppoted.Types.Task_Type;
+   subtype Interlock      is Uhppoted.Types.Interlock;
 
    Normally_Open        : Control_Mode renames Uhppoted.Types.Normally_Open;
    Normally_Closed      : Control_Mode renames Uhppoted.Types.Normally_Closed;
@@ -69,6 +70,13 @@ package Uhppoted.Lib is
    Trigger_Once         : Task_Type renames Uhppoted.Types.Trigger_Once;
    Disable_PushButton   : Task_Type renames Uhppoted.Types.Disable_PushButton;
    Enable_PushButton    : Task_Type renames Uhppoted.Types.Enable_PushButton;
+
+   No_Interlock         : Interlock renames Uhppoted.Types.No_Interlock;
+   Interlock_12         : Interlock renames Uhppoted.Types.Interlock_12;
+   Interlock_34         : Interlock renames Uhppoted.Types.Interlock_34;
+   Interlock_12_34      : Interlock renames Uhppoted.Types.Interlock_12_34;
+   Interlock_123        : Interlock renames Uhppoted.Types.Interlock_123;
+   Interlock_1234       : Interlock renames Uhppoted.Types.Interlock_1234;
 
    Invalid_Address_Error        : exception renames Uhppoted.Types.Invalid_Address_Error;
    Card_Not_Found_Error         : exception renames Uhppoted.Types.Card_Not_Found_Error;
@@ -984,6 +992,38 @@ package Uhppoted.Lib is
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
    --
    --  @return            True if remote access control was enabled/disabled.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Set_Interlock (U         : UHPPOTE;
+                           C         : Unsigned_32;
+                           Interlock : Uhppoted.Lib.Interlock;
+                           Timeout : Duration := 2.5) return Boolean;
+   --  Sets the controller door interlock mode. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Interlock  Door interlock mode.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if door interlock mode was set.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Set_Interlock (U         : UHPPOTE;
+                           C         : Controller;
+                           Interlock : Uhppoted.Lib.Interlock;
+                           Timeout : Duration := 2.5) return Boolean;
+   --  Sets the controller door interlock mode.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Interlock  Door interlock mode.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if door interlock mode was set.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.

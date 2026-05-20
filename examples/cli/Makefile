@@ -29,6 +29,7 @@ TIME_PROFILE_ID ?= 29
 TIME_PROFILE ?= 2026-01-01,2026-12-31,[Mon,Tues,Fri],[08:30-16:45,19:15-22:00],17
 TASK ?= unlock door,2026-01-01,2026-12-31,[Mon,Tues,Fri],08:30,3,13
 PC_CONTROL ?= yes
+INTERLOCK ?= 1&2,3&4
 
 clean:
 	alr clean
@@ -122,6 +123,9 @@ clear-tasklist: build
 
 set-pc-control: build
 	$(CLI) set-pc-control --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --enable $(PC_CONTROL)
+
+set-interlock: build
+	$(CLI) set-interlock --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --interlock "$(INTERLOCK)"
 
 restore-default-parameters: build
 	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)

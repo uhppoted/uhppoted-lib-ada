@@ -1006,7 +1006,35 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Set_PC_Control;
 
-   --  Resets the controller to the manufacturer settings. Restricted to the local LAN.
+   --  Sets the controller door interlock mode. Restricted to the local LAN.
+   function Set_Interlock (U         : UHPPOTE;
+                           C         : Unsigned_32;
+                           Interlock : Uhppoted.Lib.Interlock;
+                           Timeout : Duration := 2.5) return Boolean is
+   begin
+      return Set_Interlock (U, To_Controller(C), Interlock, Timeout);
+   end Set_Interlock;
+
+   --  Sets the controller door interlock mode.
+   function Set_Interlock (U         : UHPPOTE;
+                           C         : Controller;
+                           Interlock : Uhppoted.Lib.Interlock;
+                           Timeout : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Interlock (C.ID, Interlock);
+      Reply   : Packet;
+      R       : Set_Interlock_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Set_Interlock (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Set_Interlock;
+
+   --  Resets the controller to the manufacturer default settings. Restricted to the local LAN.
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;
                                         Timeout : Duration := 2.5) return Boolean is
@@ -1014,7 +1042,6 @@ package body Uhppoted.Lib is
       return Restore_Default_Parameters (U, To_Controller (C), Timeout);
    end Restore_Default_Parameters;
 
-   --  Resets the controller to the manufacturer default settings.
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Controller;
                                         Timeout : Duration := 2.5) return Boolean is

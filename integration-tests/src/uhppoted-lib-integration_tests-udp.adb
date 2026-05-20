@@ -71,6 +71,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       Register_Routine (T, Test_Refresh_Task_List'Access,           "Refresh_Task_List");
       Register_Routine (T, Test_Clear_Task_List'Access,             "Clear_Task_List");
       Register_Routine (T, Test_Set_Pc_Control'Access,              "Set_Pc_Control");
+      Register_Routine (T, Test_Set_Interlock'Access,               "Set_Interlock");
       Register_Routine (T, Test_Restore_Default_Parameters'Access,  "Restore_Default_Parameters");
       Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
@@ -552,6 +553,20 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    begin
       Assert (V = Expected.Set_Pc_Control, "invalid result" & V'Image);
    end Test_Set_Pc_Control;
+
+   procedure Test_Set_Interlock (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.UDP);
+
+      V : constant Boolean := Set_Interlock (U, C, To_Interlock (8), 0.5);
+   begin
+      Assert (V = Expected.Set_Interlock, "invalid result" & V'Image);
+   end Test_Set_Interlock;
 
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
       pragma Unreferenced (T);

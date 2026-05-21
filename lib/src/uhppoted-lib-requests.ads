@@ -761,6 +761,35 @@ package Uhppoted.Lib.Requests is
    for Set_Interlock_Request'Bit_Order use System.Low_Order_First;
    for Set_Interlock_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for an activate-keypads request.
+   type Activate_Keypads_Request is record
+      SOM        : Unsigned_8    := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Activate_Keypads;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Reader_1   : Unsigned_8;
+      Reader_2   : Unsigned_8;
+      Reader_3   : Unsigned_8;
+      Reader_4   : Unsigned_8;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+   end record;
+
+   for Activate_Keypads_Request use record
+      SOM        at  0 range 0 ..  7;
+      OpCode     at  1 range 0 ..  7;
+      Reserved   at  2 range 0 .. 15;
+      Controller at  4 range 0 .. 31;
+      Reader_1   at  8 range 0 ..  7;
+      Reader_2   at  9 range 0 ..  7;
+      Reader_3   at 10 range 0 ..  7;
+      Reader_4   at 11 range 0 ..  7;
+      Padding    at 12 range 0 .. 415;
+   end record;
+
+   for Activate_Keypads_Request'Size use 64 * 8;
+   for Activate_Keypads_Request'Bit_Order use System.Low_Order_First;
+   for Activate_Keypads_Request'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a restore-default-parameters request.
    type Restore_Default_Parameters_Request is record
       SOM        : Unsigned_8    := Codec.SOM;

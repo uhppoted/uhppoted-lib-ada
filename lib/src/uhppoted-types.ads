@@ -309,6 +309,8 @@ package Uhppoted.Types is
 
    function To_Interlock (V : Unsigned_8) return Interlock;
 
+   type Keypads is array (1 .. 4) of Boolean;
+
    type Signal is new Ada.Finalization.Limited_Controlled with record
       Selector : GNAT.Sockets.Selector_Type;
    end record;

@@ -983,7 +983,7 @@ package body Uhppoted.Lib is
                             Enable  : Boolean;
                             Timeout : Duration := 2.5) return Boolean is
    begin
-      return Set_PC_Control (U, To_Controller(C), Enable, Timeout);
+      return Set_PC_Control (U, To_Controller (C), Enable, Timeout);
    end Set_PC_Control;
 
    --  Enables/disables remote access control - the access controller will revert to local access control
@@ -1012,7 +1012,7 @@ package body Uhppoted.Lib is
                            Interlock : Uhppoted.Lib.Interlock;
                            Timeout : Duration := 2.5) return Boolean is
    begin
-      return Set_Interlock (U, To_Controller(C), Interlock, Timeout);
+      return Set_Interlock (U, To_Controller (C), Interlock, Timeout);
    end Set_Interlock;
 
    --  Sets the controller door interlock mode.
@@ -1033,6 +1033,37 @@ package body Uhppoted.Lib is
 
       return R.Ok;
    end Set_Interlock;
+
+   --  Activates/deactivates the keypads associated with a controller door card reader. Restricted to the local LAN.
+   function Activate_Keypads (U        : UHPPOTE;
+                              C        : Unsigned_32;
+                              Keypads  : Uhppoted.Lib.Keypads;
+                              Timeout  : Duration := 2.5) return Boolean is
+   begin
+      return Activate_Keypads (U, To_Controller (C), Keypads, Timeout);
+   end Activate_Keypads;
+
+   --  Activates/deactivates the keypads associated with a controller door card reader.
+   function Activate_Keypads (U        : UHPPOTE;
+                              C        : Controller;
+                              Keypads  : Uhppoted.Lib.Keypads;
+                              Timeout  : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Activate_Keypads (C.ID, Keypads (1),
+                                                                               Keypads (2),
+                                                                               Keypads (3),
+                                                                               Keypads (4));
+      Reply   : Packet;
+      R       : Activate_Keypads_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Activate_Keypads (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Activate_Keypads;
 
    --  Resets the controller to the manufacturer default settings. Restricted to the local LAN.
    function Restore_Default_Parameters (U       : UHPPOTE;

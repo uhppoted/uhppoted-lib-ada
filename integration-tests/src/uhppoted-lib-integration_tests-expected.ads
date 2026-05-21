@@ -244,6 +244,8 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Set_Interlock : constant Boolean := True;
 
+   Activate_Keypads : constant Boolean := True;
+
    Restore_Default_Parameters : constant Boolean := True;
 
 end Uhppoted.Lib.Integration_Tests.Expected;

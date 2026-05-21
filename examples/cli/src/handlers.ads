@@ -31,6 +31,7 @@ package Handlers is
    procedure Clear_Task_List            (Args : ArgParse.Args);
    procedure Set_PC_Control             (Args : ArgParse.Args);
    procedure Set_Interlock              (Args : ArgParse.Args);
+   procedure Activate_Keypads           (Args : ArgParse.Args);
    procedure Restore_Default_Parameters (Args : ArgParse.Args);
    procedure Listen                     (Args : ArgParse.Args);
 end Handlers;

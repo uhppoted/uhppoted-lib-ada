@@ -42,6 +42,7 @@ package Uhppoted.Lib is
    subtype Time_Profile           is Uhppoted.Types.Time_Profile;
    subtype Time_Segment           is Uhppoted.Types.Segment;
    subtype Task_Record            is Uhppoted.Types.Task_Record;
+   subtype Keypads                is Uhppoted.Types.Keypads;
    subtype Signal                 is Uhppoted.Types.Signal;
 
    procedure Trigger (S : in out Signal) renames Uhppoted.Types.Trigger;
@@ -1024,6 +1025,38 @@ package Uhppoted.Lib is
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
    --
    --  @return            True if door interlock mode was set.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Activate_Keypads (U       : UHPPOTE;
+                              C       : Unsigned_32;
+                              Keypads : Uhppoted.Lib.Keypads;
+                              Timeout : Duration := 2.5) return Boolean;
+   --  Activates/deactivates the keypads associated with a controller door card reader. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Keypads    List [1..4] of keypads to be activated/deactivated.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if the door readers were activated/deactivated.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Activate_Keypads (U       : UHPPOTE;
+                              C       : Controller;
+                              Keypads : Uhppoted.Lib.Keypads;
+                              Timeout : Duration := 2.5) return Boolean;
+   --  Activates/deactivates the keypads associated with a controller door card reader.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Keypads    List [1..4] of keypads to be activated/deactivated.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            True if the door reader keypads were activated/deactivated.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.

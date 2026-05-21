@@ -1,10 +1,17 @@
+with Ada.Text_IO; use Ada.Text_IO;
+
+with Ada.Strings;
 with Ada.Strings.Fixed;
+with Ada.Strings.Maps;
 with Ada.Characters.Handling;
 with GNAT.Regpat;
 
 package body ArgParse is
    use GNAT.Regpat;
    use Ada.Characters.Handling;
+   use Ada.Strings;
+   use Ada.Strings.Fixed;
+   use Ada.Strings.Maps;
 
    use Uhppoted.Lib;
 
@@ -61,6 +68,8 @@ package body ArgParse is
          return Parse_Set_PC_Control;
       elsif Cmd = "set-interlock" then
          return Parse_Set_Interlock;
+      elsif Cmd = "activate-keypads" then
+         return Parse_Activate_Keypads;
       end if;
 
       --  default to general command
@@ -1061,5 +1070,77 @@ package body ArgParse is
       end;
 
    end Parse_Set_Interlock;
+
+   function Parse_Activate_Keypads return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Keypads              : aliased String_Access := null;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Keypads'Access,
+                     Long_Switch => "--keypads:",
+                     Help        => "activate reader keypads, e.g. 1,2,4",
+                     Argument    => "<list of keypads>");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return activate-keypads command specific args
+      declare
+         S : String renames Keypads.all;
+         K : Uhppoted.Lib.Keypads := [1 => False,
+                                      2 => False,
+                                      3 => False,
+                                      4 => False];
+
+         Comma : constant Character_Set := To_Set (',');
+         F   : Positive;
+         L   : Natural;
+         I   : Natural := 1;
+      begin
+         while I in S'Range loop
+            Find_Token (Source  => S,
+                        Set     => Comma,
+                        From    => I,
+                        Test    => Outside,
+                        First   => F,
+                        Last    => L);
+            exit when L = 0;
+
+            if S (F .. L) = "1" then
+               K (1) := True;
+            end if;
+
+            if S (F .. L) = "2" then
+               K (2) := True;
+            end if;
+
+            if S (F .. L) = "3" then
+               K (3) := True;
+            end if;
+
+            if S (F .. L) = "4" then
+               K (4) := True;
+            end if;
+
+            I := L + 1;
+         end loop;
+
+         return (T           => ArgParse.Activate_Keypads_Args,
+                 Controller  => C,
+                 Door        => 0,
+                 Card        => (others => <>),
+                 Event_Index => 0,
+                 Profile_ID  => 0,
+                 Keypads     => K);
+      end;
+
+   end Parse_Activate_Keypads;
 
 end ArgParse;

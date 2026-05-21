@@ -23,6 +23,7 @@ TIME_PROFILE ?= 2026-01-01,2026-12-31,[Mon,Tues,Fri],[08:30-16:45,19:15-22:00],1
 TASK ?= unlock door,2026-01-01,2026-12-31,[Mon,Tues,Fri],08:30,3,13
 PC_CONTROL?= yes
 INTERLOCK ?= 1&2,3&4
+KEYPADS ?= 1,2,4
 
 clean:
 	alr clean
@@ -121,7 +122,10 @@ set-pc-control: build
 	cd ../examples/cli && make set-pc-control CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) PC_CONTROL=$(PC_CONTROL)
 
 set-interlock: build
-	cd ../examples/cli && make set-interlock CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) INTERLOCK="$(INTERLOCK)""
+	cd ../examples/cli && make set-interlock CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) INTERLOCK="$(INTERLOCK)"
+
+activate-keypads: build
+	cd ../examples/cli && make activate-keypads CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) KEYPADS="$(KEYPADS)"
 
 restore-default-parameters: build
 	cd ../examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)

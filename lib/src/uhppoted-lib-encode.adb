@@ -461,6 +461,24 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Set_Interlock;
 
+   --  Encodes an activate-keypads request as a 64 byte array.
+   function Activate_Keypads (Controller : Unsigned_32;
+                              Reader_1   : Boolean;
+                              Reader_2   : Boolean;
+                              Reader_3   : Boolean;
+                              Reader_4   : Boolean) return Uhppoted.Lib.Types.Packet is
+      Request : Activate_Keypads_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+      Request.Reader_1   := Pack_Boolean (Reader_1);
+      Request.Reader_2   := Pack_Boolean (Reader_2);
+      Request.Reader_3   := Pack_Boolean (Reader_3);
+      Request.Reader_4   := Pack_Boolean (Reader_4);
+
+      return Buffer;
+   end Activate_Keypads;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;

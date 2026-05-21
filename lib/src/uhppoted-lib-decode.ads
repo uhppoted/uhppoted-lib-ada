@@ -129,6 +129,10 @@ package Uhppoted.Lib.Decode is
       return Uhppoted.Lib.Responses.Set_Interlock_Response;
    --  Decodes a 64 byte set-interlock reply as a Set_Interlock_Response record.
 
+   function Activate_Keypads (Reply : Uhppoted.Lib.Types.Packet)
+      return Uhppoted.Lib.Responses.Activate_Keypads_Response;
+   --  Decodes a 64 byte activate-keypads reply as a Activate_Keypads_Response record.
+
    function Restore_Default_Parameters (Reply : Uhppoted.Lib.Types.Packet)
       return Uhppoted.Lib.Responses.Restore_Default_Parameters_Response;
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.

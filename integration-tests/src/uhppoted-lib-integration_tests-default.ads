@@ -51,6 +51,7 @@ private
    procedure Test_Clear_Task_List     (T : in out Test_Case'Class);
    procedure Test_Set_Pc_Control      (T : in out Test_Case'Class);
    procedure Test_Set_Interlock       (T : in out Test_Case'Class);
+   procedure Test_Activate_Keypads    (T : in out Test_Case'Class);
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class);
 
 end Uhppoted.Lib.Integration_Tests.Default;

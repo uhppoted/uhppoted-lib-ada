@@ -50,6 +50,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Clear_Tasklist'Access, "test decode Clear_Tasklist response");
       Register_Routine (T, Test_Decode_Set_Pc_Control'Access, "test decode Set_Pc_Control response");
       Register_Routine (T, Test_Decode_Set_Interlock'Access, "test decode Set_Interlock response");
+      Register_Routine (T, Test_Decode_Activate_Keypads'Access, "test decode Activate_Keypads response");
       Register_Routine (T, Test_Decode_Restore_Default_Parameters'Access, "test decode Restore_Default_Parameters response");
       Register_Routine (T, Test_Decode_Listener_Event'Access, "test decode Listener_Event");
       Register_Routine (T, Test_Decode_Listener_Event_V6_62'Access, "test decode Listener_Event_V6_62");
@@ -792,6 +793,25 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded set-interlock-response response: got" & Response'Image);
    end Test_Decode_Set_Interlock;
+
+   procedure Test_Decode_Activate_Keypads (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Activate_Keypads_Response := (
+         Controller => 405419896,
+         Ok         => True);
+
+      Reply : constant Packet := [
+         16#17#, 16#a4#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Activate_Keypads_Response := Uhppoted.Lib.Decode.Activate_Keypads (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded activate-keypads-response response: got" & Response'Image);
+   end Test_Decode_Activate_Keypads;
 
    procedure Test_Decode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

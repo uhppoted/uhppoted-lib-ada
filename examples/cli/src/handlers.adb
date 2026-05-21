@@ -501,6 +501,21 @@ package body Handlers is
       Put_Line ("");
    end Set_Interlock;
 
+   --  Executes the activate-keypads command.
+   procedure Activate_Keypads (Args : ArgParse.Args) is
+      R : constant Boolean := Activate_Keypads (U, Args.Controller, Args.Keypads, Timeout);
+   begin
+      Put_Line ("--- activate-keypads");
+      Put_Line (" controller:" & Args.Controller.ID'Image);
+      Put_Line ("  keypads 1:" & Args.Keypads (1)'Image);
+      Put_Line ("          2:" & Args.Keypads (2)'Image);
+      Put_Line ("          3:" & Args.Keypads (3)'Image);
+      Put_Line ("          4:" & Args.Keypads (4)'Image);
+      Put_Line ("");
+      Put_Line ("         ok: " & R'Image);
+      Put_Line ("");
+   end;
+
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is
       R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);

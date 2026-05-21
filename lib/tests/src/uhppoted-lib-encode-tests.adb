@@ -48,6 +48,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Clear_Task_List'Access,  "test encode Clear_Task_List request");
       Register_Routine (T, Test_Encode_Set_Pc_Control_Request'Access, "test encode Set_Pc_Control_Request request");
       Register_Routine (T, Test_Encode_Set_Interlock_Request'Access, "test encode Set_Interlock_Request request");
+      Register_Routine (T, Test_Encode_Activate_Keypads'Access, "test encode Activate_Keypads request");
       Register_Routine (T, Test_Encode_Restore_Default_Parameters'Access, "test encode Restore_Default_Parameters request");
    end Register_Tests;
 
@@ -649,6 +650,26 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded set-interlock request: got" & Request'Image);
    end Test_Encode_Set_Interlock_Request;
+
+   procedure Test_Encode_Activate_Keypads (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#a4#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#01#, 16#00#, 16#01#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Activate_Keypads (
+         405419896,
+         True,
+         True,
+         False,
+         True);
+   begin
+      Assert (Request = Expected, "incorrectly encoded activate-keypads request: got" & Request'Image);
+   end Test_Encode_Activate_Keypads;
 
    procedure Test_Encode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

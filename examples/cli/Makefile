@@ -30,6 +30,7 @@ TIME_PROFILE ?= 2026-01-01,2026-12-31,[Mon,Tues,Fri],[08:30-16:45,19:15-22:00],1
 TASK ?= unlock door,2026-01-01,2026-12-31,[Mon,Tues,Fri],08:30,3,13
 PC_CONTROL ?= yes
 INTERLOCK ?= 1&2,3&4
+KEYPADS ?= 1,2,4
 
 clean:
 	alr clean
@@ -126,6 +127,9 @@ set-pc-control: build
 
 set-interlock: build
 	$(CLI) set-interlock --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --interlock "$(INTERLOCK)"
+
+activate-keypads: build
+	$(CLI) activate-keypads --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --keypads "$(KEYPADS)"
 
 restore-default-parameters: build
 	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)

@@ -29,6 +29,7 @@
 - [`Clear_Task_List`](#clear_task_list)
 - [`Set_PC_Control`](#set_pc_control)
 - [`Set_Interlock`](#set_interlock)
+- [`Activate_Keypads`](#activate_keypads)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -1210,6 +1211,35 @@ where:
 ```
 
 Returns `True` if the _door interlock mode_ was set.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Activate_Keypads`
+
+**Activate_Keypads** activate/deactivates the keypads associated with door card readers.
+
+```
+function Activate_Keypads (U       : UHPPOTE;
+                           C       : Unsigned_32;
+                           Keypads : Uhppoted.Lib.Keypads;
+                           Timeout : Duration) return Unsigned_32;
+
+function Activate_Keypads (U     : UHPPOTE;
+                           C     : Controller;
+                           Keypads : Uhppoted.Lib.Keypads;
+                           Timeout : Duration) return Unsigned_32;
+
+where:
+- U        UHPPOTE                 UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C        Unsigned_32             Controller serial number.
+- C        Controller              Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Keypads  Uhppoted.Lib.Interlock  Array [1..4] of keypads to be activated.
+```
+
+Returns `True` if the _keypads_ were activated/deactivated.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

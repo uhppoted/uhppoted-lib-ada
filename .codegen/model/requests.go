@@ -37,7 +37,7 @@ var Requests = []types.Request{
 	lib.ClearTaskListRequest,
 	lib.SetPCControlRequest,
 	lib.SetInterlockRequest,
-	// ActivateKeypadsRequest,
+	lib.ActivateKeypadsRequest,
 	// GetAntiPassbackRequest,
 	// SetAntiPassbackRequest,
 	// SetFirstCardRequest,

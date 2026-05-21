@@ -8,12 +8,12 @@
 - [x] clear-tasklist
 - [x] set-pc-control
 - [x] set-interlock
+- [x] activate-keypads
     - [x] API
     - [x] CLI
     - [x] README
     - [x] integration tests
 
-- [ ] activate-keypads
 - [ ] get-antipassback
 - [ ] set-antipassback
 - [ ] set-firstcard

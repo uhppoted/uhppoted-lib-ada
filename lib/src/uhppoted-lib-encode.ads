@@ -150,8 +150,15 @@ package Uhppoted.Lib.Encode is
    function Set_PC_Control (Controller : Unsigned_32; Enable : Boolean) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a set-interlock request as a 64 byte array.
-   function Set_Interlock (Controller : Unsigned_32; 
+   function Set_Interlock (Controller : Unsigned_32;
                            Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet;
+
+   --  Encodes an activate-keypads request as a 64 byte array.
+   function Activate_Keypads (Controller : Unsigned_32;
+                              Reader_1   : Boolean;
+                              Reader_2   : Boolean;
+                              Reader_3   : Boolean;
+                              Reader_4   : Boolean) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;

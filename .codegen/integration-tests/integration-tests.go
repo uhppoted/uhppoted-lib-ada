@@ -78,6 +78,7 @@ var translations = map[string]string{
 	"clear task list response":            "Boolean",
 	"set PC control response":             "Boolean",
 	"set interlock response":              "Boolean",
+	"activate keypads response":           "Boolean",
 	"restore default parameters response": "Boolean",
 }
 
@@ -269,28 +270,6 @@ func vars(t lib.FuncTest) []any {
 		m = append(m, fmt.Sprintf("Address : constant Inet_Addr_Type := %v;", address))
 		m = append(m, fmt.Sprintf("Netmask : constant Inet_Addr_Type := %v;", netmask))
 		m = append(m, fmt.Sprintf("Gateway : constant Inet_Addr_Type := %v;", gateway))
-	}
-
-	if t.Name == "set-door-passcodes" {
-		passcodes := map[uint8]any{}
-
-		for _, v := range t.Args {
-			switch {
-			case v.Name == "passcode 1":
-				passcodes[1] = v.Value
-
-			case v.Name == "passcode 2":
-				passcodes[2] = v.Value
-
-			case v.Name == "passcode 3":
-				passcodes[3] = v.Value
-
-			case v.Name == "passcode 4":
-				passcodes[4] = v.Value
-			}
-		}
-
-		m = append(m, fmt.Sprintf("Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := [1 => %v, 2 => %v, 3 => %v, 4 => %v];", passcodes[1], passcodes[2], passcodes[3], passcodes[4]))
 	}
 
 	if t.Name == "put-card" {
@@ -514,6 +493,53 @@ func vars(t lib.FuncTest) []any {
 			moreCards))
 	}
 
+	if t.Name == "set-door-passcodes" {
+		passcodes := map[uint8]any{}
+
+		for _, v := range t.Args {
+			switch {
+			case v.Name == "passcode 1":
+				passcodes[1] = v.Value
+
+			case v.Name == "passcode 2":
+				passcodes[2] = v.Value
+
+			case v.Name == "passcode 3":
+				passcodes[3] = v.Value
+
+			case v.Name == "passcode 4":
+				passcodes[4] = v.Value
+			}
+		}
+
+		m = append(m, fmt.Sprintf("Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := [1 => %v, 2 => %v, 3 => %v, 4 => %v];", passcodes[1], passcodes[2], passcodes[3], passcodes[4]))
+	}
+
+	if t.Name == "activate-keypads" {
+		var reader1 any
+		var reader2 any
+		var reader3 any
+		var reader4 any
+
+		for _, v := range t.Args {
+			switch {
+			case v.Name == "reader 1":
+				reader1 = codegen.Boolean(v.Value)
+
+			case v.Name == "reader 2":
+				reader2 = codegen.Boolean(v.Value)
+
+			case v.Name == "reader 3":
+				reader3 = codegen.Boolean(v.Value)
+
+			case v.Name == "reader 4":
+				reader4 = codegen.Boolean(v.Value)
+			}
+		}
+
+		m = append(m, fmt.Sprintf(`Keypads : constant Uhppoted.Lib.Keypads := [1 => %v, 2 => %v, 3 => %v, 4 => %v];`, reader1, reader2, reader3, reader4))
+	}
+
 	return m
 }
 
@@ -576,6 +602,12 @@ func args(t lib.FuncTest) []any {
 		case t.Name == "add-task" && v.Name == "more cards":
 			// SKIP
 
+		case t.Name == "activate-keypads" && v.Name == "reader 1":
+		case t.Name == "activate-keypads" && v.Name == "reader 2":
+		case t.Name == "activate-keypads" && v.Name == "reader 3":
+		case t.Name == "activate-keypads" && v.Name == "reader 4":
+			// SKIP
+
 		case v.Type == "IPv4":
 			args = append(args, fmt.Sprintf(`Inet_Addr ("%v")`, v.Value))
 
@@ -619,6 +651,10 @@ func args(t lib.FuncTest) []any {
 
 	if t.Name == "add-task" {
 		args = append(args, "TaskT")
+	}
+
+	if t.Name == "activate-keypads" {
+		args = append(args, "Keypads")
 	}
 
 	return args

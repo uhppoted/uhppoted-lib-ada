@@ -263,6 +263,12 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for an activate-keypads response.
+   type Activate_Keypads_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
    --  Message definition for a restore-default-parameters response.
    type Restore_Default_Parameters_Response is record
       Controller : Unsigned_32;

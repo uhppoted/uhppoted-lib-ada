@@ -182,9 +182,27 @@ package body Uhppoted.Types is
          when 8 =>
             return Interlock_1234;
          when others =>
-            raise Constraint_Error with "Invalid Interlock: " & V'Image;
+            raise Constraint_Error with "Invalid interlock: " & V'Image;
       end case;
    end To_Interlock;
+
+   function To_Antipassback (V : Unsigned_8) return Antipassback is
+   begin
+      case V is
+         when 0 =>
+            return No_Antipassback;
+         when 1 =>
+            return Readers_12_34;
+         when 2 =>
+            return Readers_13_24;
+         when 3 =>
+            return Readers_1_23;
+         when 4 =>
+            return Readers_1_234;
+         when others =>
+            raise Constraint_Error with "Invalid antipassback: " & V'Image;
+      end case;
+   end To_Antipassback;
 
    function Image (Addr : IPv4) return String is
       use Ada.Strings.Fixed;

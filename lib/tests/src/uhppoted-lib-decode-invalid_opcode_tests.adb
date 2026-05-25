@@ -47,9 +47,10 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       Register_Routine (T, Test_Add_Task_Invalid_OpCode'Access,        "test decode Add_Task with invalid opcode");
       Register_Routine (T, Test_Refresh_Tasklist_Invalid_OpCode'Access, "test decode Refresh_Tasklist with invalid opcode");
       Register_Routine (T, Test_Clear_Tasklist_Invalid_OpCode'Access,  "test decode Clear_Tasklist with invalid opcode");
-      Register_Routine (T, Test_Set_Pc_Control_Invalid_OpCode'Access,  "test decode Set_Pc_Control with invalid opcode");
+      Register_Routine (T, Test_Set_PC_Control_Invalid_OpCode'Access,  "test decode Set_PC_Control with invalid opcode");
       Register_Routine (T, Test_Set_Interlock_Invalid_OpCode'Access,   "test decode Set_Interlock with invalid opcode");
       Register_Routine (T, Test_Activate_Keypads_Invalid_OpCode'Access, "test decode Activate_Keypads with invalid opcode");
+      Register_Routine (T, Test_Get_Antipassback_Invalid_OpCode'Access, "test decode Get_Antipassback with invalid opcode");
       Register_Routine (T, Test_Restore_Default_Parameters_Invalid_OpCode'Access, "test decode Restore_Default_Parameters with invalid opcode");
       Register_Routine (T, Test_Listener_Event_Invalid_OpCode'Access,  "test decode Listener_Event with invalid opcode");
       Register_Routine (T, Test_Listener_Event_V6_62_Invalid_OpCode'Access, "test decode Listener_Event_V6_62 with invalid opcode");
@@ -823,7 +824,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Clear_Tasklist_Invalid_OpCode;
 
-   procedure Test_Set_Pc_Control_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+   procedure Test_Set_PC_Control_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
 
       Reply : constant Packet := [
@@ -835,7 +836,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
 
    begin
       declare
-         Unused : constant Set_Pc_Control_Response := Uhppoted.Lib.Decode.Set_Pc_Control (Reply);
+         Unused : constant Set_PC_Control_Response := Uhppoted.Lib.Decode.Set_PC_Control (Reply);
       begin
          Assert (False, "Expected 'invalid response' error");
       end;
@@ -845,7 +846,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
          null;
       when E : others =>
          Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
-   end Test_Set_Pc_Control_Invalid_OpCode;
+   end Test_Set_PC_Control_Invalid_OpCode;
 
    procedure Test_Set_Interlock_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);
@@ -894,6 +895,30 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when E : others =>
          Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
    end Test_Activate_Keypads_Invalid_OpCode;
+
+   procedure Test_Get_Antipassback_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Reply : constant Packet := [
+         16#17#, 16#87#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#02#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+   begin
+      declare
+         Unused : constant Get_Antipassback_Response := Uhppoted.Lib.Decode.Get_Antipassback (Reply);
+      begin
+         Assert (False, "Expected 'invalid response' error");
+      end;
+
+   exception
+      when Invalid_Response_Error =>
+         null;
+      when E : others =>
+         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+   end Test_Get_Antipassback_Invalid_OpCode;
 
    procedure Test_Restore_Default_Parameters_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

@@ -38,7 +38,7 @@ var API = []types.Function{
 	lib.SetPCControl,
 	lib.SetInterlock,
 	lib.ActivateKeypads,
-	// &GetAntiPassback,
+	lib.GetAntiPassback,
 	// &SetAntiPassback,
 	// &SetFirstCard,
 	lib.RestoreDefaultParameters,

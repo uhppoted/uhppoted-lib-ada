@@ -269,6 +269,12 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for a get-antipassback response.
+   type Get_Antipassback_Response is record
+      Controller   : Unsigned_32;
+      Antipassback : Unsigned_8;
+   end record;
+
    --  Message definition for a restore-default-parameters response.
    type Restore_Default_Parameters_Response is record
       Controller : Unsigned_32;

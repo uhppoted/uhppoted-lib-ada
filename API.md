@@ -30,6 +30,7 @@
 - [`Set_PC_Control`](#set_pc_control)
 - [`Set_Interlock`](#set_interlock)
 - [`Activate_Keypads`](#activate_keypads)
+- [`Get_Antipassback`](#get_antipassback)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -1240,6 +1241,39 @@ where:
 ```
 
 Returns `True` if the _keypads_ were activated/deactivated.
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Get_Antipassback`
+
+**Get_Antipassback** retrieves the controller anti-passback setting.
+
+```
+function Get_Antipassback (U       : UHPPOTE;
+                           C       : Unsigned_32;
+                           Timeout : Duration) return Unsigned_32;
+
+function Get_Antipassback (U     : UHPPOTE;
+                           C     : Controller;
+                           Timeout : Duration) return Unsigned_32;
+
+where:
+- U        UHPPOTE                 UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C        Unsigned_32             Controller serial number.
+- C        Controller              Controller record initialised with the controller ID, IPv4 address:port and protocol.
+```
+
+Returns the controller `Antipassback` setting:
+```
+type Antipassback is (No_Antipassback,
+                      Readers_12_34,
+                      Readers_13_24,
+                      Readers_1_23,
+                      Readers_1_234);
+```
 
 Raises:
 - `Timeout_Error` if the controller does not respond

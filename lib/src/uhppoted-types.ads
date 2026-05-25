@@ -311,6 +311,16 @@ package Uhppoted.Types is
 
    type Keypads is array (1 .. 4) of Boolean;
 
+   type Antipassback is (No_Antipassback, Readers_12_34, Readers_13_24, Readers_1_23, Readers_1_234);
+
+   for Antipassback use (No_Antipassback => 16#00#,   --  disabled
+                         Readers_12_34   => 16#01#,   --  readers 1:2; 3:4 (independently)
+                         Readers_13_24   => 16#02#,   --  readers (1,3):(2,4)
+                         Readers_1_23    => 16#03#,   --  readers 1:(2,3)
+                         Readers_1_234   => 16#04#);  --  readers 1:(2,3,4)
+
+   function To_Antipassback (V : Unsigned_8) return Antipassback;
+
    type Signal is new Ada.Finalization.Limited_Controlled with record
       Selector : GNAT.Sockets.Selector_Type;
    end record;

@@ -246,6 +246,8 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Activate_Keypads : constant Boolean := True;
 
+   Get_Antipassback : constant Antipassback := To_Antipassback (2);
+
    Restore_Default_Parameters : constant Boolean := True;
 
 end Uhppoted.Lib.Integration_Tests.Expected;

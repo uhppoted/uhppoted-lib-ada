@@ -1,5 +1,3 @@
-with Ada.Text_IO; use Ada.Text_IO;
-
 with Ada.Strings;
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps;

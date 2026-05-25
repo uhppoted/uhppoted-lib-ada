@@ -79,6 +79,7 @@ var translations = map[string]string{
 	"set PC control response":             "Boolean",
 	"set interlock response":              "Boolean",
 	"activate keypads response":           "Boolean",
+	"get anti-passback response":          "Antipassback",
 	"restore default parameters response": "Boolean",
 }
 
@@ -231,9 +232,20 @@ func transmogrify(functions []lib.Function) []test {
 
 	for _, f := range functions {
 		for _, t := range f.Tests {
+			name := codegen.AdaName(t.Name)
+			fname := codegen.AdaName(f.Name)
+
+			if t.Name == "set-pc-control" {
+			}
+
+			if t.Name == "get-antipassback" {
+				name = "Get_Antipassback"
+				fname = "Get_Antipassback"
+			}
+
 			transmogrified = append(transmogrified, test{
-				Name:     codegen.AdaName(t.Name),
-				Function: codegen.AdaName(f.Name),
+				Name:     name,
+				Function: fname,
 				Vars:     vars(t),
 				Args:     args(t),
 				Request:  packet(t.Request),
@@ -623,6 +635,9 @@ func args(t lib.FuncTest) []any {
 		case v.Type == "interlock":
 			args = append(args, fmt.Sprintf("To_Interlock (%v)", v.Value))
 
+		case v.Type == "anti-passback":
+			args = append(args, fmt.Sprintf("To_Antipassback (%v)", v.Value))
+
 		case v.Type == "bool":
 			args = append(args, codegen.Boolean(v.Value))
 
@@ -735,6 +750,10 @@ func response(f lib.Function, t lib.FuncTest) returns {
 		case "Time_Profile":
 			r.Template = "time-profile"
 			r.Value = t.Replies[0].Response
+
+		case "Antipassback":
+			r.Template = "boolean"
+			r.Value = fmt.Sprintf("To_Antipassback (%v)", t.Replies[0].Response[1].Value)
 		}
 	}
 

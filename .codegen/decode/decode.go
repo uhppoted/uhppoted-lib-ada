@@ -86,14 +86,30 @@ func transmogrify(responses []lib.Response, events []lib.Response) []test {
 
 	for _, response := range responses {
 		for _, t := range response.Tests {
+			name := codegen.AdaName(t.Name)
+			rname := codegen.KebabCase(response.Name)
+			fname := codegen.KebabCase(strings.TrimSuffix(response.Name, " response"))
+
+			if t.Name == "set-pc-control" {
+				name = "Set_PC_Control"
+				rname = "Set_PC_Control_Response"
+				fname = "Set_PC_Control"
+			}
+
+			if t.Name == "get-anti-passback" {
+				name = "Get_Antipassback"
+				rname = "Get_Antipassback_Response"
+				fname = "Get_Antipassback"
+			}
+
 			invalidSOM := append([]byte{0x13}, t.Response[1:]...)
 			invalidOpCode := append([]byte{0x17, t.Response[1] + 1}, t.Response[2:]...)
 
 			transmogrified = append(transmogrified, test{
-				Name:        fmt.Sprintf("%v", codegen.AdaName(t.Name)),
-				Description: fmt.Sprintf("test decode %v response", codegen.AdaName(t.Name)),
-				Response:    fmt.Sprintf("%v", codegen.KebabCase(response.Name)),
-				Function:    fmt.Sprintf("%v", codegen.KebabCase(strings.TrimSuffix(response.Name, " response"))),
+				Name:        fmt.Sprintf("%v", name),
+				Description: fmt.Sprintf("test decode %v response", name),
+				Response:    fmt.Sprintf("%v", rname),
+				Function:    fmt.Sprintf("%v", fname),
 				Reply:       packet(t.Response),
 				Expected:    expected(t),
 

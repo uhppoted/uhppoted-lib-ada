@@ -95,10 +95,18 @@ func transmogrify(requests []lib.Request) []test {
 
 	for _, rq := range requests {
 		for _, t := range rq.Tests {
+			name := codegen.AdaName(t.Name)
+			rname := codegen.KebabCase(strings.TrimSuffix(rq.Name, " request"))
+
+			if t.Name == "set-pc-control-request" {
+				name = "Set_PC_Control_Request"
+				rname = "Set_PC_Control"
+			}
+
 			transmogrified = append(transmogrified, test{
-				Name:        fmt.Sprintf("%v", codegen.AdaName(t.Name)),
-				Description: fmt.Sprintf("test encode %v request", codegen.AdaName(t.Name)),
-				Request:     fmt.Sprintf("%v", codegen.KebabCase(strings.TrimSuffix(rq.Name, " request"))),
+				Name:        fmt.Sprintf("%v", name),
+				Description: fmt.Sprintf("test encode %v request", name),
+				Request:     fmt.Sprintf("%v", rname),
 				Expected:    packet(t.Expected),
 				Args:        args(t),
 			})

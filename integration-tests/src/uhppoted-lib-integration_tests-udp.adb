@@ -73,6 +73,7 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
       Register_Routine (T, Test_Set_Pc_Control'Access,              "Set_Pc_Control");
       Register_Routine (T, Test_Set_Interlock'Access,               "Set_Interlock");
       Register_Routine (T, Test_Activate_Keypads'Access,            "Activate_Keypads");
+      Register_Routine (T, Test_Get_Antipassback'Access,            "Get_Antipassback");
       Register_Routine (T, Test_Restore_Default_Parameters'Access,  "Restore_Default_Parameters");
       Register_Routine (T, Test_Connection_Refused'Access,            "connection refused");
    end Register_Tests;
@@ -584,6 +585,20 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    begin
       Assert (V = Expected.Activate_Keypads, "invalid result" & V'Image);
    end Test_Activate_Keypads;
+
+   procedure Test_Get_Antipassback (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      C : constant Controller := (ID       => 405419896,
+                                  DestAddr => (Family => Family_Inet,
+                                               Addr => Inet_Addr ("127.0.0.1"),
+                                               Port => Port),
+                                  Protocol => Uhppoted.Lib.UDP);
+
+      V : constant Antipassback := Get_Antipassback (U, C, 0.5);
+   begin
+      Assert (V = Expected.Get_Antipassback, "invalid result" & V'Image);
+   end Test_Get_Antipassback;
 
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
       pragma Unreferenced (T);

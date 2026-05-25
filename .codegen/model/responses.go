@@ -39,7 +39,7 @@ var Responses = []types.Response{
 	lib.SetPCControlResponse,
 	lib.SetInterlockResponse,
 	lib.ActivateKeypadsResponse,
-	// &GetAntiPassbackResponse,
+	lib.GetAntiPassbackResponse,
 	// &SetAntiPassbackResponse,
 	// &SetFirstCardResponse,
 	lib.RestoreDefaultParametersResponse,

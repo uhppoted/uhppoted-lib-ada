@@ -479,6 +479,16 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Activate_Keypads;
 
+   --  Encodes a get-antipassback request as a 64 byte array.
+   function Get_Antipassback (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
+      Request : Get_Antipassback_Request;
+      Buffer  : Packet with Address => Request'Address;
+   begin
+      Request.Controller := Controller;
+
+      return Buffer;
+   end Get_Antipassback;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;

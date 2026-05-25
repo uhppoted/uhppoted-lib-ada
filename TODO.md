@@ -3,18 +3,12 @@
 - https://github.com/ohenley/awesome-ada
 - https://github.com/simonjwright/alire-index.mac
 
-- [x] add-task
-- [x] refresh-tasklist
-- [x] clear-tasklist
-- [x] set-pc-control
-- [x] set-interlock
-- [x] activate-keypads
+- [x] get-antipassback
     - [x] API
     - [x] CLI
     - [x] README
     - [x] integration tests
 
-- [ ] get-antipassback
 - [ ] set-antipassback
 - [ ] set-firstcard
 

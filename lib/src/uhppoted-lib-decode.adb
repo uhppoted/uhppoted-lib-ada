@@ -611,6 +611,22 @@ package body Uhppoted.Lib.Decode is
               Ok         => Unpack_Boolean (R.Ok));
    end Activate_Keypads;
 
+   --  Decodes a 64 byte get-antipassback reply as a Get_Antipassback_Response record.
+   function Get_Antipassback (Reply : Packet) return Responses.Get_Antipassback_Response is
+      R : Replies.Get_Antipassback_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Get_Antipassback then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller   => R.Controller,
+              Antipassback => R.Antipassback);
+   end Get_Antipassback;
+
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.
    function Restore_Default_Parameters (Reply : Packet) return Responses.Restore_Default_Parameters_Response is
       R : Replies.Restore_Default_Parameters_Reply with Import, Address => Reply'Address;

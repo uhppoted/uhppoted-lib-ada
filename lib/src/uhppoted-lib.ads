@@ -53,6 +53,7 @@ package Uhppoted.Lib is
    subtype Passcodes_List is Uhppoted.Types.Passcodes_List;
    subtype Task_Type      is Uhppoted.Types.Task_Type;
    subtype Interlock      is Uhppoted.Types.Interlock;
+   subtype Antipassback   is Uhppoted.Types.Antipassback;
 
    Normally_Open        : Control_Mode renames Uhppoted.Types.Normally_Open;
    Normally_Closed      : Control_Mode renames Uhppoted.Types.Normally_Closed;
@@ -78,6 +79,12 @@ package Uhppoted.Lib is
    Interlock_12_34      : Interlock renames Uhppoted.Types.Interlock_12_34;
    Interlock_123        : Interlock renames Uhppoted.Types.Interlock_123;
    Interlock_1234       : Interlock renames Uhppoted.Types.Interlock_1234;
+
+   No_Antipassback      : Antipassback renames Uhppoted.Types.No_Antipassback;
+   Readers_12_34        : Antipassback renames Uhppoted.Types.Readers_12_34;
+   Readers_13_24        : Antipassback renames Uhppoted.Types.Readers_13_24;
+   Readers_1_23         : Antipassback renames Uhppoted.Types.Readers_1_23;
+   Readers_1_234        : Antipassback renames Uhppoted.Types.Readers_1_234;
 
    Invalid_Address_Error        : exception renames Uhppoted.Types.Invalid_Address_Error;
    Card_Not_Found_Error         : exception renames Uhppoted.Types.Card_Not_Found_Error;
@@ -1057,6 +1064,34 @@ package Uhppoted.Lib is
    --  @param  Timeout    Operation timeout (defaults to 2.5s).
    --
    --  @return            True if the door reader keypads were activated/deactivated.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Get_Antipassback (U       : UHPPOTE;
+                              C       : Unsigned_32;
+                              Timeout : Duration := 2.5) return Antipassback;
+   --  Retrieves the controller anti-passback setting. Restricted to the local LAN.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Current anti-passback setting.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Get_Antipassback (U       : UHPPOTE;
+                              C       : Controller;
+                              Timeout : Duration := 2.5) return Antipassback;
+   --  Retrieves the controller anti-passback setting.
+   --
+   --  @param  U          UHPPOTE configuration.
+   --  @param  C          Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Timeout    Operation timeout (defaults to 2.5s).
+   --
+   --  @return            Current anti-passback setting.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.

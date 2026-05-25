@@ -87,6 +87,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Set_PC_Control`](API.md#set_pc_control)
 - [`Set_Interlock`](API.md#set_interlock)
 - [`Activate_Keypads`](API.md#activate_keypads)
+- [`Get_Antipassback`](API.md#get_antipassback)
 - [`Restore_Default_Parameters`](API.md#restore_default_parameters)
 - [`Listen`](API.md#listen)
 

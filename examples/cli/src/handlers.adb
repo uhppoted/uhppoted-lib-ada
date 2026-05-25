@@ -514,7 +514,17 @@ package body Handlers is
       Put_Line ("");
       Put_Line ("         ok: " & R'Image);
       Put_Line ("");
-   end;
+   end Activate_Keypads;
+
+   --  Executes the get-antipassback command.
+   procedure Get_Antipassback (Args : ArgParse.Args) is
+      R : constant Antipassback := Get_Antipassback (U, Args.Controller, Timeout);
+   begin
+      Put_Line ("--- get-antipassback");
+      Put_Line (" controller:    " & Args.Controller.ID'Image);
+      Put_Line ("  anti-passback: " & R'Image);
+      Put_Line ("");
+   end Get_Antipassback;
 
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is

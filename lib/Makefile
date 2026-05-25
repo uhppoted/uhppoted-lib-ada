@@ -127,6 +127,9 @@ set-interlock: build
 activate-keypads: build
 	cd ../examples/cli && make activate-keypads CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) KEYPADS="$(KEYPADS)"
 
+get-antipassback: build
+	cd ../examples/cli && make get-antipassback CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+
 restore-default-parameters: build
 	cd ../examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
 

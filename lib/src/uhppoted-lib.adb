@@ -1065,7 +1065,46 @@ package body Uhppoted.Lib is
       return R.Ok;
    end Activate_Keypads;
 
-   --  Resets the controller to the manufacturer default settings. Restricted to the local LAN.
+   --  Retrieves the controller anti-passback setting. Restricted to the local LAN.
+   function Get_Antipassback (U       : UHPPOTE;
+                              C       : Unsigned_32;
+                              Timeout : Duration := 2.5) return Antipassback is
+   begin
+      return Get_Antipassback(U, To_Controller(C), Timeout);
+   end Get_Antipassback;
+
+   --  Retrieves the controller anti-passback setting.
+   function Get_Antipassback (U       : UHPPOTE;
+                              C       : Controller;
+                              Timeout : Duration := 2.5) return Antipassback is
+      Request : constant Packet := Uhppoted.Lib.Encode.Get_Antipassback (C.ID);
+      Reply   : Packet;
+      R       : Get_Antipassback_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Get_Antipassback (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      case R.Antipassback is
+         when 0 =>
+            return No_Antipassback;
+         when 1 =>
+            return Readers_12_34;
+         when 2 =>
+            return Readers_13_24;
+         when 3 =>
+            return Readers_1_23;
+         when 4 =>
+            return Readers_1_234;
+         when others =>
+            raise Invalid_Response_Error;
+      end case;
+
+   end Get_Antipassback;
+
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;
                                         Timeout : Duration := 2.5) return Boolean is

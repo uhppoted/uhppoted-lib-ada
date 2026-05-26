@@ -526,6 +526,17 @@ package body Handlers is
       Put_Line ("");
    end Get_Antipassback;
 
+   --  Executes the set-antipassback command.
+   procedure Set_Antipassback (Args : ArgParse.Args) is
+      R : constant Boolean := Set_Antipassback (U, Args.Controller, Args.Antipassback, Timeout);
+   begin
+      Put_Line ("--- set-antipassback");
+      Put_Line (" controller:    " & Args.Controller.ID'Image);
+      Put_Line ("  anti-passback: " & Args.Antipassback'Image);
+      Put_Line ("         ok:     " & R'Image);
+      Put_Line ("");
+   end Set_Antipassback;
+
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is
       R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);

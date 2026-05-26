@@ -43,6 +43,7 @@ package Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
    procedure Test_Set_Interlock_Invalid_OpCode  (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Activate_Keypads_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Get_Antipassback_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Set_Antipassback_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Restore_Default_Parameters_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Listener_Event_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Listener_Event_V6_62_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class);

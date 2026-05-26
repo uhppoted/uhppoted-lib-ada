@@ -248,6 +248,8 @@ package Uhppoted.Lib.Integration_Tests.Expected is
 
    Get_Antipassback : constant Antipassback := To_Antipassback (2);
 
+   Set_Antipassback : constant Boolean := True;
+
    Restore_Default_Parameters : constant Boolean := True;
 
 end Uhppoted.Lib.Integration_Tests.Expected;

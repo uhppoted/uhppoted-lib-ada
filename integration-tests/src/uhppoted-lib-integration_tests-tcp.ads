@@ -54,6 +54,7 @@ private
    procedure Test_Set_Interlock               (T : in out Test_Case'Class);
    procedure Test_Activate_Keypads            (T : in out Test_Case'Class);
    procedure Test_Get_Antipassback            (T : in out Test_Case'Class);
+   procedure Test_Set_Antipassback            (T : in out Test_Case'Class);
    procedure Test_Restore_Default_Parameters  (T : in out Test_Case'Class);
    procedure Test_Connection_Refused (T : in out Test_Case'Class);
 

@@ -163,6 +163,10 @@ package Uhppoted.Lib.Encode is
    --  Encodes a get-antipassback request as a 64 byte array.
    function Get_Antipassback (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a set-antipassback request as a 64 byte array.
+   function Set_Antipassback (Controller   : Unsigned_32;
+                              Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 

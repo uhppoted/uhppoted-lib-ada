@@ -40,6 +40,7 @@ package body Registry is
       CS.Internal_Map.Insert ("set-interlock",              Set_Interlock'Access);
       CS.Internal_Map.Insert ("activate-keypads",           Activate_Keypads'Access);
       CS.Internal_Map.Insert ("get-antipassback",           Get_Antipassback'Access);
+      CS.Internal_Map.Insert ("set-antipassback",           Set_Antipassback'Access);
       CS.Internal_Map.Insert ("restore-default-parameters", Restore_Default_Parameters'Access);
       CS.Internal_Map.Insert ("listen",                     Listen'Access);
 

@@ -31,6 +31,7 @@ TASK ?= unlock door,2026-01-01,2026-12-31,[Mon,Tues,Fri],08:30,3,13
 PC_CONTROL ?= yes
 INTERLOCK ?= 1&2,3&4
 KEYPADS ?= 1,2,4
+ANTIPASSBACK ?= (1,3):(2,4)
 
 clean:
 	alr clean
@@ -133,6 +134,9 @@ activate-keypads: build
 
 get-antipassback: build
 	$(CLI) get-antipassback --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+
+set-antipassback: build
+	$(CLI) set-antipassback --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --antipassback "$(ANTIPASSBACK)"
 
 restore-default-parameters: build
 	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)

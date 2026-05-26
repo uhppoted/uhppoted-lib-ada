@@ -39,7 +39,7 @@ var API = []types.Function{
 	lib.SetInterlock,
 	lib.ActivateKeypads,
 	lib.GetAntiPassback,
-	// &SetAntiPassback,
+	lib.SetAntiPassback,
 	// &SetFirstCard,
 	lib.RestoreDefaultParameters,
 }

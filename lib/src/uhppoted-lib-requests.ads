@@ -811,6 +811,29 @@ package Uhppoted.Lib.Requests is
    for Get_Antipassback_Request'Bit_Order use System.Low_Order_First;
    for Get_Antipassback_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a set-antipassback request.
+   type Set_Antipassback_Request is record
+      SOM          : Unsigned_8    := Codec.SOM;
+      OpCode       : Codec.Op_Code := Codec.Set_Antipassback;
+      Reserved     : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller   : Unsigned_32;
+      Antipassback : Uhppoted.Lib.Antipassback;
+      Padding      : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
+   end record;
+
+   for Set_Antipassback_Request use record
+      SOM          at 0 range 0 ..   7;
+      OpCode       at 1 range 0 ..   7;
+      Reserved     at 2 range 0 ..  15;
+      Controller   at 4 range 0 ..  31;
+      Antipassback at 8 range 0 ..   7;
+      Padding      at 9 range 0 .. 439;
+   end record;
+
+   for Set_Antipassback_Request'Size use 64 * 8;
+   for Set_Antipassback_Request'Bit_Order use System.Low_Order_First;
+   for Set_Antipassback_Request'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a restore-default-parameters request.
    type Restore_Default_Parameters_Request is record
       SOM        : Unsigned_8    := Codec.SOM;

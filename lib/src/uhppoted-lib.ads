@@ -1096,6 +1096,38 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
 
+   function Set_Antipassback (U             : UHPPOTE;
+                              C             : Unsigned_32;
+                              Anti_Passback : Antipassback;
+                              Timeout       : Duration := 2.5) return Boolean;
+   --  Sets the controller anti-passback setting. Restricted to the local LAN.
+   --
+   --  @param  U              UHPPOTE configuration.
+   --  @param  C              Controller serial number.
+   --  @param  Anti_Passback  Anti-passback setting.
+   --  @param  Timeout        Operation timeout (defaults to 2.5s).
+   --
+   --  @return                True if the controller anti-passback setting was accepted.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Set_Antipassback (U             : UHPPOTE;
+                              C             : Controller;
+                              Anti_Passback : Antipassback;
+                              Timeout       : Duration := 2.5) return Boolean;
+   --  Sets the controller anti-passback setting.
+   --
+   --  @param  U              UHPPOTE configuration.
+   --  @param  C              Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Anti_Passback  Anti-passback setting.
+   --  @param  Timeout        Operation timeout (defaults to 2.5s).
+   --
+   --  @return                True if the controller anti-passback setting was accepted.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
    function Restore_Default_Parameters (U       : UHPPOTE;
                                         C       : Unsigned_32;
                                         Timeout : Duration := 2.5) return Boolean;

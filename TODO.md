@@ -4,12 +4,12 @@
 - https://github.com/simonjwright/alire-index.mac
 
 - [x] get-antipassback
+- [x] set-antipassback
     - [x] API
     - [x] CLI
     - [x] README
     - [x] integration tests
 
-- [ ] set-antipassback
 - [ ] set-firstcard
 
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime

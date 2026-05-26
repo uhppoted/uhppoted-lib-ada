@@ -50,6 +50,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Set_Interlock_Request'Access, "test encode Set_Interlock_Request request");
       Register_Routine (T, Test_Encode_Activate_Keypads'Access, "test encode Activate_Keypads request");
       Register_Routine (T, Test_Encode_Get_Antipassack'Access,  "test encode Get_Antipassack request");
+      Register_Routine (T, Test_Encode_Set_Antipassack'Access,  "test encode Set_Antipassack request");
       Register_Routine (T, Test_Encode_Restore_Default_Parameters'Access, "test encode Restore_Default_Parameters request");
    end Register_Tests;
 
@@ -687,6 +688,23 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded get-antipassback request: got" & Request'Image);
    end Test_Encode_Get_Antipassack;
+
+   procedure Test_Encode_Set_Antipassack (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#84#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#02#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_Antipassback (
+         405419896,
+         To_Antipassback (2));
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-antipassback request: got" & Request'Image);
+   end Test_Encode_Set_Antipassack;
 
    procedure Test_Encode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

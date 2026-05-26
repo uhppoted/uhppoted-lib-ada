@@ -31,6 +31,7 @@
 - [`Set_Interlock`](#set_interlock)
 - [`Activate_Keypads`](#activate_keypads)
 - [`Get_Antipassback`](#get_antipassback)
+- [`Set_Antipassback`](#set_antipassback)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -1249,7 +1250,7 @@ Raises:
 
 ### `Get_Antipassback`
 
-**Get_Antipassback** retrieves the controller anti-passback setting.
+**Get_Antipassback** retrieves the controller anti-passback mode.
 
 ```
 function Get_Antipassback (U       : UHPPOTE;
@@ -1266,7 +1267,7 @@ where:
 - C        Controller              Controller record initialised with the controller ID, IPv4 address:port and protocol.
 ```
 
-Returns the controller `Antipassback` setting:
+Returns the controller `Antipassback` mode:
 ```
 type Antipassback is (No_Antipassback,
                       Readers_12_34,
@@ -1274,6 +1275,41 @@ type Antipassback is (No_Antipassback,
                       Readers_1_23,
                       Readers_1_234);
 ```
+
+Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Set_Antipassback`
+
+**Set_Antipassback** sets the controller anti-passback mode.
+
+```
+function Set_Antipassback (U            : UHPPOTE;
+                           C            : Unsigned_32;
+                           Antipassback : Uhppoted.Lib.Antipassback
+                           Timeout      : Duration) return Unsigned_32;
+
+function Set_Antipassback (U            : UHPPOTE;
+                           C            : Controller;
+                           Antipassback : Uhppoted.Lib.Antipassback
+                           Timeout      : Duration) return Unsigned_32;
+
+where:
+- U        UHPPOTE                 UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C        Unsigned_32             Controller serial number.
+- C        Controller              Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Antipassback  Antipassback   Anti-passback mode to configure:
+
+type Antipassback is (No_Antipassback,  --  disabled
+                      Readers_12_34,    --  readers 1:2; 3:4 (independently)
+                      Readers_13_24,    --  readers (1,3):(2,4)
+                      Readers_1_23,     --  readers 1:(2,3)
+                      Readers_1_234);   --  readers 1:(2,3,4)
+```
+
+Returns `True` if the anti-passback mode was configured.
 
 Raises:
 - `Timeout_Error` if the controller does not respond

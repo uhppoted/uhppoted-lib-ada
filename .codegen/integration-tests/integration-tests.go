@@ -80,6 +80,7 @@ var translations = map[string]string{
 	"set interlock response":              "Boolean",
 	"activate keypads response":           "Boolean",
 	"get anti-passback response":          "Antipassback",
+	"set anti-passback response":          "Boolean",
 	"restore default parameters response": "Boolean",
 }
 
@@ -241,6 +242,11 @@ func transmogrify(functions []lib.Function) []test {
 			if t.Name == "get-antipassback" {
 				name = "Get_Antipassback"
 				fname = "Get_Antipassback"
+			}
+
+			if t.Name == "set-antipassback" {
+				name = "Set_Antipassback"
+				fname = "Set_Antipassback"
 			}
 
 			transmogrified = append(transmogrified, test{

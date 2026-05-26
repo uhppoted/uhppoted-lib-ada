@@ -102,6 +102,12 @@ func transmogrify(responses []lib.Response, events []lib.Response) []test {
 				fname = "Get_Antipassback"
 			}
 
+			if t.Name == "set-antipassback" {
+				name = "Set_Antipassback"
+				rname = "Set_Antipassback_Response"
+				fname = "Set_Antipassback"
+			}
+
 			invalidSOM := append([]byte{0x13}, t.Response[1:]...)
 			invalidOpCode := append([]byte{0x17, t.Response[1] + 1}, t.Response[2:]...)
 

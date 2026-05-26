@@ -41,6 +41,7 @@ package body Uhppoted.Lib.Integration_Tests.Stub.Messages is
      (Set_Interlock_Request,               Set_Interlock_Reply),
      (Activate_Keypads_Request,            Activate_Keypads_Reply),
      (Get_Antipassback_Request,            Get_Antipassback_Reply),
+     (Set_Antipassback_Request,            Set_Antipassback_Reply),
      (Restore_Default_Parameters_Request,  Restore_Default_Parameters_Reply),
      (Invalid_SOM_Request,                 Invalid_SOM_Reply),
      (Invalid_OpCode_Request,              Invalid_OpCode_Reply)

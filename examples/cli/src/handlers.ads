@@ -33,6 +33,7 @@ package Handlers is
    procedure Set_Interlock              (Args : ArgParse.Args);
    procedure Activate_Keypads           (Args : ArgParse.Args);
    procedure Get_Antipassback           (Args : ArgParse.Args);
+   procedure Set_Antipassback           (Args : ArgParse.Args);
    procedure Restore_Default_Parameters (Args : ArgParse.Args);
    procedure Listen                     (Args : ArgParse.Args);
 end Handlers;

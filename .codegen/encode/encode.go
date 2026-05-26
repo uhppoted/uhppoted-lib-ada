@@ -158,6 +158,9 @@ func args(t lib.RequestTest) []arg {
 		case "task":
 			args = append(args, arg{fmt.Sprintf("To_Task_Type (%v)", a.Value), comma})
 
+		case "anti-passback":
+			args = append(args, arg{fmt.Sprintf("To_Antipassback (%v)", a.Value), comma})
+
 		case "address:port":
 			{
 				addrPort := netip.MustParseAddrPort(fmt.Sprintf("%v", a.Value))

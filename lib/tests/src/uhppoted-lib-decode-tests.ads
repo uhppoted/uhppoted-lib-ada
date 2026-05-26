@@ -43,6 +43,7 @@ package Uhppoted.Lib.Decode.Tests is
    procedure Test_Decode_Set_Interlock (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Activate_Keypads (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Get_Antipassback (T : in out AUnit.Test_Cases.Test_Case'Class);
+   procedure Test_Decode_Set_Antipassback (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Listener_Event (T : in out AUnit.Test_Cases.Test_Case'Class);
    procedure Test_Decode_Listener_Event_V6_62 (T : in out AUnit.Test_Cases.Test_Case'Class);

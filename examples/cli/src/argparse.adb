@@ -68,6 +68,8 @@ package body ArgParse is
          return Parse_Set_Interlock;
       elsif Cmd = "activate-keypads" then
          return Parse_Activate_Keypads;
+      elsif Cmd = "set-antipassback" then
+         return Parse_Set_Antipassback;
       end if;
 
       --  default to general command
@@ -1140,5 +1142,56 @@ package body ArgParse is
       end;
 
    end Parse_Activate_Keypads;
+
+   function Parse_Set_Antipassback return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Antipassback            : aliased String_Access := null;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Antipassback'Access,
+                     Long_Switch => "--antipassback:",
+                     Help        => "sets the controller anti-passback mode",
+                     Argument    => "disabled|1:2;3:4|(1,3):(2,4)|1:(2,3)|1:(2,3,4)");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return set-interlock command specific args
+      declare
+         S : String renames Antipassback.all;
+         A : Uhppoted.Lib.Antipassback := No_Antipassback;
+
+      begin
+         if To_Lower (S) = "disabled" then
+            A := No_Antipassback;
+         elsif To_Lower (S) = "1:2;3:4" then
+            A := Readers_12_34;
+         elsif To_Lower (S) = "(1,3):(2,4)" then
+            A := Readers_13_24;
+         elsif To_Lower (S) = "1:(2,3)" then
+            A := Readers_1_23;
+         elsif To_Lower (S) = "1:(2,3,4)" then
+            A := Readers_1_234;
+         else
+            raise Invalid_Argument with "invalid anti-passback";
+         end if;
+
+         return (T            => ArgParse.Set_Antipassback_Args,
+                 Controller   => C,
+                 Door         => 0,
+                 Card         => (others => <>),
+                 Event_Index  => 0,
+                 Profile_ID   => 0,
+                 Antipassback => A);
+      end;
+
+   end Parse_Set_Antipassback;
 
 end ArgParse;

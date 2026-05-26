@@ -627,6 +627,22 @@ package body Uhppoted.Lib.Decode is
               Antipassback => R.Antipassback);
    end Get_Antipassback;
 
+   --  Decodes a 64 byte set-antipassback reply as a Set_Antipassback_Response record.
+   function Set_Antipassback (Reply : Packet) return Responses.Set_Antipassback_Response is
+      R : Replies.Set_Antipassback_Reply with Import, Address => Reply'Address;
+   begin
+      if R.SOM /= Codec.SOM then
+         raise Invalid_Response_Error;
+      end if;
+
+      if R.Opcode /= Codec.Set_Antipassback then
+         raise Invalid_Response_Error;
+      end if;
+
+      return (Controller => R.Controller,
+              Ok         => Unpack_Boolean (R.Ok));
+   end Set_Antipassback;
+
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.
    function Restore_Default_Parameters (Reply : Packet) return Responses.Restore_Default_Parameters_Response is
       R : Replies.Restore_Default_Parameters_Reply with Import, Address => Reply'Address;

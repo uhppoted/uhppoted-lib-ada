@@ -51,6 +51,7 @@ package body Uhppoted.Lib.Encode.Tests is
       Register_Routine (T, Test_Encode_Activate_Keypads'Access, "test encode Activate_Keypads request");
       Register_Routine (T, Test_Encode_Get_Antipassack'Access,  "test encode Get_Antipassack request");
       Register_Routine (T, Test_Encode_Set_Antipassack'Access,  "test encode Set_Antipassack request");
+      Register_Routine (T, Test_Encode_Set_First_Card'Access,   "test encode Set_First_Card request");
       Register_Routine (T, Test_Encode_Restore_Default_Parameters'Access, "test encode Restore_Default_Parameters request");
    end Register_Tests;
 
@@ -705,6 +706,34 @@ package body Uhppoted.Lib.Encode.Tests is
    begin
       Assert (Request = Expected, "incorrectly encoded set-antipassback request: got" & Request'Image);
    end Test_Encode_Set_Antipassack;
+
+   procedure Test_Encode_Set_First_Card (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Packet := [
+         16#17#, 16#aa#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#03#, 16#08#, 16#30#, 16#01#, 16#17#, 16#45#, 16#02#, 16#01#,
+         16#01#, 16#00#, 16#01#, 16#00#, 16#01#, 16#01#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_First_Card (
+         405419896,
+         3,
+         (Hour => 8, Minute => 30),
+         (Hour => 17, Minute => 45),
+         To_Control_Mode (1),
+         To_Control_Mode (2),
+         True,
+         True,
+         False,
+         True,
+         False,
+         True,
+         True);
+   begin
+      Assert (Request = Expected, "incorrectly encoded set-first-card request: got" & Request'Image);
+   end Test_Encode_Set_First_Card;
 
    procedure Test_Encode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

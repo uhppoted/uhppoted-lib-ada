@@ -25,6 +25,7 @@ PC_CONTROL?= yes
 INTERLOCK ?= 1&2,3&4
 KEYPADS ?= 1,2,4
 ANTIPASSBACK ?= (1,3):(2,4)
+FIRSTCARD ?= 08:30,16:45,normally open,firstcard only,[Mon,Tues,Fri]
 
 clean:
 	alr clean
@@ -133,6 +134,9 @@ get-antipassback: build
 
 set-antipassback: build
 	cd ../examples/cli && make set-antipassback CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) ANTIPASSBACK="$(ANTIPASSBACK)"
+
+set-firstcard: build
+	cd ../examples/cli && make set-firstcard CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) DOOR=$(DOOR) FIRSTCARD="$(FIRSTCARD)"
 
 restore-default-parameters: build
 	cd ../examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)

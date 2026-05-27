@@ -834,6 +834,51 @@ package Uhppoted.Lib.Requests is
    for Set_Antipassback_Request'Bit_Order use System.Low_Order_First;
    for Set_Antipassback_Request'Scalar_Storage_Order use System.Low_Order_First;
 
+   --  Message definition for a set-firstcard request.
+   type Set_First_Card_Request is record
+      SOM           : Unsigned_8    := Codec.SOM;
+      OpCode        : Codec.Op_Code := Codec.Set_First_Card;
+      Reserved      : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller    : Unsigned_32;
+      Door          : Unsigned_8;
+      Start_Time    : BCD2;
+      Active_Mode   : Unsigned_8;
+      End_Time      : BCD2;
+      Inactive_Mode : Unsigned_8;
+      Monday        : Unsigned_8;
+      Tuesday       : Unsigned_8;
+      Wednesday     : Unsigned_8;
+      Thursday      : Unsigned_8;
+      Friday        : Unsigned_8;
+      Saturday      : Unsigned_8;
+      Sunday        : Unsigned_8;
+      Padding       : Ada.Streams.Stream_Element_Array (1 .. 42) := [others => 0];
+   end record;
+
+   for Set_First_Card_Request use record
+      SOM           at  0 range 0 ..   7;
+      OpCode        at  1 range 0 ..   7;
+      Reserved      at  2 range 0 ..  15;
+      Controller    at  4 range 0 ..  31;
+      Door          at  8 range 0 ..   7;
+      Start_Time    at  9 range 0 ..  15;
+      Active_Mode   at 11 range 0 ..   7;
+      End_Time      at 12 range 0 ..  15;
+      Inactive_Mode at 14 range 0 ..   7;
+      Monday        at 15 range 0 ..   7;
+      Tuesday       at 16 range 0 ..   7;
+      Wednesday     at 17 range 0 ..   7;
+      Thursday      at 18 range 0 ..   7;
+      Friday        at 19 range 0 ..   7;
+      Saturday      at 20 range 0 ..   7;
+      Sunday        at 21 range 0 ..   7;
+      Padding       at 22 range 0 .. 335;
+   end record;
+
+   for Set_First_Card_Request'Size use 64 * 8;
+   for Set_First_Card_Request'Bit_Order use System.Low_Order_First;
+   for Set_First_Card_Request'Scalar_Storage_Order use System.Low_Order_First;
+
    --  Message definition for a restore-default-parameters request.
    type Restore_Default_Parameters_Request is record
       SOM        : Unsigned_8    := Codec.SOM;

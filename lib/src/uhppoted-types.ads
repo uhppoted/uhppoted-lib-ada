@@ -10,6 +10,9 @@ package Uhppoted.Types is
    --  Custom exception for invalid destination address errors.
    Invalid_Address_Error : exception;
 
+   --  Custom exception for invalid door control mode errors.
+   Invalid_Door_Mode_Error : exception;
+
    --  Custom exception for card not found errors.
    Card_Not_Found_Error : exception;
 
@@ -207,11 +210,12 @@ package Uhppoted.Types is
       Event : Controller_Event;
    end record;
 
-   type Control_Mode is (Normally_Open, Normally_Closed, Controlled);
+   type Control_Mode is (Normally_Open, Normally_Closed, Controlled, First_Card_Only);
 
    for Control_Mode use (Normally_Open   => 1,
                          Normally_Closed => 2,
-                         Controlled      => 3);
+                         Controlled      => 3,
+                         First_Card_Only => 4);
 
    type Door_Record is record
       Mode      : Control_Mode;
@@ -320,6 +324,14 @@ package Uhppoted.Types is
                          Readers_1_234   => 16#04#);  --  readers 1:(2,3,4)
 
    function To_Antipassback (V : Unsigned_8) return Antipassback;
+
+   type First_Card_Record is record
+      Start_Time    : HHmm;
+      End_Time      : HHmm;
+      Active_Mode   : Control_Mode;
+      Inactive_Mode : Control_Mode;
+      Weekdays      : Weekdays_Type;
+   end record;
 
    type Signal is new Ada.Finalization.Limited_Controlled with record
       Selector : GNAT.Sockets.Selector_Type;

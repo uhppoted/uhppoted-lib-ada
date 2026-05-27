@@ -141,6 +141,10 @@ package Uhppoted.Lib.Decode is
       return Uhppoted.Lib.Responses.Set_Antipassback_Response;
    --  Decodes a 64 byte set-antipassback reply as a Set_Antipassback_Response record.
 
+   function Set_First_Card (Reply : Uhppoted.Lib.Types.Packet)
+      return Uhppoted.Lib.Responses.Set_First_Card_Response;
+   --  Decodes a 64 byte set-firstcard reply as a Set_First_Card_Response record.
+
    function Restore_Default_Parameters (Reply : Uhppoted.Lib.Types.Packet)
       return Uhppoted.Lib.Responses.Restore_Default_Parameters_Response;
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.

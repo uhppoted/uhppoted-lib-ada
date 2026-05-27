@@ -75,6 +75,7 @@ package body Uhppoted.Lib.Integration_Tests.Default is
       Register_Routine (T, Test_Activate_Keypads'Access,    "Activate_Keypads");
       Register_Routine (T, Test_Get_Antipassback'Access,    "Get_Antipassback");
       Register_Routine (T, Test_Set_Antipassback'Access,    "Set_Antipassback");
+      Register_Routine (T, Test_Set_First_Card'Access,      "Set_First_Card");
       Register_Routine (T, Test_Restore_Default_Parameters'Access, "Restore_Default_Parameters");
    end Register_Tests;
 
@@ -423,6 +424,27 @@ package body Uhppoted.Lib.Integration_Tests.Default is
    begin
       Assert (V = Expected.Set_Antipassback, "invalid result" & V'Image);
    end Test_Set_Antipassback;
+
+   procedure Test_Set_First_Card (T : in out Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      First_Card : constant Uhppoted.Lib.First_Card_Record := (
+         Start_Time    => (Hour => 8, Minute => 30),
+         End_Time      => (Hour => 17, Minute => 45),
+         Active_Mode   => To_Control_Mode (1),
+         Inactive_Mode => To_Control_Mode (2),
+         Weekdays      => (Monday    => True,
+                           Tuesday   => True,
+                           Wednesday => False,
+                           Thursday  => True,
+                           Friday    => False,
+                           Saturday  => True,
+                           Sunday    => True));
+
+      V : constant Boolean := Set_First_Card (U, 405419896, 3, First_Card, 0.5);
+   begin
+      Assert (V = Expected.Set_First_Card, "invalid result" & V'Image);
+   end Test_Set_First_Card;
 
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
       pragma Unreferenced (T);

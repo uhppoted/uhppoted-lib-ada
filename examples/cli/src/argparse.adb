@@ -1,3 +1,5 @@
+with Ada.Text_IO; use Ada.Text_IO;
+
 with Ada.Strings;
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps;
@@ -70,6 +72,8 @@ package body ArgParse is
          return Parse_Activate_Keypads;
       elsif Cmd = "set-antipassback" then
          return Parse_Set_Antipassback;
+      elsif Cmd = "set-firstcard" then
+         return Parse_Set_First_Card;
       end if;
 
       --  default to general command
@@ -889,7 +893,7 @@ package body ArgParse is
                      Output      => TaskT'Access,
                      Long_Switch => "--task:",
                      Help        => "scheduled task definition",
-                     Argument    => "<start>,<end>,[<weekdays>],[<segments>],<linked>");
+                     Argument    => "<start>,<end>,[<weekdays>],[<segments>]");
 
       Getopt (Config, Concatenate => True);
       Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
@@ -1193,5 +1197,91 @@ package body ArgParse is
       end;
 
    end Parse_Set_Antipassback;
+
+   function Parse_Set_First_Card return Args is
+      Config               : Command_Line_Configuration;
+      Controller_ID        : aliased Integer       := 0;
+      Controller_Addr      : aliased String_Access := null;
+      Controller_Transport : aliased String_Access := null;
+      Door                 : aliased Integer       := 0;
+      First_Card           : aliased String_Access := null;
+
+      C  : Controller;
+   begin
+      Add_Controller_Switches (Config, Controller_ID'Access, Controller_Addr'Access, Controller_Transport'Access);
+
+      Define_Switch (Config,
+                     Output      => Door'Access,
+                     Long_Switch => "--door:",
+                     Help        => "door ID [1..4]",
+                     Argument    => "[1..4]");
+
+      Define_Switch (Config,
+                     Output      => First_Card'Access,
+                     Long_Switch => "--firstcard:",
+                     Help        => "first-card configuration",
+                     Argument    => "<start>,<end>,<active>,<inactive>,[<weekdays>]");
+
+      Getopt (Config, Concatenate => True);
+      Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
+
+      --  return set-firstcard command specific args
+      declare
+         S : String renames First_Card.all;
+
+         I : constant Natural := Ada.Strings.Fixed.Index (S, ",", 1);
+         J : constant Natural := Ada.Strings.Fixed.Index (S, ",", I + 1);
+         K : constant Natural := Ada.Strings.Fixed.Index (S, ",", J + 1);
+         L : constant Natural := Ada.Strings.Fixed.Index (S, ",", K + 1);
+         M : constant Natural := Ada.Strings.Fixed.Index (S, "[", L + 1);
+         N : constant Natural := Ada.Strings.Fixed.Index (S, "]", M + 1);
+
+         Start_Time : constant String (1 .. I - 1)     := S (1 .. I - 1);
+         End_Time   : constant String (1 .. J - I - 1) := S (I + 1 .. J - 1);
+         Active     : constant String (1 .. K - J - 1) := S (J + 1 .. K - 1);
+         Inactive   : constant String (1 .. L - K - 1) := S (K + 1 .. L - 1);
+         Weekdays   : constant String (1 .. N - M - 1) := S (M + 1 .. N - 1);
+
+         Active_Mode   : Control_Mode;
+         Inactive_Mode : Control_Mode;
+      begin
+         if Active = "normally open" then
+            Active_Mode := Normally_Open;
+         elsif Active = "normally closed" then
+            Active_Mode := Normally_Closed;
+         elsif Active = "controlled" then
+            Active_Mode := Controlled;
+         end if;
+
+         if Inactive = "normally open" then
+            Inactive_Mode := Normally_Open;
+         elsif Inactive = "normally closed" then
+            Inactive_Mode := Normally_Closed;
+         elsif Inactive = "controlled" then
+            Inactive_Mode := Controlled;
+         elsif Inactive = "firstcard only" then
+            Inactive_Mode := First_Card_Only;
+         end if;
+
+         return (T           => ArgParse.Set_First_Card_Args,
+                 Controller  => C,
+                 Card        => (others => <>),
+                 Event_Index => 0,
+                 Profile_ID  => 0,
+                 Door        => Unsigned_8 (Door),
+                 First_Card  => (Start_Time    => To_HHmm (Start_Time),
+                                 End_Time      => To_HHmm (End_Time),
+                                 Active_Mode   => Active_Mode,
+                                 Inactive_Mode => Inactive_Mode,
+                                 Weekdays   => (Monday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "MON") > 0,
+                                                Tuesday   => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "TUE") > 0,
+                                                Wednesday => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "WED") > 0,
+                                                Thursday  => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "THU") > 0,
+                                                Friday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "FRI") > 0,
+                                                Saturday  => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "SAT") > 0,
+                                                Sunday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "SUN") > 0)));
+      end;
+
+   end Parse_Set_First_Card;
 
 end ArgParse;

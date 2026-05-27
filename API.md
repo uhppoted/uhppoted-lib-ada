@@ -32,6 +32,7 @@
 - [`Activate_Keypads`](#activate_keypads)
 - [`Get_Antipassback`](#get_antipassback)
 - [`Set_Antipassback`](#set_antipassback)
+- [`Set_First_Card`](#set_first_card)
 - [`Restore_Default_Parameters`](#restore_default_parameters)
 - [`Listen`](#listen)
 
@@ -1312,6 +1313,59 @@ type Antipassback is (No_Antipassback,  --  disabled
 Returns `True` if the anti-passback mode was configured.
 
 Raises:
+- `Timeout_Error` if the controller does not respond
+- `Invalid_Response_Error` if the returned response is incorrect
+
+
+### `Set_First_Card`
+
+**Set_First_Card** configures the first-card mode for a controller managed door. The configuration only takes effect
+after a subsequent _Refresh_Tasks_ command.
+
+```
+function Set_First_Card (U          : UHPPOTE;
+                         C          : Unsigned_32;
+                         Door       : Unsigned_8;
+                         First_Card : First_Card_Record;
+                         Timeout    : Duration) return Boolean;
+
+function Set_First_Card (U          : UHPPOTE;
+                         C          : Controller;
+                         Door       : Unsigned_8;
+                         First_Card : First_Card_Record;
+                         Timeout    : Duration) return Boolean;
+
+where:
+- U            UHPPOTE             UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
+- C            Unsigned_32         Controller serial number.
+- C            Controller          Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- Door         Unsigned_8          Door to be configured.
+- First_Card   First_Card_Record   First card configuration.
+
+   type First_Card_Record is record
+      Start_Time    : HHmm;
+      End_Time      : HHmm;
+      Active_Mode   : Normally_Open | Normally_Closed | Controlled
+      Inactive_Mode : Normally_Open | Normally_Closed | Controlled | First_Card_Only
+      Weekdays      : Weekdays_Type;
+   end record;
+
+   type Weekdays_Type is record
+      Monday          : Boolean;
+      Tuesday         : Boolean;
+      Wednesday       : Boolean;
+      Thursday        : Boolean;
+      Friday          : Boolean;
+      Saturday        : Boolean;
+      Sunday          : Boolean;
+   end record;
+
+```
+
+Returns `True` if the door first-card mode was configured.
+
+Raises:
+- `Invalid_Door_Mode_Error` if the active mode is incorrect
 - `Timeout_Error` if the controller does not respond
 - `Invalid_Response_Error` if the returned response is incorrect
 

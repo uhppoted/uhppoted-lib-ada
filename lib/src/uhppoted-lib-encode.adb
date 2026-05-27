@@ -501,6 +501,65 @@ package body Uhppoted.Lib.Encode is
       return Buffer;
    end Set_Antipassback;
 
+   --  Encodes a set-firstcard request as a 64 byte array.
+   function Set_First_Card (Controller    : Unsigned_32;
+                            Door          :  Unsigned_8;
+                            Start_Time    : HHmm;
+                            End_Time      : HHmm;
+                            Active_Mode   : Control_Mode;
+                            Inactive_Mode : Control_Mode;
+                            Monday        : Boolean;
+                            Tuesday       : Boolean;
+                            Wednesday     : Boolean;
+                            Thursday      : Boolean;
+                            Friday        : Boolean;
+                            Saturday      : Boolean;
+                            Sunday        : Boolean) return Uhppoted.Lib.Types.Packet is
+      Request : Set_First_Card_Request;
+      Buffer  : Packet with Address => Request'Address;
+
+      Active   : Unsigned_8;
+      Inactive : Unsigned_8;
+   begin
+      case Active_Mode is
+         when Controlled =>
+            Active := 0;
+         when Normally_Open =>
+            Active := 1;
+         when Normally_Closed =>
+            Active := 2;
+         when others =>
+            raise Invalid_Door_Mode_Error;
+      end case;
+
+      case Inactive_Mode is
+         when Controlled =>
+            Inactive := 0;
+         when Normally_Open =>
+            Inactive := 1;
+         when Normally_Closed =>
+            Inactive := 2;
+         when First_Card_Only =>
+            Inactive := 3;
+      end case;
+
+      Request.Controller    := Controller;
+      Request.Door          := Door;
+      Request.Start_Time    := Pack_HHmm (Start_Time);
+      Request.End_Time      := Pack_HHmm (End_Time);
+      Request.Active_Mode   := Active;
+      Request.Inactive_Mode := Inactive;
+      Request.Monday        := Pack_Boolean (Monday);
+      Request.Tuesday       := Pack_Boolean (Tuesday);
+      Request.Wednesday     := Pack_Boolean (Wednesday);
+      Request.Thursday      := Pack_Boolean (Thursday);
+      Request.Friday        := Pack_Boolean (Friday);
+      Request.Saturday      := Pack_Boolean (Saturday);
+      Request.Sunday        := Pack_Boolean (Sunday);
+
+      return Buffer;
+   end Set_First_Card;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;

@@ -5,12 +5,12 @@
 
 - [x] get-antipassback
 - [x] set-antipassback
+- [x] set-firstcard
     - [x] API
     - [x] CLI
     - [x] README
     - [x] integration tests
 
-- [ ] set-firstcard
 
 - [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
 

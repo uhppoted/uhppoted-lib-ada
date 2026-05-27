@@ -37,7 +37,8 @@ package ArgParse is
       Set_PC_Control_Args,
       Set_Interlock_Args,
       Activate_Keypads_Args,
-      Set_Antipassback_Args);
+      Set_Antipassback_Args,
+      Set_First_Card_Args);
 
    type Args (T : Args_Type) is record
       Controller  : Uhppoted.Lib.Controller;
@@ -111,6 +112,9 @@ package ArgParse is
          when Set_Antipassback_Args =>
             Antipassback : Uhppoted.Lib.Antipassback;
 
+         when Set_First_Card_Args =>
+            First_Card : Uhppoted.Lib.First_Card_Record;
+
          when others =>
             null;
       end case;
@@ -149,5 +153,6 @@ private
    function Parse_Set_Interlock         return Args;
    function Parse_Activate_Keypads      return Args;
    function Parse_Set_Antipassback      return Args;
+   function Parse_Set_First_Card        return Args;
 
 end ArgParse;

@@ -42,6 +42,7 @@ package Uhppoted.Lib is
    subtype Time_Profile           is Uhppoted.Types.Time_Profile;
    subtype Time_Segment           is Uhppoted.Types.Segment;
    subtype Task_Record            is Uhppoted.Types.Task_Record;
+   subtype First_Card_Record      is Uhppoted.Types.First_Card_Record;
    subtype Keypads                is Uhppoted.Types.Keypads;
    subtype Signal                 is Uhppoted.Types.Signal;
 
@@ -58,6 +59,7 @@ package Uhppoted.Lib is
    Normally_Open        : Control_Mode renames Uhppoted.Types.Normally_Open;
    Normally_Closed      : Control_Mode renames Uhppoted.Types.Normally_Closed;
    Controlled           : Control_Mode renames Uhppoted.Types.Controlled;
+   First_Card_Only      : Control_Mode renames Uhppoted.Types.First_Card_Only;
 
    Door_Controlled      : Task_Type renames Uhppoted.Types.Door_Controlled;
    Door_Normally_Open   : Task_Type renames Uhppoted.Types.Door_Normally_Open;
@@ -1124,6 +1126,44 @@ package Uhppoted.Lib is
    --  @param  Timeout        Operation timeout (defaults to 2.5s).
    --
    --  @return                True if the controller anti-passback setting was accepted.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Set_First_Card (U          : UHPPOTE;
+                            C          : Unsigned_32;
+                            Door       : Unsigned_8;
+                            First_Card : First_Card_Record;
+                            Timeout    : Duration := 2.5) return Boolean;
+   --  Sets the first-card mode for a controller controller managed door. Restricted to the local LAN.
+   --
+   --  @param  U           UHPPOTE configuration.
+   --  @param  C           Controller serial number.
+   --  @param  Door        Door ID [1..4]
+   --  @param  First_Card  Door first-card configuration.
+   --  @param  Timeout     Operation timeout (defaults to 2.5s).
+   --
+   --  @return             True if the first-card configuration was accepted. The configuration will take
+   --                      effect after a subsequent Refresh_Tasks command.
+   --
+   --  @exception Timeout_Error          if the controller did not respond.
+   --  @exception Invalid_Response_Error if the response did not match the requested controller.
+
+   function Set_First_Card (U          : UHPPOTE;
+                            C          : Controller;
+                            Door       : Unsigned_8;
+                            First_Card : First_Card_Record;
+                            Timeout    : Duration := 2.5) return Boolean;
+   --  Sets the first-card mode for a controller controller managed door.
+   --
+   --  @param  U           UHPPOTE configuration.
+   --  @param  C           Controller serial number, IPv4 address and (optional) procotol.
+   --  @param  Door        Door ID [1..4]
+   --  @param  First_Card  Door first-card configuration.
+   --  @param  Timeout     Operation timeout (defaults to 2.5s).
+   --
+   --  @return             True if the first-card configuration was accepted. The configuration will take
+   --                      effect after a subsequent Refresh_Tasks command.
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.

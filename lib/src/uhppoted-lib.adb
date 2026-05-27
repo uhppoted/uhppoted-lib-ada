@@ -1070,7 +1070,7 @@ package body Uhppoted.Lib is
                               C       : Unsigned_32;
                               Timeout : Duration := 2.5) return Antipassback is
    begin
-      return Get_Antipassback(U, To_Controller(C), Timeout);
+      return Get_Antipassback (U, To_Controller(C), Timeout);
    end Get_Antipassback;
 
    --  Retrieves the controller anti-passback setting.
@@ -1132,6 +1132,48 @@ package body Uhppoted.Lib is
 
       return R.Ok;
    end Set_Antipassback;
+
+   --  Sets the first-card mode for a controller controller managed door. Restricted to the local LAN.
+   function Set_First_Card (U          : UHPPOTE;
+                            C          : Unsigned_32;
+                            Door       : Unsigned_8;
+                            First_Card : First_Card_Record;
+                            Timeout    : Duration := 2.5) return Boolean is
+   begin
+      return Set_First_Card (U, To_Controller (C), Door, First_Card, Timeout);
+   end Set_First_Card;
+
+   --  Sets the first-card mode for a controller controller managed door.
+   function Set_First_Card (U          : UHPPOTE;
+                            C          : Controller;
+                            Door       : Unsigned_8;
+                            First_Card : First_Card_Record;
+                            Timeout    : Duration := 2.5) return Boolean is
+      Request : constant Packet := Uhppoted.Lib.Encode.Set_First_Card (C.ID,
+                                                                       Door,
+                                                                       First_Card.Start_Time,
+                                                                       First_Card.End_Time,
+                                                                       First_Card.Active_Mode,
+                                                                       First_Card.Inactive_Mode,
+                                                                       First_Card.Weekdays.Monday,
+                                                                       First_Card.Weekdays.Tuesday,
+                                                                       First_Card.Weekdays.Wednesday,
+                                                                       First_Card.Weekdays.Thursday,
+                                                                       First_Card.Weekdays.Friday,
+                                                                       First_Card.Weekdays.Saturday,
+                                                                       First_Card.Weekdays.Sunday);
+      Reply  : Packet;
+      R      : Set_First_Card_Response;
+   begin
+      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      R     := Uhppoted.Lib.Decode.Set_First_Card (Reply);
+
+      if R.Controller /= C.ID then
+         raise Invalid_Response_Error;
+      end if;
+
+      return R.Ok;
+   end Set_First_Card;
 
    --  Resets the controller to the manufacturer settings. Restricted to the local LAN.
    function Restore_Default_Parameters (U       : UHPPOTE;

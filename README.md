@@ -89,6 +89,7 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 - [`Activate_Keypads`](API.md#activate_keypads)
 - [`Get_Antipassback`](API.md#get_antipassback)
 - [`Set_Antipassback`](API.md#set_antipassback)
+- [`Set_First_Card`](API.md#set_first_card)
 - [`Restore_Default_Parameters`](API.md#restore_default_parameters)
 - [`Listen`](API.md#listen)
 

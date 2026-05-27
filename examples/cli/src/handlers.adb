@@ -537,6 +537,28 @@ package body Handlers is
       Put_Line ("");
    end Set_Antipassback;
 
+   --  Executes the set-firstcard command.
+   procedure Set_First_Card (Args : ArgParse.Args) is
+      R : constant Boolean := Set_First_Card (U, Args.Controller, Args.Door, Args.First_Card, Timeout);
+   begin
+      Put_Line ("--- set-firstcard ");
+      Put_Line ("         controller:" & Args.Controller.ID'Image);
+      Put_Line ("               door:" & Args.Door'Image);
+      Put_Line ("         start-time: " & Image (Args.First_Card.Start_Time));
+      Put_Line ("           end-time: " & Image (Args.First_Card.End_Time));
+      Put_Line ("        active-mode: " & Args.First_Card.Active_Mode'Image);
+      Put_Line ("      inactive-mode: " & Args.First_Card.Inactive_Mode'Image);
+      Put_Line ("             monday: " & Args.First_Card.Weekdays.Monday'Image);
+      Put_Line ("            tuesday: " & Args.First_Card.Weekdays.Tuesday'Image);
+      Put_Line ("          wednesday: " & Args.First_Card.Weekdays.Wednesday'Image);
+      Put_Line ("           thursday: " & Args.First_Card.Weekdays.Thursday'Image);
+      Put_Line ("             friday: " & Args.First_Card.Weekdays.Friday'Image);
+      Put_Line ("           saturday: " & Args.First_Card.Weekdays.Saturday'Image);
+      Put_Line ("             sunday: " & Args.First_Card.Weekdays.Sunday'Image);
+      Put_Line ("");
+      Put_Line ("                 ok: " & R'Image);
+   end Set_First_Card;
+
    --  Executes the restore-default-parameters command.
    procedure Restore_Default_Parameters (Args : ArgParse.Args) is
       R : constant Boolean := Restore_Default_Parameters (U, Args.Controller,  Timeout);

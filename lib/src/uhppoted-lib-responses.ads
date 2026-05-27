@@ -281,6 +281,12 @@ package Uhppoted.Lib.Responses is
       Ok         : Boolean;
    end record;
 
+   --  Message definition for a set-firstcard response.
+   type Set_First_Card_Response is record
+      Controller : Unsigned_32;
+      Ok         : Boolean;
+   end record;
+
    --  Message definition for a restore-default-parameters response.
    type Restore_Default_Parameters_Response is record
       Controller : Unsigned_32;

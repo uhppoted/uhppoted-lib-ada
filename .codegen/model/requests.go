@@ -40,7 +40,7 @@ var Requests = []types.Request{
 	lib.ActivateKeypadsRequest,
 	lib.GetAntiPassbackRequest,
 	lib.SetAntiPassbackRequest,
-	// SetFirstCardRequest,
+	lib.SetFirstCardRequest,
 	lib.RestoreDefaultParametersRequest,
 }
 

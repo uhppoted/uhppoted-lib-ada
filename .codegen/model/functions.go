@@ -40,7 +40,7 @@ var API = []types.Function{
 	lib.ActivateKeypads,
 	lib.GetAntiPassback,
 	lib.SetAntiPassback,
-	// &SetFirstCard,
+	lib.SetFirstCard,
 	lib.RestoreDefaultParameters,
 }
 

@@ -167,6 +167,21 @@ package Uhppoted.Lib.Encode is
    function Set_Antipassback (Controller   : Unsigned_32;
                               Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet;
 
+   --  Encodes a set-firstcard request as a 64 byte array.
+   function Set_First_Card (Controller    : Unsigned_32;
+                            Door          :  Unsigned_8;
+                            Start_Time    : HHmm;
+                            End_Time      : HHmm;
+                            Active_Mode   : Control_Mode;
+                            Inactive_Mode : Control_Mode;
+                            Monday        : Boolean;
+                            Tuesday       : Boolean;
+                            Wednesday     : Boolean;
+                            Thursday      : Boolean;
+                            Friday        : Boolean;
+                            Saturday      : Boolean;
+                            Sunday        : Boolean) return Uhppoted.Lib.Types.Packet;
+
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 

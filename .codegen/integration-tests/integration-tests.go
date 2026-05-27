@@ -81,6 +81,7 @@ var translations = map[string]string{
 	"activate keypads response":           "Boolean",
 	"get anti-passback response":          "Antipassback",
 	"set anti-passback response":          "Boolean",
+	"set first-card response":             "Boolean",
 	"restore default parameters response": "Boolean",
 }
 
@@ -558,6 +559,73 @@ func vars(t lib.FuncTest) []any {
 		m = append(m, fmt.Sprintf(`Keypads : constant Uhppoted.Lib.Keypads := [1 => %v, 2 => %v, 3 => %v, 4 => %v];`, reader1, reader2, reader3, reader4))
 	}
 
+	if t.Name == "set-first-card" {
+		var startTime any
+		var activeMode any
+		var inactiveMode any
+		var endTime any
+		var monday any
+		var tuesday any
+		var wednesday any
+		var thursday any
+		var friday any
+		var saturday any
+		var sunday any
+
+		for _, v := range t.Args {
+			switch {
+			case v.Name == "start-time":
+				startTime = codegen.HHmm(v.Value)
+
+			case v.Name == "end-time":
+				endTime = codegen.HHmm(v.Value)
+
+			case v.Name == "active-mode":
+				activeMode = fmt.Sprintf("To_Control_Mode (%v)", v.Value)
+
+			case v.Name == "inactive-mode":
+				inactiveMode = fmt.Sprintf("To_Control_Mode (%v)", v.Value)
+
+			case v.Name == "monday":
+				monday = codegen.Boolean(v.Value)
+
+			case v.Name == "tuesday":
+				tuesday = codegen.Boolean(v.Value)
+
+			case v.Name == "wednesday":
+				wednesday = codegen.Boolean(v.Value)
+
+			case v.Name == "thursday":
+				thursday = codegen.Boolean(v.Value)
+
+			case v.Name == "friday":
+				friday = codegen.Boolean(v.Value)
+
+			case v.Name == "saturday":
+				saturday = codegen.Boolean(v.Value)
+
+			case v.Name == "sunday":
+				sunday = codegen.Boolean(v.Value)
+			}
+		}
+
+		m = append(m, fmt.Sprintf(`First_Card : constant Uhppoted.Lib.First_Card_Record := (
+         Start_Time    => %v,
+         End_Time      => %v,
+         Active_Mode   => %v,
+         Inactive_Mode => %v,
+         Weekdays      => (Monday    => %v,
+                           Tuesday   => %v,
+                           Wednesday => %v,
+                           Thursday  => %v,
+                           Friday    => %v,
+                           Saturday  => %v,
+                           Sunday    => %v));`,
+			startTime, endTime,
+			activeMode, inactiveMode,
+			monday, tuesday, wednesday, thursday, friday, saturday, sunday))
+	}
+
 	return m
 }
 
@@ -626,6 +694,19 @@ func args(t lib.FuncTest) []any {
 		case t.Name == "activate-keypads" && v.Name == "reader 4":
 			// SKIP
 
+		case t.Name == "set-first-card" && v.Name == "start-time":
+		case t.Name == "set-first-card" && v.Name == "end-time":
+		case t.Name == "set-first-card" && v.Name == "active-mode":
+		case t.Name == "set-first-card" && v.Name == "inactive-mode":
+		case t.Name == "set-first-card" && v.Name == "monday":
+		case t.Name == "set-first-card" && v.Name == "tuesday":
+		case t.Name == "set-first-card" && v.Name == "wednesday":
+		case t.Name == "set-first-card" && v.Name == "thursday":
+		case t.Name == "set-first-card" && v.Name == "friday":
+		case t.Name == "set-first-card" && v.Name == "saturday":
+		case t.Name == "set-first-card" && v.Name == "sunday":
+			// SKIP
+
 		case v.Type == "IPv4":
 			args = append(args, fmt.Sprintf(`Inet_Addr ("%v")`, v.Value))
 
@@ -676,6 +757,10 @@ func args(t lib.FuncTest) []any {
 
 	if t.Name == "activate-keypads" {
 		args = append(args, "Keypads")
+	}
+
+	if t.Name == "set-first-card" {
+		args = append(args, "First_Card")
 	}
 
 	return args

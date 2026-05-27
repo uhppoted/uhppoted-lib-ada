@@ -53,6 +53,7 @@ package body Uhppoted.Lib.Decode.Tests is
       Register_Routine (T, Test_Decode_Activate_Keypads'Access, "test decode Activate_Keypads response");
       Register_Routine (T, Test_Decode_Get_Antipassback'Access, "test decode Get_Antipassback response");
       Register_Routine (T, Test_Decode_Set_Antipassback'Access, "test decode Set_Antipassback response");
+      Register_Routine (T, Test_Decode_Set_Firstcard'Access, "test decode Set_Firstcard response");
       Register_Routine (T, Test_Decode_Restore_Default_Parameters'Access, "test decode Restore_Default_Parameters response");
       Register_Routine (T, Test_Decode_Listener_Event'Access, "test decode Listener_Event");
       Register_Routine (T, Test_Decode_Listener_Event_V6_62'Access, "test decode Listener_Event_V6_62");
@@ -852,6 +853,25 @@ package body Uhppoted.Lib.Decode.Tests is
    begin
       Assert (Response = Expected, "incorrectly decoded Set_Antipassback_Response response: got" & Response'Image);
    end Test_Decode_Set_Antipassback;
+
+   procedure Test_Decode_Set_Firstcard (T : in out AUnit.Test_Cases.Test_Case'Class) is
+      pragma Unreferenced (T);
+
+      Expected : constant Set_First_Card_Response := (
+         Controller => 405419896,
+         Ok         => True);
+
+      Reply : constant Packet := [
+         16#17#, 16#aa#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#01#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
+      ];
+
+      Response : constant Set_First_Card_Response := Uhppoted.Lib.Decode.Set_First_Card (Reply);
+   begin
+      Assert (Response = Expected, "incorrectly decoded set-first-card-response response: got" & Response'Image);
+   end Test_Decode_Set_Firstcard;
 
    procedure Test_Decode_Restore_Default_Parameters (T : in out AUnit.Test_Cases.Test_Case'Class) is
       pragma Unreferenced (T);

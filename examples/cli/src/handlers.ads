@@ -34,6 +34,7 @@ package Handlers is
    procedure Activate_Keypads           (Args : ArgParse.Args);
    procedure Get_Antipassback           (Args : ArgParse.Args);
    procedure Set_Antipassback           (Args : ArgParse.Args);
+   procedure Set_First_Card             (Args : ArgParse.Args);
    procedure Restore_Default_Parameters (Args : ArgParse.Args);
    procedure Listen                     (Args : ArgParse.Args);
 end Handlers;

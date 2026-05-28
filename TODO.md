@@ -3,17 +3,6 @@
 - https://github.com/ohenley/awesome-ada
 - https://github.com/simonjwright/alire-index.mac
 
-- [x] get-antipassback
-- [x] set-antipassback
-- [x] set-firstcard
-    - [x] API
-    - [x] CLI
-    - [x] README
-    - [x] integration tests
-
-
-- [ ] use Calendar.Date and Calendar.Time instead of Date/DateTime
-
 - [ ] fix _Library_Interface_ in .gpr file
 ```
    for Library_Interface use (

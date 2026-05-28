@@ -15,19 +15,6 @@ project Uhppoted_Lib_Ada is
    Library_Type : Library_Type_Type := external ("UHPPOTED_LIB_ADA_LIBRARY_TYPE", external ("LIBRARY_TYPE", "static"));
    for Library_Kind use Library_Type;
 
-   --  INTERIM HACK FOR UNIT TESTS
-   for Library_Interface use (
-      "Uhppoted",
-      "Uhppoted.Lib",
-      "Uhppoted.Types",
-      "Uhppoted.Lib.Types",
-      "Uhppoted.Lib.Codec",
-      "Uhppoted.Lib.Replies",
-      "Uhppoted.Lib.Responses",
-      "Uhppoted.Lib.Encode",
-      "Uhppoted.Lib.Decode"
-   );
-
    package Compiler is 
       for Default_Switches ("Ada") use Uhppoted_Lib_Ada_Config.Ada_Compiler_Switches & (
           "-gnat2022"

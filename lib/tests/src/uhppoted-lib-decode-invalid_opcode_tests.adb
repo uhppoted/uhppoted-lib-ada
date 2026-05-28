@@ -79,7 +79,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Controller_Invalid_OpCode;
 
    procedure Test_Set_IPv4_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -103,7 +103,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_IPv4_Invalid_OpCode;
 
    procedure Test_Get_Time_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -127,7 +127,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Time_Invalid_OpCode;
 
    procedure Test_Set_Time_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -151,7 +151,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_Time_Invalid_OpCode;
 
    procedure Test_Get_Listener_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -175,7 +175,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Listener_Invalid_OpCode;
 
    procedure Test_Set_Listener_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -199,7 +199,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_Listener_Invalid_OpCode;
 
    procedure Test_Get_Status_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -223,7 +223,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Status_Invalid_OpCode;
 
    procedure Test_Get_Listener_Address_Port_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -247,7 +247,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Listener_Address_Port_Invalid_OpCode;
 
    procedure Test_Set_Listener_Address_Port_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -271,7 +271,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_Listener_Address_Port_Invalid_OpCode;
 
    procedure Test_Get_Door_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -295,7 +295,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Door_Invalid_OpCode;
 
    procedure Test_Set_Door_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -319,7 +319,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_Door_Invalid_OpCode;
 
    procedure Test_Set_Door_Passcodes_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -343,7 +343,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_Door_Passcodes_Invalid_OpCode;
 
    procedure Test_Open_Door_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -367,7 +367,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Open_Door_Invalid_OpCode;
 
    procedure Test_Get_Cards_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -391,7 +391,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Cards_Invalid_OpCode;
 
    procedure Test_Get_Card_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -415,7 +415,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Card_Invalid_OpCode;
 
    procedure Test_Get_Card_Not_Found_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -439,7 +439,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Card_Not_Found_Invalid_OpCode;
 
    procedure Test_Get_Card_At_Index_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -463,7 +463,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Card_At_Index_Invalid_OpCode;
 
    procedure Test_Put_Card_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -487,7 +487,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Put_Card_Invalid_OpCode;
 
    procedure Test_Delete_Card_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -511,7 +511,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Delete_Card_Invalid_OpCode;
 
    procedure Test_Delete_All_Cards_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -535,7 +535,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Delete_All_Cards_Invalid_OpCode;
 
    procedure Test_Get_Event_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -559,7 +559,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Event_Invalid_OpCode;
 
    procedure Test_Get_Event_Not_Found_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -583,7 +583,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Event_Not_Found_Invalid_OpCode;
 
    procedure Test_Get_Event_Overwritten_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -607,7 +607,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Event_Overwritten_Invalid_OpCode;
 
    procedure Test_Get_Event_Index_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -631,7 +631,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Event_Index_Invalid_OpCode;
 
    procedure Test_Set_Event_Index_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -655,7 +655,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_Event_Index_Invalid_OpCode;
 
    procedure Test_Record_Special_Events_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -679,7 +679,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Record_Special_Events_Invalid_OpCode;
 
    procedure Test_Get_Time_Profile_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -703,7 +703,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Time_Profile_Invalid_OpCode;
 
    procedure Test_Set_Time_Profile_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -727,7 +727,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_Time_Profile_Invalid_OpCode;
 
    procedure Test_Clear_Time_Profiles_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -751,7 +751,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Clear_Time_Profiles_Invalid_OpCode;
 
    procedure Test_Add_Task_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -775,7 +775,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Add_Task_Invalid_OpCode;
 
    procedure Test_Refresh_Tasklist_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -799,7 +799,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Refresh_Tasklist_Invalid_OpCode;
 
    procedure Test_Clear_Tasklist_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -823,7 +823,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Clear_Tasklist_Invalid_OpCode;
 
    procedure Test_Set_PC_Control_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -847,7 +847,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_PC_Control_Invalid_OpCode;
 
    procedure Test_Set_Interlock_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -871,7 +871,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_Interlock_Invalid_OpCode;
 
    procedure Test_Activate_Keypads_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -895,7 +895,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Activate_Keypads_Invalid_OpCode;
 
    procedure Test_Get_Antipassback_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -919,7 +919,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Get_Antipassback_Invalid_OpCode;
 
    procedure Test_Set_Antipassback_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -943,7 +943,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_Antipassback_Invalid_OpCode;
 
    procedure Test_Set_Firstcard_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -967,7 +967,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Set_Firstcard_Invalid_OpCode;
 
    procedure Test_Restore_Default_Parameters_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -991,7 +991,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Restore_Default_Parameters_Invalid_OpCode;
 
    procedure Test_Listener_Event_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -1015,7 +1015,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Listener_Event_Invalid_OpCode;
 
    procedure Test_Listener_Event_V6_62_Invalid_OpCode (T : in out AUnit.Test_Cases.Test_Case'Class) is
@@ -1039,7 +1039,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_Listener_Event_V6_62_Invalid_OpCode;
 
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

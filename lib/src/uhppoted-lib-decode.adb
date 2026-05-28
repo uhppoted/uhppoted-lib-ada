@@ -14,14 +14,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte get-controller reply as a Get_Controller_Response record.
    function Get_Controller (Reply : Packet) return Responses.Get_Controller_Response is
-      R : Replies.Get_Controller_Reply with
-        Import, Address => Reply'Address;
+      R : Replies.Get_Controller_Reply with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Controller then
+      if R.Opcode /= Codec.Get_Controller'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -36,14 +35,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte set-IPv4 reply as a Set_IPv4_Response record.
    function Set_IPv4 (Reply : Packet) return Responses.Set_IPv4_Response is
-      R : Replies.Set_IPv4_Reply with
-        Import, Address => Reply'Address;
+      R : Replies.Set_IPv4_Reply with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_IPv4 then
+      if R.Opcode /= Codec.Set_IPv4'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -52,14 +50,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte get-time reply as a Get_Time_Response record.
    function Get_Time (Reply : Packet) return Responses.Get_Time_Response is
-      R : Replies.Get_Time_Response with
-        Import, Address => Reply'Address;
+      R : Replies.Get_Time_Response with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Time then
+      if R.Opcode /= Codec.Get_Time'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -68,14 +65,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte set-time reply as a Set_Time_Response record.
    function Set_Time (Reply : Packet) return Responses.Set_Time_Response is
-      R : Replies.Set_Time_Response with
-        Import, Address => Reply'Address;
+      R : Replies.Set_Time_Response with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_Time then
+      if R.Opcode /= Codec.Set_Time'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -84,14 +80,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte get-listener reply as a Get_Listener_Response record.
    function Get_Listener (Reply : Packet) return Responses.Get_Listener_Response is
-      R : Replies.Get_Listener_Response with
-        Import, Address => Reply'Address;
+      R : Replies.Get_Listener_Response with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Listener then
+      if R.Opcode /= Codec.Get_Listener'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -100,14 +95,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte get-listener reply as a Get_Listener_Addr_Port_Response record.
    function Get_Listener_Addr_Port (Reply : Packet) return Responses.Get_Listener_Addr_Port_Response is
-      R : Replies.Get_Listener_Addr_Port_Response with
-        Import, Address => Reply'Address;
+      R : Replies.Get_Listener_Addr_Port_Response with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Listener then
+      if R.Opcode /= Codec.Get_Listener'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -119,14 +113,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte set-listener reply as a Set_Listener_Response record.
    function Set_Listener (Reply : Packet) return Responses.Set_Listener_Response is
-      R : Replies.Set_Listener_Response with
-        Import, Address => Reply'Address;
+      R : Replies.Set_Listener_Response with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_Listener then
+      if R.Opcode /= Codec.Set_Listener'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -135,14 +128,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte set-listener reply as a Set_Listener_Addr_Port_Response record.
    function Set_Listener_Addr_Port (Reply : Packet) return Responses.Set_Listener_Addr_Port_Response is
-      R : Replies.Set_Listener_Addr_Port_Response with
-        Import, Address => Reply'Address;
+      R : Replies.Set_Listener_Addr_Port_Response with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_Listener then
+      if R.Opcode /= Codec.Set_Listener'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -151,14 +143,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte get-status reply as a Get_Status_Response record.
    function Get_Status (Reply : Packet) return Responses.Get_Status_Response is
-      R : Replies.Get_Status_Response with
-        Import, Address => Reply'Address;
+      R : Replies.Get_Status_Response with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Status then
+      if R.Opcode /= Codec.Get_Status'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -191,14 +182,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte get-door reply as a Get_Door_Response record.
    function Get_Door (Reply : Packet) return Responses.Get_Door_Response is
-      R : Replies.Get_Door_Response with
-        Import, Address => Reply'Address;
+      R : Replies.Get_Door_Response with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Door then
+      if R.Opcode /= Codec.Get_Door'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -207,14 +197,13 @@ package body Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte set-door reply as a Set_Door_Response record.
    function Set_Door (Reply : Packet) return Responses.Set_Door_Response is
-      R : Replies.Set_Door_Response with
-        Import, Address => Reply'Address;
+      R : Replies.Set_Door_Response with Import, Address => Reply'Address;
    begin
       if R.SOM /= Codec.SOM then
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_Door then
+      if R.Opcode /= Codec.Set_Door'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -245,7 +234,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_Door_Passcodes then
+      if R.Opcode /= Codec.Set_Door_Passcodes'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -261,7 +250,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Open_Door then
+      if R.Opcode /= Codec.Open_Door'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -277,7 +266,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Cards then
+      if R.Opcode /= Codec.Get_Cards'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -293,7 +282,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Card then
+      if R.Opcode /= Codec.Get_Card'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -316,7 +305,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Card_At_Index then
+      if R.Opcode /= Codec.Get_Card_At_Index'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -339,7 +328,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Put_Card then
+      if R.Opcode /= Codec.Put_Card'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -355,7 +344,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Delete_Card then
+      if R.Opcode /= Codec.Delete_Card'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -371,7 +360,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Delete_All_Cards then
+      if R.Opcode /= Codec.Delete_All_Cards'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -387,7 +376,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Event then
+      if R.Opcode /= Codec.Get_Event'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -411,7 +400,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Event_Index then
+      if R.Opcode /= Codec.Get_Event_Index'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -427,7 +416,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_Event_Index then
+      if R.Opcode /= Codec.Set_Event_Index'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -443,7 +432,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Record_Special_Events then
+      if R.Opcode /= Codec.Record_Special_Events'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -459,7 +448,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Time_Profile then
+      if R.Opcode /= Codec.Get_Time_Profile'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -491,7 +480,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_Time_Profile then
+      if R.Opcode /= Codec.Set_Time_Profile'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -507,7 +496,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Clear_Time_Profiles then
+      if R.Opcode /= Codec.Clear_Time_Profiles'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -523,7 +512,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Add_Task then
+      if R.Opcode /= Codec.Add_Task'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -539,7 +528,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Refresh_Task_List then
+      if R.Opcode /= Codec.Refresh_Task_List'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -555,7 +544,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Clear_Task_List then
+      if R.Opcode /= Codec.Clear_Task_List'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -571,7 +560,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_PC_Control then
+      if R.Opcode /= Codec.Set_PC_Control'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -587,7 +576,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_Interlock then
+      if R.Opcode /= Codec.Set_Interlock'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -603,7 +592,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Activate_Keypads then
+      if R.Opcode /= Codec.Activate_Keypads'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -619,7 +608,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Get_Antipassback then
+      if R.Opcode /= Codec.Get_Antipassback'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -635,7 +624,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_Antipassback then
+      if R.Opcode /= Codec.Set_Antipassback'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -651,7 +640,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Set_First_Card then
+      if R.Opcode /= Codec.Set_First_Card'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 
@@ -667,7 +656,7 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      if R.Opcode /= Codec.Restore_Default_Parameters then
+      if R.Opcode /= Codec.Restore_Default_Parameters'Enum_Rep then
          raise Invalid_Response_Error;
       end if;
 

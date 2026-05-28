@@ -13,9 +13,3 @@ executables = ["uhppoted_lib_tests"]
 
 [[depends-on]]
 aunit = "^26.0.0"
-
-[[depends-on]]
-uhppoted_lib_ada = "*"
-
-[[pins]]
-uhppoted_lib_ada = { path='..' }

@@ -38,7 +38,7 @@ package body Uhppoted.Lib.Decode.Invalid_OpCode_Tests is
       when Invalid_Response_Error =>
          null;
       when E : others =>
-         Assert (False, "Expected Invalid_Response_Found_Error, got " & Ada.Exceptions.Exception_Name (E));
+         Assert (False, "Expected Invalid_Response_Error, got " & Ada.Exceptions.Exception_Name (E) & ": " & Ada.Exceptions.Exception_Message (E));
    end Test_{{ .Name }}_Invalid_OpCode;
 {{ end }}
 end Uhppoted.Lib.Decode.Invalid_OpCode_Tests;

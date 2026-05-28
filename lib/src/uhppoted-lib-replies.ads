@@ -19,8 +19,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-controller reply.
    type Get_Controller_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Get_Controller;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Address    : IPv4;
@@ -52,8 +52,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-IPv4 reply.
    type Set_IPv4_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_IPv4;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -75,8 +75,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-time reply.
    type Get_Time_Response is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Get_Time;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Date_Time  : Uhppoted.Lib.Types.BCD (1 .. 7);
@@ -98,8 +98,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-time reply.
    type Set_Time_Response is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_Time;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Date_Time  : Uhppoted.Lib.Types.BCD (1 .. 7);
@@ -121,8 +121,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-listener reply.
    type Get_Listener_Response is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Get_Listener;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Address    : IPv4;
@@ -148,8 +148,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-listener-addrport reply.
    type Get_Listener_Addr_Port_Response is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Get_Listener;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Address    : IPv4;
@@ -175,8 +175,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-listener reply.
    type Set_Listener_Response is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_Listener;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Boolean;
@@ -198,8 +198,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-listener reply.
    type Set_Listener_Addr_Port_Response is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_Listener;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Boolean;
@@ -221,8 +221,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-status reply.
    type Get_Status_Response is record
-      SOM                  : Unsigned_8    := Codec.SOM;
-      Opcode               : Codec.Op_Code := Codec.Get_Status;
+      SOM                  : Unsigned_8;
+      Opcode               : Unsigned_8;
       Reserved             : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller           : Unsigned_32;
       Event_Index          : Unsigned_32;
@@ -288,8 +288,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-door reply.
    type Get_Door_Response is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Get_Door;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Door       : Unsigned_8;
@@ -315,8 +315,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-door reply.
    type Set_Door_Response is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_Door;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Door       : Unsigned_8;
@@ -342,8 +342,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-door-passcodes reply.
    type Set_Door_Passcodes_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_Door_Passcodes;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -365,8 +365,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for an open-door reply.
    type Open_Door_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Open_Door;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -388,8 +388,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-cards reply.
    type Get_Cards_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Get_Cards;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Cards      : Unsigned_32;
@@ -411,8 +411,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-card reply.
    type Get_Card_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Get_Card;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Card       : Unsigned_32;
@@ -448,8 +448,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-card-at-index reply.
    type Get_Card_At_Index_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Get_Card_At_Index;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Card       : Unsigned_32;
@@ -485,8 +485,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a put-card reply.
    type Put_Card_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Put_Card;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -508,8 +508,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a delete-card reply.
    type Delete_Card_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Delete_Card;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -531,8 +531,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a delete-all-cards reply.
    type Delete_All_Cards_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Delete_All_Cards;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -554,8 +554,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-event reply.
    type Get_Event_Reply is record
-      SOM                  : Unsigned_8    := Codec.SOM;
-      Opcode               : Codec.Op_Code := Codec.Get_Event;
+      SOM                  : Unsigned_8;
+      Opcode               : Unsigned_8;
       Reserved             : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller           : Unsigned_32;
       Index                : Unsigned_32;
@@ -591,8 +591,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-event-index reply.
    type Get_Event_Index_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Get_Event_Index;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Index      : Unsigned_32;
@@ -614,8 +614,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-event-index reply.
    type Set_Event_Index_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_Event_Index;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -637,8 +637,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a record-special-events reply.
    type Record_Special_Events_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Record_Special_Events;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -660,8 +660,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-time-profile reply.
    type Get_Time_Profile_Reply is record
-      SOM             : Unsigned_8    := Codec.SOM;
-      Opcode          : Codec.Op_Code := Codec.Get_Time_Profile;
+      SOM             : Unsigned_8;
+      Opcode          : Unsigned_8;
       Reserved        : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller      : Unsigned_32;
       Profile         : Unsigned_8;
@@ -715,8 +715,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-time-profile reply.
    type Set_Time_Profile_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_Time_Profile;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -738,8 +738,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a clear-time-profiles reply.
    type Clear_Time_Profiles_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Clear_Time_Profiles;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -761,8 +761,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for an add-task reply.
    type Add_Task_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Add_Task;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -784,8 +784,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a refresh-tasklist reply.
    type Refresh_Task_List_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Refresh_Task_List;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -807,8 +807,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a clear-tasklist reply.
    type Clear_Task_List_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Clear_Task_List;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -830,8 +830,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-pc-control reply.
    type Set_PC_Control_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_PC_Control;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -853,8 +853,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-interlock reply.
    type Set_Interlock_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_Interlock;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -876,8 +876,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for an activate-keypads reply.
    type Activate_Keypads_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Activate_Keypads;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -899,8 +899,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-antipassback reply.
    type Get_Antipassback_Reply is record
-      SOM          : Unsigned_8    := Codec.SOM;
-      Opcode       : Codec.Op_Code := Codec.Get_Antipassback;
+      SOM          : Unsigned_8;
+      Opcode       : Unsigned_8;
       Reserved     : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller   : Unsigned_32;
       Antipassback : Unsigned_8;
@@ -922,8 +922,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-antipassback reply.
    type Set_Antipassback_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_Antipassback;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -945,8 +945,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a set-firstcard reply.
    type Set_First_Card_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Set_First_Card;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
@@ -968,8 +968,8 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a restore-default-parameters reply.
    type Restore_Default_Parameters_Reply is record
-      SOM        : Unsigned_8    := Codec.SOM;
-      Opcode     : Codec.Op_Code := Codec.Restore_Default_Parameters;
+      SOM        : Unsigned_8;
+      Opcode     : Unsigned_8;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;

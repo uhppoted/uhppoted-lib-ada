@@ -103,11 +103,11 @@ package Uhppoted.Lib is
    Invalid_Address_Error : exception renames Uhppoted.Types.Invalid_Address_Error;
 
    --  Custom error raised when the door control mode is not valid.
-   Invalid_Door_Mode_Error : exception rename Uhppoted.Types.Invalid_Door_Mode;
+   Invalid_Door_Mode_Error : exception renames Uhppoted.Types.Invalid_Door_Mode_Error;
 
    --  Custom error raised when there is no card record at an index.
    Card_Not_Found_Error : exception renames Uhppoted.Types.Card_Not_Found_Error;
-   
+
    --  Custom error raised when the card record at an index has been deleted.
    Card_Deleted_Error : exception renames Uhppoted.Types.Card_Deleted_Error;
 
@@ -1279,4 +1279,3 @@ package Uhppoted.Lib is
    function Image (T : HHmm) return String renames Uhppoted.Types.Image;
 
 end Uhppoted.Lib;
-

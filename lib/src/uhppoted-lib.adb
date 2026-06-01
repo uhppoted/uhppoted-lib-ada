@@ -1070,7 +1070,7 @@ package body Uhppoted.Lib is
                               C       : Unsigned_32;
                               Timeout : Duration := 2.5) return Antipassback is
    begin
-      return Get_Antipassback (U, To_Controller(C), Timeout);
+      return Get_Antipassback (U, To_Controller (C), Timeout);
    end Get_Antipassback;
 
    --  Retrieves the controller anti-passback setting.

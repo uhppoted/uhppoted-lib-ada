@@ -204,6 +204,7 @@ package body Uhppoted.Types is
       end case;
    end To_Antipassback;
 
+   --  Returns the IPv4 address formatted as "n.n.n.n", e.g. "192.168.1.100".
    function Image (Addr : IPv4) return String is
       use Ada.Strings.Fixed;
    begin
@@ -213,6 +214,7 @@ package body Uhppoted.Types is
              Trim (Addr (4)'Image, Both);
    end Image;
 
+   --  Returns the MAC address formatted as "xx:xx:xx:xx:xx:xx".
    function Image (MAC : Hardware_Addr) return String is
       Hex : constant String := "0123456789abcdef";
       S   : String (1 .. 18);
@@ -233,6 +235,7 @@ package body Uhppoted.Types is
       return S (1 .. 17);
    end Image;
 
+   --  Returns the date value formatted as "yyyy-mm-dd" e.g. "2026-06-23".
    function Image (D : DateOnly) return String is
       use Ada.Strings.Fixed;
 
@@ -243,6 +246,7 @@ package body Uhppoted.Types is
       return YYYY & "-" & MM & "-" & DD;
    end Image;
 
+   --  Returns the time value formatted as "HH:mm:ss" e.g. "13:45:56".
    function Image (T : TimeOnly) return String is
       use Ada.Strings.Fixed;
 
@@ -253,6 +257,7 @@ package body Uhppoted.Types is
       return HH & ":" & MM & ":" & SS;
    end Image;
 
+   --  Returns the date/time value formatted as "yyyy-mm-dd HH:mm:ss" e.g. "2026-06-23 13:45:56".
    function Image (DT : DateTime) return String is
       use Ada.Strings.Fixed;
 
@@ -266,6 +271,7 @@ package body Uhppoted.Types is
       return YYYY & "-" & MM & "-" & DD & " " & HH & ":" & Minutes & ":" & SS;
    end Image;
 
+   --  Returns the event direction formatted as "IN" or "OUT".
    function Image (V : Event_Direction) return String is
    begin
       case V is
@@ -278,6 +284,7 @@ package body Uhppoted.Types is
       end case;
    end Image;
 
+   --  Returns the HHmm value formatted as "HH:mm" e.g. "13:45".
    function Image (T : HHmm) return String is
       use Ada.Strings.Fixed;
 

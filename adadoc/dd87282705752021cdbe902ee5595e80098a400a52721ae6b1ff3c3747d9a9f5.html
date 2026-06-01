@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class=main>
+<link rel=stylesheet href=gnatdoc.css><body class=content><h1>Uhppoted.Lib.Encode</h1><h2>Entities</h2><h3>Subprograms</h3><ul><li><a href=#c3d7acb262373770ffdd6fbcdb9efb22e50882c29d644a5410082b12b049def0>Activate_Keypads</a><li><a href=#d183b0d01a2f54f9f53440d819d25be71c0735aa767fb65a0b4f6136b10eb3bd>Add_Task</a><li><a href=#1e3d857a51d35e1c49a29255b86d767113d55d3c00b74e2a0268a576b51c5c5d>Clear_Task_List</a><li><a href=#4e669ee7c69db1704717ee656affef2ffa1a5f9437823bf774b80aab56b00fd8>Clear_Time_Profiles</a><li><a href=#12f169b69d87f1d288b5a73dee0a0ff170f1d15e904244fadd9bd95aec307b9e>Delete_Card</a><li><a href=#70aeb61ab32746e086231ae9f8890d4300e469bdb418252b68ca3307f2e52925>Delete_Cards</a><li><a href=#157689d1a2c6579ba19d9be202b061e2cfdc38646ffc8e974a512a0a213d0b65>Get_Antipassback</a><li><a href=#da368c45d8ecfcffcd7c6e087ca1a0c3bd7565ec8b5e86e61e1fc5de7af879f2>Get_Card</a><li><a href=#a5ff97190d82259f99c26af0a6e9ad3b21deb4b69cf0977a0aab7856a24f88da>Get_Card_At_Index</a><li><a href=#452ffe90ad7e612279de679c20a59402ded80a2ab5a7fabce7e268947fdc0401>Get_Cards</a><li><a href=#e38a9d4485a9466b85ce3d7760a425567a634209bb29ab656aa48c6db65540ce>Get_Controller</a><li><a href=#952ece9a245fc6d56c7c10facbf5ad0a8c5c104094af80dfcce4d987a4abce94>Get_Door</a><li><a href=#16c49fa48f1b98bf2b063172d062a995e9a4cd70ae65d02416e76a85989a8056>Get_Event</a><li><a href=#cc96b8f708afdc07d32ccb84d1c8dae1dc4383a57492b4b40603dad715893ad1>Get_Event_Index</a><li><a href=#3e5ed0e0d27819174adf603a49f3771b2079a1d82e4ec3d36532899826823d08>Get_Listener</a><li><a href=#b5155f34af28ea22bac621247efcf715909122df16ca9c4feb19d70888b47267>Get_Listener_Addr_Port</a><li><a href=#cc22369f73b9f90d1e98287b5301779cf0a376c2ba2b156a2ae01f3059c8d3a7>Get_Status</a><li><a href=#bf2bbefa18ae99f2baf6b96de3f79e9bd48836a5004d9b09f23da0991c0a255d>Get_Time</a><li><a href=#cee2c83afb0c476045897b869d7d1eea3508c47a3102f385d2df50a6853c0f6e>Get_Time_Profile</a><li><a href=#7e1467ee87fac5a7894ee7208e90815554631e90d7f1fe00ae69bae931201132>Open_Door</a><li><a href=#f6ce5cca784dc9fe556b1f997b23a4c5e261e43ce32a596ba5b68334b46158e4>Put_Card</a><li><a href=#4df2f0f7b26a39e36d2dd6d1192bdbc93abf22e5a66d6f78a98a6ac514c897d4>Record_Special_Events</a><li><a href=#80360e8e89fdec1ea73ec98d021a492d62e37c5fd2e96b754fbbef57b26f693c>Refresh_Task_List</a><li><a href=#7b8adf66e94e76850c1aeecc8c1fbba934baa768b8c1f1fc003a5e3ddd89b0ff>Restore_Default_Parameters</a><li><a href=#b9b946e3f6ae54b8f0ed6e2649aeac64abc0730ea7fad499dbd15f2ab815828b>Set_Antipassback</a><li><a href=#554de5747364e2f4a74c56135a507e847992c414d7f4b39877358d6f8b960238>Set_Door</a><li><a href=#8744e11834fd8ca5ee98af842d9f2f52b5f9bdeab3eec1d7db424eaa51e448b5>Set_Door_Passcodes</a><li><a href=#d2b1d76bb5476117e35b7355cb81dc08dc5d90d3cfca5b873542175381b24ec7>Set_Event_Index</a><li><a href=#7c89a6521b4ddd7db557b43aa75305434bd95efa6eab05a41fe27e640b119aca>Set_First_Card</a><li><a href=#eaa5a6f62ee4eda028070122c3890139badac1cd9f52a75dc4411cf235d8e066>Set_Interlock</a><li><a href=#aa99b72a6e22a25c29a7d110e37344119369c60529f7cdec43ee19f4524f3707>Set_IPv4</a><li><a href=#4be15b82c90f22fbfe2d956a1de90284982ea85449d9ae3b590bdf80dba0c09c>Set_Listener</a><li><a href=#31813a00246bc1a180d532181ae284eaaa52cf436c0d24ef761b29c0e2f4c8e2>Set_Listener_Addr_Port</a><li><a href=#14ff8db9fce73d6b03223d51bc1dba3f1b1de41063dc9f03fa3cb29a36ba5b88>Set_PC_Control</a><li><a href=#d5776d0b287647eefb62849834c15a0ffc54c6728dc07b69be34e014c730ca0b>Set_Time</a><li><a href=#6f41959ba3a9de07bfc6658606b5a23b9ad65e4e9f1f441fea7bb43a428224d9>Set_Time_Profile</a></ul><h2>Description</h2><h4 id=c3d7acb262373770ffdd6fbcdb9efb22e50882c29d644a5410082b12b049def0>Activate_Keypads</h4><pre class=ada-code-snippet><code>function Activate_Keypads (Controller : Unsigned_32;
+                           Reader_1   : Boolean;
+                           Reader_2   : Boolean;
+                           Reader_3   : Boolean;
+                           Reader_4   : Boolean) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes an activate-keypads request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Reader_1<dd><dt>Reader_2<dd><dt>Reader_3<dd><dt>Reader_4<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=d183b0d01a2f54f9f53440d819d25be71c0735aa767fb65a0b4f6136b10eb3bd>Add_Task</h4><pre class=ada-code-snippet><code>function Add_Task (Controller : Unsigned_32;
+                   Task_ID    : Task_Type;
+                   Start_Date : DateOnly;
+                   End_Date   : DateOnly;
+                   Monday     : Boolean;
+                   Tuesday    : Boolean;
+                   Wednesday  : Boolean;
+                   Thursday   : Boolean;
+                   Friday     : Boolean;
+                   Saturday   : Boolean;
+                   Sunday     : Boolean;
+                   Start_Time : HHmm;
+                   Door       : Unsigned_8;
+                   More_Cards : Unsigned_8) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes an add-task request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Task_ID<dd><dt>Start_Date<dd><dt>End_Date<dd><dt>Monday<dd><dt>Tuesday<dd><dt>Wednesday<dd><dt>Thursday<dd><dt>Friday<dd><dt>Saturday<dd><dt>Sunday<dd><dt>Start_Time<dd><dt>Door<dd><dt>More_Cards<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=1e3d857a51d35e1c49a29255b86d767113d55d3c00b74e2a0268a576b51c5c5d>Clear_Task_List</h4><pre class=ada-code-snippet><code>function Clear_Task_List (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a clear-tasklist request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=4e669ee7c69db1704717ee656affef2ffa1a5f9437823bf774b80aab56b00fd8>Clear_Time_Profiles</h4><pre class=ada-code-snippet><code>function Clear_Time_Profiles (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a clear-time-profiles request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=12f169b69d87f1d288b5a73dee0a0ff170f1d15e904244fadd9bd95aec307b9e>Delete_Card</h4><pre class=ada-code-snippet><code>function Delete_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a delete-card request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Card<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=70aeb61ab32746e086231ae9f8890d4300e469bdb418252b68ca3307f2e52925>Delete_Cards</h4><pre class=ada-code-snippet><code>function Delete_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a delete-cards request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=157689d1a2c6579ba19d9be202b061e2cfdc38646ffc8e974a512a0a213d0b65>Get_Antipassback</h4><pre class=ada-code-snippet><code>function Get_Antipassback (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-antipassback request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=da368c45d8ecfcffcd7c6e087ca1a0c3bd7565ec8b5e86e61e1fc5de7af879f2>Get_Card</h4><pre class=ada-code-snippet><code>function Get_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-card request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Card<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=a5ff97190d82259f99c26af0a6e9ad3b21deb4b69cf0977a0aab7856a24f88da>Get_Card_At_Index</h4><pre class=ada-code-snippet><code>function Get_Card_At_Index (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-card-by-index request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Index<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=452ffe90ad7e612279de679c20a59402ded80a2ab5a7fabce7e268947fdc0401>Get_Cards</h4><pre class=ada-code-snippet><code>function Get_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-cards request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=e38a9d4485a9466b85ce3d7760a425567a634209bb29ab656aa48c6db65540ce>Get_Controller</h4><pre class=ada-code-snippet><code>function Get_Controller (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-controller request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=952ece9a245fc6d56c7c10facbf5ad0a8c5c104094af80dfcce4d987a4abce94>Get_Door</h4><pre class=ada-code-snippet><code>function Get_Door (Controller : Unsigned_32; Door : Unsigned_8) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-door request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Door<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=16c49fa48f1b98bf2b063172d062a995e9a4cd70ae65d02416e76a85989a8056>Get_Event</h4><pre class=ada-code-snippet><code>function Get_Event (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-event request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Index<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=cc96b8f708afdc07d32ccb84d1c8dae1dc4383a57492b4b40603dad715893ad1>Get_Event_Index</h4><pre class=ada-code-snippet><code>function Get_Event_Index (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-event-index request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=3e5ed0e0d27819174adf603a49f3771b2079a1d82e4ec3d36532899826823d08>Get_Listener</h4><pre class=ada-code-snippet><code>function Get_Listener (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-listener request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=b5155f34af28ea22bac621247efcf715909122df16ca9c4feb19d70888b47267>Get_Listener_Addr_Port</h4><pre class=ada-code-snippet><code>function Get_Listener_Addr_Port (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-listener request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=cc22369f73b9f90d1e98287b5301779cf0a376c2ba2b156a2ae01f3059c8d3a7>Get_Status</h4><pre class=ada-code-snippet><code>function Get_Status (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-status request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=bf2bbefa18ae99f2baf6b96de3f79e9bd48836a5004d9b09f23da0991c0a255d>Get_Time</h4><pre class=ada-code-snippet><code>function Get_Time (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-time request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=cee2c83afb0c476045897b869d7d1eea3508c47a3102f385d2df50a6853c0f6e>Get_Time_Profile</h4><pre class=ada-code-snippet><code>function Get_Time_Profile (Controller : Unsigned_32; Profile : Unsigned_8) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a get-time-profile request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Profile<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=7e1467ee87fac5a7894ee7208e90815554631e90d7f1fe00ae69bae931201132>Open_Door</h4><pre class=ada-code-snippet><code>function Open_Door (Controller : Unsigned_32;
+                    Door       : Unsigned_8) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes an open-door request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Door<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=f6ce5cca784dc9fe556b1f997b23a4c5e261e43ce32a596ba5b68334b46158e4>Put_Card</h4><pre class=ada-code-snippet><code>function Put_Card (Controller : Unsigned_32;
+                   Card       : Unsigned_32;
+                   Start_Date : DateOnly;
+                   End_Date   : DateOnly;
+                   Door_1     : Unsigned_8;
+                   Door_2     : Unsigned_8;
+                   Door_3     : Unsigned_8;
+                   Door_4     : Unsigned_8;
+                   PIN        : Unsigned_24) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a put-card request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Card<dd><dt>Start_Date<dd><dt>End_Date<dd><dt>Door_1<dd><dt>Door_2<dd><dt>Door_3<dd><dt>Door_4<dd><dt>PIN<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=4df2f0f7b26a39e36d2dd6d1192bdbc93abf22e5a66d6f78a98a6ac514c897d4>Record_Special_Events</h4><pre class=ada-code-snippet><code>function Record_Special_Events (Controller : Unsigned_32; Enabled : Boolean) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a record-special-events request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Enabled<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=80360e8e89fdec1ea73ec98d021a492d62e37c5fd2e96b754fbbef57b26f693c>Refresh_Task_List</h4><pre class=ada-code-snippet><code>function Refresh_Task_List (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a refresh-tasklist request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=7b8adf66e94e76850c1aeecc8c1fbba934baa768b8c1f1fc003a5e3ddd89b0ff>Restore_Default_Parameters</h4><pre class=ada-code-snippet><code>function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a restore-default-parameters request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=b9b946e3f6ae54b8f0ed6e2649aeac64abc0730ea7fad499dbd15f2ab815828b>Set_Antipassback</h4><pre class=ada-code-snippet><code>function Set_Antipassback (Controller   : Unsigned_32;
+                           Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-antipassback request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Antipassback<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=554de5747364e2f4a74c56135a507e847992c414d7f4b39877358d6f8b960238>Set_Door</h4><pre class=ada-code-snippet><code>function Set_Door (Controller : Unsigned_32;
+                   Door       : Unsigned_8;
+                   Mode       : Uhppoted.Lib.Control_Mode;
+                   OpenDelay  : Unsigned_8) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-door request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Door<dd><dt>Mode<dd><dt>OpenDelay<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=8744e11834fd8ca5ee98af842d9f2f52b5f9bdeab3eec1d7db424eaa51e448b5>Set_Door_Passcodes</h4><pre class=ada-code-snippet><code>function Set_Door_Passcodes (Controller : Unsigned_32;
+                             Door       : Unsigned_8;
+                             Passcode1  : Unsigned_32;
+                             Passcode2  : Unsigned_32;
+                             Passcode3  : Unsigned_32;
+                             Passcode4  : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-door-passcodes request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Door<dd><dt>Passcode1<dd><dt>Passcode2<dd><dt>Passcode3<dd><dt>Passcode4<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=d2b1d76bb5476117e35b7355cb81dc08dc5d90d3cfca5b873542175381b24ec7>Set_Event_Index</h4><pre class=ada-code-snippet><code>function Set_Event_Index (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-event-index request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Index<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=7c89a6521b4ddd7db557b43aa75305434bd95efa6eab05a41fe27e640b119aca>Set_First_Card</h4><pre class=ada-code-snippet><code>function Set_First_Card (Controller    : Unsigned_32;
+                         Door          :  Unsigned_8;
+                         Start_Time    : HHmm;
+                         End_Time      : HHmm;
+                         Active_Mode   : Control_Mode;
+                         Inactive_Mode : Control_Mode;
+                         Monday        : Boolean;
+                         Tuesday       : Boolean;
+                         Wednesday     : Boolean;
+                         Thursday      : Boolean;
+                         Friday        : Boolean;
+                         Saturday      : Boolean;
+                         Sunday        : Boolean) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-firstcard request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Door<dd><dt>Start_Time<dd><dt>End_Time<dd><dt>Active_Mode<dd><dt>Inactive_Mode<dd><dt>Monday<dd><dt>Tuesday<dd><dt>Wednesday<dd><dt>Thursday<dd><dt>Friday<dd><dt>Saturday<dd><dt>Sunday<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=eaa5a6f62ee4eda028070122c3890139badac1cd9f52a75dc4411cf235d8e066>Set_Interlock</h4><pre class=ada-code-snippet><code>function Set_Interlock (Controller : Unsigned_32;
+                        Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-interlock request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Interlock<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=aa99b72a6e22a25c29a7d110e37344119369c60529f7cdec43ee19f4524f3707>Set_IPv4</h4><pre class=ada-code-snippet><code>function Set_IPv4 (Controller : Unsigned_32;
+                   Addr       : GNAT.Sockets.Inet_Addr_Type;
+                   Netmask    : GNAT.Sockets.Inet_Addr_Type;
+                   Gateway    : GNAT.Sockets.Inet_Addr_Type) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-IPv4 request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Addr<dd><dt>Netmask<dd><dt>Gateway<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=4be15b82c90f22fbfe2d956a1de90284982ea85449d9ae3b590bdf80dba0c09c>Set_Listener</h4><pre class=ada-code-snippet><code>function Set_Listener (Controller : Unsigned_32;
+                       Addr       : GNAT.Sockets.Inet_Addr_Type;
+                       Port       : Unsigned_16;
+                       Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-listener request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Addr<dd><dt>Port<dd><dt>Interval<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=31813a00246bc1a180d532181ae284eaaa52cf436c0d24ef761b29c0e2f4c8e2>Set_Listener_Addr_Port</h4><pre class=ada-code-snippet><code>function Set_Listener_Addr_Port (Controller : Unsigned_32;
+                                 Listener   : GNAT.Sockets.Sock_Addr_Type;
+                                 Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-listener request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Listener<dd><dt>Interval<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=14ff8db9fce73d6b03223d51bc1dba3f1b1de41063dc9f03fa3cb29a36ba5b88>Set_PC_Control</h4><pre class=ada-code-snippet><code>function Set_PC_Control (Controller : Unsigned_32; Enable : Boolean) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-pc-control request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Enable<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=d5776d0b287647eefb62849834c15a0ffc54c6728dc07b69be34e014c730ca0b>Set_Time</h4><pre class=ada-code-snippet><code>function Set_Time (Controller : Unsigned_32;
+                   DT         : Uhppoted.Types.DateTime) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-time request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>DT<dd></dl><h5>Return Value</h5><dl><dd></dl><h4 id=6f41959ba3a9de07bfc6658606b5a23b9ad65e4e9f1f441fea7bb43a428224d9>Set_Time_Profile</h4><pre class=ada-code-snippet><code>function Set_Time_Profile (Controller      : Unsigned_32;
+                           Profile         : Unsigned_8;
+                           Start_Date      : DateOnly;
+                           End_Date        : DateOnly;
+                           Monday          : Boolean;
+                           Tuesday         : Boolean;
+                           Wednesday       : Boolean;
+                           Thursday        : Boolean;
+                           Friday          : Boolean;
+                           Saturday        : Boolean;
+                           Sunday          : Boolean;
+                           Segment_1_Start : HHmm;
+                           Segment_1_End   : HHmm;
+                           Segment_2_Start : HHmm;
+                           Segment_2_End   : HHmm;
+                           Segment_3_Start : HHmm;
+                           Segment_3_End   : HHmm;
+                           Linked_Profile  : Unsigned_8) return Uhppoted.Lib.Types.Packet
+</code></pre><p>Encodes a set-time-profile request as a 64 byte array.<h5>Parameters</h5><dl><dt>Controller<dd><dt>Profile<dd><dt>Start_Date<dd><dt>End_Date<dd><dt>Monday<dd><dt>Tuesday<dd><dt>Wednesday<dd><dt>Thursday<dd><dt>Friday<dd><dt>Saturday<dd><dt>Sunday<dd><dt>Segment_1_Start<dd><dt>Segment_1_End<dd><dt>Segment_2_Start<dd><dt>Segment_2_End<dd><dt>Segment_3_Start<dd><dt>Segment_3_End<dd><dt>Linked_Profile<dd></dl><h5>Return Value</h5><dl><dd></dl>

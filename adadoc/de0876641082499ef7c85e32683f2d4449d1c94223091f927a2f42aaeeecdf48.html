@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html class=main>
+<link rel=stylesheet href=gnatdoc.css><body class=content><h1>Uhppoted.Lib.Codec</h1><h2>Entities</h2><h3>Simple Types</h3><ul><li><a href=#a5d1089b0afe7d5d65f043d3d4ff566f38bcd685bbe4adbfb1ca6c6fc378a7db>Op_Code</a></ul><h3>Variables</h3><ul><li><a href=#08cc0c021c76245f7b345d7ae4f88e07eaaca8c83edb10ab6480f93ebbdbfd95>MagicWord</a><li><a href=#3058b8bcab68c31f9a7d45d8064826e05af2d503304fc3ed06d569a23c681136>SOM</a><li><a href=#f1093e660927447d1fd2a46b9cc2a3f135e121ce7dc703cbd80ea0dd3016c971>SOM_v6_62</a></ul><h2>Description</h2><h4 id=08cc0c021c76245f7b345d7ae4f88e07eaaca8c83edb10ab6480f93ebbdbfd95>MagicWord</h4><pre class=ada-code-snippet><code>MagicWord : Unsigned_32 := 16#55aaaa55#;
+</code></pre><h4 id=a5d1089b0afe7d5d65f043d3d4ff566f38bcd685bbe4adbfb1ca6c6fc378a7db>Op_Code</h4><pre class=ada-code-snippet><code>type Op_Code is (
+   Get_Status,
+   Set_Time,
+   Get_Time,
+   Open_Door,
+   Put_Card,
+   Delete_Card,
+   Delete_All_Cards,
+   Get_Cards,
+   …,
+   Restore_Default_Parameters);
+</code></pre><h5>Enumeration Literal</h5><dl><dt>Get_Status<dd><dt>Set_Time<dd><dt>Get_Time<dd><dt>Open_Door<dd><dt>Put_Card<dd><dt>Delete_Card<dd><dt>Delete_All_Cards<dd><dt>Get_Cards<dd><dt>Get_Card<dd><dt>Get_Card_At_Index<dd><dt>Set_Door<dd><dt>Get_Door<dd><dt>Set_Antipassback<dd><dt>Get_Antipassback<dd><dt>Set_Time_Profile<dd><dt>Clear_Time_Profiles<dd><dt>Set_Door_Passcodes<dd><dt>Record_Special_Events<dd><dt>Set_Listener<dd><dt>Get_Listener<dd><dt>Get_Controller<dd><dt>Set_IPv4<dd><dt>Get_Time_Profile<dd><dt>Set_PC_Control<dd><dt>Set_Interlock<dd><dt>Activate_Keypads<dd><dt>Clear_Task_List<dd><dt>Add_Task<dd><dt>Set_First_Card<dd><dt>Refresh_Task_List<dd><dt>Get_Event<dd><dt>Set_Event_Index<dd><dt>Get_Event_Index<dd><dt>Restore_Default_Parameters<dd></dl><h4 id=3058b8bcab68c31f9a7d45d8064826e05af2d503304fc3ed06d569a23c681136>SOM</h4><pre class=ada-code-snippet><code>SOM       : Unsigned_8  := 16#17#;
+</code></pre><h4 id=f1093e660927447d1fd2a46b9cc2a3f135e121ce7dc703cbd80ea0dd3016c971>SOM_v6_62</h4><pre class=ada-code-snippet><code>SOM_v6_62 : Unsigned_8  := 16#19#;
+</code></pre>

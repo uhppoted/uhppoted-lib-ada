@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class=main>
+<link rel=stylesheet href=gnatdoc.css><body class=content><h1>Uhppoted.Lib.Requests</h1><h2>Entities</h2><h3>Array Types</h3><ul><li><a href=#ecd6ab34c19ef277b211c1c6e000c86ca74586172b880d9b800df65aceea010a>BCD2</a><li><a href=#f7f49691278a7e050f952c4dcecf795e15e433a17cd9249fb7c549d6f85bc71f>BCD4</a><li><a href=#ad1525bc75121a08c129e73a869d0a52acab546dba536c0eafa0e27e41e8d7ff>BCD7</a></ul><h3>Record Types</h3><ul><li><a href=#05a0a8bb1c5435bcb09871a25487d8d8544f07604dd07d9a7697ac63672fe322>Activate_Keypads_Request</a><li><a href=#8605fb51dfa5e5706fab0ec3ed3951795ad2b7afc6d3952de19ac8f7f1f7eb78>Add_Task_Request</a><li><a href=#d4b42a673d7dc86aa6dfc43af44ecfd843ae220a7744fed0d8a6380a1e8bece1>Clear_Task_List_Request</a><li><a href=#f71bc9eac7762818e375aade4625a6bcfe50d39f0dd19569912bfb6fdf414f1b>Clear_Time_Profiles_Request</a><li><a href=#93446bca264829e0ae239de8da9444b1f182c504d6d6d1b9145b176fc150ecf8>Delete_Card_Request</a><li><a href=#dfc6080770ee661a5889593d14f9d088827af20471b455f46b2ebaef57b7d055>Delete_Cards_Request</a><li><a href=#e44fef37f8bf6e2ca566a925dded24d83993f3243d5c06df61a62e3b627ff46e>Get_Antipassback_Request</a><li><a href=#dafe681738720ec73c749962fa76af94df94bebe949ddb7770741d7f6adf7ab9>Get_Card_At_Index_Request</a><li><a href=#46837753d960965ebe006502e08fcdf8eeb526a34e20f05b0f170fc95599f6b5>Get_Card_Request</a><li><a href=#a95dd5d3abc0e556646442f99f21c8af1414cb0463b1fa1c02379bfbf4feb92a>Get_Cards_Request</a><li><a href=#eeb3123400294e6a507e172c1680af2d6d8b778eaa171a66fd378ced65c15157>Get_Controller_Request</a><li><a href=#6e4fae7e18eebfcce7e0b8931ce5fd45c92986fb5853ddfbf5796681e09395e8>Get_Door_Request</a><li><a href=#dfeda437c5b8263e73f7ee135417ed63a1b14705b229324b73d3c8d69049dad8>Get_Event_Index_Request</a><li><a href=#0f83ad495ee93795f8464d99229a715f1529de03c5eef1445bfe160cf2b8a96b>Get_Event_Request</a><li><a href=#65f6c8e466f49bd5434d9adb0a8c04e29beea258ad0c8699dc1d3f5346d29c63>Get_Listener_Request</a><li><a href=#22cc46f3fc57733f8c9b8e6bcbc73e38edb931760f03ca85aac2eb80e4a09ed6>Get_Status_Request</a><li><a href=#0bf6db308796ade72c95d28a9d2be664df41ce63779a6ab8414c540eec924956>Get_Time_Profile_Request</a><li><a href=#0483634813af56d5c70e465e471dfbb5ed05f36b018489df7f1955d3f815c231>Get_Time_Request</a><li><a href=#a234803af1b6fe10431f4233f635bc65586baf898de0876d2166dd238225d64d>Open_Door_Request</a><li><a href=#911094f55902de5825ade25cd945146bb316e3a3b639e9072df8fa4fdf354d5c>Put_Card_Request</a><li><a href=#684666ab466fd505a514b1eedd9b287a2034cc3f7b9b35acc16989ca1ea44a5a>Record_Special_Events_Request</a><li><a href=#f79ccdbca5c8a02849eb74f21badb95b6076ca9dd93eeae1a38283824d9c96f1>Refresh_Task_List_Request</a><li><a href=#1e656e948226946b2c4c0881c4533f1851f92605f3d523fb5e8352ccdba8d4ea>Restore_Default_Parameters_Request</a><li><a href=#bc3a2730f218add3989786812e509ae794afcea96adc370317998f71837f7f7d>Set_Antipassback_Request</a><li><a href=#9ff317ad2d410c4856daf44b542e5245dc28449a83d25f381d40adfa2ee927bf>Set_Door_Passcodes_Request</a><li><a href=#de0ca7818ec059f680194ccc8e3bfe7c5aa5544eebe6141f5121e1b09f8796bc>Set_Door_Request</a><li><a href=#63c2b6824506588ff05fb5af3e38ada6d4cc23591c6b464ad065efebd5580a76>Set_Event_Index_Request</a><li><a href=#630b16dddad9dd0827af6b2cc7f51618fa79c6e5bcd3a23063376164292112e7>Set_First_Card_Request</a><li><a href=#39419c47e79b9ce1f3280cad8bf858ca884fad64f365bcd74b4ea44803c444a0>Set_Interlock_Request</a><li><a href=#540515153a7870bda6ceb15c71fb38ff30df7c57b2b5fb81e0364f283e73ad84>Set_IPv4_Request</a><li><a href=#913122642e8903bdb2408b779347878f6109ec51174cc44267678fc4a17a1c20>Set_Listener_Request</a><li><a href=#9685c99d3555b9c63e81218331292c59f9d518759ab4a5659d20859ba127072a>Set_PC_Control_Request</a><li><a href=#7735e7abd70eaa93449324a4e4d6f263de8079855e6c6e384435922ba770d655>Set_Time_Profile_Request</a><li><a href=#bd6666cac2282a3842a34395172a809d1520dd45ef5e5c61e0309a94e983dc11>Set_Time_Request</a></ul><h2>Description</h2><h4 id=05a0a8bb1c5435bcb09871a25487d8d8544f07604dd07d9a7697ac63672fe322>Activate_Keypads_Request</h4><pre class=ada-code-snippet><code>type Activate_Keypads_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Activate_Keypads;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Reader_1   : Unsigned_8;
+   Reader_2   : Unsigned_8;
+   Reader_3   : Unsigned_8;
+   Reader_4   : Unsigned_8;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+end record;
+</code></pre><p>Message definition for an activate-keypads request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Reader_1<dd><dt>Reader_2<dd><dt>Reader_3<dd><dt>Reader_4<dd><dt>Padding<dd></dl><h4 id=8605fb51dfa5e5706fab0ec3ed3951795ad2b7afc6d3952de19ac8f7f1f7eb78>Add_Task_Request</h4><pre class=ada-code-snippet><code>type Add_Task_Request is record
+   SOM             : Unsigned_8    := Codec.SOM;
+   OpCode          : Codec.Op_Code := Codec.Add_Task;
+   Reserved        : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller      : Unsigned_32;
+   Start_Date      : BCD4;
+   End_Date        : BCD4;
+   Monday          : Unsigned_8;
+   Tuesday         : Unsigned_8;
+   Wednesday       : Unsigned_8;
+   Thursday        : Unsigned_8;
+   Friday          : Unsigned_8;
+   Saturday        : Unsigned_8;
+   Sunday          : Unsigned_8;
+   Start_Time      : BCD2;
+   Door            : Unsigned_8;
+   Task_ID         : Task_Type;
+   More_Cards      : Unsigned_8;
+   Padding         : Ada.Streams.Stream_Element_Array (1 .. 35) := [others => 0];
+end record;
+</code></pre><p>Message definition for an add-task request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Start_Date<dd><dt>End_Date<dd><dt>Monday<dd><dt>Tuesday<dd><dt>Wednesday<dd><dt>Thursday<dd><dt>Friday<dd><dt>Saturday<dd><dt>Sunday<dd><dt>Start_Time<dd><dt>Door<dd><dt>Task_ID<dd><dt>More_Cards<dd><dt>Padding<dd></dl><h4 id=ecd6ab34c19ef277b211c1c6e000c86ca74586172b880d9b800df65aceea010a>BCD2</h4><pre class=ada-code-snippet><code>type BCD2 is array (1 .. 2) of Unsigned_8;
+</code></pre><h4 id=f7f49691278a7e050f952c4dcecf795e15e433a17cd9249fb7c549d6f85bc71f>BCD4</h4><pre class=ada-code-snippet><code>type BCD4 is array (1 .. 4) of Unsigned_8;
+</code></pre><h4 id=ad1525bc75121a08c129e73a869d0a52acab546dba536c0eafa0e27e41e8d7ff>BCD7</h4><pre class=ada-code-snippet><code>type BCD7 is array (1 .. 7) of Unsigned_8;
+</code></pre><h4 id=d4b42a673d7dc86aa6dfc43af44ecfd843ae220a7744fed0d8a6380a1e8bece1>Clear_Task_List_Request</h4><pre class=ada-code-snippet><code>type Clear_Task_List_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Clear_Task_List;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   MagicWord  : Unsigned_32 := Codec.MagicWord;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+end record;
+</code></pre><p>Message definition for a clear-tasklist request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>MagicWord<dd><dt>Padding<dd></dl><h4 id=f71bc9eac7762818e375aade4625a6bcfe50d39f0dd19569912bfb6fdf414f1b>Clear_Time_Profiles_Request</h4><pre class=ada-code-snippet><code>type Clear_Time_Profiles_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Clear_Time_Profiles;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   MagicWord  : Unsigned_32 := Codec.MagicWord;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+end record;
+</code></pre><p>Message definition for a clear-time-profiles request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>MagicWord<dd><dt>Padding<dd></dl><h4 id=93446bca264829e0ae239de8da9444b1f182c504d6d6d1b9145b176fc150ecf8>Delete_Card_Request</h4><pre class=ada-code-snippet><code>type Delete_Card_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Delete_Card;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Card       : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+end record;
+</code></pre><p>Message definition for a delete-card request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Card<dd><dt>Padding<dd></dl><h4 id=dfc6080770ee661a5889593d14f9d088827af20471b455f46b2ebaef57b7d055>Delete_Cards_Request</h4><pre class=ada-code-snippet><code>type Delete_Cards_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Delete_All_Cards;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   MagicWord  : Unsigned_32 := Codec.MagicWord;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+end record;
+</code></pre><p>Message definition for a delete-cards request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>MagicWord<dd><dt>Padding<dd></dl><h4 id=e44fef37f8bf6e2ca566a925dded24d83993f3243d5c06df61a62e3b627ff46e>Get_Antipassback_Request</h4><pre class=ada-code-snippet><code>type Get_Antipassback_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Antipassback;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-antipassback request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Padding<dd></dl><h4 id=dafe681738720ec73c749962fa76af94df94bebe949ddb7770741d7f6adf7ab9>Get_Card_At_Index_Request</h4><pre class=ada-code-snippet><code>type Get_Card_At_Index_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Card_At_Index;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Index      : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-card-by-index request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Index<dd><dt>Padding<dd></dl><h4 id=46837753d960965ebe006502e08fcdf8eeb526a34e20f05b0f170fc95599f6b5>Get_Card_Request</h4><pre class=ada-code-snippet><code>type Get_Card_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Card;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Card       : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-card request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Card<dd><dt>Padding<dd></dl><h4 id=a95dd5d3abc0e556646442f99f21c8af1414cb0463b1fa1c02379bfbf4feb92a>Get_Cards_Request</h4><pre class=ada-code-snippet><code>type Get_Cards_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Cards;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-cards request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Padding<dd></dl><h4 id=eeb3123400294e6a507e172c1680af2d6d8b778eaa171a66fd378ced65c15157>Get_Controller_Request</h4><pre class=ada-code-snippet><code>type Get_Controller_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Controller;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-controller request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Padding<dd></dl><h4 id=6e4fae7e18eebfcce7e0b8931ce5fd45c92986fb5853ddfbf5796681e09395e8>Get_Door_Request</h4><pre class=ada-code-snippet><code>type Get_Door_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Door;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Door       : Unsigned_8;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-door request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Door<dd><dt>Padding<dd></dl><h4 id=dfeda437c5b8263e73f7ee135417ed63a1b14705b229324b73d3c8d69049dad8>Get_Event_Index_Request</h4><pre class=ada-code-snippet><code>type Get_Event_Index_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Event_Index;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 53) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-event-index request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Padding<dd></dl><h4 id=0f83ad495ee93795f8464d99229a715f1529de03c5eef1445bfe160cf2b8a96b>Get_Event_Request</h4><pre class=ada-code-snippet><code>type Get_Event_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Event;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Index      : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-event request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Index<dd><dt>Padding<dd></dl><h4 id=65f6c8e466f49bd5434d9adb0a8c04e29beea258ad0c8699dc1d3f5346d29c63>Get_Listener_Request</h4><pre class=ada-code-snippet><code>type Get_Listener_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Listener;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-listener request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Padding<dd></dl><h4 id=22cc46f3fc57733f8c9b8e6bcbc73e38edb931760f03ca85aac2eb80e4a09ed6>Get_Status_Request</h4><pre class=ada-code-snippet><code>type Get_Status_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Status;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-status request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Padding<dd></dl><h4 id=0bf6db308796ade72c95d28a9d2be664df41ce63779a6ab8414c540eec924956>Get_Time_Profile_Request</h4><pre class=ada-code-snippet><code>type Get_Time_Profile_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Time_Profile;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Profile    : Unsigned_8;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-time-profile request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Profile<dd><dt>Padding<dd></dl><h4 id=0483634813af56d5c70e465e471dfbb5ed05f36b018489df7f1955d3f815c231>Get_Time_Request</h4><pre class=ada-code-snippet><code>type Get_Time_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Get_Time;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
+end record;
+</code></pre><p>Message definition for a get-time request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Padding<dd></dl><h4 id=a234803af1b6fe10431f4233f635bc65586baf898de0876d2166dd238225d64d>Open_Door_Request</h4><pre class=ada-code-snippet><code>type Open_Door_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Open_Door;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Door       : Unsigned_8;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
+end record;
+</code></pre><p>Message definition for an open-door request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Door<dd><dt>Padding<dd></dl><h4 id=911094f55902de5825ade25cd945146bb316e3a3b639e9072df8fa4fdf354d5c>Put_Card_Request</h4><pre class=ada-code-snippet><code>type Put_Card_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Put_Card;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Card       : Unsigned_32;
+   Start_Date : BCD4;
+   End_Date   : BCD4;
+   Door_1     : Unsigned_8;
+   Door_2     : Unsigned_8;
+   Door_3     : Unsigned_8;
+   Door_4     : Unsigned_8;
+   PIN        : Unsigned_24;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 37) := [others => 0];
+end record;
+</code></pre><p>Message definition for a put-card request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Card<dd><dt>Start_Date<dd><dt>End_Date<dd><dt>Door_1<dd><dt>Door_2<dd><dt>Door_3<dd><dt>Door_4<dd><dt>PIN<dd><dt>Padding<dd></dl><h4 id=684666ab466fd505a514b1eedd9b287a2034cc3f7b9b35acc16989ca1ea44a5a>Record_Special_Events_Request</h4><pre class=ada-code-snippet><code>type Record_Special_Events_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Record_Special_Events;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Enabled    : Unsigned_8;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
+end record;
+</code></pre><p>Message definition for a record-special-events request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Enabled<dd><dt>Padding<dd></dl><h4 id=f79ccdbca5c8a02849eb74f21badb95b6076ca9dd93eeae1a38283824d9c96f1>Refresh_Task_List_Request</h4><pre class=ada-code-snippet><code>type Refresh_Task_List_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Refresh_Task_List;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   MagicWord  : Unsigned_32 := Codec.MagicWord;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+end record;
+</code></pre><p>Message definition for a refresh-tasklist request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>MagicWord<dd><dt>Padding<dd></dl><h4 id=1e656e948226946b2c4c0881c4533f1851f92605f3d523fb5e8352ccdba8d4ea>Restore_Default_Parameters_Request</h4><pre class=ada-code-snippet><code>type Restore_Default_Parameters_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Restore_Default_Parameters;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   MagicWord  : Unsigned_32 := Codec.MagicWord;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
+end record;
+</code></pre><p>Message definition for a restore-default-parameters request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>MagicWord<dd><dt>Padding<dd></dl><h4 id=bc3a2730f218add3989786812e509ae794afcea96adc370317998f71837f7f7d>Set_Antipassback_Request</h4><pre class=ada-code-snippet><code>type Set_Antipassback_Request is record
+   SOM          : Unsigned_8    := Codec.SOM;
+   OpCode       : Codec.Op_Code := Codec.Set_Antipassback;
+   Reserved     : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller   : Unsigned_32;
+   Antipassback : Uhppoted.Lib.Antipassback;
+   Padding      : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-antipassback request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Antipassback<dd><dt>Padding<dd></dl><h4 id=9ff317ad2d410c4856daf44b542e5245dc28449a83d25f381d40adfa2ee927bf>Set_Door_Passcodes_Request</h4><pre class=ada-code-snippet><code>type Set_Door_Passcodes_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Set_Door_Passcodes;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Door       : Unsigned_8;
+   Reserved2  : Ada.Streams.Stream_Element_Array (1 .. 3) := [others => 0];
+   Passcode1  : Unsigned_32 := 0;
+   Passcode2  : Unsigned_32 := 0;
+   Passcode3  : Unsigned_32 := 0;
+   Passcode4  : Unsigned_32 := 0;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 36) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-door-passcodes request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Door<dd><dt>Reserved2<dd><dt>Passcode1<dd><dt>Passcode2<dd><dt>Passcode3<dd><dt>Passcode4<dd><dt>Padding<dd></dl><h4 id=de0ca7818ec059f680194ccc8e3bfe7c5aa5544eebe6141f5121e1b09f8796bc>Set_Door_Request</h4><pre class=ada-code-snippet><code>type Set_Door_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Set_Door;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Door       : Unsigned_8;
+   Mode       : Control_Mode;
+   OpenDelay  : Unsigned_8;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 53) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-door request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Door<dd><dt>Mode<dd><dt>OpenDelay<dd><dt>Padding<dd></dl><h4 id=63c2b6824506588ff05fb5af3e38ada6d4cc23591c6b464ad065efebd5580a76>Set_Event_Index_Request</h4><pre class=ada-code-snippet><code>type Set_Event_Index_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Set_Event_Index;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Index      : Unsigned_32;
+   MagicWord  : Unsigned_32 := Codec.MagicWord;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 48) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-event-index request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Index<dd><dt>MagicWord<dd><dt>Padding<dd></dl><h4 id=630b16dddad9dd0827af6b2cc7f51618fa79c6e5bcd3a23063376164292112e7>Set_First_Card_Request</h4><pre class=ada-code-snippet><code>type Set_First_Card_Request is record
+   SOM           : Unsigned_8    := Codec.SOM;
+   OpCode        : Codec.Op_Code := Codec.Set_First_Card;
+   Reserved      : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller    : Unsigned_32;
+   Door          : Unsigned_8;
+   Start_Time    : BCD2;
+   Active_Mode   : Unsigned_8;
+   End_Time      : BCD2;
+   Inactive_Mode : Unsigned_8;
+   Monday        : Unsigned_8;
+   Tuesday       : Unsigned_8;
+   Wednesday     : Unsigned_8;
+   Thursday      : Unsigned_8;
+   Friday        : Unsigned_8;
+   Saturday      : Unsigned_8;
+   Sunday        : Unsigned_8;
+   Padding       : Ada.Streams.Stream_Element_Array (1 .. 42) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-firstcard request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Door<dd><dt>Start_Time<dd><dt>Active_Mode<dd><dt>End_Time<dd><dt>Inactive_Mode<dd><dt>Monday<dd><dt>Tuesday<dd><dt>Wednesday<dd><dt>Thursday<dd><dt>Friday<dd><dt>Saturday<dd><dt>Sunday<dd><dt>Padding<dd></dl><h4 id=39419c47e79b9ce1f3280cad8bf858ca884fad64f365bcd74b4ea44803c444a0>Set_Interlock_Request</h4><pre class=ada-code-snippet><code>type Set_Interlock_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Set_Interlock;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Interlock  : Uhppoted.Lib.Interlock;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-interlock request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Interlock<dd><dt>Padding<dd></dl><h4 id=540515153a7870bda6ceb15c71fb38ff30df7c57b2b5fb81e0364f283e73ad84>Set_IPv4_Request</h4><pre class=ada-code-snippet><code>type Set_IPv4_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Set_IPv4;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Addr       : IPv4;
+   Netmask    : IPv4;
+   Gateway    : IPv4;
+   MagicWord  : Unsigned_32 := Codec.MagicWord;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 40) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-IPv4 request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Addr<dd><dt>Netmask<dd><dt>Gateway<dd><dt>MagicWord<dd><dt>Padding<dd></dl><h4 id=913122642e8903bdb2408b779347878f6109ec51174cc44267678fc4a17a1c20>Set_Listener_Request</h4><pre class=ada-code-snippet><code>type Set_Listener_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Set_Listener;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Addr       : IPv4;
+   Port       : Unsigned_16;
+   Interval   : Unsigned_8;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 49) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-listener request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Addr<dd><dt>Port<dd><dt>Interval<dd><dt>Padding<dd></dl><h4 id=9685c99d3555b9c63e81218331292c59f9d518759ab4a5659d20859ba127072a>Set_PC_Control_Request</h4><pre class=ada-code-snippet><code>type Set_PC_Control_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Set_PC_Control;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   MagicWord  : Unsigned_32 := Codec.MagicWord;
+   Enable     : Unsigned_8;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 51) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-pc-control request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>MagicWord<dd><dt>Enable<dd><dt>Padding<dd></dl><h4 id=7735e7abd70eaa93449324a4e4d6f263de8079855e6c6e384435922ba770d655>Set_Time_Profile_Request</h4><pre class=ada-code-snippet><code>type Set_Time_Profile_Request is record
+   SOM             : Unsigned_8    := Codec.SOM;
+   OpCode          : Codec.Op_Code := Codec.Set_Time_Profile;
+   Reserved        : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller      : Unsigned_32;
+   Profile         : Unsigned_8;
+   Start_Date      : BCD4;
+   End_Date        : BCD4;
+   Monday          : Unsigned_8;
+   Tuesday         : Unsigned_8;
+   Wednesday       : Unsigned_8;
+   Thursday        : Unsigned_8;
+   Friday          : Unsigned_8;
+   Saturday        : Unsigned_8;
+   Sunday          : Unsigned_8;
+   Segment_1_Start : BCD2;
+   Segment_1_End   : BCD2;
+   Segment_2_Start : BCD2;
+   Segment_2_End   : BCD2;
+   Segment_3_Start : BCD2;
+   Segment_3_End   : BCD2;
+   Linked_Profile  : Unsigned_8;
+   Padding         : Ada.Streams.Stream_Element_Array (1 .. 27) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-time-profile request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Profile<dd><dt>Start_Date<dd><dt>End_Date<dd><dt>Monday<dd><dt>Tuesday<dd><dt>Wednesday<dd><dt>Thursday<dd><dt>Friday<dd><dt>Saturday<dd><dt>Sunday<dd><dt>Segment_1_Start<dd><dt>Segment_1_End<dd><dt>Segment_2_Start<dd><dt>Segment_2_End<dd><dt>Segment_3_Start<dd><dt>Segment_3_End<dd><dt>Linked_Profile<dd><dt>Padding<dd></dl><h4 id=bd6666cac2282a3842a34395172a809d1520dd45ef5e5c61e0309a94e983dc11>Set_Time_Request</h4><pre class=ada-code-snippet><code>type Set_Time_Request is record
+   SOM        : Unsigned_8    := Codec.SOM;
+   OpCode     : Codec.Op_Code := Codec.Set_Time;
+   Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+   Controller : Unsigned_32;
+   Date_Time  : BCD7 := [others => 0];
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 49) := [others => 0];
+end record;
+</code></pre><p>Message definition for a set-time request.<h5>Record fields</h5><dl><dt>SOM<dd><dt>OpCode<dd><dt>Reserved<dd><dt>Controller<dd><dt>Date_Time<dd><dt>Padding<dd></dl>

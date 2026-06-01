@@ -7,31 +7,32 @@ package Uhppoted.Types is
    use Ada.Strings.Unbounded;
    use Interfaces;
 
-   --  Custom exception for invalid destination address errors.
+   --  Custom error raised when the bind, broadcast or listen address is invalid.
    Invalid_Address_Error : exception;
 
-   --  Custom exception for invalid door control mode errors.
+   --  Custom error raised when the door control mode is not valid.
    Invalid_Door_Mode_Error : exception;
 
-   --  Custom exception for card not found errors.
+   --  Custom error raised when there is no card record at an index.
    Card_Not_Found_Error : exception;
 
-   --  Custom exception for card deleted errors.
+   --  Custom error raised when the card record at an index has been deleted.
    Card_Deleted_Error : exception;
 
-   --  Custom exception for event not found errors.
+   --  Custom error raised when there is no event record at an index.
    Event_Not_Found_Error : exception;
 
-   --  Custom exception for event overwritten errors.
+   --  Custom error raised when the event record at an index has been overwritten.
    Event_Overwritten_Error : exception;
 
-   --  Custom exception for time profile not found errors.
+   --  Custom error raised when there is no time profile record at an ID.
    Time_Profile_Not_Found_Error : exception;
 
-   --  Custom exception for invalid response errors.
+   --  Custom error raised when the response from a controller does not match the controller ID, is the incorrect
+   --  response type or has the incorrect information.
    Invalid_Response_Error : exception;
 
-   --  Custom exception for timeout errors.
+   --  Custom error raised when a controller does respond within the time limit.
    Timeout_Error : exception;
 
    type IPv4 is array (1 .. 4) of Interfaces.Unsigned_8;
@@ -341,12 +342,46 @@ package Uhppoted.Types is
    overriding procedure Finalize   (S : in out Signal);
    procedure Trigger (S : in out Signal);
 
+   --  Returns the IPv4 address formatted as "n.n.n.n", e.g. "192.168.1.100".
+   --
+   --  @param  Addr  IPv4 address to format.
+   --  @return       IPv4 address in dotted decimal format.
    function Image (Addr : IPv4) return String;
-   function Image (MAC  : Hardware_Addr) return String;
-   function Image (D    : DateOnly) return String;
-   function Image (T    : TimeOnly) return String;
-   function Image (DT   : DateTime) return String;
-   function Image (V    : Event_Direction) return String;
-   function Image (T    : HHmm) return String;
+
+   --  Returns the MAC address formatted as "xx:xx:xx:xx:xx:xx".
+   --
+   --  @param  MAC  MAC address to format.
+   --  @return      MAC address in hex format.
+   function Image (MAC : Hardware_Addr) return String;
+
+   --  Returns the date value formatted as "yyyy-mm-dd" e.g. "2026-06-23".
+   --
+   --  @param  D  The date value to format.
+   --  @return    Date formatted as "yyyy-mm-dd".
+   function Image (D : DateOnly) return String;
+
+   --  Returns the time value formatted as "HH:mm:ss" e.g. "13:45:56".
+   --
+   --  @param  T  The time value to format.
+   --  @return    Time formatted as "HH:mm:ss".
+   function Image (T : TimeOnly) return String;
+
+   --  Returns the date/time value formatted as "yyyy-mm-dd HH:mm:ss" e.g. "2026-06-23 13:45:56".
+   --
+   --  @param  DT  The date/time value to format.
+   --  @return     Date/time formatted as "yyyy-mm-dd HH:mm:ss".
+   function Image (DT : DateTime) return String;
+
+   --  Returns the event direction formatted as "IN" or "OUT".
+   --
+   --  @param  V Event direction to format.
+   --  @return   "IN" or "OUT".
+   function Image (V : Event_Direction) return String;
+
+   --  Returns the HHmm value formatted as "HH:mm" e.g. "13:45".
+   --
+   --  @param T The HHmm time value to format.
+   --  @return A string representation of the time in "HH:mm" format (e.g., "13:45").
+   function Image (T : HHmm) return String;
 
 end Uhppoted.Types;

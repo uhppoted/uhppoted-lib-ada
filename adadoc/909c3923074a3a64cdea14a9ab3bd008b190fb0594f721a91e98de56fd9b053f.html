@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html class=main>
+<link rel=stylesheet href=gnatdoc.css><body class=content><h1>Uhppoted_Lib_Ada_Config</h1><h2>Entities</h2><h3>Simple Types</h3><ul><li><a href=#b086de41348298506ba7277933c4e8551c4b853a02a1cbbdde95b2ad4fc45ce6>Build_Profile_Kind</a></ul><h3>Constants</h3><ul><li><a href=#d0ec2a1ba5a23c4fc65df970361228673796ac5487d94b2cb8da567163244413>Alire_Host_Arch</a><li><a href=#31c93ee50db5b9a60172b7f2f5852a30b5991832035a1b371247aba679ea5180>Alire_Host_Distro</a><li><a href=#7f48ca8cdbf1da30094f1c9ea48b0ee4784f929a1e506b178c49947b340fbe0c>Alire_Host_OS</a><li><a href=#0be93005b12d8b29cb9214a89c8fc0100a4f108ead4804c41f929de7303efa37>Build_Profile</a><li><a href=#437d2e3b9f66f63458231a68f7aa734053eb067504a1e07fcdbfd9f97a3ae918>Crate_Name</a><li><a href=#fe9783144ddfcaf3e310cab615c621e5c2259fae98ee26f3e32fdc048b2eca91>Crate_Version</a></ul><h2>Description</h2><p>Uhppoted.Lib version string.<h4 id=d0ec2a1ba5a23c4fc65df970361228673796ac5487d94b2cb8da567163244413>Alire_Host_Arch</h4><pre class=ada-code-snippet><code>Alire_Host_Arch : constant String := "aarch64";
+</code></pre><p>Internal - host architecture.<h4 id=31c93ee50db5b9a60172b7f2f5852a30b5991832035a1b371247aba679ea5180>Alire_Host_Distro</h4><pre class=ada-code-snippet><code>Alire_Host_Distro : constant String := "homebrew";
+</code></pre><p>Internal - host distribution.<h4 id=7f48ca8cdbf1da30094f1c9ea48b0ee4784f929a1e506b178c49947b340fbe0c>Alire_Host_OS</h4><pre class=ada-code-snippet><code>Alire_Host_OS : constant String := "macos";
+</code></pre><p>Internal - host OS.<h4 id=0be93005b12d8b29cb9214a89c8fc0100a4f108ead4804c41f929de7303efa37>Build_Profile</h4><pre class=ada-code-snippet><code>Build_Profile : constant Build_Profile_Kind := development;
+</code></pre><p>Active build profiles for Uhppoted.Lib.<h4 id=b086de41348298506ba7277933c4e8551c4b853a02a1cbbdde95b2ad4fc45ce6>Build_Profile_Kind</h4><pre class=ada-code-snippet><code>type Build_Profile_Kind is (
+   release,
+   validation,
+   development
+);
+</code></pre><p>Build profiles for Uhppoted.Lib.<p>Defines the intended target environment and optimization configuration for compilation.<h5>Enumeration Literal</h5><dl><dt>release<dd><p>Profile for release builds.<dt>validation<dd><p>Profile for validation builds.<dt>development<dd><p>Profile for development builds.</dl><h4 id=437d2e3b9f66f63458231a68f7aa734053eb067504a1e07fcdbfd9f97a3ae918>Crate_Name</h4><pre class=ada-code-snippet><code>Crate_Name : constant String := "uhppoted_lib_ada";
+</code></pre><p>Uhppoted.Lib crate name.<h4 id=fe9783144ddfcaf3e310cab615c621e5c2259fae98ee26f3e32fdc048b2eca91>Crate_Version</h4><pre class=ada-code-snippet><code>Crate_Version : constant String := "0.1.0-dev";
+</code></pre><p>Uhppoted.Lib version string.

@@ -1,3 +1,5 @@
+SRC = lib/src/*.ads lib/src/*.adb
+
 CONTROLLER ?= 405419896
 DEST ?= ""
 PROTOCOL ?= default
@@ -53,6 +55,13 @@ build-all:
 	cd lib && make build
 	cd examples/cli && make build
 	cd integration-tests && make build
+
+adadoc: $(SRC)
+	mkdir -p adadoc
+	cd lib && alr exec -- gnatdoc -l --warnings  --style leading -P uhppoted_lib_ada.gpr -O ../adadoc
+
+adadoc-watch: $(SRC)
+	find ./lib/src -name "*.ad[sb]" | entr -c make adadoc
 
 debug:
 	cd examples/cli && make get-controller CONTROLLER=405419896 DEST=192.168.1.125:60000 PROTOCOL=udp

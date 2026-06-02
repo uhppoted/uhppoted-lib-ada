@@ -6,8 +6,9 @@
 - [x] fix _Library_Interface_ in .gpr file
 - [ ] adadoc
     - [x] exceptions
-    - [ ] types
+    - [x] types
     - [ ] codec
+    - [ ] rename Trigger
 
 - [ ] format
 - [ ] lint

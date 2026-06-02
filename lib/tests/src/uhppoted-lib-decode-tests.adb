@@ -267,7 +267,7 @@ package body Uhppoted.Lib.Decode.Tests is
          Controller => 405419896,
          Door       => 3,
          Mode       => 2,
-         OpenDelay  => 7);
+         Open_Delay => 7);
 
       Reply : constant Packet := [
          16#17#, 16#82#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#03#, 16#02#, 16#07#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
@@ -288,7 +288,7 @@ package body Uhppoted.Lib.Decode.Tests is
          Controller => 405419896,
          Door       => 3,
          Mode       => 2,
-         OpenDelay  => 7);
+         Open_Delay => 7);
 
       Reply : constant Packet := [
          16#17#, 16#80#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#03#, 16#02#, 16#07#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,

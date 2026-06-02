@@ -1,5 +1,3 @@
-with Ada.Text_IO; use Ada.Text_IO;
-
 with Ada.Strings;
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps;
@@ -393,7 +391,7 @@ package body ArgParse is
          for I in 1 .. 4 loop
             exit when First > S'Last;
 
-            Last := Ada.Strings.Fixed.Index (S (First .. S'Last), ",");
+            Last := Index (S (First .. S'Last), ",");
             if Last = 0 then
                Codes (I) := Unsigned_32'Value (S (First .. S'Last));
                exit;
@@ -570,7 +568,7 @@ package body ArgParse is
          --  parse 'doors' arg
          while I <= D'Last loop
             declare
-               J     : constant Natural := Ada.Strings.Fixed.Index (D, ",", I);
+               J     : constant Natural := Index (D, ",", I);
                Token : constant String  := (if J = 0 then D (I .. D'Last) else D (I .. J - 1));
                V     : constant Integer := Integer'Value (Token);
             begin
@@ -795,13 +793,13 @@ package body ArgParse is
          S : String renames Profile.all;
          P : Time_Profile;
 
-         I : constant Natural := Ada.Strings.Fixed.Index (S, ",", 1);
-         J : constant Natural := Ada.Strings.Fixed.Index (S, ",", I + 1);
-         K : constant Natural := Ada.Strings.Fixed.Index (S, "[", J + 1);
-         L : constant Natural := Ada.Strings.Fixed.Index (S, "]", K + 1);
-         M : constant Natural := Ada.Strings.Fixed.Index (S, "[", L + 1);
-         N : constant Natural := Ada.Strings.Fixed.Index (S, "]", M + 1);
-         O : constant Natural := Ada.Strings.Fixed.Index (S, ",", N + 1);
+         I : constant Natural := Index (S, ",", 1);
+         J : constant Natural := Index (S, ",", I + 1);
+         K : constant Natural := Index (S, "[", J + 1);
+         L : constant Natural := Index (S, "]", K + 1);
+         M : constant Natural := Index (S, "[", L + 1);
+         N : constant Natural := Index (S, "]", M + 1);
+         O : constant Natural := Index (S, ",", N + 1);
 
          Start_Date : constant String (1 .. I - 1)     := S (1 .. I - 1);
          End_Date   : constant String (1 .. J - I - 1) := S (I + 1 .. J - 1);
@@ -814,7 +812,7 @@ package body ArgParse is
          Segment_3 : Time_Segment := (Start_Time => (0, 0), End_Time => (0, 0));
       begin
          declare
-            IX    : constant Natural := Ada.Strings.Fixed.Index (Segments, ",");
+            IX    : constant Natural := Index (Segments, ",");
             Token : constant String  := (if IX = 0 then Segments else Segments (Segments'First .. IX - 1));
          begin
             if Token'Length = 11 then
@@ -824,7 +822,7 @@ package body ArgParse is
 
             if IX /= 0 then
                declare
-                  JX    : constant Natural := Ada.Strings.Fixed.Index (Segments (IX + 1 .. Segments'Last), ",");
+                  JX    : constant Natural := Index (Segments (IX + 1 .. Segments'Last), ",");
                   Token : constant String := (if JX = 0 then Segments (IX + 1 .. Segments'Last)
                                                         else Segments (IX + 1 .. JX - 1));
                begin
@@ -961,13 +959,13 @@ package body ArgParse is
                                  End_Date   => (Year  => Unsigned_16'Value (End_Date (1 .. 4)),
                                                 Month => Unsigned_8'Value  (End_Date (6 .. 7)),
                                                 Day   => Unsigned_8'Value  (End_Date (9 .. 10))),
-                                 Weekdays   => (Monday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "MON") > 0,
-                                                Tuesday   => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "TUE") > 0,
-                                                Wednesday => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "WED") > 0,
-                                                Thursday  => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "THU") > 0,
-                                                Friday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "FRI") > 0,
-                                                Saturday  => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "SAT") > 0,
-                                                Sunday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "SUN") > 0),
+                                 Weekdays   => (Monday    => Index (To_Upper (Weekdays), "MON") > 0,
+                                                Tuesday   => Index (To_Upper (Weekdays), "TUE") > 0,
+                                                Wednesday => Index (To_Upper (Weekdays), "WED") > 0,
+                                                Thursday  => Index (To_Upper (Weekdays), "THU") > 0,
+                                                Friday    => Index (To_Upper (Weekdays), "FRI") > 0,
+                                                Saturday  => Index (To_Upper (Weekdays), "SAT") > 0,
+                                                Sunday    => Index (To_Upper (Weekdays), "SUN") > 0),
                                  Start_Time => To_HHmm (Start_Time),
                                  Door       => Unsigned_8'Value (Door),
                                  More_Cards => Unsigned_8'Value (More_Cards)));
@@ -1152,7 +1150,7 @@ package body ArgParse is
       Controller_ID        : aliased Integer       := 0;
       Controller_Addr      : aliased String_Access := null;
       Controller_Transport : aliased String_Access := null;
-      Antipassback            : aliased String_Access := null;
+      Antipassback         : aliased String_Access := null;
 
       C  : Controller;
    begin
@@ -1229,12 +1227,12 @@ package body ArgParse is
       declare
          S : String renames First_Card.all;
 
-         I : constant Natural := Ada.Strings.Fixed.Index (S, ",", 1);
-         J : constant Natural := Ada.Strings.Fixed.Index (S, ",", I + 1);
-         K : constant Natural := Ada.Strings.Fixed.Index (S, ",", J + 1);
-         L : constant Natural := Ada.Strings.Fixed.Index (S, ",", K + 1);
-         M : constant Natural := Ada.Strings.Fixed.Index (S, "[", L + 1);
-         N : constant Natural := Ada.Strings.Fixed.Index (S, "]", M + 1);
+         I : constant Natural := Index (S, ",", 1);
+         J : constant Natural := Index (S, ",", I + 1);
+         K : constant Natural := Index (S, ",", J + 1);
+         L : constant Natural := Index (S, ",", K + 1);
+         M : constant Natural := Index (S, "[", L + 1);
+         N : constant Natural := Index (S, "]", M + 1);
 
          Start_Time : constant String (1 .. I - 1)     := S (1 .. I - 1);
          End_Time   : constant String (1 .. J - I - 1) := S (I + 1 .. J - 1);
@@ -1273,13 +1271,13 @@ package body ArgParse is
                                  End_Time      => To_HHmm (End_Time),
                                  Active_Mode   => Active_Mode,
                                  Inactive_Mode => Inactive_Mode,
-                                 Weekdays   => (Monday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "MON") > 0,
-                                                Tuesday   => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "TUE") > 0,
-                                                Wednesday => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "WED") > 0,
-                                                Thursday  => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "THU") > 0,
-                                                Friday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "FRI") > 0,
-                                                Saturday  => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "SAT") > 0,
-                                                Sunday    => Ada.Strings.Fixed.Index (To_Upper (Weekdays), "SUN") > 0)));
+                                 Weekdays   => (Monday    => Index (To_Upper (Weekdays), "MON") > 0,
+                                                Tuesday   => Index (To_Upper (Weekdays), "TUE") > 0,
+                                                Wednesday => Index (To_Upper (Weekdays), "WED") > 0,
+                                                Thursday  => Index (To_Upper (Weekdays), "THU") > 0,
+                                                Friday    => Index (To_Upper (Weekdays), "FRI") > 0,
+                                                Saturday  => Index (To_Upper (Weekdays), "SAT") > 0,
+                                                Sunday    => Index (To_Upper (Weekdays), "SUN") > 0)));
       end;
 
    end Parse_Set_First_Card;

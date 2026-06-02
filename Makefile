@@ -58,6 +58,7 @@ build-all:
 
 adadoc: $(SRC)
 	mkdir -p adadoc
+	cd lib && alr exec -- gnatdoc -l --warnings  --style leading -P uhppoted_lib_ada.gpr -O ../adadoc 2>&1 | grep -Ei "warning|error" | wc -l
 	cd lib && alr exec -- gnatdoc -l --warnings  --style leading -P uhppoted_lib_ada.gpr -O ../adadoc
 
 adadoc-watch: $(SRC)

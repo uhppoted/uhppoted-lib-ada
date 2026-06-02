@@ -95,7 +95,7 @@ package Uhppoted.Lib.Responses is
       Controller : Unsigned_32;
       Door       : Unsigned_8;
       Mode       : Unsigned_8;
-      OpenDelay  : Unsigned_8;
+      Open_Delay : Unsigned_8;
    end record;
 
    --  Message definition for a set-door response.
@@ -103,7 +103,7 @@ package Uhppoted.Lib.Responses is
       Controller : Unsigned_32;
       Door       : Unsigned_8;
       Mode       : Unsigned_8;
-      OpenDelay  : Unsigned_8;
+      Open_Delay : Unsigned_8;
    end record;
 
    --  Message definition for a set-door-passcodes response.

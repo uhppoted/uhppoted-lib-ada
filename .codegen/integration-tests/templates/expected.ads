@@ -60,8 +60,8 @@ end Uhppoted.Lib.Integration_Tests.Expected;
                Reason         => To_Event_Reason ({{ get $v "event.reason"}})){{ end }}){{ end }}
 
 {{- define "door" }}({{ with $v := .Returns.Value }}
-     Mode      => To_Control_Mode ({{ get $v "mode"}}),
-     OpenDelay => {{ get $v "delay"}}{{ end }}){{ end }}
+     Mode       => To_Control_Mode ({{ get $v "mode"}}),
+     Open_Delay => {{ get $v "delay"}}{{ end }}){{ end }}
 
 {{- define "card" }}({{ with $v := .Returns.Value }}
      Card       => {{ get $v "card"}},

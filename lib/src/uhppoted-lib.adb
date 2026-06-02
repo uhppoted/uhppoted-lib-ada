@@ -315,8 +315,8 @@ package body Uhppoted.Lib is
          raise Invalid_Response_Error;
       end if;
 
-      return (Mode      => To_Control_Mode (R.Mode),
-              OpenDelay => R.OpenDelay);
+      return (Mode       => To_Control_Mode (R.Mode),
+              Open_Delay => R.Open_Delay);
    end Get_Door;
 
    --  Sets a door control mode and open delay. Restricted to the local LAN.
@@ -348,8 +348,8 @@ package body Uhppoted.Lib is
          raise Invalid_Response_Error;
       end if;
 
-      return (Mode      => To_Control_Mode (R.Mode),
-              OpenDelay => R.OpenDelay);
+      return (Mode       => To_Control_Mode (R.Mode),
+              Open_Delay => R.Open_Delay);
    end Set_Door;
 
    --  Sets the supervisor override passcodes for a door. Restricted to the local LAN.

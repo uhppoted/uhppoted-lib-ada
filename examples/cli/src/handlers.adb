@@ -209,7 +209,7 @@ package body Handlers is
       Put_Line ("controller:" & Args.Controller.ID'Image);
       Put_Line ("      door:" & Args.Door'Image);
       Put_Line ("      mode: " & R.Mode'Image);
-      Put_Line ("     delay:" & R.OpenDelay'Image);
+      Put_Line ("     delay:" & R.Open_Delay'Image);
       Put_Line ("");
    end Get_Door;
 
@@ -221,7 +221,7 @@ package body Handlers is
       Put_Line ("controller:" & Args.Controller.ID'Image);
       Put_Line ("      door:" & Args.Door'Image);
       Put_Line ("      mode: " & R.Mode'Image);
-      Put_Line ("     delay:" & R.OpenDelay'Image);
+      Put_Line ("     delay:" & R.Open_Delay'Image);
       Put_Line ("");
    end Set_Door;
 

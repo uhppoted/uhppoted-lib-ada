@@ -110,12 +110,12 @@ package Uhppoted.Lib.Integration_Tests.Expected is
                Reason         => To_Event_Reason (0)));
 
    Get_Door : constant Door_Record := (
-     Mode      => To_Control_Mode (3),
-     OpenDelay => 7);
+     Mode       => To_Control_Mode (3),
+     Open_Delay => 7);
 
    Set_Door : constant Door_Record := (
-     Mode      => To_Control_Mode (2),
-     OpenDelay => 17);
+     Mode       => To_Control_Mode (2),
+     Open_Delay => 17);
 
    Set_Door_Passcodes : constant Boolean := True;
 

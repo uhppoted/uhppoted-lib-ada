@@ -32,7 +32,7 @@ func AdaName(s string) string {
 
 	// 'delay' is a reserved word in Ada
 	if s == "delay" {
-		return "OpenDelay"
+		return "Open_Delay"
 	}
 
 	for i, token := range tokens {

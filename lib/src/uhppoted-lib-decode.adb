@@ -192,7 +192,10 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return (Controller => R.Controller, Door => R.Door, Mode => R.Mode, OpenDelay => R.OpenDelay);
+      return (Controller => R.Controller,
+              Door       => R.Door,
+              Mode       => R.Mode,
+              Open_Delay => R.Open_Delay);
    end Get_Door;
 
    --  Decodes a 64 byte set-door reply as a Set_Door_Response record.
@@ -210,7 +213,7 @@ package body Uhppoted.Lib.Decode is
       return (Controller => R.Controller,
               Door       => R.Door,
               Mode       => R.Mode,
-              OpenDelay  => R.OpenDelay);
+              Open_Delay => R.Open_Delay);
    end Set_Door;
 
    --  Translates a BCD coded version to a vN.NN formatted string.

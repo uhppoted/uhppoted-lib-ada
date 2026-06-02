@@ -294,7 +294,7 @@ package Uhppoted.Lib.Replies is
       Controller : Unsigned_32;
       Door       : Unsigned_8;
       Mode       : Unsigned_8;
-      OpenDelay  : Unsigned_8;
+      Open_Delay : Unsigned_8;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 53);
    end record;
 
@@ -305,7 +305,7 @@ package Uhppoted.Lib.Replies is
       Controller at  4 range 0 ..  31;
       Door       at  8 range 0 ..   7;
       Mode       at  9 range 0 ..   7;
-      OpenDelay  at 10 range 0 ..   7;
+      Open_Delay at 10 range 0 ..   7;
       Padding    at 11 range 0 .. 423;
    end record;
 
@@ -321,7 +321,7 @@ package Uhppoted.Lib.Replies is
       Controller : Unsigned_32;
       Door       : Unsigned_8;
       Mode       : Unsigned_8;
-      OpenDelay  : Unsigned_8;
+      Open_Delay : Unsigned_8;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 53);
    end record;
 
@@ -332,7 +332,7 @@ package Uhppoted.Lib.Replies is
       Controller at  4 range 0 ..  31;
       Door       at  8 range 0 ..   7;
       Mode       at  9 range 0 ..   7;
-      OpenDelay  at 10 range 0 ..   7;
+      Open_Delay at 10 range 0 ..   7;
       Padding    at 11 range 0 .. 423;
    end record;
 

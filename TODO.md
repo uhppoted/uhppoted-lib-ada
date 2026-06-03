@@ -7,7 +7,7 @@
     - [x] exceptions
     - [x] types
     - [ ] codec
-    - [ ] rename Trigger
+    - [ ] rename Protocol to Transport
 
 - [ ] format
 - [ ] lint

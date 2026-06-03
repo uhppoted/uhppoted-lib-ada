@@ -11,7 +11,7 @@ package Uhppoted.Lib is
    use GNAT.Sockets;
    use Uhppoted.Types;
 
-   --  (weird gnatdoc bug: blank lines above and below required or field tags are rejected)
+   --  (weird gnatdoc bug: blank lines above and below required or param/field tags are rejected)
 
    --  Container record for the operational configuration required to execute a command.
    --

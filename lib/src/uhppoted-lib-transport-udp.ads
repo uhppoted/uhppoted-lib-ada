@@ -1,6 +1,10 @@
 with GNAT.Sockets;
 with Uhppoted.Lib.Types;
 
+--  UDP transport implementation.
+--
+--  Send a UHPPOTE request packet over either UDP broadcast or a connected UDP socket
+--  and waits for the response.
 package Uhppoted.Lib.Transport.UDP is
 
    --  Broadcasts a 64 byte request packet and returns the response (if any).
@@ -20,7 +24,7 @@ package Uhppoted.Lib.Transport.UDP is
    --  @param  Request  64 byte request packet.
    --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
-   --  @return          Received packet.
+   --  @return  Received packet.
    function BroadcastTo (U       : UHPPOTE;
                          Request : Uhppoted.Lib.Types.Packet;
                          Timeout : Duration) return Uhppoted.Lib.Types.Packet;
@@ -40,7 +44,9 @@ package Uhppoted.Lib.Transport.UDP is
 
    --  Establishes a listening socket to receive controller events.
    --
-   --  @param  U         UHPPOTE configuration.
+   --  @param  U  UHPPOTE configuration.
+   --  @param  X  Event handler for received events.
+   --  @param  H  Selector wrapped in a Controlled type.
    procedure Listen (U : UHPPOTE; X : Event_Dispatcher'Class; H : GNAT.Sockets.Selector_Type);
 
    --  Controlled_Type wrapper for GNAT.Socket.
@@ -48,14 +54,20 @@ package Uhppoted.Lib.Transport.UDP is
 
 private
    --  Controlled_Type wrapper for GNAT.Socket.
+   --
+   --  @field  Client  Wrapped socket.
    type S is new Ada.Finalization.Limited_Controlled with record
       Client : Socket_Type := GNAT.Sockets.No_Socket;
    end record;
 
-   --  Creates the wrapped socket handle.
+   --  Initialises the wrapped socket handle.
+   --
+   --  @param E  Controlled.Initialize implementation for socket.
    overriding procedure Initialize (E : in out S);
 
    --  Closes the wrapped socket handle.
+   --
+   --  @param E  Controlled.Finalize implementation for socket.
    overriding procedure Finalize (E : in out S);
 
 end Uhppoted.Lib.Transport.UDP;

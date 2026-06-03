@@ -3,7 +3,6 @@
 - https://github.com/ohenley/awesome-ada
 - https://github.com/simonjwright/alire-index.mac
 
-- [x] fix _Library_Interface_ in .gpr file
 - [ ] adadoc
     - [x] exceptions
     - [x] types

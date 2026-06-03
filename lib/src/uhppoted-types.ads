@@ -3,6 +3,8 @@ with Ada.Finalization;
 with Ada.Strings.Unbounded;
 with GNAT.Sockets;
 
+--  Public types for use with the API library for the UHPPOTE access controllers.
+--
 package Uhppoted.Types is
    use Ada.Strings.Unbounded;
    use Interfaces;
@@ -117,7 +119,7 @@ package Uhppoted.Types is
    --  Container record for the controller event listener configuration.
    --
    --  @field  Listener  IPv4 address:port to which events are sent.
-   --  @field  Interval  Interval (seconds) at which to send the current controller state to 
+   --  @field  Interval  Interval (seconds) at which to send the current controller state to
    --                    the configured listener.
    type Listener_Record is record
       Listener : GNAT.Sockets.Sock_Addr_Type;
@@ -447,7 +449,7 @@ package Uhppoted.Types is
    type Passcodes_List is array (Positive range <>) of Unsigned_32;
 
    --  Container record for the days of week on which a Time_Profile, Task or FirstCard is enabled.
-   -- 
+   --
    --  @field  Monday     True if enabled on Monday.
    --  @field  Tuesday    True if enabled on Tuesday.
    --  @field  Wednesday  True if enabled on Wednesday.
@@ -466,19 +468,19 @@ package Uhppoted.Types is
    end record;
 
    --  Container record for a single Time_Profile time segment.
-   -- 
+   --
    --  @field  Start_Time  Time of day from from which time profile is active.
    --  @field  End_Time    Time of day after which time profile is no longer active.
-   type Segment is record
+   type Time_Segment is record
       Start_Time : HHmm;
       End_Time   : HHmm;
    end record;
 
    --  Container for the segments in a Time_Profile.
-   type Segments_List is array (1 .. 3) of Segment;
+   type Segments_List is array (1 .. 3) of Time_Segment;
 
    --  Container record for the information for a time profile.
-   -- 
+   --
    --  @field  Start_Date      Date from which time profile is active.
    --  @field  End_Date        Date after which time profile is no longer active.
    --  @field  Weekdays        Days of week on which time profile is active.
@@ -557,7 +559,7 @@ package Uhppoted.Types is
    function To_Task_Type (V : Unsigned_8) return Task_Type;
 
    --  Container record for the information for a scheduled task.
-   -- 
+   --
    --  @field  Task_ID     Task to execute at the scheduled time.
    --  @field  Start_Date  Date from which task will be scheduled.
    --  @field  End_Date    Date after which task will no longer be scheduled.
@@ -575,14 +577,14 @@ package Uhppoted.Types is
       More_Cards     : Unsigned_8;
    end record;
 
-   --  Anti-passback enum.
+   --  Interlock enum.
    --
-   -- @enum No_Interlock     Disables door interlocks.
-   -- @enum Interlock_12     Interlocks doors 1 and 2..
-   -- @enum Interlock_34     Interlocks doors 3 and 4.
-   -- @enum Interlock_12_34  Interlocks doors 1 and 2 and interlocks doors 3 and 4 (independently).
-   -- @enum Interlock_123    Interlocks doors 1, 2 and 3.
-   -- @enum Interlock_1234   Interlocks doors 1, 2, 3 and 4.
+   --  @enum No_Interlock     Disables door interlocks.
+   --  @enum Interlock_12     Interlocks doors 1 and 2.
+   --  @enum Interlock_34     Interlocks doors 3 and 4.
+   --  @enum Interlock_12_34  Interlocks doors 1 and 2 and interlocks doors 3 and 4 (independently).
+   --  @enum Interlock_123    Interlocks doors 1, 2 and 3.
+   --  @enum Interlock_1234   Interlocks doors 1, 2, 3 and 4.
    type Interlock is (No_Interlock, Interlock_12, Interlock_34, Interlock_12_34, Interlock_123, Interlock_1234);
 
    for Interlock use (No_Interlock    => 16#00#,
@@ -601,9 +603,9 @@ package Uhppoted.Types is
    --  - 4: Interlock_123
    --  - 8: Interlock_123
    --
-   --  @param  V             Unsigned_8 value to translate.
-   --  @return Antipassback  Translated interlock enum.
-   --  @exception  Constraint_Error  Raised if V is not a valid value.
+   --  @param  V          Unsigned_8 value to translate.
+   --  @return Interlock  Translated interlock enum.
+   --  @exception         Constraint_Error  Raised if V is not a valid value.
    function To_Interlock (V : Unsigned_8) return Interlock;
 
    --  Range type for reader access keypads (1..4]).
@@ -611,12 +613,12 @@ package Uhppoted.Types is
 
    --  Anti-passback enum.
    --
-   -- @enum No_Antipassback  Disables anti-passback.
-   -- @enum Readers_12_34    Configures anti-passback between reader 1 and reader 2 and also between 
-   --                        reader 3 and reader 4 (independently).
-   -- @enum Readers_13_24    Configures anti-passback between readers 1 or 3 and readers 2 or 4.
-   -- @enum Readers_1_23     Configures anti-passback between reader 1 and readers 2 or 3.
-   -- @enum Readers_1_234    Configures anti-passback between reader 1 and readers 2, 3 or 4.
+   --  @enum No_Antipassback  Disables anti-passback.
+   --  @enum Readers_12_34    Configures anti-passback between reader 1 and reader 2 and also between
+   --                         reader 3 and reader 4 (independently).
+   --  @enum Readers_13_24    Configures anti-passback between readers 1 or 3 and readers 2 or 4.
+   --  @enum Readers_1_23     Configures anti-passback between reader 1 and readers 2 or 3.
+   --  @enum Readers_1_234    Configures anti-passback between reader 1 and readers 2, 3 or 4.
    type Antipassback is (No_Antipassback, Readers_12_34, Readers_13_24, Readers_1_23, Readers_1_234);
 
    for Antipassback use (No_Antipassback => 16#00#,
@@ -639,7 +641,7 @@ package Uhppoted.Types is
    function To_Antipassback (V : Unsigned_8) return Antipassback;
 
    --  Container record for the configuration information for controller managed door first-card mode.
-   -- 
+   --
    --  @field  Start_Time     Time of day from which the 'first card 'mode can be activated by a card swipe.
    --  @field  End_Time       Time of day after which 'first card' mode is no activated.
    --  @field  Active_Mode    Door control mode after a valid 'first card' swipe. Valid values are Controlled,

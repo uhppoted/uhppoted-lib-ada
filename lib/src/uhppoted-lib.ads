@@ -11,9 +11,9 @@ package Uhppoted.Lib is
    use GNAT.Sockets;
    use Uhppoted.Types;
 
-   --  Container record for the operational configuration required to execute a command:
-   --  - networking addresses and ports
-   --  - optional debug enable.
+   --  (weird gnatdoc bug: blank lines above and below required or field tags are rejected)
+
+   --  Container record for the operational configuration required to execute a command.
    --
    --  @field Bind_Addr      Local socket address::port used for the send socket. Defaults to INADDR_ANY.
    --  @field Broadcast_Addr IPv4 broadcast address::port used on the local LAN.
@@ -26,8 +26,18 @@ package Uhppoted.Lib is
       Debug          : Boolean := False;
    end record;
 
+   --  Transport type enum.
+   --
+   --  @enum Default  UDP broadcast.
+   --  @enum UDP      Connected UDP socket.
+   --  @enum TCP      TCP socket.
    type Protocol_Type is (Default, UDP, TCP);
 
+   --  Encapsulates the information required for communication over a connected UDP or TCP socket.
+   --
+   --  @field ID        Controller serial number.
+   --  @field DestAddr  IPv4 address::port.
+   --  @field Protocol  UDP or TCP (defaults to UDP).
    type Controller is record
       ID       : Unsigned_32;
       DestAddr : Sock_Addr_Type := No_Sock_Addr;
@@ -37,67 +47,169 @@ package Uhppoted.Lib is
    --  Interface type for an event handler.
    type Event_Handler is interface;
 
+   --  Interface definition for the handler for a Listen_Event.
+   --
+   --  @param  Self        Handler for event.
+   --  @param  Controller  Controller serial number.
+   --  @param  State       Controller current state.
+   --  @param  Event       Current event information (if any).
    procedure On_Event (Self       : Event_Handler;
                        Controller : Unsigned_32;
                        State      : Controller_State;
                        Event      : Controller_Event) is abstract;
 
-   subtype Controller_Record      is Uhppoted.Types.Controller_Record;
-   subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
-   subtype Controller_Status      is Uhppoted.Types.Controller_Status;
-   subtype Controller_State       is Uhppoted.Types.Controller_State;
-   subtype Controller_Event       is Uhppoted.Types.Controller_Event;
-   subtype Door_Record            is Uhppoted.Types.Door_Record;
-   subtype Card_Record            is Uhppoted.Types.Card_Record;
-   subtype Listener_Record        is Uhppoted.Types.Listener_Record;
-   subtype Time_Profile           is Uhppoted.Types.Time_Profile;
-   subtype Time_Segment           is Uhppoted.Types.Segment;
-   subtype Task_Record            is Uhppoted.Types.Task_Record;
-   subtype First_Card_Record      is Uhppoted.Types.First_Card_Record;
-   subtype Keypads                is Uhppoted.Types.Keypads;
-   subtype Signal                 is Uhppoted.Types.Signal;
+   --  Encapsulates the static information for a controller.
+   subtype Controller_Record is Uhppoted.Types.Controller_Record;
 
+   --  Encapsulates the list of controllers returned by Find_Controllers.
+   subtype Controller_Record_List is Uhppoted.Types.Controller_Record_List;
+
+   --  Encapsulates the controller current state and most recent event (if any).
+   subtype Controller_Status is Uhppoted.Types.Controller_Status;
+
+   --  Encapsulates the information for a controller state.
+   subtype Controller_State is Uhppoted.Types.Controller_State;
+
+   --  Encapsulates the information for a controller event.
+   subtype Controller_Event is Uhppoted.Types.Controller_Event;
+
+   --  Encapsulates the control information for a door.
+   subtype Door_Record is Uhppoted.Types.Door_Record;
+
+   --  Encapsulates the information for an access card.
+   subtype Card_Record is Uhppoted.Types.Card_Record;
+
+   --  Encapsulates the information for a Set/Get_Listener.
+   subtype Listener_Record is Uhppoted.Types.Listener_Record;
+
+   --  Encapsulates the information for an access time profile.
+   subtype Time_Profile is Uhppoted.Types.Time_Profile;
+
+   --  Encapsulates a time segment for a time profile.
+   subtype Time_Segment is Uhppoted.Types.Time_Segment;
+
+   --  Encapsulates the information for a scheduled task.
+   subtype Task_Record is Uhppoted.Types.Task_Record;
+
+   --  Encapsulates the configuration information for a door 'first-card' mode.
+   subtype First_Card_Record is Uhppoted.Types.First_Card_Record;
+
+   --  Encapsulates a list of keypads.
+   subtype Keypads is Uhppoted.Types.Keypads;
+
+   --  Encapsulates a signal to asynchronously cancel a Listen thread.
+   subtype Signal is Uhppoted.Types.Signal;
+
+   --  Triggers a signal to asynchronously cancel a Listen thread.
+   --
+   --  @param  S  Signal to trigger.
    procedure Trigger (S : in out Signal) renames Uhppoted.Types.Trigger;
 
-   subtype DateTime       is Uhppoted.Types.DateTime;
-   subtype HHmm           is Uhppoted.Types.HHmm;
-   subtype Control_Mode   is Uhppoted.Types.Control_Mode;
+   --  Type for yyyy-mm-dd HH:mm date/time.
+   subtype DateTime is Uhppoted.Types.DateTime;
+
+   --  Enum type for time of day (minute resolution).
+   subtype HHmm is Uhppoted.Types.HHmm;
+
+   --  Enum type for door control modes.
+   subtype Control_Mode is Uhppoted.Types.Control_Mode;
+
+   --  List of supervisor override codes.
    subtype Passcodes_List is Uhppoted.Types.Passcodes_List;
-   subtype Task_Type      is Uhppoted.Types.Task_Type;
-   subtype Interlock      is Uhppoted.Types.Interlock;
-   subtype Antipassback   is Uhppoted.Types.Antipassback;
 
-   Normally_Open        : Control_Mode renames Uhppoted.Types.Normally_Open;
-   Normally_Closed      : Control_Mode renames Uhppoted.Types.Normally_Closed;
-   Controlled           : Control_Mode renames Uhppoted.Types.Controlled;
-   First_Card_Only      : Control_Mode renames Uhppoted.Types.First_Card_Only;
+   --  Enum type for scheduled task type.
+   subtype Task_Type is Uhppoted.Types.Task_Type;
 
-   Door_Controlled      : Task_Type renames Uhppoted.Types.Door_Controlled;
-   Door_Normally_Open   : Task_Type renames Uhppoted.Types.Door_Normally_Open;
+   --  Enum type for interlock mode.
+   subtype Interlock is Uhppoted.Types.Interlock;
+
+   --  Enum type for anti-passback mode.
+   subtype Antipassback is Uhppoted.Types.Antipassback;
+
+   --  Enum for door control mode permanently unlocked.
+   Normally_Open : Control_Mode renames Uhppoted.Types.Normally_Open;
+
+   --  Enum for door control mode permanently locked.
+   Normally_Closed : Control_Mode renames Uhppoted.Types.Normally_Closed;
+
+   --  Enum for door control mode requires a valid card swipe.
+   Controlled : Control_Mode renames Uhppoted.Types.Controlled;
+
+   --  Enum for door control mode requires a valid 'first card' swipe.
+   First_Card_Only : Control_Mode renames Uhppoted.Types.First_Card_Only;
+
+   --  Enum to set door control mode to controlled.
+   Door_Controlled : Task_Type renames Uhppoted.Types.Door_Controlled;
+
+   --  Enum to set door control mode to normally open.
+   Door_Normally_Open : Task_Type renames Uhppoted.Types.Door_Normally_Open;
+
+   --  Enum to set door control mode to normally closed.
    Door_Normally_Closed : Task_Type renames Uhppoted.Types.Door_Normally_Closed;
+
+   --  Enum to sisbles any time profiles assigned to the door.
    Disable_Time_Profile : Task_Type renames Uhppoted.Types.Disable_Time_Profile;
-   Enable_Time_Profile  : Task_Type renames Uhppoted.Types.Enable_Time_Profile;
-   Card_No_Password     : Task_Type renames Uhppoted.Types.Card_No_Password;
-   Card_In_Password     : Task_Type renames Uhppoted.Types.Card_In_Password;
-   Card_InOut_Password  : Task_Type renames Uhppoted.Types.Card_InOut_Password;
-   Enable_More_Cards    : Task_Type renames Uhppoted.Types.Enable_More_Cards;
-   Disable_More_Cards   : Task_Type renames Uhppoted.Types.Disable_More_Cards;
-   Trigger_Once         : Task_Type renames Uhppoted.Types.Trigger_Once;
-   Disable_PushButton   : Task_Type renames Uhppoted.Types.Disable_PushButton;
-   Enable_PushButton    : Task_Type renames Uhppoted.Types.Enable_PushButton;
 
-   No_Interlock         : Interlock renames Uhppoted.Types.No_Interlock;
-   Interlock_12         : Interlock renames Uhppoted.Types.Interlock_12;
-   Interlock_34         : Interlock renames Uhppoted.Types.Interlock_34;
-   Interlock_12_34      : Interlock renames Uhppoted.Types.Interlock_12_34;
-   Interlock_123        : Interlock renames Uhppoted.Types.Interlock_123;
-   Interlock_1234       : Interlock renames Uhppoted.Types.Interlock_1234;
+   --  Enum to snales any time profiles assigned to the door.
+   Enable_Time_Profile : Task_Type renames Uhppoted.Types.Enable_Time_Profile;
 
-   No_Antipassback      : Antipassback renames Uhppoted.Types.No_Antipassback;
-   Readers_12_34        : Antipassback renames Uhppoted.Types.Readers_12_34;
-   Readers_13_24        : Antipassback renames Uhppoted.Types.Readers_13_24;
-   Readers_1_23         : Antipassback renames Uhppoted.Types.Readers_1_23;
-   Readers_1_234        : Antipassback renames Uhppoted.Types.Readers_1_234;
+   --  Enum to snales card swipe without a PIN.
+   Card_No_Password : Task_Type renames Uhppoted.Types.Card_No_Password;
+
+   --  Enum to snales PINs on an IN card swipe.
+   Card_In_Password : Task_Type renames Uhppoted.Types.Card_In_Password;
+
+   --  Enum to snales PINS on both IN and OUT card swipes.
+   Card_InOut_Password : Task_Type renames Uhppoted.Types.Card_InOut_Password;
+
+   --  Enum to snales 'more cards'.
+   Enable_More_Cards : Task_Type renames Uhppoted.Types.Enable_More_Cards;
+
+   --  Enum to sisbles 'more cards'.
+   Disable_More_Cards : Task_Type renames Uhppoted.Types.Disable_More_Cards;
+
+   --  Enum to snlcks the door.
+   Trigger_Once : Task_Type renames Uhppoted.Types.Trigger_Once;
+
+   --  Enum to sisbles the door pushbutton.
+   Disable_PushButton : Task_Type renames Uhppoted.Types.Disable_PushButton;
+
+   --  Enum to snales the door pushbutton.
+   Enable_PushButton : Task_Type renames Uhppoted.Types.Enable_PushButton;
+
+   --  Enum to disable door interlocks.
+   No_Interlock : Interlock renames Uhppoted.Types.No_Interlock;
+
+   --  Enum to interlock doors 1 and 2..
+   Interlock_12 : Interlock renames Uhppoted.Types.Interlock_12;
+
+   --  Enum to interlock doors 3 and 4.
+   Interlock_34 : Interlock renames Uhppoted.Types.Interlock_34;
+
+   --  Enum to interlock doors 1 and 2 and interlocks doors 3 and 4 (independently).
+   Interlock_12_34 : Interlock renames Uhppoted.Types.Interlock_12_34;
+
+   --  Enum to interlock doors 1, 2 and 3.
+   Interlock_123 : Interlock renames Uhppoted.Types.Interlock_123;
+
+   --  Enum to interlock doors 1, 2, 3 and 4.
+   Interlock_1234 : Interlock renames Uhppoted.Types.Interlock_1234;
+
+   --  Enum for no anti-passback.
+   No_Antipassback : Antipassback renames Uhppoted.Types.No_Antipassback;
+
+   --  Enum for anti-passback between reader 1 and reader 2 and also between reader 3 and
+   --  reader 4 (independently).
+   Readers_12_34 : Antipassback renames Uhppoted.Types.Readers_12_34;
+
+   --  Enum for anti-passback between readers 1 or 3 and readers 2 or 4.
+   Readers_13_24 : Antipassback renames Uhppoted.Types.Readers_13_24;
+
+   --  Enum for anti-passback between reader 1 and readers 2 or 3.
+   Readers_1_23 : Antipassback renames Uhppoted.Types.Readers_1_23;
+
+   --  Enum for anti-passback between reader 1 and readers 2, 3 or 4.
+   Readers_1_234 : Antipassback renames Uhppoted.Types.Readers_1_234;
 
    --  Custom error raised when the bind, broadcast or listen address is invalid.
    Invalid_Address_Error : exception renames Uhppoted.Types.Invalid_Address_Error;
@@ -475,7 +587,6 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-
    function Open_Door (U       : UHPPOTE;
                        C       : Unsigned_32;
                        Door    : Unsigned_8;
@@ -521,7 +632,6 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-
    function Get_Cards (U       : UHPPOTE;
                        C       : Controller;
                        Timeout : Duration := 2.5) return Unsigned_32;
@@ -830,7 +940,6 @@ package Uhppoted.Lib is
    --  @exception Time_Profile_Not_Found if the controller does not have a corresponding time profile.
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
-
    function Get_Time_Profile (U       : UHPPOTE;
                               C       : Unsigned_32;
                               Profile : Unsigned_8;
@@ -1232,7 +1341,7 @@ package Uhppoted.Lib is
    --  Establishes a UDP connection to receive controller events.
    --
    --  @param  U          UHPPOTE configuration.
-   --  @param  Listener   Event_Handler implementation.
+   --  @param  Handler    Event_Handler implementation.
    --  @param  Cancel     Cancel signal to terminate event listener.
    procedure Listen (U : UHPPOTE; Handler : Event_Handler'Class; Cancel : Signal);
 

@@ -18,6 +18,12 @@ package Uhppoted.Lib.Replies is
    for Version_Field'Size use 16;
 
    --  Message definition for a get-controller reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Controller_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -51,6 +57,13 @@ package Uhppoted.Lib.Replies is
    for Get_Controller_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-IPv4 reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Set_IPv4_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -74,6 +87,12 @@ package Uhppoted.Lib.Replies is
    for Set_IPv4_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-time reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Time_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -97,6 +116,12 @@ package Uhppoted.Lib.Replies is
    for Get_Time_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-time reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_Time_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -120,6 +145,12 @@ package Uhppoted.Lib.Replies is
    for Set_Time_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-listener reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Listener_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -147,6 +178,12 @@ package Uhppoted.Lib.Replies is
    for Get_Listener_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-listener-addrport reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Listener_Addr_Port_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -174,6 +211,13 @@ package Uhppoted.Lib.Replies is
    for Get_Listener_Addr_Port_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-listener reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Set_Listener_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -197,6 +241,13 @@ package Uhppoted.Lib.Replies is
    for Set_Listener_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-listener reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Set_Listener_Addr_Port_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -220,6 +271,12 @@ package Uhppoted.Lib.Replies is
    for Set_Listener_Addr_Port_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-status reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Status_Response is record
       SOM                  : Unsigned_8;
       Opcode               : Unsigned_8;
@@ -287,6 +344,12 @@ package Uhppoted.Lib.Replies is
    for Get_Status_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-door reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Door_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -314,6 +377,12 @@ package Uhppoted.Lib.Replies is
    for Get_Door_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-door reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_Door_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -341,6 +410,13 @@ package Uhppoted.Lib.Replies is
    for Set_Door_Response'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-door-passcodes reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Set_Door_Passcodes_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -364,6 +440,13 @@ package Uhppoted.Lib.Replies is
    for Set_Door_Passcodes_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for an open-door reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Open_Door_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -387,6 +470,12 @@ package Uhppoted.Lib.Replies is
    for Open_Door_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-cards reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Cards_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -410,6 +499,12 @@ package Uhppoted.Lib.Replies is
    for Get_Cards_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-card reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Card_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -447,6 +542,12 @@ package Uhppoted.Lib.Replies is
    for Get_Card_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-card-at-index reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Card_At_Index_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -484,6 +585,13 @@ package Uhppoted.Lib.Replies is
    for Get_Card_At_Index_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a put-card reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Put_Card_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -507,6 +615,13 @@ package Uhppoted.Lib.Replies is
    for Put_Card_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a delete-card reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Delete_Card_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -530,6 +645,13 @@ package Uhppoted.Lib.Replies is
    for Delete_Card_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a delete-all-cards reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Delete_All_Cards_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -553,6 +675,12 @@ package Uhppoted.Lib.Replies is
    for Delete_All_Cards_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-event reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Event_Reply is record
       SOM                  : Unsigned_8;
       Opcode               : Unsigned_8;
@@ -590,6 +718,12 @@ package Uhppoted.Lib.Replies is
    for Get_Event_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-event-index reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Event_Index_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -613,6 +747,13 @@ package Uhppoted.Lib.Replies is
    for Get_Event_Index_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-event-index reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Set_Event_Index_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -636,6 +777,13 @@ package Uhppoted.Lib.Replies is
    for Set_Event_Index_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a record-special-events reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Record_Special_Events_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -659,6 +807,12 @@ package Uhppoted.Lib.Replies is
    for Record_Special_Events_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-time-profile reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Time_Profile_Reply is record
       SOM             : Unsigned_8;
       Opcode          : Unsigned_8;
@@ -714,6 +868,13 @@ package Uhppoted.Lib.Replies is
    for Get_Time_Profile_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-time-profile reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Set_Time_Profile_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -737,6 +898,13 @@ package Uhppoted.Lib.Replies is
    for Set_Time_Profile_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a clear-time-profiles reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Clear_Time_Profiles_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -760,6 +928,13 @@ package Uhppoted.Lib.Replies is
    for Clear_Time_Profiles_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for an add-task reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Add_Task_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -783,6 +958,13 @@ package Uhppoted.Lib.Replies is
    for Add_Task_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a refresh-tasklist reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Refresh_Task_List_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -806,6 +988,13 @@ package Uhppoted.Lib.Replies is
    for Refresh_Task_List_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a clear-tasklist reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Clear_Task_List_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -829,6 +1018,13 @@ package Uhppoted.Lib.Replies is
    for Clear_Task_List_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-pc-control reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Set_PC_Control_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -852,6 +1048,13 @@ package Uhppoted.Lib.Replies is
    for Set_PC_Control_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-interlock reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Set_Interlock_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -875,6 +1078,13 @@ package Uhppoted.Lib.Replies is
    for Set_Interlock_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for an activate-keypads reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Activate_Keypads_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -898,6 +1108,12 @@ package Uhppoted.Lib.Replies is
    for Activate_Keypads_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-antipassback reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Antipassback_Reply is record
       SOM          : Unsigned_8;
       Opcode       : Unsigned_8;
@@ -921,6 +1137,13 @@ package Uhppoted.Lib.Replies is
    for Get_Antipassback_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-antipassback reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Set_Antipassback_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -944,6 +1167,13 @@ package Uhppoted.Lib.Replies is
    for Set_Antipassback_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-firstcard reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Set_First_Card_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -967,6 +1197,13 @@ package Uhppoted.Lib.Replies is
    for Set_First_Card_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a restore-default-parameters reply.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Ok          Success (1) or fail (0) result.
+   --  @field  Padding     Unused bytes.
    type Restore_Default_Parameters_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
@@ -990,6 +1227,12 @@ package Uhppoted.Lib.Replies is
    for Restore_Default_Parameters_Reply'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a listener-event message.
+   --
+   --  @field  SOM         Start of message byte (16#17#).
+   --  @field  OpCode      Packet type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Listener_Event is record
       SOM                  : Unsigned_8 := Codec.SOM;
       Opcode               : Unsigned_8 := 16#20#;

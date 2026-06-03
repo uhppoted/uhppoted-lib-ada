@@ -9,6 +9,12 @@ package Uhppoted.Lib.Requests is
    type BCD7 is array (1 .. 7) of Unsigned_8;
 
    --  Message definition for a get-controller request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Controller_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Controller;
@@ -30,6 +36,12 @@ package Uhppoted.Lib.Requests is
    for Get_Controller_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-IPv4 request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_IPv4_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_IPv4;
@@ -59,6 +71,12 @@ package Uhppoted.Lib.Requests is
    for Set_IPv4_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-time request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Time_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Time;
@@ -80,6 +98,12 @@ package Uhppoted.Lib.Requests is
    for Get_Time_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-time request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_Time_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Time;
@@ -103,6 +127,12 @@ package Uhppoted.Lib.Requests is
    for Set_Time_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-listener request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Listener_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Listener;
@@ -124,6 +154,12 @@ package Uhppoted.Lib.Requests is
    for Get_Listener_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-listener request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_Listener_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Listener;
@@ -151,6 +187,12 @@ package Uhppoted.Lib.Requests is
    for Set_Listener_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-status request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Status_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Status;
@@ -172,6 +214,12 @@ package Uhppoted.Lib.Requests is
    for Get_Status_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-door request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Door_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Door;
@@ -195,6 +243,12 @@ package Uhppoted.Lib.Requests is
    for Get_Door_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-door request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_Door_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Door;
@@ -222,6 +276,12 @@ package Uhppoted.Lib.Requests is
    for Set_Door_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-door-passcodes request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_Door_Passcodes_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Door_Passcodes;
@@ -255,6 +315,12 @@ package Uhppoted.Lib.Requests is
    for Set_Door_Passcodes_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for an open-door request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Open_Door_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Open_Door;
@@ -278,6 +344,12 @@ package Uhppoted.Lib.Requests is
    for Open_Door_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-cards request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Cards_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Cards;
@@ -299,6 +371,12 @@ package Uhppoted.Lib.Requests is
    for Get_Cards_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-card request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Card_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Card;
@@ -322,6 +400,12 @@ package Uhppoted.Lib.Requests is
    for Get_Card_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-card-by-index request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Card_At_Index_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Card_At_Index;
@@ -345,6 +429,12 @@ package Uhppoted.Lib.Requests is
    for Get_Card_At_Index_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a put-card request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Put_Card_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Put_Card;
@@ -382,6 +472,12 @@ package Uhppoted.Lib.Requests is
    for Put_Card_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a delete-card request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Delete_Card_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Delete_Card;
@@ -405,6 +501,12 @@ package Uhppoted.Lib.Requests is
    for Delete_Card_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a delete-cards request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Delete_Cards_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Delete_All_Cards;
@@ -428,6 +530,12 @@ package Uhppoted.Lib.Requests is
    for Delete_Cards_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-event request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Event_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Event;
@@ -451,6 +559,12 @@ package Uhppoted.Lib.Requests is
    for Get_Event_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-event-index request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Event_Index_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Event_Index;
@@ -472,6 +586,12 @@ package Uhppoted.Lib.Requests is
    for Get_Event_Index_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-event-index request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_Event_Index_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Event_Index;
@@ -497,6 +617,12 @@ package Uhppoted.Lib.Requests is
    for Set_Event_Index_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a record-special-events request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Record_Special_Events_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Record_Special_Events;
@@ -520,6 +646,12 @@ package Uhppoted.Lib.Requests is
    for Record_Special_Events_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-time-profile request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Time_Profile_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Time_Profile;
@@ -543,6 +675,12 @@ package Uhppoted.Lib.Requests is
    for Get_Time_Profile_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-time-profile request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_Time_Profile_Request is record
       SOM             : Unsigned_8    := Codec.SOM;
       OpCode          : Codec.Op_Code := Codec.Set_Time_Profile;
@@ -598,6 +736,12 @@ package Uhppoted.Lib.Requests is
    for Set_Time_Profile_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a clear-time-profiles request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Clear_Time_Profiles_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Clear_Time_Profiles;
@@ -621,6 +765,12 @@ package Uhppoted.Lib.Requests is
    for Clear_Time_Profiles_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for an add-task request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Add_Task_Request is record
       SOM             : Unsigned_8    := Codec.SOM;
       OpCode          : Codec.Op_Code := Codec.Add_Task;
@@ -668,6 +818,12 @@ package Uhppoted.Lib.Requests is
    for Add_Task_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a refresh-tasklist request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Refresh_Task_List_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Refresh_Task_List;
@@ -691,6 +847,12 @@ package Uhppoted.Lib.Requests is
    for Refresh_Task_List_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a clear-tasklist request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Clear_Task_List_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Clear_Task_List;
@@ -714,6 +876,12 @@ package Uhppoted.Lib.Requests is
    for Clear_Task_List_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-pc-control request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_PC_Control_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_PC_Control;
@@ -739,6 +907,12 @@ package Uhppoted.Lib.Requests is
    for Set_PC_Control_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-interlock request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_Interlock_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Interlock;
@@ -762,6 +936,12 @@ package Uhppoted.Lib.Requests is
    for Set_Interlock_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for an activate-keypads request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Activate_Keypads_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Activate_Keypads;
@@ -791,6 +971,12 @@ package Uhppoted.Lib.Requests is
    for Activate_Keypads_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a get-antipassback request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Get_Antipassback_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Antipassback;
@@ -812,6 +998,12 @@ package Uhppoted.Lib.Requests is
    for Get_Antipassback_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-antipassback request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_Antipassback_Request is record
       SOM          : Unsigned_8    := Codec.SOM;
       OpCode       : Codec.Op_Code := Codec.Set_Antipassback;
@@ -835,6 +1027,12 @@ package Uhppoted.Lib.Requests is
    for Set_Antipassback_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a set-firstcard request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Set_First_Card_Request is record
       SOM           : Unsigned_8    := Codec.SOM;
       OpCode        : Codec.Op_Code := Codec.Set_First_Card;
@@ -880,6 +1078,12 @@ package Uhppoted.Lib.Requests is
    for Set_First_Card_Request'Scalar_Storage_Order use System.Low_Order_First;
 
    --  Message definition for a restore-default-parameters request.
+   --
+   --  @field  SOM         Start of message byte (16#17).
+   --  @field  OpCode      Message type/op-code.
+   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
+   --  @field  Controller  Controller serial number.
+   --  @field  Padding     Unused bytes.
    type Restore_Default_Parameters_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Restore_Default_Parameters;

@@ -3,6 +3,8 @@ with Uhppoted.Lib.Types;
 with Uhppoted.Lib.Responses;
 with Uhppoted.Lib.Replies;
 
+--  Codec functions to decode a reply message.
+--
 package Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte get-controller reply as a Get_Controller_Response record.
@@ -265,28 +267,60 @@ package Uhppoted.Lib.Decode is
       return Uhppoted.Lib.Responses.Listener_Event;
 
 private
-   function BCD_To_String (Bytes : Uhppoted.Lib.Types.BCD) return String;
    --  Translates a BCD coded string in a byte array to a string.
+   --
+   --  @param  Bytes  BCD encoded value.
+   --
+   --  @return Decoded string.
+   function BCD_To_String (Bytes : Uhppoted.Lib.Types.BCD) return String;
 
-   function Unpack_Version (V : Uhppoted.Lib.Replies.Version_Field) return Ada.Strings.Unbounded.Unbounded_String;
    --  Translates a BCD coded version to a vN.NN formatted string.
+   --
+   --  @param  V  BCD encoded firmware version.
+   --
+   --  @return Decoded version string.
+   function Unpack_Version (V : Uhppoted.Lib.Replies.Version_Field) return Ada.Strings.Unbounded.Unbounded_String;
 
-   function Unpack_Boolean (B : Unsigned_8) return Boolean;
    --  Translates an Unsigned_8 into a Boolean.
+   --
+   --  @param  B  Byte encoded boolean value.
+   --
+   --  @return Decoded Boolean value.
+   function Unpack_Boolean (B : Unsigned_8) return Boolean;
 
-   function Unpack_Date (Bytes : Uhppoted.Lib.Types.BCD) return DateOnly;
    --  Translates a BCD coded date to a DateOnly.
+   --
+   --  @param  Bytes  BCD encode date field.
+   --
+   --  @return Decoded DateOnly value.
+   function Unpack_Date (Bytes : Uhppoted.Lib.Types.BCD) return DateOnly;
 
-   function Unpack_Short_Date (Bytes : Uhppoted.Lib.Types.BCD) return DateOnly;
    --  Translates a BCD coded YYMMDD date to a DateOnly.
+   --
+   --  @param  Bytes  BCD encode date field.
+   --
+   --  @return Decoded DateOnly value.
+   function Unpack_Short_Date (Bytes : Uhppoted.Lib.Types.BCD) return DateOnly;
 
-   function Unpack_Time (Bytes : Uhppoted.Lib.Types.BCD) return TimeOnly;
    --  Translates a BCD coded time to a TimeOnly.
+   --
+   --  @param  Bytes  BCD encode time field.
+   --
+   --  @return Decoded TimeOnly value.
+   function Unpack_Time (Bytes : Uhppoted.Lib.Types.BCD) return TimeOnly;
 
-   function Unpack_Date_Time (Bytes : Uhppoted.Lib.Types.BCD) return DateTime;
    --  Translates a BCD coded date/time to a DateTime.
+   --
+   --  @param  Bytes  BCD encode date/time field.
+   --
+   --  @return Decoded DateTime value.
+   function Unpack_Date_Time (Bytes : Uhppoted.Lib.Types.BCD) return DateTime;
 
-   function Unpack_HHmm (Bytes : Uhppoted.Lib.Types.BCD) return HHmm;
    --  Translates a BCD coded time to an HHmm.
+   --
+   --  @param  Bytes  BCD encode HH:mm field.
+   --
+   --  @return Decoded HH:mm value.
+   function Unpack_HHmm (Bytes : Uhppoted.Lib.Types.BCD) return HHmm;
 
 end Uhppoted.Lib.Decode;

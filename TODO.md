@@ -6,7 +6,7 @@
 - [ ] adadoc
     - [x] exceptions
     - [x] types
-    - [ ] codec
+    - [x] codec
     - [ ] rename Protocol to Transport
 
 - [ ] format

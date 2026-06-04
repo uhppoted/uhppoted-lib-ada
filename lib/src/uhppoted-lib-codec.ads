@@ -1,9 +1,52 @@
+--  Message constant definitions.
+--
 package Uhppoted.Lib.Codec is
 
-   SOM       : Unsigned_8  := 16#17#;
+   --  Start of message byte.
+   SOM : Unsigned_8  := 16#17#;
+
+   --  Start of message byte for v6.62 listener events.
    SOM_v6_62 : Unsigned_8  := 16#19#;
+
+   --  Authorisation value.
    MagicWord : Unsigned_32 := 16#55aaaa55#;
 
+   --  Message op-codes.
+   --
+   --  @enum  Get_Status                  Op-code for get-status message.
+   --  @enum  Set_Time                    Op-code for set-time message.
+   --  @enum  Get_Time                    Op-code for get-time message.
+   --  @enum  Open_Door                   Op-code for open-door message.
+   --  @enum  Put_Card                    Op-code for put-card message.
+   --  @enum  Delete_Card                 Op-code for delete-card message.
+   --  @enum  Delete_All_Cards            Op-code for delete-all-cards message.
+   --  @enum  Get_Cards                   Op-code for get-cards message.
+   --  @enum  Get_Card                    Op-code for get-card message.
+   --  @enum  Get_Card_At_Index           Op-code for get-card-at-index message.
+   --  @enum  Set_Door                    Op-code for set-door message.
+   --  @enum  Get_Door                    Op-code for get-door message.
+   --  @enum  Set_Antipassback            Op-code for set-antipassback message.
+   --  @enum  Get_Antipassback            Op-code for get-antipassback message.
+   --  @enum  Set_Time_Profile            Op-code for set-time-profile message.
+   --  @enum  Clear_Time_Profiles         Op-code for clear-time-profiles message.
+   --  @enum  Set_Door_Passcodes          Op-code for set-door-passcodes message.
+   --  @enum  Record_Special_Events       Op-code for record-special-events message.
+   --  @enum  Set_Listener                Op-code for set-listener message.
+   --  @enum  Get_Listener                Op-code for get-listener message.
+   --  @enum  Get_Controller              Op-code for get-controller message.
+   --  @enum  Set_IPv4                    Op-code for set-ipv4 message.
+   --  @enum  Get_Time_Profile            Op-code for get-time-profile message.
+   --  @enum  Set_PC_Control              Op-code for set-pc-control message.
+   --  @enum  Set_Interlock               Op-code for set-interlock message.
+   --  @enum  Activate_Keypads            Op-code for activate-keypads message.
+   --  @enum  Clear_Task_List             Op-code for clear-task-list message.
+   --  @enum  Add_Task                    Op-code for add-task message.
+   --  @enum  Set_First_Card              Op-code for set-first-card message.
+   --  @enum  Refresh_Task_List           Op-code for refresh-task-list message.
+   --  @enum  Get_Event                   Op-code for get-event message.
+   --  @enum  Set_Event_Index             Op-code for set-event-index message.
+   --  @enum  Get_Event_Index             Op-code for get-event-index message.
+   --  @enum  Restore_Default_Parameters  Op-code for restore-default-parameters message.
    type Op_Code is (
       Get_Status,
       Set_Time,

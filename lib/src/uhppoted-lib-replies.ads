@@ -4,7 +4,16 @@ with System;
 with Uhppoted.Lib.Types;
 with Uhppoted.Lib.Codec;
 
+--  Reply message record definitions.
+--
 package Uhppoted.Lib.Replies is
+
+   --  (weird gnatdoc bug: blank lines above and below required or param/field tags are rejected)
+
+   --  Convenience type for firmware version.
+   --
+   --  @field  Major  Major version number.
+   --  @field  Minor  Minor version number.
    type Version_Field is record
       Major : Unsigned_8;
       Minor : Unsigned_8;
@@ -23,6 +32,12 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Address     Controller IPv4 address.
+   --  @field  Netmask     IPv4 subnet mask.
+   --  @field  Gateway     IPv4 gateway address.
+   --  @field  MAC         Controller MAC address.
+   --  @field  Version     Firmware version.
+   --  @field  Date        Firmware release date.
    --  @field  Padding     Unused bytes.
    type Get_Controller_Reply is record
       SOM        : Unsigned_8;
@@ -92,6 +107,7 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Date_Time   Date/time (yyyy-mm-dd HH:mm:ss).
    --  @field  Padding     Unused bytes.
    type Get_Time_Response is record
       SOM        : Unsigned_8;
@@ -121,6 +137,7 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Date_Time   Date/time (yyyy-mm-dd HH:mm:ss).
    --  @field  Padding     Unused bytes.
    type Set_Time_Response is record
       SOM        : Unsigned_8;
@@ -150,6 +167,9 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Address     IPv4 address of event listener.
+   --  @field  Port        UDP port [1..65535] of event listener.
+   --  @field  Interval    Interval (seconds) at which to send controller state (0 for none).
    --  @field  Padding     Unused bytes.
    type Get_Listener_Response is record
       SOM        : Unsigned_8;
@@ -183,6 +203,9 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Address     IPv4 address of event listener.
+   --  @field  Port        UDP port [1..65535] of event listener.
+   --  @field  Interval    Interval (seconds) at which to send controller state (0 for none).
    --  @field  Padding     Unused bytes.
    type Get_Listener_Addr_Port_Response is record
       SOM        : Unsigned_8;
@@ -272,11 +295,34 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-status reply.
    --
-   --  @field  SOM         Start of message byte (16#17#).
-   --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
-   --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
+   --  @field  SOM                   Start of message byte (16#17#).
+   --  @field  OpCode                Packet type/op-code.
+   --  @field  Reserved              Unused bytes (reserved for manufacturer use).
+   --  @field  Controller            Controller serial number.
+   --  @field  Event_Index           Index of most recent event (0 if none).
+   --  @field  Event_Type            Event type of most recent event.
+   --  @field  Event_Access_Granted  True if most recent event allowed access.
+   --  @field  Event_Door            Door ID [1..4] for most recent event.
+   --  @field  Event_Direction       Access direction (IN/OUT) for most recent event (0 if none).
+   --  @field  Event_Card            Card number for most recent event.
+   --  @field  Event_Timestamp       Timestamp of most recent event.
+   --  @field  Event_Reason          Reason code of most recent event.
+   --  @field  Door_1_Open           True (1) if door 1 sensor is set.
+   --  @field  Door_2_Open           True (1) if door 2 sensor is set.
+   --  @field  Door_3_Open           True (1) if door 3 sensor is set.
+   --  @field  Door_4_Open           True (1) if door 4 sensor is set.
+   --  @field  Door_1_Button         True (1) if door 1 push button is pressed.
+   --  @field  Door_2_Button         True (1) if door 2 push button is pressed.
+   --  @field  Door_3_Button         True (1) if door 3 push button is pressed.
+   --  @field  Door_4_Button         True (1) if door 4 push button is pressed.
+   --  @field  System_Error          System error code (0 for none).
+   --  @field  System_Date           Current system date (yy-mm-dd).
+   --  @field  System_Time           Current system time (HH:mm:ss).
+   --  @field  Sequence_No           Message sequence number.
+   --  @field  Special_Info          Absolutely no idea.
+   --  @field  Relays                Door unlock relays bitset.
+   --  @field  Inputs                Alarm inputs bitset.
+   --  @field  Padding               Unused bytes.
    type Get_Status_Response is record
       SOM                  : Unsigned_8;
       Opcode               : Unsigned_8;
@@ -349,6 +395,9 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Door        Door ID [1..4].
+   --  @field  Mode        Door control mode (1:normally open, 2:normally closed, 3:controlled).
+   --  @field  Open_Delay  Door unlock duration (seconds).
    --  @field  Padding     Unused bytes.
    type Get_Door_Response is record
       SOM        : Unsigned_8;
@@ -382,6 +431,9 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Door        Door ID [1..4].
+   --  @field  Mode        Door control mode (1:normally open, 2:normally closed, 3:controlled).
+   --  @field  Open_Delay  Door unlock duration (seconds).
    --  @field  Padding     Unused bytes.
    type Set_Door_Response is record
       SOM        : Unsigned_8;
@@ -475,6 +527,7 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Cards       Number of valid card records.
    --  @field  Padding     Unused bytes.
    type Get_Cards_Reply is record
       SOM        : Unsigned_8;
@@ -504,6 +557,14 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Card        Card number.
+   --  @field  Start_Date  Date from which card is valid.
+   --  @field  End_Date    Date after which card is no longer valid.
+   --  @field  Door_1      Access permissions for door 1 (0:none, 1:24x7, 2..254:time profile).
+   --  @field  Door_2      Access permissions for door 2 (0:none, 1:24x7, 2..254:time profile).
+   --  @field  Door_3      Access permissions for door 3 (0:none, 1:24x7, 2..254:time profile).
+   --  @field  Door_4      Access permissions for door 4 (0:none, 1:24x7, 2..254:time profile).
+   --  @field  PIN         Reader keypad PIN [0..999999] (0 for none).
    --  @field  Padding     Unused bytes.
    type Get_Card_Reply is record
       SOM        : Unsigned_8;
@@ -547,6 +608,14 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Card        Card number.
+   --  @field  Start_Date  Date from which card is valid.
+   --  @field  End_Date    Date after which card is no longer valid.
+   --  @field  Door_1      Access permissions for door 1 (0:none, 1:24x7, 2..254:time profile).
+   --  @field  Door_2      Access permissions for door 2 (0:none, 1:24x7, 2..254:time profile).
+   --  @field  Door_3      Access permissions for door 3 (0:none, 1:24x7, 2..254:time profile).
+   --  @field  Door_4      Access permissions for door 4 (0:none, 1:24x7, 2..254:time profile).
+   --  @field  PIN         Reader keypad PIN [0..999999] (0 for none).
    --  @field  Padding     Unused bytes.
    type Get_Card_At_Index_Reply is record
       SOM        : Unsigned_8;
@@ -676,11 +745,19 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-event reply.
    --
-   --  @field  SOM         Start of message byte (16#17#).
-   --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
-   --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
+   --  @field  SOM             Start of message byte (16#17#).
+   --  @field  OpCode          Packet type/op-code.
+   --  @field  Reserved        Unused bytes (reserved for manufacturer use).
+   --  @field  Controller      Controller serial number.
+   --  @field  Index           Event record index.
+   --  @field  Event_Type      Event type.
+   --  @field  Access_Granted  True (1) if event allowed access.
+   --  @field  Door            Door ID [1..4].
+   --  @field  Direction       Access direction (1:IN, 2: OUT).
+   --  @field  Card            Card number.
+   --  @field  Timestamp       Event timestamp.
+   --  @field  Reason          Event reason code.
+   --  @field  Padding         Unused bytes.
    type Get_Event_Reply is record
       SOM                  : Unsigned_8;
       Opcode               : Unsigned_8;
@@ -723,6 +800,7 @@ package Uhppoted.Lib.Replies is
    --  @field  OpCode      Packet type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Index       Event index.
    --  @field  Padding     Unused bytes.
    type Get_Event_Index_Reply is record
       SOM        : Unsigned_8;
@@ -808,11 +886,28 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-time-profile reply.
    --
-   --  @field  SOM         Start of message byte (16#17#).
-   --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
-   --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
+   --  @field  SOM              Start of message byte (16#17#).
+   --  @field  OpCode           Packet type/op-code.
+   --  @field  Reserved         Unused bytes (reserved for manufacturer use).
+   --  @field  Controller       Controller serial number.
+   --  @field  Profile          Time profile ID [2..254].
+   --  @field  Start_Date       Date from which time profile is enabled.
+   --  @field  End_Date         Date after which time profile is no longer enabled.
+   --  @field  Monday           Enables/disables time profile on Monday.
+   --  @field  Tuesday          Enables/disables time profile on Tuesday.
+   --  @field  Wednesday        Enables/disables time profile on Wednesday.
+   --  @field  Thursday         Enables/disables time profile on Thursday.
+   --  @field  Friday           Enables/disables time profile on Friday.
+   --  @field  Saturday         Enables/disables time profile on Saturday.
+   --  @field  Sunday           Enables/disables time profile on Sunday.
+   --  @field  Segment_1_Start  Time of day for start of first time segment.
+   --  @field  Segment_1_End    Time of day for end of first time segment.
+   --  @field  Segment_2_Start  Time of day for start of second time segment.
+   --  @field  Segment_2_End    Time of day for end of second time segment.
+   --  @field  Segment_3_Start  Time of day for start of third time segment.
+   --  @field  Segment_3_End    Time of day for end of third time segment.
+   --  @field  Linked_Profile   Profile ID [2..254] of time profile with additional constraints/segments (0 for none).
+   --  @field  Padding          Unused bytes.
    type Get_Time_Profile_Reply is record
       SOM             : Unsigned_8;
       Opcode          : Unsigned_8;
@@ -1109,11 +1204,12 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a get-antipassback reply.
    --
-   --  @field  SOM         Start of message byte (16#17#).
-   --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
-   --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
+   --  @field  SOM           Start of message byte (16#17#).
+   --  @field  OpCode        Packet type/op-code.
+   --  @field  Reserved      Unused bytes (reserved for manufacturer use).
+   --  @field  Controller    Controller serial number.
+   --  @field  Antipassback  Controller anti-passback mode.
+   --  @field  Padding       Unused bytes.
    type Get_Antipassback_Reply is record
       SOM          : Unsigned_8;
       Opcode       : Unsigned_8;
@@ -1228,11 +1324,34 @@ package Uhppoted.Lib.Replies is
 
    --  Message definition for a listener-event message.
    --
-   --  @field  SOM         Start of message byte (16#17#).
-   --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
-   --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
+   --  @field  SOM                   Start of message byte (16#17#).
+   --  @field  OpCode                Packet type/op-code.
+   --  @field  Reserved              Unused bytes (reserved for manufacturer use).
+   --  @field  Controller            Controller serial number.
+   --  @field  Event_Index           Index of most recent event (0 if none).
+   --  @field  Event_Type            Event type of most recent event.
+   --  @field  Event_Access_Granted  True if most recent event allowed access.
+   --  @field  Event_Door            Door ID [1..4] for most recent event.
+   --  @field  Event_Direction       Access direction (IN/OUT) for most recent event (0 if none).
+   --  @field  Event_Card            Card number for most recent event.
+   --  @field  Event_Timestamp       Timestamp of most recent event.
+   --  @field  Event_Reason          Reason code of most recent event.
+   --  @field  Door_1_Open           True (1) if door 1 sensor is set.
+   --  @field  Door_2_Open           True (1) if door 2 sensor is set.
+   --  @field  Door_3_Open           True (1) if door 3 sensor is set.
+   --  @field  Door_4_Open           True (1) if door 4 sensor is set.
+   --  @field  Door_1_Button         True (1) if door 1 push button is pressed.
+   --  @field  Door_2_Button         True (1) if door 2 push button is pressed.
+   --  @field  Door_3_Button         True (1) if door 3 push button is pressed.
+   --  @field  Door_4_Button         True (1) if door 4 push button is pressed.
+   --  @field  System_Error          System error code (0 for none).
+   --  @field  System_Date           Current system date (yy-mm-dd).
+   --  @field  System_Time           Current system time (HH:mm:ss).
+   --  @field  Sequence_No           Message sequence number.
+   --  @field  Special_Info          Absolutely no idea.
+   --  @field  Relays                Door unlock relays bitset.
+   --  @field  Inputs                Alarm inputs bitset.
+   --  @field  Padding               Unused bytes.
    type Listener_Event is record
       SOM                  : Unsigned_8 := Codec.SOM;
       Opcode               : Unsigned_8 := 16#20#;

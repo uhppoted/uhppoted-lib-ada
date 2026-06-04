@@ -2,10 +2,17 @@ with Ada.Streams;
 with System;
 with Uhppoted.Lib.Codec;
 
+--  Request message record definitions.
+--
 package Uhppoted.Lib.Requests is
 
+   --  BCD HHmm type.
    type BCD2 is array (1 .. 2) of Unsigned_8;
+
+   --  BCD date type.
    type BCD4 is array (1 .. 4) of Unsigned_8;
+
+   --  BCD date/time type.
    type BCD7 is array (1 .. 7) of Unsigned_8;
 
    --  Message definition for a get-controller request.
@@ -41,6 +48,10 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Addr        Controller IPv4 address.
+   --  @field  Netmask     Controller IPv4 subnet mask.
+   --  @field  Gateway     Controller IPv4 gateway address.
+   --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Set_IPv4_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -103,6 +114,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Date_Time   Date/time (yyyy-mm-dd HH:mm).
    --  @field  Padding     Unused bytes.
    type Set_Time_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -159,6 +171,9 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Addr        Listener IPv4 address.
+   --  @field  Port        Listener port [1..65535].
+   --  @field  Interval    Interval (seconds) at which to automatically send controller state (0 for none).
    --  @field  Padding     Unused bytes.
    type Set_Listener_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -219,6 +234,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Door        Door ID [1..4].
    --  @field  Padding     Unused bytes.
    type Get_Door_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -248,6 +264,9 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Door        Door ID [1..4].
+   --  @field  Mode        Door control mode (1:normally open, 2:normally close, 3: controlled).
+   --  @field  OpenDelay   Door unlock duration (seconds).
    --  @field  Padding     Unused bytes.
    type Set_Door_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -281,6 +300,12 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Door        Door ID [1..4].
+   --  @field  Reserved2   Unused bytes (reserved for manufacturer use).
+   --  @field  Passcode1   First passcode [0..999999] (0 for none).
+   --  @field  Passcode2   Second passcode [0..999999] (0 for none).
+   --  @field  Passcode3   Third passcode [0..999999] (0 for none).
+   --  @field  Passcode4   Fourth passcode [0..999999] (0 for none).
    --  @field  Padding     Unused bytes.
    type Set_Door_Passcodes_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -320,6 +345,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Door        Door ID [1..4].
    --  @field  Padding     Unused bytes.
    type Open_Door_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -376,6 +402,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Card        Card number.
    --  @field  Padding     Unused bytes.
    type Get_Card_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -405,6 +432,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Index       Card record index.
    --  @field  Padding     Unused bytes.
    type Get_Card_At_Index_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -434,6 +462,14 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Card        Card number.
+   --  @field  Start_Date  Date from which card is valid.
+   --  @field  End_Date    Date after which card is no longer valid.
+   --  @field  Door_1      Access permissions for door 1 (0: none, 1:24x7, 2..254: time profile).
+   --  @field  Door_2      Access permissions for door 2 (0: none, 1:24x7, 2..254: time profile).
+   --  @field  Door_3      Access permissions for door 3 (0: none, 1:24x7, 2..254: time profile).
+   --  @field  Door_4      Access permissions for door 4 (0: none, 1:24x7, 2..254: time profile).
+   --  @field  PIN         Access reader PIN code [0..999999] (0 for none).
    --  @field  Padding     Unused bytes.
    type Put_Card_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -477,6 +513,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Card        Card number.
    --  @field  Padding     Unused bytes.
    type Delete_Card_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -506,6 +543,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Delete_Cards_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -535,6 +573,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Index       Event index.
    --  @field  Padding     Unused bytes.
    type Get_Event_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -591,6 +630,8 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Index       Event index.
+   --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Set_Event_Index_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -622,6 +663,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Enabled     Enables/disables door/pusbutton/etc events.
    --  @field  Padding     Unused bytes.
    type Record_Special_Events_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -651,6 +693,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Profile     Time profile ID [2..254].
    --  @field  Padding     Unused bytes.
    type Get_Time_Profile_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -676,11 +719,29 @@ package Uhppoted.Lib.Requests is
 
    --  Message definition for a set-time-profile request.
    --
-   --  @field  SOM         Start of message byte (16#17).
-   --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
-   --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
+   --  @field  SOM              Start of message byte (16#17).
+   --  @field  OpCode           Message type/op-code.
+   --  @field  Reserved         Unused bytes (reserved for manufacturer use).
+   --  @field  Controller       Controller serial number.
+   --  @field  Profile          Time profile ID [2..254].
+   --  @field  Start_Date       Date from which time profile is enabled.
+   --  @field  End_Date         Date after which time profile is no longer enabled.
+   --  @field  Monday           Enables/disables time profile on Monday.
+   --  @field  Tuesday          Enables/disables time profile on Tuesday.
+   --  @field  Wednesday        Enables/disables time profile on Wednesday.
+   --  @field  Thursday         Enables/disables time profile on Thursday.
+   --  @field  Friday           Enables/disables time profile on Friday.
+   --  @field  Saturday         Enables/disables time profile on Saturday.
+   --  @field  Sunday           Enables/disables time profile on Sunday.
+   --  @field  Segment_1_Start  Hour of day for start of first time segment.
+   --  @field  Segment_1_End    Hour of day for end of first time segment.
+   --  @field  Segment_2_Start  Hour of day for start of second time segment.
+   --  @field  Segment_2_End    Hour of day for end of second time segment.
+   --  @field  Segment_3_Start  Hour of day for start of third time segment.
+   --  @field  Segment_3_End    Hour of day for end of third time segment.
+   --  @field  Linked_Profile   Profile ID [2..254] of time profile with additional
+   --                           constraints/segments (0 if none).
+   --  @field  Padding          Unused bytes.
    type Set_Time_Profile_Request is record
       SOM             : Unsigned_8    := Codec.SOM;
       OpCode          : Codec.Op_Code := Codec.Set_Time_Profile;
@@ -741,6 +802,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Clear_Time_Profiles_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -770,6 +832,19 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Start_Date  Date from which scheduled task is enabled.
+   --  @field  End_Date    Date after which scheduled task is no longer enabled.
+   --  @field  Monday      Enables/disables scheduled task on Monday.
+   --  @field  Tuesday     Enables/disables scheduled task on Tuesday.
+   --  @field  Wednesday   Enables/disables scheduled task on Wednesday.
+   --  @field  Thursday    Enables/disables scheduled task on Thursday.
+   --  @field  Friday      Enables/disables scheduled task on Friday.
+   --  @field  Saturday    Enables/disables scheduled task on Saturday.
+   --  @field  Sunday      Enables/disables scheduled task on Sunday.
+   --  @field  Start_Time  Hour of day at which scheduled task is run.
+   --  @field  Door        Door ID [1..4] for scheduled task action.
+   --  @field  Task_ID     Scheduled task type.
+   --  @field  More_Cards  Number of 'more cards' for More_Cards task ID.
    --  @field  Padding     Unused bytes.
    type Add_Task_Request is record
       SOM             : Unsigned_8    := Codec.SOM;
@@ -823,6 +898,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Refresh_Task_List_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -852,6 +928,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Clear_Task_List_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -881,6 +958,8 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  MagicWord   Hard-coded authorisation constant.
+   --  @field  Enable      Enables/disables remote access control.
    --  @field  Padding     Unused bytes.
    type Set_PC_Control_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -912,6 +991,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Interlock   Door interlock mode.
    --  @field  Padding     Unused bytes.
    type Set_Interlock_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -941,6 +1021,10 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  Reader_1    Enables/disables keypads for reader 1.
+   --  @field  Reader_2    Enables/disables keypads for reader 2.
+   --  @field  Reader_3    Enables/disables keypads for reader 3.
+   --  @field  Reader_4    Enables/disables keypads for reader 4.
    --  @field  Padding     Unused bytes.
    type Activate_Keypads_Request is record
       SOM        : Unsigned_8    := Codec.SOM;
@@ -999,11 +1083,12 @@ package Uhppoted.Lib.Requests is
 
    --  Message definition for a set-antipassback request.
    --
-   --  @field  SOM         Start of message byte (16#17).
-   --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
-   --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
+   --  @field  SOM           Start of message byte (16#17).
+   --  @field  OpCode        Message type/op-code.
+   --  @field  Reserved      Unused bytes (reserved for manufacturer use).
+   --  @field  Controller    Controller serial number.
+   --  @field  Antipassback  Anti-passback mode.
+   --  @field  Padding       Unused bytes.
    type Set_Antipassback_Request is record
       SOM          : Unsigned_8    := Codec.SOM;
       OpCode       : Codec.Op_Code := Codec.Set_Antipassback;
@@ -1028,11 +1113,23 @@ package Uhppoted.Lib.Requests is
 
    --  Message definition for a set-firstcard request.
    --
-   --  @field  SOM         Start of message byte (16#17).
-   --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
-   --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
+   --  @field  SOM            Start of message byte (16#17).
+   --  @field  OpCode         Message type/op-code.
+   --  @field  Reserved       Unused bytes (reserved for manufacturer use).
+   --  @field  Controller     Controller serial number.
+   --  @field  Door           Door ID [1..4].
+   --  @field  Start_Time     Time of day from which first-card mode can be activated.
+   --  @field  End_Time       Time of day after which first-card mode is deactivated.
+   --  @field  Active_Mode    Door control mode after a first-card swipe activates first-card mode.
+   --  @field  Inactive_Mode  Door control mode when first-card mode is not activated.
+   --  @field  Monday         Enables/disables first-card mode on Monday.
+   --  @field  Tuesday        Enables/disables first-card mode on Tuesday.
+   --  @field  Wednesday      Enables/disables first-card mode on Wednesday.
+   --  @field  Thursday       Enables/disables first-card mode on Thursday.
+   --  @field  Friday         Enables/disables first-card mode on Friday.
+   --  @field  Saturday       Enables/disables first-card mode on Saturday.
+   --  @field  Sunday         Enables/disables first-card mode on Sunday.
+   --  @field  Padding        Unused bytes.
    type Set_First_Card_Request is record
       SOM           : Unsigned_8    := Codec.SOM;
       OpCode        : Codec.Op_Code := Codec.Set_First_Card;
@@ -1083,6 +1180,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpCode      Message type/op-code.
    --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
+   --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Restore_Default_Parameters_Request is record
       SOM        : Unsigned_8    := Codec.SOM;

@@ -104,8 +104,8 @@ package body ArgParse is
                      Argument    => "ADDRESS");
       Define_Switch (Config,
                      Output      => Controller_Transport,
-                     Long_Switch => "--protocol:",
-                     Help        => "controller protocol ('udp' or 'tcp')",
+                     Long_Switch => "--transport:",
+                     Help        => "network transport ('udp' or 'tcp')",
                      Argument    => "[UDP | TCP]");
    end Add_Controller_Switches;
 
@@ -116,9 +116,9 @@ package body ArgParse is
       Re      : constant Pattern_Matcher := Compile ("^([0-9.]+)(:([0-9]+))?$");
       Matches : Match_Array (0 .. 3);
    begin
-      C := (ID       => Unsigned_32 (Controller_ID),
-            DestAddr => No_Sock_Addr,
-            Protocol => Default);
+      C := (ID        => Unsigned_32 (Controller_ID),
+            DestAddr  => No_Sock_Addr,
+            Transport => Default);
 
       if Controller_Addr /= null and then Controller_Addr.all /= "" then
          declare
@@ -139,9 +139,9 @@ package body ArgParse is
 
       if Controller_Transport /= null then
          if Controller_Transport.all = "udp" then
-            C.Protocol := UDP;
+            C.Transport := UDP;
          elsif Controller_Transport.all = "tcp" then
-            C.Protocol := TCP;
+            C.Transport := TCP;
          end if;
       end if;
 

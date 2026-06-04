@@ -73,11 +73,11 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.TCP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.TCP);
    begin
       declare
          Unused : constant Card_Record := Get_Card (U, C, 10058401, 0.5);
@@ -95,11 +95,11 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    procedure Test_Get_Card_At_Index_Not_Found (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.TCP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.TCP);
    begin
       declare
          Unused : constant Card_Record := Get_Card_At_Index (U, C, 136, 0.5);
@@ -117,11 +117,11 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    procedure Test_Get_Card_At_Index_Deleted (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.TCP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.TCP);
    begin
       declare
          Unused : constant Card_Record := Get_Card_At_Index (U, C, 137, 0.5);
@@ -139,11 +139,11 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    procedure Test_Connection_Refused (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => 12345),
-                                  Protocol => Uhppoted.Lib.TCP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => 12345),
+                                  Transport => Uhppoted.Lib.TCP);
    begin
       declare
          Unused : constant Controller_Record := Get_Controller (U, C, 0.5);
@@ -172,11 +172,11 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    procedure Test_Get_Event_Not_Found (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.TCP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.TCP);
    begin
       declare
          Unused : constant Controller_Event := Get_Event (U, C, 24680, 0.5);
@@ -194,11 +194,11 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
    procedure Test_Get_Event_Overwritten (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.TCP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.TCP);
    begin
       declare
          Unused : constant Controller_Event := Get_Event (U, C, 98765, 0.5);
@@ -218,11 +218,11 @@ end Uhppoted.Lib.Integration_Tests.TCP;
    procedure Test_{{ printf "%v" .Name }} (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => {{ index .Args 0 }},
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.TCP);
+      C : constant Controller := (ID        => {{ index .Args 0 }},
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.TCP);
 {{ if gt (len .Vars) 0 }}{{ range $var := .Vars }}
       {{ $var }}{{ end }}
 {{ end }}

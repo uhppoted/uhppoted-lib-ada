@@ -2,7 +2,7 @@ CLI = ./bin/cli
 
 CONTROLLER ?= 405419896
 DEST ?= ""
-PROTOCOL ?= default
+TRANSPORT ?= default
 
 ADDRESS ?= 192.168.1.125
 NETMASK ?= 255.255.255.0
@@ -44,7 +44,7 @@ find-controllers: build
 	$(CLI) find-controllers
 
 get-controller: build
-	$(CLI) get-controller --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+	$(CLI) get-controller --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT)
 
 set-IPv4: build
 	$(CLI) set-IPv4 --controller $(CONTROLLER) --address $(ADDRESS) --netmask $(NETMASK) --gateway $(GATEWAY)
@@ -59,91 +59,91 @@ get-listener: build
 	$(CLI) get-listener --controller $(CONTROLLER)
 
 set-listener: build
-	$(CLI) set-listener --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --listener $(LISTENER) --interval $(INTERVAL)
+	$(CLI) set-listener --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --listener $(LISTENER) --interval $(INTERVAL)
 
 get-status: build
 	$(CLI) get-status --controller $(CONTROLLER)
 
 get-door: build
-	$(CLI) get-door --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --door $(DOOR)
+	$(CLI) get-door --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --door $(DOOR)
 
 set-door: build
-	$(CLI) set-door --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --door $(DOOR) --mode $(MODE) --delay $(DELAY)
+	$(CLI) set-door --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --door $(DOOR) --mode $(MODE) --delay $(DELAY)
 
 set-door-passcodes: build
-	$(CLI) set-door-passcodes --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --door $(DOOR) --passcodes $(PASSCODES)
+	$(CLI) set-door-passcodes --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --door $(DOOR) --passcodes $(PASSCODES)
 
 open-door: build
-	$(CLI) open-door --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --door $(DOOR)
+	$(CLI) open-door --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --door $(DOOR)
 
 get-cards: build
-	$(CLI) get-cards --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+	$(CLI) get-cards --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT)
 
 get-card: build
-	$(CLI) get-card --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --card $(CARD)
+	$(CLI) get-card --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --card $(CARD)
 
 get-card-at-index: build
-	$(CLI) get-card-at-index --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --index $(CARD_INDEX)
+	$(CLI) get-card-at-index --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --index $(CARD_INDEX)
 
 put-card: build
-	$(CLI) put-card --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --card $(CARD) --start $(START_DATE) --end $(END_DATE) --doors $(DOORS) --PIN $(PIN)
+	$(CLI) put-card --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --card $(CARD) --start $(START_DATE) --end $(END_DATE) --doors $(DOORS) --PIN $(PIN)
 
 delete-card: build
-	$(CLI) delete-card --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --card $(CARD)
+	$(CLI) delete-card --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --card $(CARD)
 
 delete-all-cards: build
-	$(CLI) delete-all-cards --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+	$(CLI) delete-all-cards --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT)
 
 get-event: build
-	$(CLI) get-event --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --index $(EVENT_INDEX)
+	$(CLI) get-event --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --index $(EVENT_INDEX)
 
 get-event-index: build
-	$(CLI) get-event-index --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+	$(CLI) get-event-index --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT)
 
 set-event-index: build
-	$(CLI) set-event-index --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --index $(EVENT_INDEX)
+	$(CLI) set-event-index --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --index $(EVENT_INDEX)
 
 record-special-events: build
-	$(CLI) record-special-events --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --enabled $(RECORD_SPECIAL_EVENTS)
+	$(CLI) record-special-events --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --enabled $(RECORD_SPECIAL_EVENTS)
 
 get-time-profile: build
-	$(CLI) get-time-profile --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --profile-id $(TIME_PROFILE_ID)
+	$(CLI) get-time-profile --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --profile-id $(TIME_PROFILE_ID)
 
 set-time-profile: build
-	$(CLI) set-time-profile --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --profile-id $(TIME_PROFILE_ID) --profile "$(TIME_PROFILE)"
+	$(CLI) set-time-profile --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --profile-id $(TIME_PROFILE_ID) --profile "$(TIME_PROFILE)"
 
 clear-time-profiles: build
-	$(CLI) clear-time-profiles --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+	$(CLI) clear-time-profiles --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT)
 
 add-task: build
-	$(CLI) add-task --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --task "$(TASK)"
+	$(CLI) add-task --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --task "$(TASK)"
 
 refresh-tasklist: build
-	$(CLI) refresh-tasklist --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+	$(CLI) refresh-tasklist --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT)
 
 clear-tasklist: build
-	$(CLI) clear-tasklist --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+	$(CLI) clear-tasklist --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT)
 
 set-pc-control: build
-	$(CLI) set-pc-control --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --enable $(PC_CONTROL)
+	$(CLI) set-pc-control --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --enable $(PC_CONTROL)
 
 set-interlock: build
-	$(CLI) set-interlock --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --interlock "$(INTERLOCK)"
+	$(CLI) set-interlock --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --interlock "$(INTERLOCK)"
 
 activate-keypads: build
-	$(CLI) activate-keypads --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --keypads "$(KEYPADS)"
+	$(CLI) activate-keypads --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --keypads "$(KEYPADS)"
 
 get-antipassback: build
-	$(CLI) get-antipassback --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+	$(CLI) get-antipassback --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT)
 
 set-antipassback: build
-	$(CLI) set-antipassback --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --antipassback "$(ANTIPASSBACK)"
+	$(CLI) set-antipassback --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --antipassback "$(ANTIPASSBACK)"
 
 set-firstcard: build
-	$(CLI) set-firstcard --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL) --door $(DOOR) --firstcard "$(FIRSTCARD)"
+	$(CLI) set-firstcard --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --door $(DOOR) --firstcard "$(FIRSTCARD)"
 
 restore-default-parameters: build
-	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --protocol $(PROTOCOL)
+	$(CLI) restore-default-parameters --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT)
 
 listen: build
 	$(CLI) listen

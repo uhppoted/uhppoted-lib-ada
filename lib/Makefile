@@ -1,6 +1,6 @@
 CONTROLLER ?= 405419896
 DEST ?= ""
-PROTOCOL ?= default
+TRANSPORT ?= default
 
 LISTENER  ?= 192.168.1.125:60001
 INTERVAL  ?= 0
@@ -55,91 +55,91 @@ get-listener: build
 	cd ../examples/cli && make get-listener
 
 set-listener: build
-	cd ../examples/cli && make set-listener CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) LISTENER=$(LISTENER) INTERVAL=$(INTERVAL)
+	cd ../examples/cli && make set-listener CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) LISTENER=$(LISTENER) INTERVAL=$(INTERVAL)
 
 get-status: build
 	cd ../examples/cli && make get-status
 
 get-door: build
-	cd ../examples/cli && make get-door CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) DOOR=$(DOOR)
+	cd ../examples/cli && make get-door CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) DOOR=$(DOOR)
 
 set-door: build
-	cd ../examples/cli && make set-door CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) DOOR=$(DOOR) MODE="$(MODE)" DELAY=$(DELAY)
+	cd ../examples/cli && make set-door CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) DOOR=$(DOOR) MODE="$(MODE)" DELAY=$(DELAY)
 
 set-door-passcodes: build
-	cd ../examples/cli && make set-door-passcodes CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) DOOR=$(DOOR) PASSCODES=$(PASSCODES)
+	cd ../examples/cli && make set-door-passcodes CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) DOOR=$(DOOR) PASSCODES=$(PASSCODES)
 
 open-door: build
-	cd ../examples/cli && make open-door CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) DOOR=$(DOOR)
+	cd ../examples/cli && make open-door CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) DOOR=$(DOOR)
 
 get-cards: build
-	cd ../examples/cli && make get-cards CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+	cd ../examples/cli && make get-cards CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT)
 
 get-card: build
-	cd ../examples/cli && make get-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD=$(CARD)
+	cd ../examples/cli && make get-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) CARD=$(CARD)
 
 get-card-at-index: build
-	cd ../examples/cli && make get-card-at-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD_INDEX=$(CARD_INDEX)
+	cd ../examples/cli && make get-card-at-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) CARD_INDEX=$(CARD_INDEX)
 
 put-card: build
-	cd ../examples/cli && make put-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD=$(CARD) START=$(START_DATE) END=$(END_DATE) ACCESS=$(DOORS) PIN=$(PIN)
+	cd ../examples/cli && make put-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) CARD=$(CARD) START=$(START_DATE) END=$(END_DATE) ACCESS=$(DOORS) PIN=$(PIN)
 
 delete-card: build
-	cd ../examples/cli && make delete-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) CARD=$(CARD)
+	cd ../examples/cli && make delete-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) CARD=$(CARD)
 
 delete-all-cards: build
-	cd ../examples/cli && make delete-all-cards CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+	cd ../examples/cli && make delete-all-cards CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT)
 
 get-event: build
-	cd ../examples/cli && make get-event CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) EVENT_INDEX=$(EVENT_INDEX)
+	cd ../examples/cli && make get-event CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) EVENT_INDEX=$(EVENT_INDEX)
 
 get-event-index: build
-	cd ../examples/cli && make get-event-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+	cd ../examples/cli && make get-event-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT)
 
 set-event-index: build
-	cd ../examples/cli && make set-event-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) EVENT_INDEX=$(EVENT_INDEX)
+	cd ../examples/cli && make set-event-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) EVENT_INDEX=$(EVENT_INDEX)
 
 record-special-events: build
-	cd ../examples/cli && make record-special-events CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) RECORD_SPECIAL_EVENTS=$(RECORD_SPECIAL_EVENTS) 
+	cd ../examples/cli && make record-special-events CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) RECORD_SPECIAL_EVENTS=$(RECORD_SPECIAL_EVENTS) 
 
 get-time-profile: build
-	cd ../examples/cli && make get-time-profile CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) TIME_PROFILE_ID=$(TIME_PROFILE_ID) 
+	cd ../examples/cli && make get-time-profile CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) TIME_PROFILE_ID=$(TIME_PROFILE_ID) 
 
 set-time-profile: build
-	cd ../examples/cli && make set-time-profile CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) TIME_PROFILE_ID=$(TIME_PROFILE_ID) TIME_PROFILE="$(TIME_PROFILE)"
+	cd ../examples/cli && make set-time-profile CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) TIME_PROFILE_ID=$(TIME_PROFILE_ID) TIME_PROFILE="$(TIME_PROFILE)"
 
 clear-time-profiles: build
-	cd ../examples/cli && make clear-time-profiles CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+	cd ../examples/cli && make clear-time-profiles CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT)
 
 add-task: build
-	cd ../examples/cli && make add-task CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) TASK="$(TASK)"
+	cd ../examples/cli && make add-task CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) TASK="$(TASK)"
 
 refresh-tasklist: build
-	cd ../examples/cli && make refresh-tasklist CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+	cd ../examples/cli && make refresh-tasklist CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT)
 
 clear-tasklist: build
-	cd ../examples/cli && make clear-tasklist CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+	cd ../examples/cli && make clear-tasklist CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT)
 
 set-pc-control: build
-	cd ../examples/cli && make set-pc-control CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) PC_CONTROL=$(PC_CONTROL)
+	cd ../examples/cli && make set-pc-control CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) PC_CONTROL=$(PC_CONTROL)
 
 set-interlock: build
-	cd ../examples/cli && make set-interlock CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) INTERLOCK="$(INTERLOCK)"
+	cd ../examples/cli && make set-interlock CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) INTERLOCK="$(INTERLOCK)"
 
 activate-keypads: build
-	cd ../examples/cli && make activate-keypads CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) KEYPADS="$(KEYPADS)"
+	cd ../examples/cli && make activate-keypads CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) KEYPADS="$(KEYPADS)"
 
 get-antipassback: build
-	cd ../examples/cli && make get-antipassback CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+	cd ../examples/cli && make get-antipassback CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT)
 
 set-antipassback: build
-	cd ../examples/cli && make set-antipassback CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) ANTIPASSBACK="$(ANTIPASSBACK)"
+	cd ../examples/cli && make set-antipassback CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) ANTIPASSBACK="$(ANTIPASSBACK)"
 
 set-firstcard: build
-	cd ../examples/cli && make set-firstcard CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL) DOOR=$(DOOR) FIRSTCARD="$(FIRSTCARD)"
+	cd ../examples/cli && make set-firstcard CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) DOOR=$(DOOR) FIRSTCARD="$(FIRSTCARD)"
 
 restore-default-parameters: build
-	cd ../examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) PROTOCOL=$(PROTOCOL)
+	cd ../examples/cli && make restore-default-parameters CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT)
 
 listen: build
 	cd ../examples/cli && make listen

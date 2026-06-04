@@ -110,12 +110,12 @@ where:
    type Controller is record
       Controller : Interfaces.Unsigned_32;
       DestAddr   : GNAT.Sockets.Sock_Addr_Type := GNAT.Sockets.No_Sock_Addr;
-      Protocol   : Protocol_Type := Default;
+      Transport  : Transport_Type := Default;
    end record;
 
    - Controller is the controller serial number
    - DestAddr   is the controller IPv4 address:port
-   - Protocol   is Default, Connected_UDP or TCP
+   - Transport  is Default, Connected_UDP or TCP
    ```
 
 Notes:
@@ -169,7 +169,7 @@ function Get_Controller (U       : UHPPOTE;
 where:
 - U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C        Unsigned_32     Controller serial number.
-- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns a `Controller_Record`:
@@ -212,7 +212,7 @@ function Set_IPv4 (U       : UHPPOTE;
 where:
 - U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C        Unsigned_32     Controller serial number.
-- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 
 - Addr     Inet_Addr_Type  Controller IPv4 address.
 - Netmask  Inet_Addr_Type  Controller IPv4 subnet mask.
@@ -243,7 +243,7 @@ function Get_Time (U       : UHPPOTE;
 where:
 - U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C        Unsigned_32     Controller serial number.
-- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns a `DateTime`:
@@ -281,7 +281,7 @@ function Set_Time (U       : UHPPOTE;
 where:
 - U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C        Unsigned_32     Controller serial number.
-- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - DT       DateTime        Date/time record initialised with the year, month, day, etc.
 
 ```
@@ -319,7 +319,7 @@ function Get_Listener (U       : UHPPOTE;
 where:
 - U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C        Unsigned_32     Controller serial number.
-- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns a `Listener_Record`:
@@ -355,7 +355,7 @@ function Set_Listener (U        : UHPPOTE;
 where:
 - U         UHPPOTE                      UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C         Unsigned_32                  Controller serial number.
-- C         Controller                   Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C         Controller                   Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Listener  GNAT.Sockets.Sock_Addr_Type  Event listener IPv4 address:port.
 - Interval  Unsigned_8                   Auto-send interval (seconds). 0 for no auto-send.
 ```
@@ -383,7 +383,7 @@ function Get_Status (U       : UHPPOTE;
 where:
 - U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C        Unsigned_32     Controller serial number.
-- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns a `Controller_Status`:
@@ -449,7 +449,7 @@ function Get_Door (U       : UHPPOTE;
 where:
 - U        UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C        Unsigned_32     Controller serial number.
-- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C        Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Door     Unsigned_8      Door ID [1..4].
 ```
 
@@ -488,7 +488,7 @@ function Set_Door (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Door       Unsigned_8      Door ID [1..4].
 - Mode       Control_Mode    Normally_Open, Normally_Closed or Controlled.
 - OpenDelay  Unsigned_8      Door unlocked delay (seconds).
@@ -527,7 +527,7 @@ function Set_Door_Passcodes (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Door       Unsigned_8      Door ID [1..4].
 - Passcodes  Passcodes_List  List of up to 4 supervisor passcodes (in the range [0..999999]).
 ```
@@ -557,7 +557,7 @@ function Open_Door (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Door       Unsigned_8      Door ID [1..4].
 ```
 
@@ -584,7 +584,7 @@ function Get_Cards (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Raises:
@@ -610,7 +610,7 @@ function Get_Card (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Card       Unsigned_32     Card number.
 ```
 
@@ -652,7 +652,7 @@ function Get_Card_At_Index (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Index      Unsigned_32     Card record index.
 ```
 
@@ -695,7 +695,7 @@ function Put_Card (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Card       Card_Record     Card information:
 
    type Card_Record is record
@@ -735,7 +735,7 @@ function Delete_Card (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Card       Unsigned_32     Card number.
 ```
 
@@ -762,7 +762,7 @@ function Delete_All_Cards (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns `True` if all card records were deleted from the controller.
@@ -790,7 +790,7 @@ function Get_Event (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Index      Unsigned_32     Index of event index to fetch.
 ```
 
@@ -831,7 +831,7 @@ function Get_Event_Index (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns the controller downloaded event index.
@@ -859,7 +859,7 @@ function Set_Event_Index (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Index      Unsigned_32     Downloaded event index to store.
 ```
 
@@ -888,7 +888,7 @@ function Record_Special_Events (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Enabled    Boolean         Enables/disables events for e.g. door unlocked.
 ```
 
@@ -917,7 +917,7 @@ function Get_Time_Profile (U          : UHPPOTE;
 where:
 - U           UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C           Unsigned_32     Controller serial number.
-- C           Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C           Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Profile_ID  Unsigned_8      Time profile ID ([2..254]).
 ```
 
@@ -975,7 +975,7 @@ function Set_Time_Profile (U          : UHPPOTE;
 where:
 - U           UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C           Unsigned_32     Controller serial number.
-- C           Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C           Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Profile_ID  Unsigned_8      Time profile ID ([2..254]).
 - Profile     Time_Profile    Time profile assigned to the profile ID.
 
@@ -1028,7 +1028,7 @@ function Clear_Time_Profile (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns `True` if the controller time profiles were cleared.
@@ -1056,7 +1056,7 @@ function Add_Task (U       : UHPPOTE;
 where:
 - U     UHPPOTE        UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C     Unsigned_32    Controller serial number.
-- C     Controller     Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C     Controller     Controller record initialised with the controller ID, IPv4 address:port and transport.
 - T     Task_Record    Task record for task to be added.
 
    type Task_Record is record
@@ -1118,7 +1118,7 @@ function Refresh_Task_list (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns `True` if the _pending_ list was flushed to the _active_ list.
@@ -1144,7 +1144,7 @@ function Clear_Task_list (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns `True` if the _scheduled tasks list_ was cleared.
@@ -1173,7 +1173,7 @@ function Set_PC_Control (U       : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Enable     Boolean         Enables/disables remote access control.
 ```
 
@@ -1202,7 +1202,7 @@ function Set_Interlock (U       : UHPPOTE;
 where:
 - U          UHPPOTE                 UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32             Controller serial number.
-- C          Controller              Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller              Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Interlock  Uhppoted.Lib.Interlock  Door interlock mode:
 
                                      No_Interlock      no interlock
@@ -1238,7 +1238,7 @@ function Activate_Keypads (U     : UHPPOTE;
 where:
 - U        UHPPOTE                 UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C        Unsigned_32             Controller serial number.
-- C        Controller              Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C        Controller              Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Keypads  Uhppoted.Lib.Interlock  Array [1..4] of keypads to be activated.
 ```
 
@@ -1265,7 +1265,7 @@ function Get_Antipassback (U     : UHPPOTE;
 where:
 - U        UHPPOTE                 UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C        Unsigned_32             Controller serial number.
-- C        Controller              Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C        Controller              Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns the controller `Antipassback` mode:
@@ -1300,7 +1300,7 @@ function Set_Antipassback (U            : UHPPOTE;
 where:
 - U        UHPPOTE                 UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C        Unsigned_32             Controller serial number.
-- C        Controller              Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C        Controller              Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Antipassback  Antipassback   Anti-passback mode to configure:
 
 type Antipassback is (No_Antipassback,  --  disabled
@@ -1338,7 +1338,7 @@ function Set_First_Card (U          : UHPPOTE;
 where:
 - U            UHPPOTE             UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C            Unsigned_32         Controller serial number.
-- C            Controller          Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C            Controller          Controller record initialised with the controller ID, IPv4 address:port and transport.
 - Door         Unsigned_8          Door to be configured.
 - First_Card   First_Card_Record   First card configuration.
 
@@ -1386,7 +1386,7 @@ function Restore_Default_Parameters (U         : UHPPOTE;
 where:
 - U          UHPPOTE         UHPPOTE struct initialised with the bind, broadcast and listen addresses, etc.
 - C          Unsigned_32     Controller serial number.
-- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and protocol.
+- C          Controller      Controller record initialised with the controller ID, IPv4 address:port and transport.
 ```
 
 Returns `True` if the controller was reset to the manufacturer defaults.

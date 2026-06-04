@@ -109,11 +109,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Controller (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Controller_Record := Get_Controller (U, C, 0.5);
    begin
@@ -123,11 +123,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_IPv4 (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       Address : constant Inet_Addr_Type := Inet_Addr ("192.168.1.125");
       Netmask : constant Inet_Addr_Type := Inet_Addr ("255.255.255.0");
@@ -141,11 +141,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Time (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant DateTime := Get_Time (U, C, 0.5);
    begin
@@ -155,11 +155,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_Time (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant DateTime := Set_Time (U, C, (Year => 2025, Month => 11, Day => 4, Hour => 12, Minute => 34, Second => 56), 0.5);
    begin
@@ -169,11 +169,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Listener (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Listener_Record := Get_Listener (U, C, 0.5);
    begin
@@ -183,11 +183,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_Listener (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419897,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419897,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Set_Listener (U, C, (Family_Inet, Inet_Addr ("192.168.1.100"), 60001), 17, 0.5);
    begin
@@ -197,11 +197,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Status (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Controller_Status := Get_Status (U, C, 0.5);
    begin
@@ -211,11 +211,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Status_No_Event (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419897,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419897,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Controller_Status := Get_Status (U, C, 0.5);
    begin
@@ -225,11 +225,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Door_Record := Get_Door (U, C, 4, 0.5);
    begin
@@ -239,11 +239,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Door_Record := Set_Door (U, C, 4, To_Control_Mode (2), 17, 0.5);
    begin
@@ -253,11 +253,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_Door_Passcodes (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       Passcodes : constant Uhppoted.Lib.Passcodes_List (1 .. 4) := [1 => 12345, 2 => 54321, 3 => 999999, 4 => 0];
 
@@ -269,11 +269,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Open_Door (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Open_Door (U, C, 4, 0.5);
    begin
@@ -283,11 +283,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Cards (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Unsigned_32 := Get_Cards (U, C, 0.5);
    begin
@@ -297,11 +297,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Card (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Card_Record := Get_Card (U, C, 10058400, 0.5);
    begin
@@ -311,11 +311,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Card_At_Index (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Card_Record := Get_Card_At_Index (U, C, 135, 0.5);
    begin
@@ -325,11 +325,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Put_Card (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       Card : constant Uhppoted.Lib.Card_Record := (
          Card       => 10058400,
@@ -349,11 +349,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Delete_Card (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Delete_Card (U, C, 10058400, 0.5);
    begin
@@ -363,11 +363,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Delete_All_Cards (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Delete_All_Cards (U, C, 0.5);
    begin
@@ -377,11 +377,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Event (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Controller_Event := Get_Event (U, C, 13579, 0.5);
    begin
@@ -391,11 +391,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Event_Index (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Unsigned_32 := Get_Event_Index (U, C, 0.5);
    begin
@@ -405,11 +405,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_Event_Index (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Set_Event_Index (U, C, 13579, 0.5);
    begin
@@ -419,11 +419,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Record_Special_Events (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Record_Special_Events (U, C, True, 0.5);
    begin
@@ -433,11 +433,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Time_Profile (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Time_Profile := Get_Time_Profile (U, C, 37, 0.5);
    begin
@@ -447,11 +447,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_Time_Profile (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       Profile : constant Uhppoted.Lib.Time_Profile := (
          Start_Date => (Year => 2025, Month => 11, Day => 26),
@@ -476,11 +476,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Clear_Time_Profiles (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Clear_Time_Profiles (U, C, 0.5);
    begin
@@ -490,11 +490,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Add_Task (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       TaskT : constant Uhppoted.Lib.Task_Record := (
          Task_ID    => To_Task_Type (2),
@@ -519,11 +519,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Refresh_Task_List (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Refresh_Task_List (U, C, 0.5);
    begin
@@ -533,11 +533,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Clear_Task_List (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Clear_Task_List (U, C, 0.5);
    begin
@@ -547,11 +547,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_Pc_Control (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Set_PC_Control (U, C, True, 0.5);
    begin
@@ -561,11 +561,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_Interlock (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Set_Interlock (U, C, To_Interlock (8), 0.5);
    begin
@@ -575,11 +575,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Activate_Keypads (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       Keypads : constant Uhppoted.Lib.Keypads := [1 => True, 2 => True, 3 => False, 4 => True];
 
@@ -591,11 +591,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Antipassback (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Antipassback := Get_Antipassback (U, C, 0.5);
    begin
@@ -605,11 +605,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_Antipassback (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Set_Antipassback (U, C, To_Antipassback (2), 0.5);
    begin
@@ -619,11 +619,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Set_First_Card (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       First_Card : constant Uhppoted.Lib.First_Card_Record := (
          Start_Time    => (Hour => 8, Minute => 30),
@@ -646,11 +646,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Restore_Default_Parameters (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
 
       V : constant Boolean := Restore_Default_Parameters (U, C, 0.5);
    begin
@@ -661,11 +661,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Card_Not_Found (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
    begin
       declare
          Unused : constant Card_Record := Get_Card (U, C, 10058401, 0.5);
@@ -683,11 +683,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Card_At_Index_Not_Found (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
    begin
       declare
          Unused : constant Card_Record := Get_Card_At_Index (U, C, 136, 0.5);
@@ -705,11 +705,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Card_At_Index_Deleted (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
    begin
       declare
          Unused : constant Card_Record := Get_Card_At_Index (U, C, 137, 0.5);
@@ -727,11 +727,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Connection_Refused (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => 54321),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => 54321),
+                                  Transport => Uhppoted.Lib.UDP);
    begin
       declare
          Unused : constant Controller_Record := Get_Controller (U, C, 0.5);
@@ -755,11 +755,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Event_Not_Found (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
    begin
       declare
          Unused : constant Controller_Event := Get_Event (U, C, 24680, 0.5);
@@ -777,11 +777,11 @@ package body Uhppoted.Lib.Integration_Tests.UDP is
    procedure Test_Get_Event_Overwritten (T : in out Test_Case'Class) is
       pragma Unreferenced (T);
 
-      C : constant Controller := (ID       => 405419896,
-                                  DestAddr => (Family => Family_Inet,
-                                               Addr => Inet_Addr ("127.0.0.1"),
-                                               Port => Port),
-                                  Protocol => Uhppoted.Lib.UDP);
+      C : constant Controller := (ID        => 405419896,
+                                  DestAddr  => (Family => Family_Inet,
+                                                Addr => Inet_Addr ("127.0.0.1"),
+                                                Port => Port),
+                                  Transport => Uhppoted.Lib.UDP);
    begin
       declare
          Unused : constant Controller_Event := Get_Event (U, C, 98765, 0.5);

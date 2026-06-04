@@ -1,17 +1,11 @@
 # TODO
 
-- https://github.com/ohenley/awesome-ada
-- https://github.com/simonjwright/alire-index.mac
+- [x] adadoc
+- [x] rename Protocol to Transport
 
-- [ ] adadoc
-    - [x] exceptions
-    - [x] types
-    - [x] codec
-    - [ ] rename Protocol to Transport
-
-- [ ] format
 - [ ] lint
      - https://www.adalog.fr/en/adacontrol.html#download
+- [ ] format
 
 - [ ] release build
 - [ ] package & publish

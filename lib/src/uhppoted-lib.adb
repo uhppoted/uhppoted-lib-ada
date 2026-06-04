@@ -14,11 +14,11 @@ package body Uhppoted.Lib is
 
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
-   function Dispatch (U        : UHPPOTE;
-                      DestAddr : Sock_Addr_Type;
-                      Request  : Packet;
-                      Protocol : Protocol_Type;
-                      Timeout  : Duration) return Packet;
+   function Dispatch (U         : UHPPOTE;
+                      DestAddr  : Sock_Addr_Type;
+                      Request   : Packet;
+                      Transport : Transport_Type;
+                      Timeout   : Duration) return Packet;
 
    --  Finds all access controllers on the local LAN.
    function Find_Controllers (U       : UHPPOTE;
@@ -65,7 +65,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Controller_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Controller (Reply);
 
       if R.Controller /= C.ID then
@@ -104,7 +104,7 @@ package body Uhppoted.Lib is
       Reply    : Packet;
       R        : Set_IPv4_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
 
       if R.Controller /= C.ID then
@@ -130,7 +130,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Time_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Time (Reply);
 
       if R.Controller /= C.ID then
@@ -158,7 +158,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Set_Time_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Set_Time (Reply);
 
       if R.Controller /= C.ID then
@@ -184,7 +184,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Listener_Addr_Port_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Listener_Addr_Port (Reply);
 
       if R.Controller /= C.ID then
@@ -215,7 +215,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Set_Listener_Addr_Port_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Set_Listener_Addr_Port (Reply);
 
       if R.Controller /= C.ID then
@@ -241,7 +241,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Status_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Status (Reply);
 
       if R.Controller /= C.ID then
@@ -308,7 +308,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Door_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Door (Reply);
 
       if R.Controller /= C.ID then
@@ -341,7 +341,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Set_Door_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Set_Door (Reply);
 
       if R.Controller /= C.ID then
@@ -394,7 +394,7 @@ package body Uhppoted.Lib is
       end if;
 
       Request := Uhppoted.Lib.Encode.Set_Door_Passcodes (C.ID, Door, Passcode1, Passcode2, Passcode3, Passcode4);
-      Reply   := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply   := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R       := Uhppoted.Lib.Decode.Set_Door_Passcodes (Reply);
 
       if R.Controller /= C.ID then
@@ -422,7 +422,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Open_Door_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Open_Door (Reply);
 
       if R.Controller /= C.ID then
@@ -448,7 +448,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Cards_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Cards (Reply);
 
       if R.Controller /= C.ID then
@@ -476,7 +476,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Card_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Card (Reply);
 
       if R.Controller /= C.ID then
@@ -519,7 +519,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Card_At_Index_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Card_At_Index (Reply);
 
       if R.Controller /= C.ID then
@@ -570,7 +570,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Put_Card_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Put_Card (Reply);
 
       if R.Controller /= C.ID then
@@ -598,7 +598,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Delete_Card_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Delete_Card (Reply);
 
       if R.Controller /= C.ID then
@@ -624,7 +624,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Delete_All_Cards_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Delete_All_Cards (Reply);
 
       if R.Controller /= C.ID then
@@ -652,7 +652,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Event_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Event (Reply);
 
       if R.Controller /= C.ID then
@@ -697,7 +697,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Event_Index_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Event_Index (Reply);
 
       if R.Controller /= C.ID then
@@ -725,7 +725,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Set_Event_Index_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Set_Event_Index (Reply);
 
       if R.Controller /= C.ID then
@@ -753,7 +753,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Record_Special_Events_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Record_Special_Events (Reply);
 
       if R.Controller /= C.ID then
@@ -781,7 +781,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Time_Profile_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Time_Profile (Reply);
 
       if R.Controller /= C.ID then
@@ -848,7 +848,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Set_Time_Profile_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Set_Time_Profile (Reply);
 
       if R.Controller /= C.ID then
@@ -874,7 +874,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Clear_Time_Profiles_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Clear_Time_Profiles (Reply);
 
       if R.Controller /= C.ID then
@@ -914,7 +914,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Add_Task_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Add_Task (Reply);
 
       if R.Controller /= C.ID then
@@ -940,7 +940,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Refresh_Task_List_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Refresh_Task_List (Reply);
 
       if R.Controller /= C.ID then
@@ -966,7 +966,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Clear_Task_List_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Clear_Task_List (Reply);
 
       if R.Controller /= C.ID then
@@ -996,7 +996,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Set_PC_Control_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Set_PC_Control (Reply);
 
       if R.Controller /= C.ID then
@@ -1024,7 +1024,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Set_Interlock_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Set_Interlock (Reply);
 
       if R.Controller /= C.ID then
@@ -1055,7 +1055,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Activate_Keypads_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Activate_Keypads (Reply);
 
       if R.Controller /= C.ID then
@@ -1081,7 +1081,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Get_Antipassback_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Get_Antipassback (Reply);
 
       if R.Controller /= C.ID then
@@ -1123,7 +1123,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Set_Antipassback_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Set_Antipassback (Reply);
 
       if R.Controller /= C.ID then
@@ -1165,7 +1165,7 @@ package body Uhppoted.Lib is
       Reply  : Packet;
       R      : Set_First_Card_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Set_First_Card (Reply);
 
       if R.Controller /= C.ID then
@@ -1190,7 +1190,7 @@ package body Uhppoted.Lib is
       Reply   : Packet;
       R       : Restore_Default_Parameters_Response;
    begin
-      Reply := Dispatch (U, C.DestAddr, Request, C.Protocol, Timeout);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
       R     := Uhppoted.Lib.Decode.Restore_Default_Parameters (Reply);
 
       if R.Controller /= C.ID then
@@ -1265,10 +1265,10 @@ package body Uhppoted.Lib is
    function Dispatch (U        : UHPPOTE;
                       DestAddr : Sock_Addr_Type;
                       Request  : Packet;
-                      Protocol : Protocol_Type;
+                      Transport : Transport_Type;
                       Timeout  : Duration) return Packet is
    begin
-      if Protocol = TCP and then DestAddr /= No_Sock_Addr then
+      if Transport = TCP and then DestAddr /= No_Sock_Addr then
          return Uhppoted.Lib.Transport.TCP.Send (U, DestAddr, Request, Timeout);
       elsif DestAddr /= No_Sock_Addr then
          return Uhppoted.Lib.Transport.UDP.SendTo (U, DestAddr, Request, Timeout);

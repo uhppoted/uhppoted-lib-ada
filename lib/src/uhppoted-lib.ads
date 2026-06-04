@@ -31,17 +31,17 @@ package Uhppoted.Lib is
    --  @enum Default  UDP broadcast.
    --  @enum UDP      Connected UDP socket.
    --  @enum TCP      TCP socket.
-   type Protocol_Type is (Default, UDP, TCP);
+   type Transport_Type is (Default, UDP, TCP);
 
    --  Encapsulates the information required for communication over a connected UDP or TCP socket.
    --
    --  @field ID        Controller serial number.
    --  @field DestAddr  IPv4 address::port.
-   --  @field Protocol  UDP or TCP (defaults to UDP).
+   --  @field Transport UDP or TCP (defaults to UDP).
    type Controller is record
-      ID       : Unsigned_32;
-      DestAddr : Sock_Addr_Type := No_Sock_Addr;
-      Protocol : Protocol_Type  := Default;
+      ID        : Unsigned_32;
+      DestAddr  : Sock_Addr_Type := No_Sock_Addr;
+      Transport : Transport_Type := Default;
    end record;
 
    --  Interface type for an event handler.

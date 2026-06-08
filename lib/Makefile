@@ -36,6 +36,9 @@ build:
 test: build
 	cd tests && make test
 
+lint:
+	adactl -f uhppoted-lib.aru -p uhppoted_lib_ada.gpr src/*.ads src/*.adb
+
 find-controllers: build
 	cd ../examples/cli && make find-controllers
 

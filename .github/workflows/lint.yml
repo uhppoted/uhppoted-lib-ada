@@ -28,7 +28,9 @@ jobs:
 
     - name: Install AdaControl
       run: |
-        sudo apt install adacontrol
+        git clone https://github.com/Adalog-fr/Adacontrol.git
+        cd AdaControl
+        make build
 
     - name: Check out code
       uses: actions/checkout@v6

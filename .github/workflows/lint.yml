@@ -29,7 +29,7 @@ jobs:
     - name: Install AdaControl
       run: |
         git clone https://github.com/Adalog-fr/Adacontrol.git
-        cd AdaControl
+        cd Adacontrol
         make build
 
     - name: Check out code

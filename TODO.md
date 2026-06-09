@@ -1,8 +1,6 @@
 # TODO
 
-- [ ] lint
-     - https://www.adalog.fr/en/adacontrol.html#download
-
+- [x] lint
 - [ ] format
 
 - [ ] release build

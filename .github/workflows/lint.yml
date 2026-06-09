@@ -30,7 +30,7 @@ jobs:
       run: |
         git clone https://github.com/Adalog-fr/Adacontrol.git
         cd Adacontrol
-        make build
+        alr exec -- gprbuild build.gpr
 
     - name: Check out code
       uses: actions/checkout@v6

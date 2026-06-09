@@ -4,6 +4,7 @@ with Uhppoted.Lib.Codec;
 
 --  Request message record definitions.
 --
+
 package Uhppoted.Lib.Requests is
 
    --  BCD HHmm type.
@@ -23,20 +24,21 @@ package Uhppoted.Lib.Requests is
    --  @field  Controller  Controller serial number.
    --  @field  Padding     Unused bytes.
    type Get_Controller_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Controller;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
-   for Get_Controller_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Padding    at 8 range 0 .. 447;
-   end record;
+   for Get_Controller_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Padding at 8 range 0 .. 447;
+     end record;
 
    for Get_Controller_Request'Size use 64 * 8;
    for Get_Controller_Request'Bit_Order use System.Low_Order_First;
@@ -54,7 +56,7 @@ package Uhppoted.Lib.Requests is
    --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Set_IPv4_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_IPv4;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -65,17 +67,18 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 40) := [others => 0];
    end record;
 
-   for Set_IPv4_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Addr       at  8 range 0 ..  31;
-      Netmask    at 12 range 0 ..  31;
-      Gateway    at 16 range 0 ..  31;
-      MagicWord  at 20 range 0 ..  31;
-      Padding    at 24 range 0 .. 319;
-   end record;
+   for Set_IPv4_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Addr at 8 range 0 .. 31;
+       Netmask at 12 range 0 .. 31;
+       Gateway at 16 range 0 .. 31;
+       MagicWord at 20 range 0 .. 31;
+       Padding at 24 range 0 .. 319;
+     end record;
 
    for Set_IPv4_Request'Size use 64 * 8;
    for Set_IPv4_Request'Bit_Order use System.Low_Order_First;
@@ -89,20 +92,21 @@ package Uhppoted.Lib.Requests is
    --  @field  Controller  Controller serial number.
    --  @field  Padding     Unused bytes.
    type Get_Time_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Time;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
-   for Get_Time_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Padding    at 8 range 0 .. 447;
-   end record;
+   for Get_Time_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Padding at 8 range 0 .. 447;
+     end record;
 
    for Get_Time_Request'Size use 64 * 8;
    for Get_Time_Request'Bit_Order use System.Low_Order_First;
@@ -117,7 +121,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Date_Time   Date/time (yyyy-mm-dd HH:mm).
    --  @field  Padding     Unused bytes.
    type Set_Time_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Time;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -125,14 +129,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 49) := [others => 0];
    end record;
 
-   for Set_Time_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Date_Time  at  8 range 0 ..  55;
-      Padding    at 15 range 0 .. 391;
-   end record;
+   for Set_Time_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Date_Time at 8 range 0 .. 55;
+       Padding at 15 range 0 .. 391;
+     end record;
 
    for Set_Time_Request'Size use 64 * 8;
    for Set_Time_Request'Bit_Order use System.Low_Order_First;
@@ -146,20 +151,21 @@ package Uhppoted.Lib.Requests is
    --  @field  Controller  Controller serial number.
    --  @field  Padding     Unused bytes.
    type Get_Listener_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Listener;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
-   for Get_Listener_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Padding    at 8 range 0 .. 447;
-   end record;
+   for Get_Listener_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Padding at 8 range 0 .. 447;
+     end record;
 
    for Get_Listener_Request'Size use 64 * 8;
    for Get_Listener_Request'Bit_Order use System.Low_Order_First;
@@ -176,7 +182,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Interval    Interval (seconds) at which to automatically send controller state (0 for none).
    --  @field  Padding     Unused bytes.
    type Set_Listener_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Listener;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -186,16 +192,17 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 49) := [others => 0];
    end record;
 
-   for Set_Listener_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Addr       at  8 range 0 ..  31;
-      Port       at 12 range 0 ..  15;
-      Interval   at 14 range 0 ..   7;
-      Padding    at 15 range 0 .. 391;
-   end record;
+   for Set_Listener_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Addr at 8 range 0 .. 31;
+       Port at 12 range 0 .. 15;
+       Interval at 14 range 0 .. 7;
+       Padding at 15 range 0 .. 391;
+     end record;
 
    for Set_Listener_Request'Size use 64 * 8;
    for Set_Listener_Request'Bit_Order use System.Low_Order_First;
@@ -209,20 +216,21 @@ package Uhppoted.Lib.Requests is
    --  @field  Controller  Controller serial number.
    --  @field  Padding     Unused bytes.
    type Get_Status_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Status;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
-   for Get_Status_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Padding    at 8 range 0 .. 447;
-   end record;
+   for Get_Status_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Padding at 8 range 0 .. 447;
+     end record;
 
    for Get_Status_Request'Size use 64 * 8;
    for Get_Status_Request'Bit_Order use System.Low_Order_First;
@@ -237,7 +245,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Door        Door ID [1..4].
    --  @field  Padding     Unused bytes.
    type Get_Door_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Door;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -245,14 +253,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
-   for Get_Door_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Door       at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Get_Door_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Door at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Get_Door_Request'Size use 64 * 8;
    for Get_Door_Request'Bit_Order use System.Low_Order_First;
@@ -269,7 +278,7 @@ package Uhppoted.Lib.Requests is
    --  @field  OpenDelay   Door unlock duration (seconds).
    --  @field  Padding     Unused bytes.
    type Set_Door_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Door;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -279,16 +288,17 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 53) := [others => 0];
    end record;
 
-   for Set_Door_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Door       at  8 range 0 ..   7;
-      Mode       at  9 range 0 ..   7;
-      OpenDelay  at 10 range 0 ..   7;
-      Padding    at 11 range 0 .. 423;
-   end record;
+   for Set_Door_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Door at 8 range 0 .. 7;
+       Mode at 9 range 0 .. 7;
+       OpenDelay at 10 range 0 .. 7;
+       Padding at 11 range 0 .. 423;
+     end record;
 
    for Set_Door_Request'Size use 64 * 8;
    for Set_Door_Request'Bit_Order use System.Low_Order_First;
@@ -308,7 +318,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Passcode4   Fourth passcode [0..999999] (0 for none).
    --  @field  Padding     Unused bytes.
    type Set_Door_Passcodes_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Door_Passcodes;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -321,19 +331,20 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 36) := [others => 0];
    end record;
 
-   for Set_Door_Passcodes_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Door       at  8 range 0 ..   7;
-      Reserved2  at  9 range 0 ..  23;
-      Passcode1  at 12 range 0 ..  31;
-      Passcode2  at 16 range 0 ..  31;
-      Passcode3  at 20 range 0 ..  31;
-      Passcode4  at 24 range 0 ..  31;
-      Padding    at 28 range 0 .. 287;
-   end record;
+   for Set_Door_Passcodes_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Door at 8 range 0 .. 7;
+       Reserved2 at 9 range 0 .. 23;
+       Passcode1 at 12 range 0 .. 31;
+       Passcode2 at 16 range 0 .. 31;
+       Passcode3 at 20 range 0 .. 31;
+       Passcode4 at 24 range 0 .. 31;
+       Padding at 28 range 0 .. 287;
+     end record;
 
    for Set_Door_Passcodes_Request'Size use 64 * 8;
    for Set_Door_Passcodes_Request'Bit_Order use System.Low_Order_First;
@@ -348,7 +359,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Door        Door ID [1..4].
    --  @field  Padding     Unused bytes.
    type Open_Door_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Open_Door;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -356,14 +367,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
-   for Open_Door_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Door       at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Open_Door_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Door at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Open_Door_Request'Size use 64 * 8;
    for Open_Door_Request'Bit_Order use System.Low_Order_First;
@@ -377,20 +389,21 @@ package Uhppoted.Lib.Requests is
    --  @field  Controller  Controller serial number.
    --  @field  Padding     Unused bytes.
    type Get_Cards_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Cards;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
-   for Get_Cards_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Padding    at 8 range 0 .. 447;
-   end record;
+   for Get_Cards_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Padding at 8 range 0 .. 447;
+     end record;
 
    for Get_Cards_Request'Size use 64 * 8;
    for Get_Cards_Request'Bit_Order use System.Low_Order_First;
@@ -405,7 +418,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Card        Card number.
    --  @field  Padding     Unused bytes.
    type Get_Card_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Card;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -413,14 +426,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
-   for Get_Card_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Card       at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Get_Card_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Card at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Get_Card_Request'Size use 64 * 8;
    for Get_Card_Request'Bit_Order use System.Low_Order_First;
@@ -435,7 +449,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Index       Card record index.
    --  @field  Padding     Unused bytes.
    type Get_Card_At_Index_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Card_At_Index;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -443,14 +457,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
-   for Get_Card_At_Index_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Index      at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Get_Card_At_Index_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Index at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Get_Card_At_Index_Request'Size use 64 * 8;
    for Get_Card_At_Index_Request'Bit_Order use System.Low_Order_First;
@@ -472,7 +487,7 @@ package Uhppoted.Lib.Requests is
    --  @field  PIN         Access reader PIN code [0..999999] (0 for none).
    --  @field  Padding     Unused bytes.
    type Put_Card_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Put_Card;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -487,21 +502,22 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 37) := [others => 0];
    end record;
 
-   for Put_Card_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Card       at  8 range 0 ..  31;
-      Start_Date at 12 range 0 ..  31;
-      End_Date   at 16 range 0 ..  31;
-      Door_1     at 20 range 0 ..   7;
-      Door_2     at 21 range 0 ..   7;
-      Door_3     at 22 range 0 ..   7;
-      Door_4     at 23 range 0 ..   7;
-      PIN        at 24 range 0 ..  23;
-      Padding    at 27 range 0 .. 295;
-   end record;
+   for Put_Card_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Card at 8 range 0 .. 31;
+       Start_Date at 12 range 0 .. 31;
+       End_Date at 16 range 0 .. 31;
+       Door_1 at 20 range 0 .. 7;
+       Door_2 at 21 range 0 .. 7;
+       Door_3 at 22 range 0 .. 7;
+       Door_4 at 23 range 0 .. 7;
+       PIN at 24 range 0 .. 23;
+       Padding at 27 range 0 .. 295;
+     end record;
 
    for Put_Card_Request'Size use 64 * 8;
    for Put_Card_Request'Bit_Order use System.Low_Order_First;
@@ -516,7 +532,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Card        Card number.
    --  @field  Padding     Unused bytes.
    type Delete_Card_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Delete_Card;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -524,14 +540,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
-   for Delete_Card_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Card       at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Delete_Card_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Card at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Delete_Card_Request'Size use 64 * 8;
    for Delete_Card_Request'Bit_Order use System.Low_Order_First;
@@ -546,7 +563,7 @@ package Uhppoted.Lib.Requests is
    --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Delete_Cards_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Delete_All_Cards;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -554,14 +571,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
-   for Delete_Cards_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      MagicWord  at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Delete_Cards_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       MagicWord at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Delete_Cards_Request'Size use 64 * 8;
    for Delete_Cards_Request'Bit_Order use System.Low_Order_First;
@@ -576,7 +594,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Index       Event index.
    --  @field  Padding     Unused bytes.
    type Get_Event_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Event;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -584,14 +602,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
-   for Get_Event_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Index      at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Get_Event_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Index at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Get_Event_Request'Size use 64 * 8;
    for Get_Event_Request'Bit_Order use System.Low_Order_First;
@@ -605,20 +624,21 @@ package Uhppoted.Lib.Requests is
    --  @field  Controller  Controller serial number.
    --  @field  Padding     Unused bytes.
    type Get_Event_Index_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Event_Index;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 53) := [others => 0];
    end record;
 
-   for Get_Event_Index_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Padding    at 8 range 0 .. 423;
-   end record;
+   for Get_Event_Index_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Padding at 8 range 0 .. 423;
+     end record;
 
    for Get_Event_Index_Request'Size use 64 * 8;
    for Get_Event_Index_Request'Bit_Order use System.Low_Order_First;
@@ -634,7 +654,7 @@ package Uhppoted.Lib.Requests is
    --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Set_Event_Index_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Event_Index;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -643,15 +663,16 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48) := [others => 0];
    end record;
 
-   for Set_Event_Index_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Index      at  8 range 0 ..  31;
-      MagicWord  at 12 range 0 ..  31;
-      Padding    at 16 range 0 .. 383;
-   end record;
+   for Set_Event_Index_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Index at 8 range 0 .. 31;
+       MagicWord at 12 range 0 .. 31;
+       Padding at 16 range 0 .. 383;
+     end record;
 
    for Set_Event_Index_Request'Size use 64 * 8;
    for Set_Event_Index_Request'Bit_Order use System.Low_Order_First;
@@ -666,7 +687,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Enabled     Enables/disables door/pusbutton/etc events.
    --  @field  Padding     Unused bytes.
    type Record_Special_Events_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Record_Special_Events;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -674,14 +695,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
-   for Record_Special_Events_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Enabled    at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Record_Special_Events_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Enabled at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Record_Special_Events_Request'Size use 64 * 8;
    for Record_Special_Events_Request'Bit_Order use System.Low_Order_First;
@@ -696,7 +718,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Profile     Time profile ID [2..254].
    --  @field  Padding     Unused bytes.
    type Get_Time_Profile_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Time_Profile;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -704,14 +726,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
-   for Get_Time_Profile_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Profile    at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Get_Time_Profile_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Profile at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Get_Time_Profile_Request'Size use 64 * 8;
    for Get_Time_Profile_Request'Bit_Order use System.Low_Order_First;
@@ -743,7 +766,7 @@ package Uhppoted.Lib.Requests is
    --                           constraints/segments (0 if none).
    --  @field  Padding          Unused bytes.
    type Set_Time_Profile_Request is record
-      SOM             : Unsigned_8    := Codec.SOM;
+      SOM             : Unsigned_8 := Codec.SOM;
       OpCode          : Codec.Op_Code := Codec.Set_Time_Profile;
       Reserved        : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller      : Unsigned_32;
@@ -767,30 +790,31 @@ package Uhppoted.Lib.Requests is
       Padding         : Ada.Streams.Stream_Element_Array (1 .. 27) := [others => 0];
    end record;
 
-   for Set_Time_Profile_Request use record
-      SOM             at  0 range 0 ..   7;
-      OpCode          at  1 range 0 ..   7;
-      Reserved        at  2 range 0 ..  15;
-      Controller      at  4 range 0 ..  31;
-      Profile         at  8 range 0 ..   7;
-      Start_Date      at  9 range 0 ..   31;
-      End_Date        at 13 range 0 ..   31;
-      Monday          at 17 range 0 ..   7;
-      Tuesday         at 18 range 0 ..   7;
-      Wednesday       at 19 range 0 ..   7;
-      Thursday        at 20 range 0 ..   7;
-      Friday          at 21 range 0 ..   7;
-      Saturday        at 22 range 0 ..   7;
-      Sunday          at 23 range 0 ..   7;
-      Segment_1_Start at 24 range 0 ..  15;
-      Segment_1_End   at 26 range 0 ..  15;
-      Segment_2_Start at 28 range 0 ..  15;
-      Segment_2_End   at 30 range 0 ..  15;
-      Segment_3_Start at 32 range 0 ..  15;
-      Segment_3_End   at 34 range 0 ..  15;
-      Linked_Profile  at 36 range 0 ..   7;
-      Padding         at 37 range 0 .. 215;
-   end record;
+   for Set_Time_Profile_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Profile at 8 range 0 .. 7;
+       Start_Date at 9 range 0 .. 31;
+       End_Date at 13 range 0 .. 31;
+       Monday at 17 range 0 .. 7;
+       Tuesday at 18 range 0 .. 7;
+       Wednesday at 19 range 0 .. 7;
+       Thursday at 20 range 0 .. 7;
+       Friday at 21 range 0 .. 7;
+       Saturday at 22 range 0 .. 7;
+       Sunday at 23 range 0 .. 7;
+       Segment_1_Start at 24 range 0 .. 15;
+       Segment_1_End at 26 range 0 .. 15;
+       Segment_2_Start at 28 range 0 .. 15;
+       Segment_2_End at 30 range 0 .. 15;
+       Segment_3_Start at 32 range 0 .. 15;
+       Segment_3_End at 34 range 0 .. 15;
+       Linked_Profile at 36 range 0 .. 7;
+       Padding at 37 range 0 .. 215;
+     end record;
 
    for Set_Time_Profile_Request'Size use 64 * 8;
    for Set_Time_Profile_Request'Bit_Order use System.Low_Order_First;
@@ -805,7 +829,7 @@ package Uhppoted.Lib.Requests is
    --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Clear_Time_Profiles_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Clear_Time_Profiles;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -813,14 +837,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
-   for Clear_Time_Profiles_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      MagicWord  at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Clear_Time_Profiles_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       MagicWord at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Clear_Time_Profiles_Request'Size use 64 * 8;
    for Clear_Time_Profiles_Request'Bit_Order use System.Low_Order_First;
@@ -847,46 +872,47 @@ package Uhppoted.Lib.Requests is
    --  @field  More_Cards  Number of 'more cards' for More_Cards task ID.
    --  @field  Padding     Unused bytes.
    type Add_Task_Request is record
-      SOM             : Unsigned_8    := Codec.SOM;
-      OpCode          : Codec.Op_Code := Codec.Add_Task;
-      Reserved        : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
-      Controller      : Unsigned_32;
-      Start_Date      : BCD4;
-      End_Date        : BCD4;
-      Monday          : Unsigned_8;
-      Tuesday         : Unsigned_8;
-      Wednesday       : Unsigned_8;
-      Thursday        : Unsigned_8;
-      Friday          : Unsigned_8;
-      Saturday        : Unsigned_8;
-      Sunday          : Unsigned_8;
-      Start_Time      : BCD2;
-      Door            : Unsigned_8;
-      Task_ID         : Task_Type;
-      More_Cards      : Unsigned_8;
-      Padding         : Ada.Streams.Stream_Element_Array (1 .. 35) := [others => 0];
+      SOM        : Unsigned_8 := Codec.SOM;
+      OpCode     : Codec.Op_Code := Codec.Add_Task;
+      Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller : Unsigned_32;
+      Start_Date : BCD4;
+      End_Date   : BCD4;
+      Monday     : Unsigned_8;
+      Tuesday    : Unsigned_8;
+      Wednesday  : Unsigned_8;
+      Thursday   : Unsigned_8;
+      Friday     : Unsigned_8;
+      Saturday   : Unsigned_8;
+      Sunday     : Unsigned_8;
+      Start_Time : BCD2;
+      Door       : Unsigned_8;
+      Task_ID    : Task_Type;
+      More_Cards : Unsigned_8;
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 35) := [others => 0];
    end record;
 
-   for Add_Task_Request use record
-      SOM         at  0 range 0 ..   7;
-      OpCode      at  1 range 0 ..   7;
-      Reserved    at  2 range 0 ..  15;
-      Controller  at  4 range 0 ..  31;
-      Start_Date  at  8 range 0 ..  31;
-      End_Date    at 12 range 0 ..  31;
-      Monday      at 16 range 0 ..   7;
-      Tuesday     at 17 range 0 ..   7;
-      Wednesday   at 18 range 0 ..   7;
-      Thursday    at 19 range 0 ..   7;
-      Friday      at 20 range 0 ..   7;
-      Saturday    at 21 range 0 ..   7;
-      Sunday      at 22 range 0 ..   7;
-      Start_Time  at 23 range 0 ..  15;
-      Door        at 25 range 0 ..   7;
-      Task_ID     at 26 range 0 ..   7;
-      More_Cards  at 27 range 0 ..   7;
-      Padding     at 28 range 0 .. 279;
-   end record;
+   for Add_Task_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Start_Date at 8 range 0 .. 31;
+       End_Date at 12 range 0 .. 31;
+       Monday at 16 range 0 .. 7;
+       Tuesday at 17 range 0 .. 7;
+       Wednesday at 18 range 0 .. 7;
+       Thursday at 19 range 0 .. 7;
+       Friday at 20 range 0 .. 7;
+       Saturday at 21 range 0 .. 7;
+       Sunday at 22 range 0 .. 7;
+       Start_Time at 23 range 0 .. 15;
+       Door at 25 range 0 .. 7;
+       Task_ID at 26 range 0 .. 7;
+       More_Cards at 27 range 0 .. 7;
+       Padding at 28 range 0 .. 279;
+     end record;
 
    for Add_Task_Request'Size use 64 * 8;
    for Add_Task_Request'Bit_Order use System.Low_Order_First;
@@ -901,7 +927,7 @@ package Uhppoted.Lib.Requests is
    --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Refresh_Task_List_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Refresh_Task_List;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -909,14 +935,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
-   for Refresh_Task_List_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      MagicWord  at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Refresh_Task_List_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       MagicWord at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Refresh_Task_List_Request'Size use 64 * 8;
    for Refresh_Task_List_Request'Bit_Order use System.Low_Order_First;
@@ -931,7 +958,7 @@ package Uhppoted.Lib.Requests is
    --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Clear_Task_List_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Clear_Task_List;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -939,14 +966,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
-   for Clear_Task_List_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      MagicWord  at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Clear_Task_List_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       MagicWord at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Clear_Task_List_Request'Size use 64 * 8;
    for Clear_Task_List_Request'Bit_Order use System.Low_Order_First;
@@ -962,7 +990,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Enable      Enables/disables remote access control.
    --  @field  Padding     Unused bytes.
    type Set_PC_Control_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_PC_Control;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -971,15 +999,16 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 51) := [others => 0];
    end record;
 
-   for Set_PC_Control_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      MagicWord  at  8 range 0 ..  31;
-      Enable     at 12 range 0 ..   7;
-      Padding    at 13 range 0 .. 407;
-   end record;
+   for Set_PC_Control_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       MagicWord at 8 range 0 .. 31;
+       Enable at 12 range 0 .. 7;
+       Padding at 13 range 0 .. 407;
+     end record;
 
    for Set_PC_Control_Request'Size use 64 * 8;
    for Set_PC_Control_Request'Bit_Order use System.Low_Order_First;
@@ -994,7 +1023,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Interlock   Door interlock mode.
    --  @field  Padding     Unused bytes.
    type Set_Interlock_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Interlock;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -1002,14 +1031,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
-   for Set_Interlock_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Interlock  at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_Interlock_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Interlock at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_Interlock_Request'Size use 64 * 8;
    for Set_Interlock_Request'Bit_Order use System.Low_Order_First;
@@ -1027,7 +1057,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Reader_4    Enables/disables keypads for reader 4.
    --  @field  Padding     Unused bytes.
    type Activate_Keypads_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Activate_Keypads;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -1038,17 +1068,18 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
-   for Activate_Keypads_Request use record
-      SOM        at  0 range 0 ..  7;
-      OpCode     at  1 range 0 ..  7;
-      Reserved   at  2 range 0 .. 15;
-      Controller at  4 range 0 .. 31;
-      Reader_1   at  8 range 0 ..  7;
-      Reader_2   at  9 range 0 ..  7;
-      Reader_3   at 10 range 0 ..  7;
-      Reader_4   at 11 range 0 ..  7;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Activate_Keypads_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Reader_1 at 8 range 0 .. 7;
+       Reader_2 at 9 range 0 .. 7;
+       Reader_3 at 10 range 0 .. 7;
+       Reader_4 at 11 range 0 .. 7;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Activate_Keypads_Request'Size use 64 * 8;
    for Activate_Keypads_Request'Bit_Order use System.Low_Order_First;
@@ -1062,20 +1093,21 @@ package Uhppoted.Lib.Requests is
    --  @field  Controller  Controller serial number.
    --  @field  Padding     Unused bytes.
    type Get_Antipassback_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Antipassback;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
-   for Get_Antipassback_Request use record
-      SOM        at 0 range 0 ..   7;
-      OpCode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Padding    at 8 range 0 .. 447;
-   end record;
+   for Get_Antipassback_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Padding at 8 range 0 .. 447;
+     end record;
 
    for Get_Antipassback_Request'Size use 64 * 8;
    for Get_Antipassback_Request'Bit_Order use System.Low_Order_First;
@@ -1090,7 +1122,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Antipassback  Anti-passback mode.
    --  @field  Padding       Unused bytes.
    type Set_Antipassback_Request is record
-      SOM          : Unsigned_8    := Codec.SOM;
+      SOM          : Unsigned_8 := Codec.SOM;
       OpCode       : Codec.Op_Code := Codec.Set_Antipassback;
       Reserved     : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller   : Unsigned_32;
@@ -1098,14 +1130,15 @@ package Uhppoted.Lib.Requests is
       Padding      : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
-   for Set_Antipassback_Request use record
-      SOM          at 0 range 0 ..   7;
-      OpCode       at 1 range 0 ..   7;
-      Reserved     at 2 range 0 ..  15;
-      Controller   at 4 range 0 ..  31;
-      Antipassback at 8 range 0 ..   7;
-      Padding      at 9 range 0 .. 439;
-   end record;
+   for Set_Antipassback_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Antipassback at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_Antipassback_Request'Size use 64 * 8;
    for Set_Antipassback_Request'Bit_Order use System.Low_Order_First;
@@ -1131,7 +1164,7 @@ package Uhppoted.Lib.Requests is
    --  @field  Sunday         Enables/disables first-card mode on Sunday.
    --  @field  Padding        Unused bytes.
    type Set_First_Card_Request is record
-      SOM           : Unsigned_8    := Codec.SOM;
+      SOM           : Unsigned_8 := Codec.SOM;
       OpCode        : Codec.Op_Code := Codec.Set_First_Card;
       Reserved      : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller    : Unsigned_32;
@@ -1150,25 +1183,26 @@ package Uhppoted.Lib.Requests is
       Padding       : Ada.Streams.Stream_Element_Array (1 .. 42) := [others => 0];
    end record;
 
-   for Set_First_Card_Request use record
-      SOM           at  0 range 0 ..   7;
-      OpCode        at  1 range 0 ..   7;
-      Reserved      at  2 range 0 ..  15;
-      Controller    at  4 range 0 ..  31;
-      Door          at  8 range 0 ..   7;
-      Start_Time    at  9 range 0 ..  15;
-      Active_Mode   at 11 range 0 ..   7;
-      End_Time      at 12 range 0 ..  15;
-      Inactive_Mode at 14 range 0 ..   7;
-      Monday        at 15 range 0 ..   7;
-      Tuesday       at 16 range 0 ..   7;
-      Wednesday     at 17 range 0 ..   7;
-      Thursday      at 18 range 0 ..   7;
-      Friday        at 19 range 0 ..   7;
-      Saturday      at 20 range 0 ..   7;
-      Sunday        at 21 range 0 ..   7;
-      Padding       at 22 range 0 .. 335;
-   end record;
+   for Set_First_Card_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Door at 8 range 0 .. 7;
+       Start_Time at 9 range 0 .. 15;
+       Active_Mode at 11 range 0 .. 7;
+       End_Time at 12 range 0 .. 15;
+       Inactive_Mode at 14 range 0 .. 7;
+       Monday at 15 range 0 .. 7;
+       Tuesday at 16 range 0 .. 7;
+       Wednesday at 17 range 0 .. 7;
+       Thursday at 18 range 0 .. 7;
+       Friday at 19 range 0 .. 7;
+       Saturday at 20 range 0 .. 7;
+       Sunday at 21 range 0 .. 7;
+       Padding at 22 range 0 .. 335;
+     end record;
 
    for Set_First_Card_Request'Size use 64 * 8;
    for Set_First_Card_Request'Bit_Order use System.Low_Order_First;
@@ -1183,7 +1217,7 @@ package Uhppoted.Lib.Requests is
    --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Padding     Unused bytes.
    type Restore_Default_Parameters_Request is record
-      SOM        : Unsigned_8    := Codec.SOM;
+      SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Restore_Default_Parameters;
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
@@ -1191,14 +1225,15 @@ package Uhppoted.Lib.Requests is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
-   for Restore_Default_Parameters_Request use record
-      SOM        at  0 range 0 ..   7;
-      OpCode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      MagicWord  at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Restore_Default_Parameters_Request use
+     record
+       SOM at 0 range 0 .. 7;
+       OpCode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       MagicWord at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Restore_Default_Parameters_Request'Size use 64 * 8;
    for Restore_Default_Parameters_Request'Bit_Order use System.Low_Order_First;

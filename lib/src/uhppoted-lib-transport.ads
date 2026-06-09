@@ -5,6 +5,7 @@ with Uhppoted.Lib.Types;
 
 --  Internal definitions for the UDP and TCP transport implementations.
 --
+
 package Uhppoted.Lib.Transport is
 
    --  Controlled Type for a socket selector.
@@ -39,12 +40,14 @@ private
    --  Creates the wrapped selector handle.
    --
    --  @param  E  Controlled.Initialize implementation for socket selector.
-   overriding procedure Initialize (E : in out H);
+   overriding
+   procedure Initialize (E : in out H);
 
    --  Closes the wrapped selector handle.
    --
    --  @param  E  Controlled.Finalize implementation for socket selector.
-   overriding procedure Finalize (E : in out H);
+   overriding
+   procedure Finalize (E : in out H);
 
    --  Prints out a hex dump of a 64 byte packet.
    --

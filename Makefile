@@ -41,6 +41,9 @@ update:
 	cd integration-tests && alr index --update-all
 	cd examples          && alr index --update-all
 
+format:
+	alr exec -- gnatformat -P uhppoted_lib_ada.gpr
+
 build:
 	cd lib && make build
 

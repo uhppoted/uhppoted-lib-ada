@@ -2,6 +2,7 @@ with Ada.Containers.Vectors;
 
 --  Internal type definitions.
 --
+
 package Uhppoted.Lib.Types is
    --  64 byte message packet.
    type Packet is array (1 .. 64) of Unsigned_8;

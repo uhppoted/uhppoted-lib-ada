@@ -6,13 +6,15 @@ package body Uhppoted.Lib.Transport.TCP is
    use Ada.Calendar;
 
    --  Creates the wrapped socket handle.
-   overriding procedure Initialize (E : in out S) is
+   overriding
+   procedure Initialize (E : in out S) is
    begin
       Create_Socket (E.Client, Family_Inet);
    end Initialize;
 
    --  Closes the wrapped socket handle.
-   overriding procedure Finalize (E : in out S) is
+   overriding
+   procedure Finalize (E : in out S) is
    begin
       if E.Client /= No_Socket then
          Close_Socket (E.Client);
@@ -97,12 +99,17 @@ package body Uhppoted.Lib.Transport.TCP is
       end if;
 
       if Request (2) = 16#96# then
-         Reply := [
-            Request (1), Request (2), Request (3), Request (4),
-            Request (5), Request (6), Request (7), Request (8),
+         Reply :=
+           [Request (1),
+            Request (2),
+            Request (3),
+            Request (4),
+            Request (5),
+            Request (6),
+            Request (7),
+            Request (8),
             16#01#,
-            others => 16#00#
-         ];
+            others => 16#00#];
 
          return Reply;
       end if;
@@ -129,7 +136,7 @@ package body Uhppoted.Lib.Transport.TCP is
                             Timeout      => Remaining);
 
             case Status is
-               when Completed =>
+               when Completed         =>
                   Receive_Socket (Sock.Client, Buffer, Offset);
                   if Offset = 64 then
                      Reply := To_Packet (Buffer);

@@ -7,13 +7,15 @@ package body Uhppoted.Lib.Transport.UDP is
    use Uhppoted.Lib.Types;
 
    --  Creates the wrapped socket handle.
-   overriding procedure Initialize (E : in out S) is
+   overriding
+   procedure Initialize (E : in out S) is
    begin
       Create_Socket (E.Client, Family_Inet, Socket_Datagram);
    end Initialize;
 
    --  Closes the wrapped socket handle.
-   overriding procedure Finalize (E : in out S) is
+   overriding
+   procedure Finalize (E : in out S) is
    begin
       if E.Client /= No_Socket then
          Close_Socket (E.Client);
@@ -23,9 +25,9 @@ package body Uhppoted.Lib.Transport.UDP is
 
    --  Broadcasts a 64 byte request packet and returns the response (if any).
    function Broadcast (U : UHPPOTE; Request : Packet; Timeout : Duration) return Packet_List is
-      BindAddr  : constant Sock_Addr_Type := U.Bind_Addr;
-      DestAddr  : constant Sock_Addr_Type := U.Broadcast_Addr;
-      Offset    : Stream_Element_Offset;
+      BindAddr : constant Sock_Addr_Type := U.Bind_Addr;
+      DestAddr : constant Sock_Addr_Type := U.Broadcast_Addr;
+      Offset   : Stream_Element_Offset;
 
       Sock    : S;
       From    : Sock_Addr_Type;
@@ -129,12 +131,17 @@ package body Uhppoted.Lib.Transport.UDP is
       end if;
 
       if Request (2) = 16#96# then
-         Reply := [
-            Request (1), Request (2), Request (3), Request (4),
-            Request (5), Request (6), Request (7), Request (8),
+         Reply :=
+           [Request (1),
+            Request (2),
+            Request (3),
+            Request (4),
+            Request (5),
+            Request (6),
+            Request (7),
+            Request (8),
             16#01#,
-            others => 16#00#
-         ];
+            others => 16#00#];
 
          return Reply;
       end if;
@@ -161,7 +168,7 @@ package body Uhppoted.Lib.Transport.UDP is
                             Timeout      => Remaining);
 
             case Status is
-               when Completed =>
+               when Completed         =>
                   Receive_Socket (Sock.Client, Buffer, Offset, From);
 
                   if Offset = 64 then
@@ -216,12 +223,17 @@ package body Uhppoted.Lib.Transport.UDP is
       end if;
 
       if Request (2) = 16#96# then
-         Reply := [
-            Request (1), Request (2), Request (3), Request (4),
-            Request (5), Request (6), Request (7), Request (8),
+         Reply :=
+           [Request (1),
+            Request (2),
+            Request (3),
+            Request (4),
+            Request (5),
+            Request (6),
+            Request (7),
+            Request (8),
             16#01#,
-            others => 16#00#
-         ];
+            others => 16#00#];
 
          return Reply;
       end if;
@@ -248,7 +260,7 @@ package body Uhppoted.Lib.Transport.UDP is
                             Timeout      => Remaining);
 
             case Status is
-               when Completed =>
+               when Completed         =>
                   Receive_Socket (Sock.Client, Buffer, Offset, From);
 
                   if Offset = 64 then
@@ -288,7 +300,7 @@ package body Uhppoted.Lib.Transport.UDP is
          begin
             Empty (Read_Set);
             Empty (Write_Set);
-            Set   (Read_Set, Sock.Client);
+            Set (Read_Set, Sock.Client);
 
             Check_Selector (H,
                             R_Socket_Set => Read_Set,

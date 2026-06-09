@@ -5,11 +5,11 @@ package body Uhppoted.Lib.Encode is
    use Uhppoted.Lib.Types;
    use Uhppoted.Lib.Requests;
 
-   function Pack_IPv4     (Addr : Inet_Addr_Type) return IPv4;
-   function Pack_DateTime (DT   : DateTime)       return BCD7;
-   function Pack_Date     (D    : DateOnly)       return BCD4;
-   function Pack_HHmm     (T    : HHmm)           return BCD2;
-   function Pack_Boolean  (B    : Boolean)        return Unsigned_8;
+   function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4;
+   function Pack_DateTime (DT : DateTime) return BCD7;
+   function Pack_Date (D : DateOnly) return BCD4;
+   function Pack_HHmm (T : HHmm) return BCD2;
+   function Pack_Boolean (B : Boolean) return Unsigned_8;
 
    --  Encodes a get-controller request as a 64 byte array.
    function Get_Controller (Controller : Unsigned_32) return Packet is
@@ -30,9 +30,9 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Addr       := Pack_IPv4 (Addr);
-      Request.Netmask    := Pack_IPv4 (Netmask);
-      Request.Gateway    := Pack_IPv4 (Gateway);
+      Request.Addr := Pack_IPv4 (Addr);
+      Request.Netmask := Pack_IPv4 (Netmask);
+      Request.Gateway := Pack_IPv4 (Gateway);
 
       return Buffer;
    end Set_IPv4;
@@ -54,7 +54,7 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Date_Time  := Pack_DateTime (DT);
+      Request.Date_Time := Pack_DateTime (DT);
 
       return Buffer;
    end Set_Time;
@@ -88,9 +88,9 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Addr       := Pack_IPv4 (Addr);
-      Request.Port       := Port;
-      Request.Interval   := Interval;
+      Request.Addr := Pack_IPv4 (Addr);
+      Request.Port := Port;
+      Request.Interval := Interval;
 
       return Buffer;
    end Set_Listener;
@@ -103,9 +103,9 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Addr       := Pack_IPv4 (Listener.Addr);
-      Request.Port       := Unsigned_16 (Listener.Port);
-      Request.Interval   := Interval;
+      Request.Addr := Pack_IPv4 (Listener.Addr);
+      Request.Port := Unsigned_16 (Listener.Port);
+      Request.Interval := Interval;
 
       return Buffer;
    end Set_Listener_Addr_Port;
@@ -126,7 +126,7 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Door       := Door;
+      Request.Door := Door;
 
       return Buffer;
    end Get_Door;
@@ -140,9 +140,9 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Door       := Door;
-      Request.Mode       := Mode;
-      Request.OpenDelay  := OpenDelay;
+      Request.Door := Door;
+      Request.Mode := Mode;
+      Request.OpenDelay := OpenDelay;
 
       return Buffer;
    end Set_Door;
@@ -158,11 +158,11 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Door       := Door;
-      Request.Passcode1  := 0;
-      Request.Passcode2  := 0;
-      Request.Passcode3  := 0;
-      Request.Passcode4  := 0;
+      Request.Door := Door;
+      Request.Passcode1 := 0;
+      Request.Passcode2 := 0;
+      Request.Passcode3 := 0;
+      Request.Passcode4 := 0;
 
       if Passcode1 <= 999_999 then
          Request.Passcode1 := Passcode1;
@@ -190,7 +190,7 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Door       := Door;
+      Request.Door := Door;
 
       return Buffer;
    end Open_Door;
@@ -241,14 +241,14 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Card       := Card;
+      Request.Card := Card;
       Request.Start_Date := Pack_Date (Start_Date);
-      Request.End_Date   := Pack_Date (End_Date);
-      Request.Door_1     := Door_1;
-      Request.Door_2     := Door_2;
-      Request.Door_3     := Door_3;
-      Request.Door_4     := Door_4;
-      Request.PIN        := PIN;
+      Request.End_Date := Pack_Date (End_Date);
+      Request.Door_1 := Door_1;
+      Request.Door_2 := Door_2;
+      Request.Door_3 := Door_3;
+      Request.Door_4 := Door_4;
+      Request.PIN := PIN;
 
       return Buffer;
    end Put_Card;
@@ -350,24 +350,24 @@ package body Uhppoted.Lib.Encode is
       Request : Set_Time_Profile_Request;
       Buffer  : Packet with Address => Request'Address;
    begin
-      Request.Controller      := Controller;
-      Request.Profile         := Profile;
-      Request.Start_Date      := Pack_Date (Start_Date);
-      Request.End_Date        := Pack_Date (End_Date);
-      Request.Monday          := Pack_Boolean (Monday);
-      Request.Tuesday         := Pack_Boolean (Tuesday);
-      Request.Wednesday       := Pack_Boolean (Wednesday);
-      Request.Thursday        := Pack_Boolean (Thursday);
-      Request.Friday          := Pack_Boolean (Friday);
-      Request.Saturday        := Pack_Boolean (Saturday);
-      Request.Sunday          := Pack_Boolean (Sunday);
+      Request.Controller := Controller;
+      Request.Profile := Profile;
+      Request.Start_Date := Pack_Date (Start_Date);
+      Request.End_Date := Pack_Date (End_Date);
+      Request.Monday := Pack_Boolean (Monday);
+      Request.Tuesday := Pack_Boolean (Tuesday);
+      Request.Wednesday := Pack_Boolean (Wednesday);
+      Request.Thursday := Pack_Boolean (Thursday);
+      Request.Friday := Pack_Boolean (Friday);
+      Request.Saturday := Pack_Boolean (Saturday);
+      Request.Sunday := Pack_Boolean (Sunday);
       Request.Segment_1_Start := Pack_HHmm (Segment_1_Start);
-      Request.Segment_1_End   := Pack_HHmm (Segment_1_End);
+      Request.Segment_1_End := Pack_HHmm (Segment_1_End);
       Request.Segment_2_Start := Pack_HHmm (Segment_2_Start);
-      Request.Segment_2_End   := Pack_HHmm (Segment_2_End);
+      Request.Segment_2_End := Pack_HHmm (Segment_2_End);
       Request.Segment_3_Start := Pack_HHmm (Segment_3_Start);
-      Request.Segment_3_End   := Pack_HHmm (Segment_3_End);
-      Request.Linked_Profile  := Linked_Profile;
+      Request.Segment_3_End := Pack_HHmm (Segment_3_End);
+      Request.Linked_Profile := Linked_Profile;
 
       return Buffer;
    end Set_Time_Profile;
@@ -401,18 +401,18 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Task_ID    := Task_ID;
+      Request.Task_ID := Task_ID;
       Request.Start_Date := Pack_Date (Start_Date);
-      Request.End_Date   := Pack_Date (End_Date);
-      Request.Monday     := Pack_Boolean (Monday);
-      Request.Tuesday    := Pack_Boolean (Tuesday);
-      Request.Wednesday  := Pack_Boolean (Wednesday);
-      Request.Thursday   := Pack_Boolean (Thursday);
-      Request.Friday     := Pack_Boolean (Friday);
-      Request.Saturday   := Pack_Boolean (Saturday);
-      Request.Sunday     := Pack_Boolean (Sunday);
+      Request.End_Date := Pack_Date (End_Date);
+      Request.Monday := Pack_Boolean (Monday);
+      Request.Tuesday := Pack_Boolean (Tuesday);
+      Request.Wednesday := Pack_Boolean (Wednesday);
+      Request.Thursday := Pack_Boolean (Thursday);
+      Request.Friday := Pack_Boolean (Friday);
+      Request.Saturday := Pack_Boolean (Saturday);
+      Request.Sunday := Pack_Boolean (Sunday);
       Request.Start_Time := Pack_HHmm (Start_Time);
-      Request.Door       := Door;
+      Request.Door := Door;
       Request.More_Cards := More_Cards;
 
       return Buffer;
@@ -471,10 +471,10 @@ package body Uhppoted.Lib.Encode is
       Buffer  : Packet with Address => Request'Address;
    begin
       Request.Controller := Controller;
-      Request.Reader_1   := Pack_Boolean (Reader_1);
-      Request.Reader_2   := Pack_Boolean (Reader_2);
-      Request.Reader_3   := Pack_Boolean (Reader_3);
-      Request.Reader_4   := Pack_Boolean (Reader_4);
+      Request.Reader_1 := Pack_Boolean (Reader_1);
+      Request.Reader_2 := Pack_Boolean (Reader_2);
+      Request.Reader_3 := Pack_Boolean (Reader_3);
+      Request.Reader_4 := Pack_Boolean (Reader_4);
 
       return Buffer;
    end Activate_Keypads;
@@ -522,40 +522,46 @@ package body Uhppoted.Lib.Encode is
       Inactive : Unsigned_8;
    begin
       case Active_Mode is
-         when Controlled =>
+         when Controlled      =>
             Active := 0;
-         when Normally_Open =>
+
+         when Normally_Open   =>
             Active := 1;
+
          when Normally_Closed =>
             Active := 2;
-         when others =>
+
+         when others          =>
             raise Invalid_Door_Mode_Error;
       end case;
 
       case Inactive_Mode is
-         when Controlled =>
+         when Controlled      =>
             Inactive := 0;
-         when Normally_Open =>
+
+         when Normally_Open   =>
             Inactive := 1;
+
          when Normally_Closed =>
             Inactive := 2;
+
          when First_Card_Only =>
             Inactive := 3;
       end case;
 
-      Request.Controller    := Controller;
-      Request.Door          := Door;
-      Request.Start_Time    := Pack_HHmm (Start_Time);
-      Request.End_Time      := Pack_HHmm (End_Time);
-      Request.Active_Mode   := Active;
+      Request.Controller := Controller;
+      Request.Door := Door;
+      Request.Start_Time := Pack_HHmm (Start_Time);
+      Request.End_Time := Pack_HHmm (End_Time);
+      Request.Active_Mode := Active;
       Request.Inactive_Mode := Inactive;
-      Request.Monday        := Pack_Boolean (Monday);
-      Request.Tuesday       := Pack_Boolean (Tuesday);
-      Request.Wednesday     := Pack_Boolean (Wednesday);
-      Request.Thursday      := Pack_Boolean (Thursday);
-      Request.Friday        := Pack_Boolean (Friday);
-      Request.Saturday      := Pack_Boolean (Saturday);
-      Request.Sunday        := Pack_Boolean (Sunday);
+      Request.Monday := Pack_Boolean (Monday);
+      Request.Tuesday := Pack_Boolean (Tuesday);
+      Request.Wednesday := Pack_Boolean (Wednesday);
+      Request.Thursday := Pack_Boolean (Thursday);
+      Request.Friday := Pack_Boolean (Friday);
+      Request.Saturday := Pack_Boolean (Saturday);
+      Request.Sunday := Pack_Boolean (Sunday);
 
       return Buffer;
    end Set_First_Card;
@@ -572,12 +578,11 @@ package body Uhppoted.Lib.Encode is
 
    --  Packs an IPv4 address into a 4 byte array.
    function Pack_IPv4 (Addr : Inet_Addr_Type) return IPv4 is
-      V : constant IPv4 := [
-         Unsigned_8 (Addr.Sin_V4 (1)),
+      V : constant IPv4 :=
+        [Unsigned_8 (Addr.Sin_V4 (1)),
          Unsigned_8 (Addr.Sin_V4 (2)),
          Unsigned_8 (Addr.Sin_V4 (3)),
-         Unsigned_8 (Addr.Sin_V4 (4))
-      ];
+         Unsigned_8 (Addr.Sin_V4 (4))];
    begin
       return V;
    end Pack_IPv4;

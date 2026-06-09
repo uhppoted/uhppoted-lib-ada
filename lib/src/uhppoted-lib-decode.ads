@@ -5,42 +5,38 @@ with Uhppoted.Lib.Replies;
 
 --  Codec functions to decode a reply message.
 --
+
 package Uhppoted.Lib.Decode is
 
    --  Decodes a 64 byte get-controller reply as a Get_Controller_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Controller_Response.
-   function Get_Controller (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Controller_Response;
+   function Get_Controller (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Controller_Response;
 
    --  Decodes a 64 byte set-IPv4 reply as a Set_IPv4_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_IPv4_Response.
-   function Set_IPv4 (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_IPv4_Response;
+   function Set_IPv4 (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_IPv4_Response;
 
    --  Decodes a 64 byte get-time reply as a Get_Time_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Time_Response.
-   function Get_Time (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Time_Response;
+   function Get_Time (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Time_Response;
 
    --  Decodes a 64 byte set-time reply as a Set_Time_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_Time_Response.
-   function Set_Time (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_Time_Response;
+   function Set_Time (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Time_Response;
 
    --  Decodes a 64 byte get-listener reply as a Get_Listener_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Listener_Response.
-   function Get_Listener (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Listener_Response;
+   function Get_Listener (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Listener_Response;
 
    --  Decodes a 64 byte get-listener reply as a Get_Listener_Addr_Port_Response record.
    --
@@ -53,8 +49,7 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_Listener_Response.
-   function Set_Listener (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_Listener_Response;
+   function Set_Listener (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Listener_Response;
 
    --  Decodes a 64 byte set-listener reply as a Set_Listener_Response record.
    --
@@ -67,22 +62,19 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Status_Response.
-   function Get_Status (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Status_Response;
+   function Get_Status (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Status_Response;
 
    --  Decodes a 64 byte get-door reply as a Get_Door_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Door_Response.
-   function Get_Door (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Door_Response;
+   function Get_Door (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Door_Response;
 
    --  Decodes a 64 byte set-door reply as a Get_Door_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_Door_Response.
-   function Set_Door (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_Door_Response;
+   function Set_Door (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Door_Response;
 
    --  Decodes a 64 byte set-door-passcodes reply as a Get_Door_Passcodes_Response record.
    --
@@ -95,22 +87,19 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Open_Door_Response.
-   function Open_Door (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Open_Door_Response;
+   function Open_Door (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Open_Door_Response;
 
    --  Decodes a 64 byte get-cards reply as a Get_Cards_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Cards_Response.
-   function Get_Cards (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Cards_Response;
+   function Get_Cards (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Cards_Response;
 
    --  Decodes a 64 byte get-card reply as a Get_Card_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Card_Response.
-   function Get_Card (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Card_Response;
+   function Get_Card (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Card_Response;
 
    --  Decodes a 64 byte get-card reply as a Get_Card_At_Index_Response record.
    --
@@ -123,15 +112,13 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Put_Card_Response.
-   function Put_Card (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Put_Card_Response;
+   function Put_Card (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Put_Card_Response;
 
    --  Decodes a 64 byte delete-card reply as a Delete_Card_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Delete_Card_Response.
-   function Delete_Card (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Delete_Card_Response;
+   function Delete_Card (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Delete_Card_Response;
 
    --  Decodes a 64 byte delete-all-cards reply as a Delete_All_Cards_Response record.
    --
@@ -144,22 +131,19 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Event_Response.
-   function Get_Event (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Event_Response;
+   function Get_Event (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Event_Response;
 
    --  Decodes a 64 byte get-event-index reply as a Get_Event_Index_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Event_Index_Response.
-   function Get_Event_Index (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Event_Index_Response;
+   function Get_Event_Index (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Event_Index_Response;
 
    --  Decodes a 64 byte set-event-index reply as a Set_Event_Index_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_Event_Index_Response.
-   function Set_Event_Index (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_Event_Index_Response;
+   function Set_Event_Index (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Event_Index_Response;
 
    --  Decodes a 64 byte record-special-events reply as a Record_Special_Events_Response record.
    --
@@ -193,8 +177,7 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Add_Task_Response.
-   function Add_Task (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Add_Task_Response;
+   function Add_Task (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Add_Task_Response;
 
    --  Decodes a 64 byte refresh-tasklist reply as a Refresh_Task_List_Response record.
    --
@@ -207,22 +190,19 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Clear_Task_List_Response.
-   function Clear_Task_List (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Clear_Task_List_Response;
+   function Clear_Task_List (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Clear_Task_List_Response;
 
    --  Decodes a 64 byte set-pc-control reply as a Set_PC_Control_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_PC_Control_Response.
-   function Set_PC_Control (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_PC_Control_Response;
+   function Set_PC_Control (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_PC_Control_Response;
 
    --  Decodes a 64 byte set-interlock reply as a Set_Interlock_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_Interlock_Response.
-   function Set_Interlock (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_Interlock_Response;
+   function Set_Interlock (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Interlock_Response;
 
    --  Decodes a 64 byte activate-keypads reply as a Activate_Keypads_Response record.
    --
@@ -249,8 +229,7 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_First_Card_Response.
-   function Set_First_Card (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_First_Card_Response;
+   function Set_First_Card (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_First_Card_Response;
 
    --  Decodes a 64 byte restore-default-parameters reply as a Restore_Default_Parameters_Response record.
    --
@@ -263,8 +242,7 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Listener_Event.
-   function Listener_Event (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Listener_Event;
+   function Listener_Event (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Listener_Event;
 
 private
    --  Translates a BCD coded string in a byte array to a string.

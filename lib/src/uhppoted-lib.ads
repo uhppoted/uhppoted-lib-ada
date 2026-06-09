@@ -6,6 +6,7 @@ with Uhppoted.Types;
 --
 --  Implements the functions required to manage UHPPOTE controllers over UDP or TCP/IP.
 --
+
 package Uhppoted.Lib is
    use Interfaces;
    use GNAT.Sockets;
@@ -20,9 +21,9 @@ package Uhppoted.Lib is
    --  @field Listen_Addr    Local socket address::port for controller events.
    --  @field Debug          Enables verbose logging and debugging output.
    type UHPPOTE is record
-      Bind_Addr      : Sock_Addr_Type := (Addr => Any_Inet_Addr,       Family => Family_Inet, Port => 0);
+      Bind_Addr      : Sock_Addr_Type := (Addr => Any_Inet_Addr, Family => Family_Inet, Port => 0);
       Broadcast_Addr : Sock_Addr_Type := (Addr => Broadcast_Inet_Addr, Family => Family_Inet, Port => 60000);
-      Listen_Addr    : Sock_Addr_Type := (Addr => Any_Inet_Addr,       Family => Family_Inet, Port => 60001);
+      Listen_Addr    : Sock_Addr_Type := (Addr => Any_Inet_Addr, Family => Family_Inet, Port => 60001);
       Debug          : Boolean := False;
    end record;
 
@@ -245,8 +246,7 @@ package Uhppoted.Lib is
    --  @param  Timeout  Operation timeout (defaults to 2.5s).
    --
    --  @return          List of Controller_Record.
-   function Find_Controllers (U       : UHPPOTE;
-                              Timeout : Duration := 2.5) return Controller_Record_List;
+   function Find_Controllers (U : UHPPOTE; Timeout : Duration := 2.5) return Controller_Record_List;
 
    --  Retrieves the information for a single access controller. Restricted to the local LAN.
    --
@@ -258,9 +258,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Controller (U       : UHPPOTE;
-                            C       : Unsigned_32;
-                            Timeout : Duration := 2.5) return Controller_Record;
+   function Get_Controller (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Controller_Record;
 
    --  Retrieves the information for a single access controller.
    --
@@ -272,9 +270,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Controller (U : UHPPOTE;
-                            C : Controller;
-                            Timeout : Duration := 2.5) return Controller_Record;
+   function Get_Controller (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Controller_Record;
 
    --  Sets the access controller IPv4 address, subnet mask and gateway address. Restricted to the local LAN.
    --
@@ -326,9 +322,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Time (U : UHPPOTE;
-                      C : Unsigned_32;
-                      Timeout : Duration := 2.5) return DateTime;
+   function Get_Time (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return DateTime;
 
    --  Retrieves the access controller date/time.
    --
@@ -340,9 +334,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Time (U : UHPPOTE;
-                      C : Controller;
-                      Timeout : Duration := 2.5) return DateTime;
+   function Get_Time (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return DateTime;
 
    --  Sets the access controller date/time.
    --
@@ -355,10 +347,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Time (U  : UHPPOTE;
-                      C  : Unsigned_32;
-                      DT : DateTime;
-                      Timeout : Duration := 2.5) return DateTime;
+   function Set_Time (U : UHPPOTE; C : Unsigned_32; DT : DateTime; Timeout : Duration := 2.5) return DateTime;
 
    --  Sets the access controller date/time.
    --
@@ -371,10 +360,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Time (U  : UHPPOTE;
-                      C  : Controller;
-                      DT : DateTime;
-                      Timeout : Duration := 2.5) return DateTime;
+   function Set_Time (U : UHPPOTE; C : Controller; DT : DateTime; Timeout : Duration := 2.5) return DateTime;
 
    --  Retrieves the access controller listener address:port and auto-send interval. Restricted to the local LAN.
    --
@@ -386,9 +372,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Listener (U       : UHPPOTE;
-                          C       : Unsigned_32;
-                          Timeout : Duration := 2.5) return Listener_Record;
+   function Get_Listener (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Listener_Record;
 
    --  Retrieves the access controller listener address:port and auto-send interval.
    --
@@ -400,9 +384,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Listener (U       : UHPPOTE;
-                          C       : Controller;
-                          Timeout : Duration := 2.5) return Listener_Record;
+   function Get_Listener (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Listener_Record;
 
    --  Sets the access controller listener address:port and auto-send interval.
    --
@@ -450,9 +432,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Status (U : UHPPOTE;
-                        C : Unsigned_32;
-                        Timeout : Duration := 2.5) return Controller_Status;
+   function Get_Status (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Controller_Status;
 
    --  Retrieves the access controller status.
    --
@@ -464,9 +444,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Status (U : UHPPOTE;
-                        C : Controller;
-                        Timeout : Duration := 2.5) return Controller_Status;
+   function Get_Status (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Controller_Status;
 
    --  Retrieves a door control mode and open delay. Restricted to the local LAN.
    --
@@ -479,10 +457,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Door (U       : UHPPOTE;
-                      C       : Unsigned_32;
-                      Door    : Unsigned_8;
-                      Timeout : Duration := 2.5) return Door_Record;
+   function Get_Door (U : UHPPOTE; C : Unsigned_32; Door : Unsigned_8; Timeout : Duration := 2.5) return Door_Record;
 
    --  Retrieves a door control mode and open delay.
    --
@@ -495,10 +470,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Door (U       : UHPPOTE;
-                      C       : Controller;
-                      Door    : Unsigned_8;
-                      Timeout : Duration := 2.5) return Door_Record;
+   function Get_Door (U : UHPPOTE; C : Controller; Door : Unsigned_8; Timeout : Duration := 2.5) return Door_Record;
 
    --  Sets a door control mode and open delay. Restricted to the local LAN.
    --
@@ -587,10 +559,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Open_Door (U       : UHPPOTE;
-                       C       : Unsigned_32;
-                       Door    : Unsigned_8;
-                       Timeout : Duration := 2.5) return Boolean;
+   function Open_Door (U : UHPPOTE; C : Unsigned_32; Door : Unsigned_8; Timeout : Duration := 2.5) return Boolean;
 
    --  Remotely unlocks a door.
    --
@@ -603,10 +572,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Open_Door (U       : UHPPOTE;
-                       C       : Controller;
-                       Door    : Unsigned_8;
-                       Timeout : Duration := 2.5) return Boolean;
+   function Open_Door (U : UHPPOTE; C : Controller; Door : Unsigned_8; Timeout : Duration := 2.5) return Boolean;
 
    --  Retrieves the number of cards stored on an access controller. Restricted to the local LAN.
    --
@@ -618,9 +584,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Cards (U       : UHPPOTE;
-                       C       : Unsigned_32;
-                       Timeout : Duration := 2.5) return Unsigned_32;
+   function Get_Cards (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Unsigned_32;
 
    --  Retrieves the number of cards stored on an access controller.
    --
@@ -632,9 +596,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Cards (U       : UHPPOTE;
-                       C       : Controller;
-                       Timeout : Duration := 2.5) return Unsigned_32;
+   function Get_Cards (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Unsigned_32;
 
    --  Retrieves the card record for the requested card number. Restricted to the local LAN.
    --
@@ -648,10 +610,7 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    --  @exception Card_Not_Found_Error   if there is no record at the index.
-   function Get_Card (U       : UHPPOTE;
-                      C       : Unsigned_32;
-                      Card    : Unsigned_32;
-                      Timeout : Duration := 2.5) return Card_Record;
+   function Get_Card (U : UHPPOTE; C : Unsigned_32; Card : Unsigned_32; Timeout : Duration := 2.5) return Card_Record;
 
    --  Retrieves the card record for the requested card number.
    --
@@ -665,10 +624,7 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    --  @exception Card_Not_Found_Error   if there is no record at the index.
-   function Get_Card (U       : UHPPOTE;
-                      C       : Controller;
-                      Card    : Unsigned_32;
-                      Timeout : Duration := 2.5) return Card_Record;
+   function Get_Card (U : UHPPOTE; C : Controller; Card : Unsigned_32; Timeout : Duration := 2.5) return Card_Record;
 
    --  Retrieves the card record at the request index. Restricted to the local LAN.
    --
@@ -683,10 +639,8 @@ package Uhppoted.Lib is
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    --  @exception Card_Not_Found_Error   if there is no record at the index.
    --  @exception Card_Deleted_Error     if the record at the index has been deleted.
-   function Get_Card_At_Index (U       : UHPPOTE;
-                               C       : Unsigned_32;
-                               Index   : Unsigned_32;
-                               Timeout : Duration := 2.5) return Card_Record;
+   function Get_Card_At_Index
+     (U : UHPPOTE; C : Unsigned_32; Index : Unsigned_32; Timeout : Duration := 2.5) return Card_Record;
 
    --  Retrieves the card record at the request index.
    --
@@ -701,10 +655,8 @@ package Uhppoted.Lib is
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    --  @exception Card_Not_Found_Error   if there is no record at the index.
    --  @exception Card_Deleted_Error     if the record at the index has been deleted.
-   function Get_Card_At_Index (U       : UHPPOTE;
-                               C       : Controller;
-                               Index   : Unsigned_32;
-                               Timeout : Duration := 2.5) return Card_Record;
+   function Get_Card_At_Index
+     (U : UHPPOTE; C : Controller; Index : Unsigned_32; Timeout : Duration := 2.5) return Card_Record;
 
    --  Adds/updates a card record to the controller's stored. Restricted to the local LAN.
    --
@@ -718,10 +670,7 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    --  @exception Card_Not_Found_Error   if there is no record at the index.
-   function Put_Card (U          : UHPPOTE;
-                      C          : Unsigned_32;
-                      Card       : Card_Record;
-                      Timeout    : Duration := 2.5) return Boolean;
+   function Put_Card (U : UHPPOTE; C : Unsigned_32; Card : Card_Record; Timeout : Duration := 2.5) return Boolean;
 
    --  Adds/updates a card record to the controller's stored.
    --
@@ -735,10 +684,7 @@ package Uhppoted.Lib is
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    --  @exception Card_Not_Found_Error   if there is no record at the index.
-   function Put_Card (U          : UHPPOTE;
-                      C          : Controller;
-                      Card       : Card_Record;
-                      Timeout    : Duration := 2.5) return Boolean;
+   function Put_Card (U : UHPPOTE; C : Controller; Card : Card_Record; Timeout : Duration := 2.5) return Boolean;
 
    --  Deletes the the card record for the requested card number. Restricted to the local LAN.
    --
@@ -751,10 +697,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Delete_Card (U       : UHPPOTE;
-                         C       : Unsigned_32;
-                         Card    : Unsigned_32;
-                         Timeout : Duration := 2.5) return Boolean;
+   function Delete_Card (U : UHPPOTE; C : Unsigned_32; Card : Unsigned_32; Timeout : Duration := 2.5) return Boolean;
 
    --  Deletes the the card record for the requested card number.
    --
@@ -767,10 +710,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Delete_Card (U       : UHPPOTE;
-                         C       : Controller;
-                         Card    : Unsigned_32;
-                         Timeout : Duration := 2.5) return Boolean;
+   function Delete_Card (U : UHPPOTE; C : Controller; Card : Unsigned_32; Timeout : Duration := 2.5) return Boolean;
 
    --  Deletes all card records from the controller. Restricted to the local LAN.
    --
@@ -782,9 +722,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Delete_All_Cards (U       : UHPPOTE;
-                              C       : Unsigned_32;
-                              Timeout : Duration := 2.5) return Boolean;
+   function Delete_All_Cards (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Boolean;
 
    --  Deletes all card records from the controller.
    --
@@ -796,9 +734,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Delete_All_Cards (U       : UHPPOTE;
-                              C       : Controller;
-                              Timeout : Duration := 2.5) return Boolean;
+   function Delete_All_Cards (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Boolean;
 
    --  Retrieves an event index from the controller. Restricted to the local LAN.
    --
@@ -813,10 +749,8 @@ package Uhppoted.Lib is
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    --  @exception Event_Not_Found        if the event index does not match an existing record.
    --  @exception Event_Overwritten      if the event at the index has been overwritten.
-   function Get_Event (U       : UHPPOTE;
-                       C       : Unsigned_32;
-                       Index   : Unsigned_32;
-                       Timeout : Duration := 2.5) return Controller_Event;
+   function Get_Event
+     (U : UHPPOTE; C : Unsigned_32; Index : Unsigned_32; Timeout : Duration := 2.5) return Controller_Event;
 
    --  Retrieves an event index from the controller.
    --
@@ -846,9 +780,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Event_Index (U       : UHPPOTE;
-                             C       : Unsigned_32;
-                             Timeout : Duration := 2.5) return Unsigned_32;
+   function Get_Event_Index (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Unsigned_32;
 
    --  Retrieves the event index from the controller.
    --
@@ -860,9 +792,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Event_Index (U       : UHPPOTE;
-                             C       : Controller;
-                             Timeout : Duration := 2.5) return Unsigned_32;
+   function Get_Event_Index (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Unsigned_32;
 
    --  Sets the downloaded event index on the controller. Restricted to the local LAN.
    --
@@ -1008,9 +938,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
-   function Clear_Time_Profiles (U          : UHPPOTE;
-                                 C          : Unsigned_32;
-                                 Timeout    : Duration := 2.5) return Boolean;
+   function Clear_Time_Profiles (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Boolean;
 
    --  Clears all time profiles stored on a controller.
    --
@@ -1022,9 +950,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
-   function Clear_Time_Profiles (U          : UHPPOTE;
-                                 C          : Controller;
-                                 Timeout    : Duration := 2.5) return Boolean;
+   function Clear_Time_Profiles (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Boolean;
 
    --  Creates a scheduled task assigned to a controller managed door. Restricted to the local LAN.
    --
@@ -1037,10 +963,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
-   function Add_Task (U       : UHPPOTE;
-                      C       : Unsigned_32;
-                      T       : Task_Record;
-                      Timeout : Duration := 2.5) return Boolean;
+   function Add_Task (U : UHPPOTE; C : Unsigned_32; T : Task_Record; Timeout : Duration := 2.5) return Boolean;
 
    --  Creates a scheduled task assigned to a controller managed door.
    --
@@ -1053,10 +976,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller/profile ID.
-   function Add_Task (U       : UHPPOTE;
-                      C       : Controller;
-                      T       : Task_Record;
-                      Timeout : Duration := 2.5) return Boolean;
+   function Add_Task (U : UHPPOTE; C : Controller; T : Task_Record; Timeout : Duration := 2.5) return Boolean;
 
    --  Moves pending tasks and first-cards from the pending list to the active list. Restricted to the local LAN.
    --
@@ -1068,9 +988,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Refresh_Task_List (U       : UHPPOTE;
-                               C       : Unsigned_32;
-                               Timeout : Duration := 2.5) return Boolean;
+   function Refresh_Task_List (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Boolean;
 
    --  Moves pending tasks and first-cards from the pending list to the active list.
    --
@@ -1082,9 +1000,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Refresh_Task_List (U       : UHPPOTE;
-                               C       : Controller;
-                               Timeout : Duration := 2.5) return Boolean;
+   function Refresh_Task_List (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Boolean;
 
    --  Clears all tasks from the scheduled tasks list. Restricted to the local LAN.
    --
@@ -1096,9 +1012,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Clear_Task_List (U       : UHPPOTE;
-                             C       : Unsigned_32;
-                             Timeout : Duration := 2.5) return Boolean;
+   function Clear_Task_List (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Boolean;
 
    --  Clears all tasks from the scheduled tasks list.
    --
@@ -1110,9 +1024,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Clear_Task_List (U       : UHPPOTE;
-                             C       : Controller;
-                             Timeout : Duration := 2.5) return Boolean;
+   function Clear_Task_List (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Boolean;
 
    --  Enables/disables remote access control - the access controller will revert to local access control
    --  management if no message is received from the host for 30 seconds. Restricted to the local LAN.
@@ -1126,10 +1038,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_PC_Control (U       : UHPPOTE;
-                            C       : Unsigned_32;
-                            Enable  : Boolean;
-                            Timeout : Duration := 2.5) return Boolean;
+   function Set_PC_Control (U : UHPPOTE; C : Unsigned_32; Enable : Boolean; Timeout : Duration := 2.5) return Boolean;
 
    --  Enables/disables remote access control - the access controller will revert to local access control
    --  management if no message is received from the host for 30 seconds.
@@ -1143,10 +1052,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_PC_Control (U       : UHPPOTE;
-                            C       : Controller;
-                            Enable  : Boolean;
-                            Timeout : Duration := 2.5) return Boolean;
+   function Set_PC_Control (U : UHPPOTE; C : Controller; Enable : Boolean; Timeout : Duration := 2.5) return Boolean;
 
    --  Sets the controller door interlock mode. Restricted to the local LAN.
    --
@@ -1175,10 +1081,8 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Interlock (U         : UHPPOTE;
-                           C         : Controller;
-                           Interlock : Uhppoted.Lib.Interlock;
-                           Timeout : Duration := 2.5) return Boolean;
+   function Set_Interlock
+     (U : UHPPOTE; C : Controller; Interlock : Uhppoted.Lib.Interlock; Timeout : Duration := 2.5) return Boolean;
 
    --  Activates/deactivates the keypads associated with a controller door card reader. Restricted to the local LAN.
    --
@@ -1222,9 +1126,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Antipassback (U       : UHPPOTE;
-                              C       : Unsigned_32;
-                              Timeout : Duration := 2.5) return Antipassback;
+   function Get_Antipassback (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Antipassback;
 
    --  Retrieves the controller anti-passback setting.
    --
@@ -1236,9 +1138,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Get_Antipassback (U       : UHPPOTE;
-                              C       : Controller;
-                              Timeout : Duration := 2.5) return Antipassback;
+   function Get_Antipassback (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Antipassback;
 
    --  Sets the controller anti-passback setting. Restricted to the local LAN.
    --
@@ -1320,9 +1220,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Restore_Default_Parameters (U       : UHPPOTE;
-                                        C       : Unsigned_32;
-                                        Timeout : Duration := 2.5) return Boolean;
+   function Restore_Default_Parameters (U : UHPPOTE; C : Unsigned_32; Timeout : Duration := 2.5) return Boolean;
 
    --  Resets the controller to the manufacturer settings.
    --
@@ -1334,9 +1232,7 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Restore_Default_Parameters (U       : UHPPOTE;
-                                        C       : Controller;
-                                        Timeout : Duration := 2.5) return Boolean;
+   function Restore_Default_Parameters (U : UHPPOTE; C : Controller; Timeout : Duration := 2.5) return Boolean;
 
    --  Establishes a UDP connection to receive controller events.
    --
@@ -1357,7 +1253,7 @@ package Uhppoted.Lib is
    --  @param MAC The MAC address to be converted.
    --  @return A string containing the formatted MAC address.
    --  @see Uhppoted.Types.Image
-   function Image (MAC  : Hardware_Addr) return String renames Uhppoted.Types.Image;
+   function Image (MAC : Hardware_Addr) return String renames Uhppoted.Types.Image;
 
    --  Returns a string representation of the given date in yyyy-mm-dd format (e.g., "2026-02-26").
    --

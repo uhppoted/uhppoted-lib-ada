@@ -6,6 +6,7 @@ with Uhppoted.Lib.Codec;
 
 --  Reply message record definitions.
 --
+
 package Uhppoted.Lib.Replies is
 
    --  (weird gnatdoc bug: blank lines above and below required or param/field tags are rejected)
@@ -19,10 +20,11 @@ package Uhppoted.Lib.Replies is
       Minor : Unsigned_8;
    end record;
 
-   for Version_Field use record
-      Major at 0 range 0 ..  7;
-      Minor at 0 range 8 .. 15;
-   end record;
+   for Version_Field use
+     record
+       Major at 0 range 0 .. 7;
+       Minor at 0 range 8 .. 15;
+     end record;
 
    for Version_Field'Size use 16;
 
@@ -53,19 +55,20 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 32);
    end record;
 
-   for Get_Controller_Reply use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Address    at  8 range 0 ..  31;
-      Netmask    at 12 range 0 ..  31;
-      Gateway    at 16 range 0 ..  31;
-      MAC        at 20 range 0 ..  47;
-      Version    at 26 range 0 ..  15;
-      Date       at 28 range 0 ..  31;
-      Padding    at 32 range 0 .. 255;
-   end record;
+   for Get_Controller_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Address at 8 range 0 .. 31;
+       Netmask at 12 range 0 .. 31;
+       Gateway at 16 range 0 .. 31;
+       MAC at 20 range 0 .. 47;
+       Version at 26 range 0 .. 15;
+       Date at 28 range 0 .. 31;
+       Padding at 32 range 0 .. 255;
+     end record;
 
    for Get_Controller_Reply'Size use 64 * 8;
    for Get_Controller_Reply'Bit_Order use System.Low_Order_First;
@@ -88,14 +91,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_IPv4_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_IPv4_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_IPv4_Reply'Size use 64 * 8;
    for Set_IPv4_Reply'Bit_Order use System.Low_Order_First;
@@ -118,14 +122,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
    end record;
 
-   for Get_Time_Response use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Date_Time  at  8 range 0 ..  55;
-      Padding    at 15 range 0 .. 383;
-   end record;
+   for Get_Time_Response use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Date_Time at 8 range 0 .. 55;
+       Padding at 15 range 0 .. 383;
+     end record;
 
    for Get_Time_Response'Size use 64 * 8;
    for Get_Time_Response'Bit_Order use System.Low_Order_First;
@@ -148,14 +153,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
    end record;
 
-   for Set_Time_Response use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Date_Time  at  8 range 0 ..  55;
-      Padding    at 15 range 0 .. 383;
-   end record;
+   for Set_Time_Response use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Date_Time at 8 range 0 .. 55;
+       Padding at 15 range 0 .. 383;
+     end record;
 
    for Set_Time_Response'Size use 64 * 8;
    for Set_Time_Response'Bit_Order use System.Low_Order_First;
@@ -182,16 +188,17 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
    end record;
 
-   for Get_Listener_Response use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Address    at  8 range 0 ..  31;
-      Port       at 12 range 0 ..  15;
-      Interval   at 14 range 0 ..   7;
-      Padding    at 15 range 0 .. 383;
-   end record;
+   for Get_Listener_Response use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Address at 8 range 0 .. 31;
+       Port at 12 range 0 .. 15;
+       Interval at 14 range 0 .. 7;
+       Padding at 15 range 0 .. 383;
+     end record;
 
    for Get_Listener_Response'Size use 64 * 8;
    for Get_Listener_Response'Bit_Order use System.Low_Order_First;
@@ -218,16 +225,17 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
    end record;
 
-   for Get_Listener_Addr_Port_Response use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Address    at  8 range 0 ..  31;
-      Port       at 12 range 0 ..  15;
-      Interval   at 14 range 0 ..   7;
-      Padding    at 15 range 0 .. 383;
-   end record;
+   for Get_Listener_Addr_Port_Response use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Address at 8 range 0 .. 31;
+       Port at 12 range 0 .. 15;
+       Interval at 14 range 0 .. 7;
+       Padding at 15 range 0 .. 383;
+     end record;
 
    for Get_Listener_Addr_Port_Response'Size use 64 * 8;
    for Get_Listener_Addr_Port_Response'Bit_Order use System.Low_Order_First;
@@ -250,14 +258,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_Listener_Response use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_Listener_Response use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_Listener_Response'Size use 64 * 8;
    for Set_Listener_Response'Bit_Order use System.Low_Order_First;
@@ -280,14 +289,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_Listener_Addr_Port_Response use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_Listener_Addr_Port_Response use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_Listener_Addr_Port_Response'Size use 64 * 8;
    for Set_Listener_Addr_Port_Response'Bit_Order use System.Low_Order_First;
@@ -354,36 +364,37 @@ package Uhppoted.Lib.Replies is
       Padding              : Ada.Streams.Stream_Element_Array (1 .. 10);
    end record;
 
-   for Get_Status_Response use record
-      SOM                  at  0 range 0 ..  7;
-      Opcode               at  1 range 0 ..  7;
-      Reserved             at  2 range 0 .. 15;
-      Controller           at  4 range 0 .. 31;
-      Event_Index          at  8 range 0 .. 31;
-      Event_Type           at 12 range 0 ..  7;
-      Event_Access_Granted at 13 range 0 ..  7;
-      Event_Door           at 14 range 0 ..  7;
-      Event_Direction      at 15 range 0 ..  7;
-      Event_Card           at 16 range 0 .. 31;
-      Event_Timestamp      at 20 range 0 .. 55;
-      Event_Reason         at 27 range 0 ..  7;
-      Door_1_Open          at 28 range 0 ..  7;
-      Door_2_Open          at 29 range 0 ..  7;
-      Door_3_Open          at 30 range 0 ..  7;
-      Door_4_Open          at 31 range 0 ..  7;
-      Door_1_Button        at 32 range 0 ..  7;
-      Door_2_Button        at 33 range 0 ..  7;
-      Door_3_Button        at 34 range 0 ..  7;
-      Door_4_Button        at 35 range 0 ..  7;
-      System_Error         at 36 range 0 ..  7;
-      System_Time          at 37 range 0 .. 23;
-      Sequence_No          at 40 range 0 .. 31;
-      Special_Info         at 48 range 0 ..  7;
-      Relays               at 49 range 0 ..  7;
-      Inputs               at 50 range 0 ..  7;
-      System_Date          at 51 range 0 .. 23;
-      Padding              at 54 range 0 .. 79;
-   end record;
+   for Get_Status_Response use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Event_Index at 8 range 0 .. 31;
+       Event_Type at 12 range 0 .. 7;
+       Event_Access_Granted at 13 range 0 .. 7;
+       Event_Door at 14 range 0 .. 7;
+       Event_Direction at 15 range 0 .. 7;
+       Event_Card at 16 range 0 .. 31;
+       Event_Timestamp at 20 range 0 .. 55;
+       Event_Reason at 27 range 0 .. 7;
+       Door_1_Open at 28 range 0 .. 7;
+       Door_2_Open at 29 range 0 .. 7;
+       Door_3_Open at 30 range 0 .. 7;
+       Door_4_Open at 31 range 0 .. 7;
+       Door_1_Button at 32 range 0 .. 7;
+       Door_2_Button at 33 range 0 .. 7;
+       Door_3_Button at 34 range 0 .. 7;
+       Door_4_Button at 35 range 0 .. 7;
+       System_Error at 36 range 0 .. 7;
+       System_Time at 37 range 0 .. 23;
+       Sequence_No at 40 range 0 .. 31;
+       Special_Info at 48 range 0 .. 7;
+       Relays at 49 range 0 .. 7;
+       Inputs at 50 range 0 .. 7;
+       System_Date at 51 range 0 .. 23;
+       Padding at 54 range 0 .. 79;
+     end record;
 
    for Get_Status_Response'Size use 64 * 8;
    for Get_Status_Response'Bit_Order use System.Low_Order_First;
@@ -410,16 +421,17 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 53);
    end record;
 
-   for Get_Door_Response use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Door       at  8 range 0 ..   7;
-      Mode       at  9 range 0 ..   7;
-      Open_Delay at 10 range 0 ..   7;
-      Padding    at 11 range 0 .. 423;
-   end record;
+   for Get_Door_Response use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Door at 8 range 0 .. 7;
+       Mode at 9 range 0 .. 7;
+       Open_Delay at 10 range 0 .. 7;
+       Padding at 11 range 0 .. 423;
+     end record;
 
    for Get_Door_Response'Size use 64 * 8;
    for Get_Door_Response'Bit_Order use System.Low_Order_First;
@@ -446,16 +458,17 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 53);
    end record;
 
-   for Set_Door_Response use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Door       at  8 range 0 ..   7;
-      Mode       at  9 range 0 ..   7;
-      Open_Delay at 10 range 0 ..   7;
-      Padding    at 11 range 0 .. 423;
-   end record;
+   for Set_Door_Response use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Door at 8 range 0 .. 7;
+       Mode at 9 range 0 .. 7;
+       Open_Delay at 10 range 0 .. 7;
+       Padding at 11 range 0 .. 423;
+     end record;
 
    for Set_Door_Response'Size use 64 * 8;
    for Set_Door_Response'Bit_Order use System.Low_Order_First;
@@ -478,14 +491,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_Door_Passcodes_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_Door_Passcodes_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_Door_Passcodes_Reply'Size use 64 * 8;
    for Set_Door_Passcodes_Reply'Bit_Order use System.Low_Order_First;
@@ -508,14 +522,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Open_Door_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Open_Door_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Open_Door_Reply'Size use 64 * 8;
    for Open_Door_Reply'Bit_Order use System.Low_Order_First;
@@ -538,14 +553,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52);
    end record;
 
-   for Get_Cards_Reply use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Cards      at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Get_Cards_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Cards at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Get_Cards_Reply'Size use 64 * 8;
    for Get_Cards_Reply'Bit_Order use System.Low_Order_First;
@@ -582,21 +598,22 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 37);
    end record;
 
-   for Get_Card_Reply use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Card       at  8 range 0 ..  31;
-      Start_Date at 12 range 0 ..  31;
-      End_Date   at 16 range 0 ..  31;
-      Door_1     at 20 range 0 ..   7;
-      Door_2     at 21 range 0 ..   7;
-      Door_3     at 22 range 0 ..   7;
-      Door_4     at 23 range 0 ..   7;
-      PIN        at 24 range 0 ..  23;
-      Padding    at 27 range 0 .. 295;
-   end record;
+   for Get_Card_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Card at 8 range 0 .. 31;
+       Start_Date at 12 range 0 .. 31;
+       End_Date at 16 range 0 .. 31;
+       Door_1 at 20 range 0 .. 7;
+       Door_2 at 21 range 0 .. 7;
+       Door_3 at 22 range 0 .. 7;
+       Door_4 at 23 range 0 .. 7;
+       PIN at 24 range 0 .. 23;
+       Padding at 27 range 0 .. 295;
+     end record;
 
    for Get_Card_Reply'Size use 64 * 8;
    for Get_Card_Reply'Bit_Order use System.Low_Order_First;
@@ -633,21 +650,22 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 37);
    end record;
 
-   for Get_Card_At_Index_Reply use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Card       at  8 range 0 ..  31;
-      Start_Date at 12 range 0 ..  31;
-      End_Date   at 16 range 0 ..  31;
-      Door_1     at 20 range 0 ..   7;
-      Door_2     at 21 range 0 ..   7;
-      Door_3     at 22 range 0 ..   7;
-      Door_4     at 23 range 0 ..   7;
-      PIN        at 24 range 0 ..  23;
-      Padding    at 27 range 0 .. 295;
-   end record;
+   for Get_Card_At_Index_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Card at 8 range 0 .. 31;
+       Start_Date at 12 range 0 .. 31;
+       End_Date at 16 range 0 .. 31;
+       Door_1 at 20 range 0 .. 7;
+       Door_2 at 21 range 0 .. 7;
+       Door_3 at 22 range 0 .. 7;
+       Door_4 at 23 range 0 .. 7;
+       PIN at 24 range 0 .. 23;
+       Padding at 27 range 0 .. 295;
+     end record;
 
    for Get_Card_At_Index_Reply'Size use 64 * 8;
    for Get_Card_At_Index_Reply'Bit_Order use System.Low_Order_First;
@@ -670,14 +688,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Put_Card_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Put_Card_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Put_Card_Reply'Size use 64 * 8;
    for Put_Card_Reply'Bit_Order use System.Low_Order_First;
@@ -700,14 +719,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Delete_Card_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Delete_Card_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Delete_Card_Reply'Size use 64 * 8;
    for Delete_Card_Reply'Bit_Order use System.Low_Order_First;
@@ -730,14 +750,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Delete_All_Cards_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Delete_All_Cards_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Delete_All_Cards_Reply'Size use 64 * 8;
    for Delete_All_Cards_Reply'Bit_Order use System.Low_Order_First;
@@ -759,36 +780,37 @@ package Uhppoted.Lib.Replies is
    --  @field  Reason          Event reason code.
    --  @field  Padding         Unused bytes.
    type Get_Event_Reply is record
-      SOM                  : Unsigned_8;
-      Opcode               : Unsigned_8;
-      Reserved             : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
-      Controller           : Unsigned_32;
-      Index                : Unsigned_32;
-      Event_Type           : Unsigned_8;
-      Access_Granted       : Unsigned_8;
-      Door                 : Unsigned_8;
-      Direction            : Unsigned_8;
-      Card                 : Unsigned_32;
-      Timestamp            : Uhppoted.Lib.Types.BCD (1 .. 7);
-      Reason               : Unsigned_8;
-      Padding              : Ada.Streams.Stream_Element_Array (1 .. 36);
+      SOM            : Unsigned_8;
+      Opcode         : Unsigned_8;
+      Reserved       : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
+      Controller     : Unsigned_32;
+      Index          : Unsigned_32;
+      Event_Type     : Unsigned_8;
+      Access_Granted : Unsigned_8;
+      Door           : Unsigned_8;
+      Direction      : Unsigned_8;
+      Card           : Unsigned_32;
+      Timestamp      : Uhppoted.Lib.Types.BCD (1 .. 7);
+      Reason         : Unsigned_8;
+      Padding        : Ada.Streams.Stream_Element_Array (1 .. 36);
    end record;
 
-   for Get_Event_Reply use record
-      SOM            at  0 range 0 ..   7;
-      Opcode         at  1 range 0 ..   7;
-      Reserved       at  2 range 0 ..  15;
-      Controller     at  4 range 0 ..  31;
-      Index          at  8 range 0 ..  31;
-      Event_Type     at 12 range 0 ..   7;
-      Access_Granted at 13 range 0 ..   7;
-      Door           at 14 range 0 ..   7;
-      Direction      at 15 range 0 ..   7;
-      Card           at 16 range 0 ..  31;
-      Timestamp      at 20 range 0 ..  55;
-      Reason         at 27 range 0 ..   7;
-      Padding        at 28 range 0 .. 287;
-   end record;
+   for Get_Event_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Index at 8 range 0 .. 31;
+       Event_Type at 12 range 0 .. 7;
+       Access_Granted at 13 range 0 .. 7;
+       Door at 14 range 0 .. 7;
+       Direction at 15 range 0 .. 7;
+       Card at 16 range 0 .. 31;
+       Timestamp at 20 range 0 .. 55;
+       Reason at 27 range 0 .. 7;
+       Padding at 28 range 0 .. 287;
+     end record;
 
    for Get_Event_Reply'Size use 64 * 8;
    for Get_Event_Reply'Bit_Order use System.Low_Order_First;
@@ -811,14 +833,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52);
    end record;
 
-   for Get_Event_Index_Reply use record
-      SOM        at  0 range 0 ..   7;
-      Opcode     at  1 range 0 ..   7;
-      Reserved   at  2 range 0 ..  15;
-      Controller at  4 range 0 ..  31;
-      Index      at  8 range 0 ..  31;
-      Padding    at 12 range 0 .. 415;
-   end record;
+   for Get_Event_Index_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Index at 8 range 0 .. 31;
+       Padding at 12 range 0 .. 415;
+     end record;
 
    for Get_Event_Index_Reply'Size use 64 * 8;
    for Get_Event_Index_Reply'Bit_Order use System.Low_Order_First;
@@ -841,14 +864,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_Event_Index_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_Event_Index_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_Event_Index_Reply'Size use 64 * 8;
    for Set_Event_Index_Reply'Bit_Order use System.Low_Order_First;
@@ -871,14 +895,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Record_Special_Events_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Record_Special_Events_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Record_Special_Events_Reply'Size use 64 * 8;
    for Record_Special_Events_Reply'Bit_Order use System.Low_Order_First;
@@ -933,30 +958,31 @@ package Uhppoted.Lib.Replies is
       Padding         : Ada.Streams.Stream_Element_Array (1 .. 27);
    end record;
 
-   for Get_Time_Profile_Reply use record
-      SOM             at  0 range 0 ..   7;
-      Opcode          at  1 range 0 ..   7;
-      Reserved        at  2 range 0 ..  15;
-      Controller      at  4 range 0 ..  31;
-      Profile         at  8 range 0 ..   7;
-      Start_Date      at  9 range 0 ..  31;
-      End_Date        at 13 range 0 ..  31;
-      Monday          at 17 range 0 ..   7;
-      Tuesday         at 18 range 0 ..   7;
-      Wednesday       at 19 range 0 ..   7;
-      Thursday        at 20 range 0 ..   7;
-      Friday          at 21 range 0 ..   7;
-      Saturday        at 22 range 0 ..   7;
-      Sunday          at 23 range 0 ..   7;
-      Segment_1_Start at 24 range 0 ..  15;
-      Segment_1_End   at 26 range 0 ..  15;
-      Segment_2_Start at 28 range 0 ..  15;
-      Segment_2_End   at 30 range 0 ..  15;
-      Segment_3_Start at 32 range 0 ..  15;
-      Segment_3_End   at 34 range 0 ..  15;
-      Linked_Profile  at 36 range 0 ..  7;
-      Padding         at 37 range 0 .. 215;
-   end record;
+   for Get_Time_Profile_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Profile at 8 range 0 .. 7;
+       Start_Date at 9 range 0 .. 31;
+       End_Date at 13 range 0 .. 31;
+       Monday at 17 range 0 .. 7;
+       Tuesday at 18 range 0 .. 7;
+       Wednesday at 19 range 0 .. 7;
+       Thursday at 20 range 0 .. 7;
+       Friday at 21 range 0 .. 7;
+       Saturday at 22 range 0 .. 7;
+       Sunday at 23 range 0 .. 7;
+       Segment_1_Start at 24 range 0 .. 15;
+       Segment_1_End at 26 range 0 .. 15;
+       Segment_2_Start at 28 range 0 .. 15;
+       Segment_2_End at 30 range 0 .. 15;
+       Segment_3_Start at 32 range 0 .. 15;
+       Segment_3_End at 34 range 0 .. 15;
+       Linked_Profile at 36 range 0 .. 7;
+       Padding at 37 range 0 .. 215;
+     end record;
 
    for Get_Time_Profile_Reply'Size use 64 * 8;
    for Get_Time_Profile_Reply'Bit_Order use System.Low_Order_First;
@@ -979,14 +1005,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_Time_Profile_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_Time_Profile_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_Time_Profile_Reply'Size use 64 * 8;
    for Set_Time_Profile_Reply'Bit_Order use System.Low_Order_First;
@@ -1009,14 +1036,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Clear_Time_Profiles_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Clear_Time_Profiles_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Clear_Time_Profiles_Reply'Size use 64 * 8;
    for Clear_Time_Profiles_Reply'Bit_Order use System.Low_Order_First;
@@ -1039,14 +1067,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Add_Task_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Add_Task_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Add_Task_Reply'Size use 64 * 8;
    for Add_Task_Reply'Bit_Order use System.Low_Order_First;
@@ -1069,14 +1098,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Refresh_Task_List_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Refresh_Task_List_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Refresh_Task_List_Reply'Size use 64 * 8;
    for Refresh_Task_List_Reply'Bit_Order use System.Low_Order_First;
@@ -1099,14 +1129,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Clear_Task_List_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Clear_Task_List_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Clear_Task_List_Reply'Size use 64 * 8;
    for Clear_Task_List_Reply'Bit_Order use System.Low_Order_First;
@@ -1129,14 +1160,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_PC_Control_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_PC_Control_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_PC_Control_Reply'Size use 64 * 8;
    for Set_PC_Control_Reply'Bit_Order use System.Low_Order_First;
@@ -1159,14 +1191,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_Interlock_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_Interlock_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_Interlock_Reply'Size use 64 * 8;
    for Set_Interlock_Reply'Bit_Order use System.Low_Order_First;
@@ -1189,14 +1222,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Activate_Keypads_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Activate_Keypads_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Activate_Keypads_Reply'Size use 64 * 8;
    for Activate_Keypads_Reply'Bit_Order use System.Low_Order_First;
@@ -1219,14 +1253,15 @@ package Uhppoted.Lib.Replies is
       Padding      : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Get_Antipassback_Reply use record
-      SOM          at 0 range 0 ..   7;
-      Opcode       at 1 range 0 ..   7;
-      Reserved     at 2 range 0 ..  15;
-      Controller   at 4 range 0 ..  31;
-      Antipassback at 8 range 0 ..   7;
-      Padding      at 9 range 0 .. 439;
-   end record;
+   for Get_Antipassback_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Antipassback at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Get_Antipassback_Reply'Size use 64 * 8;
    for Get_Antipassback_Reply'Bit_Order use System.Low_Order_First;
@@ -1249,14 +1284,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_Antipassback_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_Antipassback_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_Antipassback_Reply'Size use 64 * 8;
    for Set_Antipassback_Reply'Bit_Order use System.Low_Order_First;
@@ -1279,14 +1315,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Set_First_Card_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Set_First_Card_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Set_First_Card_Reply'Size use 64 * 8;
    for Set_First_Card_Reply'Bit_Order use System.Low_Order_First;
@@ -1309,14 +1346,15 @@ package Uhppoted.Lib.Replies is
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
-   for Restore_Default_Parameters_Reply use record
-      SOM        at 0 range 0 ..   7;
-      Opcode     at 1 range 0 ..   7;
-      Reserved   at 2 range 0 ..  15;
-      Controller at 4 range 0 ..  31;
-      Ok         at 8 range 0 ..   7;
-      Padding    at 9 range 0 .. 439;
-   end record;
+   for Restore_Default_Parameters_Reply use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Ok at 8 range 0 .. 7;
+       Padding at 9 range 0 .. 439;
+     end record;
 
    for Restore_Default_Parameters_Reply'Size use 64 * 8;
    for Restore_Default_Parameters_Reply'Bit_Order use System.Low_Order_First;
@@ -1383,36 +1421,37 @@ package Uhppoted.Lib.Replies is
       Padding              : Ada.Streams.Stream_Element_Array (1 .. 10);
    end record;
 
-   for Listener_Event use record
-      SOM                  at  0 range 0 ..  7;
-      Opcode               at  1 range 0 ..  7;
-      Reserved             at  2 range 0 .. 15;
-      Controller           at  4 range 0 .. 31;
-      Event_Index          at  8 range 0 .. 31;
-      Event_Type           at 12 range 0 ..  7;
-      Event_Access_Granted at 13 range 0 ..  7;
-      Event_Door           at 14 range 0 ..  7;
-      Event_Direction      at 15 range 0 ..  7;
-      Event_Card           at 16 range 0 .. 31;
-      Event_Timestamp      at 20 range 0 .. 55;
-      Event_Reason         at 27 range 0 ..  7;
-      Door_1_Open          at 28 range 0 ..  7;
-      Door_2_Open          at 29 range 0 ..  7;
-      Door_3_Open          at 30 range 0 ..  7;
-      Door_4_Open          at 31 range 0 ..  7;
-      Door_1_Button        at 32 range 0 ..  7;
-      Door_2_Button        at 33 range 0 ..  7;
-      Door_3_Button        at 34 range 0 ..  7;
-      Door_4_Button        at 35 range 0 ..  7;
-      System_Error         at 36 range 0 ..  7;
-      System_Time          at 37 range 0 .. 23;
-      Sequence_No          at 40 range 0 .. 31;
-      Special_Info         at 48 range 0 ..  7;
-      Relays               at 49 range 0 ..  7;
-      Inputs               at 50 range 0 ..  7;
-      System_Date          at 51 range 0 .. 23;
-      Padding              at 54 range 0 .. 79;
-   end record;
+   for Listener_Event use
+     record
+       SOM at 0 range 0 .. 7;
+       Opcode at 1 range 0 .. 7;
+       Reserved at 2 range 0 .. 15;
+       Controller at 4 range 0 .. 31;
+       Event_Index at 8 range 0 .. 31;
+       Event_Type at 12 range 0 .. 7;
+       Event_Access_Granted at 13 range 0 .. 7;
+       Event_Door at 14 range 0 .. 7;
+       Event_Direction at 15 range 0 .. 7;
+       Event_Card at 16 range 0 .. 31;
+       Event_Timestamp at 20 range 0 .. 55;
+       Event_Reason at 27 range 0 .. 7;
+       Door_1_Open at 28 range 0 .. 7;
+       Door_2_Open at 29 range 0 .. 7;
+       Door_3_Open at 30 range 0 .. 7;
+       Door_4_Open at 31 range 0 .. 7;
+       Door_1_Button at 32 range 0 .. 7;
+       Door_2_Button at 33 range 0 .. 7;
+       Door_3_Button at 34 range 0 .. 7;
+       Door_4_Button at 35 range 0 .. 7;
+       System_Error at 36 range 0 .. 7;
+       System_Time at 37 range 0 .. 23;
+       Sequence_No at 40 range 0 .. 31;
+       Special_Info at 48 range 0 .. 7;
+       Relays at 49 range 0 .. 7;
+       Inputs at 50 range 0 .. 7;
+       System_Date at 51 range 0 .. 23;
+       Padding at 54 range 0 .. 79;
+     end record;
 
    for Listener_Event'Size use 64 * 8;
    for Listener_Event'Bit_Order use System.Low_Order_First;

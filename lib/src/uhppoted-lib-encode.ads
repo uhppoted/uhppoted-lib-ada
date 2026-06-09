@@ -3,6 +3,7 @@ with Uhppoted.Lib.Types;
 
 --  Codec functions to encode a request message.
 --
+
 package Uhppoted.Lib.Encode is
 
    --  Encodes a get-controller request as a 64 byte array.
@@ -38,8 +39,7 @@ package Uhppoted.Lib.Encode is
    --  @param  DT          Date/time (yyyy-mm-dd HH:mm).
    --
    --  @return  Packet  64 byte message packet.
-   function Set_Time (Controller : Unsigned_32;
-                      DT         : Uhppoted.Types.DateTime) return Uhppoted.Lib.Types.Packet;
+   function Set_Time (Controller : Unsigned_32; DT : Uhppoted.Types.DateTime) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a get-listener request as a 64 byte array.
    --
@@ -92,8 +92,7 @@ package Uhppoted.Lib.Encode is
    --  @param  Door        Door ID [1..4].
    --
    --  @return  Packet  64 byte message packet.
-   function Get_Door (Controller : Unsigned_32;
-                      Door       : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+   function Get_Door (Controller : Unsigned_32; Door : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a set-door request as a 64 byte array.
    --
@@ -131,8 +130,7 @@ package Uhppoted.Lib.Encode is
    --  @param  Door        Door ID [1..4].
    --
    --  @return  Packet  64 byte message packet.
-   function Open_Door (Controller : Unsigned_32;
-                       Door       : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+   function Open_Door (Controller : Unsigned_32; Door : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a get-cards request as a 64 byte array.
    --
@@ -147,8 +145,7 @@ package Uhppoted.Lib.Encode is
    --  @param  Card        Card number.
    --
    --  @return  Packet  64 byte message packet.
-   function Get_Card (Controller : Unsigned_32;
-                      Card       : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+   function Get_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a get-card-by-index request as a 64 byte array.
    --
@@ -156,8 +153,7 @@ package Uhppoted.Lib.Encode is
    --  @param  Index       Card record index.
    --
    --  @return  Packet  64 byte message packet.
-   function Get_Card_At_Index (Controller : Unsigned_32;
-                               Index      : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+   function Get_Card_At_Index (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a put-card request as a 64 byte array.
    --
@@ -188,8 +184,7 @@ package Uhppoted.Lib.Encode is
    --  @param  Card        Card number.
    --
    --  @return  Packet  64 byte message packet.
-   function Delete_Card (Controller : Unsigned_32;
-                         Card       : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+   function Delete_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a delete-cards request as a 64 byte array.
    --
@@ -204,8 +199,7 @@ package Uhppoted.Lib.Encode is
    --  @param  Index       Event index.
    --
    --  @return  Packet  64 byte message packet.
-   function Get_Event (Controller : Unsigned_32;
-                       Index      : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+   function Get_Event (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a get-event-index request as a 64 byte array.
    --
@@ -228,8 +222,7 @@ package Uhppoted.Lib.Encode is
    --  @param  Enabled     Enables/disables door/pusbutton/etc events.
    --
    --  @return  Packet  64 byte message packet.
-   function Record_Special_Events (Controller : Unsigned_32;
-                                   Enabled    : Boolean) return Uhppoted.Lib.Types.Packet;
+   function Record_Special_Events (Controller : Unsigned_32; Enabled : Boolean) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a get-time-profile request as a 64 byte array.
    --
@@ -237,8 +230,7 @@ package Uhppoted.Lib.Encode is
    --  @param  Profile     Time profile ID [2..254].
    --
    --  @return  Packet  64 byte message packet.
-   function Get_Time_Profile (Controller : Unsigned_32;
-                              Profile    : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+   function Get_Time_Profile (Controller : Unsigned_32; Profile : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a set-time-profile request as a 64 byte array.
    --
@@ -342,8 +334,7 @@ package Uhppoted.Lib.Encode is
    --  @param  Enable      Enables/disables remote access control.
    --
    --  @return  Packet  64 byte message packet.
-   function Set_PC_Control (Controller : Unsigned_32;
-                            Enable     : Boolean) return Uhppoted.Lib.Types.Packet;
+   function Set_PC_Control (Controller : Unsigned_32; Enable : Boolean) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a set-interlock request as a 64 byte array.
    --

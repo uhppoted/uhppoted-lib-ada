@@ -2,6 +2,7 @@ with Ada.Strings.Unbounded;
 
 --  Internal record definitions for the response to commands and requests.
 --
+
 package Uhppoted.Lib.Responses is
    use Ada.Strings.Unbounded;
 

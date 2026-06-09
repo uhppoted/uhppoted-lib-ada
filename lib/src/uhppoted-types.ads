@@ -5,6 +5,7 @@ with GNAT.Sockets;
 
 --  Public types for use with the API library for the UHPPOTE access controllers.
 --
+
 package Uhppoted.Types is
    use Ada.Strings.Unbounded;
    use Interfaces;
@@ -175,12 +176,7 @@ package Uhppoted.Types is
    --  @enum Overwritten  Overwritten event.
    type Event_Type is (Unknown, Swipe, Door, Alarm, Overwritten);
 
-   for Event_Type use (
-      Unknown     => 0,
-      Swipe       => 1,
-      Door        => 2,
-      Alarm       => 3,
-      Overwritten => 255);
+   for Event_Type use (Unknown => 0, Swipe => 1, Door => 2, Alarm => 3, Overwritten => 255);
 
    --  Utility function to translate an Unsigned_8 to an event type enum.
    --
@@ -201,10 +197,7 @@ package Uhppoted.Types is
    --  @enum Direction_Out      Out.
    type Event_Direction is (Direction_Unknown, Direction_In, Direction_Out);
 
-   for Event_Direction use (
-      Direction_Unknown => 0,
-      Direction_In      => 1,
-      Direction_Out     => 2);
+   for Event_Direction use (Direction_Unknown => 0, Direction_In => 1, Direction_Out => 2);
 
    --  Utility function to translate an Unsigned_8 to an event direction enum.
    --
@@ -251,8 +244,8 @@ package Uhppoted.Types is
    --  @enum Remote_Open_Door             Warning: door opened remotely.
    --  @enum Remote_Open_Door_USB         Warning: door opened by USB reader.
    --  @enum Other                        Unknown reason.
-   type Event_Reason is (
-      SwipeOk,
+   type Event_Reason is
+     (SwipeOk,
       Denied_PC_Control,
       Denied_Not_Allowed,
       Denied_Incorrect_PIN,
@@ -286,39 +279,40 @@ package Uhppoted.Types is
       Remote_Open_Door_USB,
       Other);
 
-   for Event_Reason use (SwipeOk                     => 16#01#,   --  1
-                         Denied_PC_Control           => 16#05#,   --  5
-                         Denied_Not_Allowed          => 16#06#,   --  6
-                         Denied_Incorrect_PIN        => 16#07#,   --  7
-                         Denied_Anti_Passback        => 16#08#,   --  8
-                         Denied_More_Cards           => 16#09#,   --  9
-                         Denied_First_Card_Required  => 16#0A#,   --  10
-                         Denied_Door_Normally_Closed => 16#0B#,   --  11
-                         Denied_Door_InterLock       => 16#0C#,   --  12
-                         Denied_Time_Profile         => 16#0D#,   --  13
-                         Denied_Invalid_Timezone     => 16#0F#,   --  15
-                         Denied_Invalid              => 16#12#,   --  18
-                         Push_Button_Ok              => 16#14#,   --  20
-                         Door_Open                   => 16#17#,   --  23
-                         Door_Closed                 => 16#18#,   --  24
-                         Supervisor_Override         => 16#19#,   --  25
-                         Controller_Power_On         => 16#1C#,   --  28
-                         Controller_Reset            => 16#1D#,   --  29
-                         Push_Button_Disabled        => 16#1E#,   --  30
-                         Push_Button_Lock_Forced     => 16#1F#,   --  31
-                         Push_Button_Offline         => 16#20#,   --  32
-                         Push_Button_Door_InterLock  => 16#21#,   --  33
-                         Threat                      => 16#22#,   --  34
-                         Open_Too_Long               => 16#25#,   --  37
-                         Forced_Open                 => 16#26#,   --  38
-                         Fire                        => 16#27#,   --  39
-                         Forced_Close                => 16#28#,   --  40
-                         Theft_Prevention            => 16#29#,   --  41
-                         Zone_24x7                   => 16#2A#,   --  42
-                         Emergency_Call              => 16#2B#,   --  43
-                         Remote_Open_Door            => 16#2C#,   --  44
-                         Remote_Open_Door_USB        => 16#2D#,   --  45
-                         Other                       => 16#FF#);  --  255
+   for Event_Reason use
+     (SwipeOk                     => 16#01#,
+      Denied_PC_Control           => 16#05#,
+      Denied_Not_Allowed          => 16#06#,
+      Denied_Incorrect_PIN        => 16#07#,
+      Denied_Anti_Passback        => 16#08#,
+      Denied_More_Cards           => 16#09#,
+      Denied_First_Card_Required  => 16#0A#,
+      Denied_Door_Normally_Closed => 16#0B#,
+      Denied_Door_InterLock       => 16#0C#,
+      Denied_Time_Profile         => 16#0D#,
+      Denied_Invalid_Timezone     => 16#0F#,
+      Denied_Invalid              => 16#12#,
+      Push_Button_Ok              => 16#14#,
+      Door_Open                   => 16#17#,
+      Door_Closed                 => 16#18#,
+      Supervisor_Override         => 16#19#,
+      Controller_Power_On         => 16#1C#,
+      Controller_Reset            => 16#1D#,
+      Push_Button_Disabled        => 16#1E#,
+      Push_Button_Lock_Forced     => 16#1F#,
+      Push_Button_Offline         => 16#20#,
+      Push_Button_Door_InterLock  => 16#21#,
+      Threat                      => 16#22#,
+      Open_Too_Long               => 16#25#,
+      Forced_Open                 => 16#26#,
+      Fire                        => 16#27#,
+      Forced_Close                => 16#28#,
+      Theft_Prevention            => 16#29#,
+      Zone_24x7                   => 16#2A#,
+      Emergency_Call              => 16#2B#,
+      Remote_Open_Door            => 16#2C#,
+      Remote_Open_Door_USB        => 16#2D#,
+      Other                       => 16#FF#);
 
    --  Utility function to translate an Unsigned_8 to an event reason enum.
    --
@@ -398,10 +392,7 @@ package Uhppoted.Types is
    --  @enum First_Card_Only  Access requires a valid 'first card' swipe.
    type Control_Mode is (Normally_Open, Normally_Closed, Controlled, First_Card_Only);
 
-   for Control_Mode use (Normally_Open   => 1,
-                         Normally_Closed => 2,
-                         Controlled      => 3,
-                         First_Card_Only => 4);
+   for Control_Mode use (Normally_Open => 1, Normally_Closed => 2, Controlled => 3, First_Card_Only => 4);
 
    --  Container record for a door control configuration.
    --
@@ -458,13 +449,13 @@ package Uhppoted.Types is
    --  @field  Saturday   True if enabled on Saturday.
    --  @field  Sunday     True if enabled on Sunday.
    type Weekdays_Type is record
-      Monday          : Boolean;
-      Tuesday         : Boolean;
-      Wednesday       : Boolean;
-      Thursday        : Boolean;
-      Friday          : Boolean;
-      Saturday        : Boolean;
-      Sunday          : Boolean;
+      Monday    : Boolean;
+      Tuesday   : Boolean;
+      Wednesday : Boolean;
+      Thursday  : Boolean;
+      Friday    : Boolean;
+      Saturday  : Boolean;
+      Sunday    : Boolean;
    end record;
 
    --  Container record for a single Time_Profile time segment.
@@ -509,33 +500,35 @@ package Uhppoted.Types is
    --  @enum Trigger_Once          Unlocks the door.
    --  @enum Disable_PushButton    Disables the door pushbutton.
    --  @enum Enable_PushButton     Enables the door pushbutton.
-   type Task_Type is (Door_Controlled,
-                      Door_Normally_Open,
-                      Door_Normally_Closed,
-                      Disable_Time_Profile,
-                      Enable_Time_Profile,
-                      Card_No_Password,
-                      Card_In_Password,
-                      Card_InOut_Password,
-                      Enable_More_Cards,
-                      Disable_More_Cards,
-                      Trigger_Once,
-                      Disable_PushButton,
-                      Enable_PushButton);
+   type Task_Type is
+     (Door_Controlled,
+      Door_Normally_Open,
+      Door_Normally_Closed,
+      Disable_Time_Profile,
+      Enable_Time_Profile,
+      Card_No_Password,
+      Card_In_Password,
+      Card_InOut_Password,
+      Enable_More_Cards,
+      Disable_More_Cards,
+      Trigger_Once,
+      Disable_PushButton,
+      Enable_PushButton);
 
-   for Task_Type use (Door_Controlled      => 0,
-                      Door_Normally_Open   => 1,
-                      Door_Normally_Closed => 2,
-                      Disable_Time_Profile => 3,
-                      Enable_Time_Profile  => 4,
-                      Card_No_Password     => 5,
-                      Card_In_Password     => 6,
-                      Card_InOut_Password  => 7,
-                      Enable_More_Cards    => 8,
-                      Disable_More_Cards   => 9,
-                      Trigger_Once         => 10,
-                      Disable_PushButton   => 11,
-                      Enable_PushButton    => 12);
+   for Task_Type use
+     (Door_Controlled      => 0,
+      Door_Normally_Open   => 1,
+      Door_Normally_Closed => 2,
+      Disable_Time_Profile => 3,
+      Enable_Time_Profile  => 4,
+      Card_No_Password     => 5,
+      Card_In_Password     => 6,
+      Card_InOut_Password  => 7,
+      Enable_More_Cards    => 8,
+      Disable_More_Cards   => 9,
+      Trigger_Once         => 10,
+      Disable_PushButton   => 11,
+      Enable_PushButton    => 12);
 
    --  Utility function to translate an Unsigned_8 to a Task type enum.
    --
@@ -568,13 +561,13 @@ package Uhppoted.Types is
    --  @field  Door        Door ID [1..4] for door affected by task.
    --  @field  More_Cards  Number of 'more cards' for the 'More Cards' task.
    type Task_Record is record
-      Task_ID        : Task_Type;
-      Start_Date     : DateOnly;
-      End_Date       : DateOnly;
-      Weekdays       : Weekdays_Type;
-      Start_Time     : HHmm;
-      Door           : Unsigned_8;
-      More_Cards     : Unsigned_8;
+      Task_ID    : Task_Type;
+      Start_Date : DateOnly;
+      End_Date   : DateOnly;
+      Weekdays   : Weekdays_Type;
+      Start_Time : HHmm;
+      Door       : Unsigned_8;
+      More_Cards : Unsigned_8;
    end record;
 
    --  Interlock enum.
@@ -587,12 +580,13 @@ package Uhppoted.Types is
    --  @enum Interlock_1234   Interlocks doors 1, 2, 3 and 4.
    type Interlock is (No_Interlock, Interlock_12, Interlock_34, Interlock_12_34, Interlock_123, Interlock_1234);
 
-   for Interlock use (No_Interlock    => 16#00#,
-                      Interlock_12    => 16#01#,    --  doors (1,2)
-                      Interlock_34    => 16#02#,    --  doors (3,4)
-                      Interlock_12_34 => 16#03#,    --  doors (1,2) and (3,4)
-                      Interlock_123   => 16#04#,    --  doors (1,2,3)
-                      Interlock_1234  => 16#08#);   --  doors (1,2,3,4)
+   for Interlock use
+     (No_Interlock    => 16#00#,
+      Interlock_12    => 16#01#,
+      Interlock_34    => 16#02#,
+      Interlock_12_34 => 16#03#,
+      Interlock_123   => 16#04#,
+      Interlock_1234  => 16#08#);
 
    --  Utility function to translate an Unsigned_8 to an Interlock enum.
    --
@@ -621,11 +615,12 @@ package Uhppoted.Types is
    --  @enum Readers_1_234    Configures anti-passback between reader 1 and readers 2, 3 or 4.
    type Antipassback is (No_Antipassback, Readers_12_34, Readers_13_24, Readers_1_23, Readers_1_234);
 
-   for Antipassback use (No_Antipassback => 16#00#,
-                         Readers_12_34   => 16#01#,
-                         Readers_13_24   => 16#02#,
-                         Readers_1_23    => 16#03#,   --  readers 1:(2,3)
-                         Readers_1_234   => 16#04#);  --  readers 1:(2,3,4)
+   for Antipassback use
+     (No_Antipassback => 16#00#,
+      Readers_12_34   => 16#01#,
+      Readers_13_24   => 16#02#,
+      Readers_1_23    => 16#03#,
+      Readers_1_234   => 16#04#);
 
    --  Utility function to translate an Unsigned_8 to an Antipassback enum.
    --
@@ -667,12 +662,14 @@ package Uhppoted.Types is
    --  Controlled.Initialize implementation for a Signal.
    --
    --  @param  S  Signal to initialise.
-   overriding procedure Initialize (S : in out Signal);
+   overriding
+   procedure Initialize (S : in out Signal);
 
    --  Controlled.Finalize implementation for a Signal.
    --
    --  @param  S  Signal to cleanup.
-   overriding procedure Finalize   (S : in out Signal);
+   overriding
+   procedure Finalize (S : in out Signal);
 
    --  Utility procedure to raise a signal.
    --

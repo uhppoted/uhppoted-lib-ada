@@ -1,12 +1,13 @@
 --  Message constant definitions.
 --
+
 package Uhppoted.Lib.Codec is
 
    --  Start of message byte.
-   SOM : Unsigned_8  := 16#17#;
+   SOM : Unsigned_8 := 16#17#;
 
    --  Start of message byte for v6.62 listener events.
-   SOM_v6_62 : Unsigned_8  := 16#19#;
+   SOM_v6_62 : Unsigned_8 := 16#19#;
 
    --  Authorisation value.
    MagicWord : Unsigned_32 := 16#55aaaa55#;
@@ -47,8 +48,8 @@ package Uhppoted.Lib.Codec is
    --  @enum  Set_Event_Index             Op-code for set-event-index message.
    --  @enum  Get_Event_Index             Op-code for get-event-index message.
    --  @enum  Restore_Default_Parameters  Op-code for restore-default-parameters message.
-   type Op_Code is (
-      Get_Status,
+   type Op_Code is
+     (Get_Status,
       Set_Time,
       Get_Time,
       Open_Door,
@@ -83,8 +84,8 @@ package Uhppoted.Lib.Codec is
       Get_Event_Index,
       Restore_Default_Parameters);
 
-   for Op_Code use (
-      Get_Status                 => 16#20#,
+   for Op_Code use
+     (Get_Status                 => 16#20#,
       Set_Time                   => 16#30#,
       Get_Time                   => 16#32#,
       Open_Door                  => 16#40#,
@@ -117,7 +118,6 @@ package Uhppoted.Lib.Codec is
       Get_Event                  => 16#b0#,
       Set_Event_Index            => 16#b2#,
       Get_Event_Index            => 16#b4#,
-      Restore_Default_Parameters => 16#c8#
-   );
+      Restore_Default_Parameters => 16#c8#);
 
 end Uhppoted.Lib.Codec;

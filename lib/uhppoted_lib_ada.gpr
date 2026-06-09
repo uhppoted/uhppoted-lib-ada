@@ -39,4 +39,8 @@ project Uhppoted_Lib_Ada is
       );
    end Pretty_Printer;
 
+   package Format is
+      for Width ("Ada") use "120";
+   end Format;
+
 end Uhppoted_Lib_Ada;

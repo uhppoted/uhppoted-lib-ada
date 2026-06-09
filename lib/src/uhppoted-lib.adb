@@ -26,21 +26,21 @@ package body Uhppoted.Lib is
       Request  : constant Packet := Uhppoted.Lib.Encode.Get_Controller (0);
       Replies  : constant Packet_List := Uhppoted.Lib.Transport.UDP.Broadcast (U, Request, Timeout);
       Response : Controller_Record_List (1 .. Integer (Replies.Length));
-      IX       : Positive             := 1;
+      IX       : Positive := 1;
    begin
       for Reply of Replies loop
          declare
             R : Get_Controller_Response;
          begin
             R := Uhppoted.Lib.Decode.Get_Controller (Reply);
-            Response (IX) := (
-              ID       => R.Controller,
-              Address  => R.IP_Address,
-              Netmask  => R.Subnet_Mask,
-              Gateway  => R.Gateway,
-              MAC      => R.MAC_Address,
-              Firmware => R.Version,
-              Date     => R.Date);
+            Response (IX) :=
+              (ID       => R.Controller,
+               Address  => R.IP_Address,
+               Netmask  => R.Subnet_Mask,
+               Gateway  => R.Gateway,
+               MAC      => R.MAC_Address,
+               Firmware => R.Version,
+               Date     => R.Date);
 
             IX := IX + 1;
          end;
@@ -66,14 +66,14 @@ package body Uhppoted.Lib is
       R       : Get_Controller_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Controller (Reply);
+      R := Uhppoted.Lib.Decode.Get_Controller (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
       end if;
 
-      return (
-         ID       => R.Controller,
+      return
+        (ID       => R.Controller,
          Address  => R.IP_Address,
          Netmask  => R.Subnet_Mask,
          Gateway  => R.Gateway,
@@ -105,7 +105,7 @@ package body Uhppoted.Lib is
       R        : Set_IPv4_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
+      R := Uhppoted.Lib.Decode.Set_IPv4 (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -131,7 +131,7 @@ package body Uhppoted.Lib is
       R       : Get_Time_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Time (Reply);
+      R := Uhppoted.Lib.Decode.Get_Time (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -159,7 +159,7 @@ package body Uhppoted.Lib is
       R       : Set_Time_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_Time (Reply);
+      R := Uhppoted.Lib.Decode.Set_Time (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -185,14 +185,13 @@ package body Uhppoted.Lib is
       R       : Get_Listener_Addr_Port_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Listener_Addr_Port (Reply);
+      R := Uhppoted.Lib.Decode.Get_Listener_Addr_Port (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
       end if;
 
-      return (Listener => R.Listener,
-              Interval => R.Interval);
+      return (Listener => R.Listener, Interval => R.Interval);
    end Get_Listener;
 
    --  Sets the access controller listener address:port and auto-send interval. Restricted to the local LAN.
@@ -216,7 +215,7 @@ package body Uhppoted.Lib is
       R       : Set_Listener_Addr_Port_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_Listener_Addr_Port (Reply);
+      R := Uhppoted.Lib.Decode.Set_Listener_Addr_Port (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -242,7 +241,7 @@ package body Uhppoted.Lib is
       R       : Get_Status_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Status (Reply);
+      R := Uhppoted.Lib.Decode.Get_Status (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -250,41 +249,36 @@ package body Uhppoted.Lib is
 
       declare
          State : constant Controller_State :=
-            (System_Date_Time => (Year   => R.System_Date.Year,
-                                  Month  => R.System_Date.Month,
-                                  Day    => R.System_Date.Day,
-                                  Hour   => R.System_Time.Hour,
-                                  Minute => R.System_Time.Minute,
-                                  Second => R.System_Time.Second),
-             Doors => [1 => (Open     => R.Door_1_Open,
-                             Button   => R.Door_1_Button,
-                             Unlocked => (R.Relays and 16#01#) = 16#01#),
-                       2 => (Open => R.Door_2_Open,
-                             Button => R.Door_2_Button,
-                             Unlocked => (R.Relays and 16#02#) = 16#02#),
-                       3 => (Open => R.Door_3_Open,
-                             Button => R.Door_3_Button,
-                             Unlocked => (R.Relays and 16#04#) = 16#04#),
-                       4 => (Open => R.Door_4_Open,
-                             Button => R.Door_4_Button,
-                             Unlocked => (R.Relays and 16#08#) = 16#08#)],
+           (System_Date_Time =>
+              (Year   => R.System_Date.Year,
+               Month  => R.System_Date.Month,
+               Day    => R.System_Date.Day,
+               Hour   => R.System_Time.Hour,
+               Minute => R.System_Time.Minute,
+               Second => R.System_Time.Second),
+            Doors            =>
+              [1 => (Open => R.Door_1_Open, Button => R.Door_1_Button, Unlocked => (R.Relays and 16#01#) = 16#01#),
+               2 => (Open => R.Door_2_Open, Button => R.Door_2_Button, Unlocked => (R.Relays and 16#02#) = 16#02#),
+               3 => (Open => R.Door_3_Open, Button => R.Door_3_Button, Unlocked => (R.Relays and 16#04#) = 16#04#),
+               4 => (Open => R.Door_4_Open, Button => R.Door_4_Button, Unlocked => (R.Relays and 16#08#) = 16#08#)],
 
-             Alarms => (Flags       => Unsigned_8 (R.Inputs),
-                        Fire        => (R.Inputs and 16#01#) = 16#01#,
-                        Lock_Forced => (R.Inputs and 16#02#) = 16#02#),
+            Alarms           =>
+              (Flags       => Unsigned_8 (R.Inputs),
+               Fire        => (R.Inputs and 16#01#) = 16#01#,
+               Lock_Forced => (R.Inputs and 16#02#) = 16#02#),
 
-             System_Error => R.System_Error,
-             Special_Info => R.Special_Info);
+            System_Error     => R.System_Error,
+            Special_Info     => R.Special_Info);
 
          Event : constant Controller_Event :=
-            (Index          => R.Event_Index,
-             Event          => To_Event_Type (R.Event_Type),
-             Timestamp      => R.Event_Timestamp,
-             Door           => R.Event_Door,
-             Direction      => To_Event_Direction (R.Event_Direction),
-             Card           => R.Event_Card,
-             Access_Granted => R.Event_Access_Granted,
-             Reason         => To_Event_Reason (R.Event_Reason));
+           (Index          => R.Event_Index,
+            Event          => To_Event_Type (R.Event_Type),
+            Timestamp      => R.Event_Timestamp,
+            Door           => R.Event_Door,
+            Direction      => To_Event_Direction (R.Event_Direction),
+            Card           => R.Event_Card,
+            Access_Granted => R.Event_Access_Granted,
+            Reason         => To_Event_Reason (R.Event_Reason));
       begin
          return (State, Event);
       end;
@@ -309,14 +303,13 @@ package body Uhppoted.Lib is
       R       : Get_Door_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Door (Reply);
+      R := Uhppoted.Lib.Decode.Get_Door (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
       end if;
 
-      return (Mode       => To_Control_Mode (R.Mode),
-              Open_Delay => R.Open_Delay);
+      return (Mode => To_Control_Mode (R.Mode), Open_Delay => R.Open_Delay);
    end Get_Door;
 
    --  Sets a door control mode and open delay. Restricted to the local LAN.
@@ -342,14 +335,13 @@ package body Uhppoted.Lib is
       R       : Set_Door_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_Door (Reply);
+      R := Uhppoted.Lib.Decode.Set_Door (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
       end if;
 
-      return (Mode       => To_Control_Mode (R.Mode),
-              Open_Delay => R.Open_Delay);
+      return (Mode => To_Control_Mode (R.Mode), Open_Delay => R.Open_Delay);
    end Set_Door;
 
    --  Sets the supervisor override passcodes for a door. Restricted to the local LAN.
@@ -394,8 +386,8 @@ package body Uhppoted.Lib is
       end if;
 
       Request := Uhppoted.Lib.Encode.Set_Door_Passcodes (C.ID, Door, Passcode1, Passcode2, Passcode3, Passcode4);
-      Reply   := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R       := Uhppoted.Lib.Decode.Set_Door_Passcodes (Reply);
+      Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
+      R := Uhppoted.Lib.Decode.Set_Door_Passcodes (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -423,7 +415,7 @@ package body Uhppoted.Lib is
       R       : Open_Door_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Open_Door (Reply);
+      R := Uhppoted.Lib.Decode.Open_Door (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -449,7 +441,7 @@ package body Uhppoted.Lib is
       R       : Get_Cards_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Cards (Reply);
+      R := Uhppoted.Lib.Decode.Get_Cards (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -477,7 +469,7 @@ package body Uhppoted.Lib is
       R       : Get_Card_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Card (Reply);
+      R := Uhppoted.Lib.Decode.Get_Card (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -491,14 +483,15 @@ package body Uhppoted.Lib is
          raise Card_Not_Found_Error;
       end if;
 
-      return (Card       => R.Card,
-              Start_Date => R.Start_Date,
-              End_Date   => R.End_Date,
-              Door_1     => R.Door_1,
-              Door_2     => R.Door_2,
-              Door_3     => R.Door_3,
-              Door_4     => R.Door_4,
-              PIN        => R.PIN);
+      return
+        (Card       => R.Card,
+         Start_Date => R.Start_Date,
+         End_Date   => R.End_Date,
+         Door_1     => R.Door_1,
+         Door_2     => R.Door_2,
+         Door_3     => R.Door_3,
+         Door_4     => R.Door_4,
+         PIN        => R.PIN);
    end Get_Card;
 
    --  Retrieves the card record at the requested index. Restricted to the local LAN.
@@ -520,7 +513,7 @@ package body Uhppoted.Lib is
       R       : Get_Card_At_Index_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Card_At_Index (Reply);
+      R := Uhppoted.Lib.Decode.Get_Card_At_Index (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -534,14 +527,15 @@ package body Uhppoted.Lib is
          raise Card_Deleted_Error;
       end if;
 
-      return (Card       => R.Card,
-              Start_Date => R.Start_Date,
-              End_Date   => R.End_Date,
-              Door_1     => R.Door_1,
-              Door_2     => R.Door_2,
-              Door_3     => R.Door_3,
-              Door_4     => R.Door_4,
-              PIN        => R.PIN);
+      return
+        (Card       => R.Card,
+         Start_Date => R.Start_Date,
+         End_Date   => R.End_Date,
+         Door_1     => R.Door_1,
+         Door_2     => R.Door_2,
+         Door_3     => R.Door_3,
+         Door_4     => R.Door_4,
+         PIN        => R.PIN);
    end Get_Card_At_Index;
 
    --  Adds/updates a card record stored on the controller. Restricted to the local LAN.
@@ -571,7 +565,7 @@ package body Uhppoted.Lib is
       R       : Put_Card_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Put_Card (Reply);
+      R := Uhppoted.Lib.Decode.Put_Card (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -599,7 +593,7 @@ package body Uhppoted.Lib is
       R       : Delete_Card_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Delete_Card (Reply);
+      R := Uhppoted.Lib.Decode.Delete_Card (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -625,7 +619,7 @@ package body Uhppoted.Lib is
       R       : Delete_All_Cards_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Delete_All_Cards (Reply);
+      R := Uhppoted.Lib.Decode.Delete_All_Cards (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -653,7 +647,7 @@ package body Uhppoted.Lib is
       R       : Get_Event_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Event (Reply);
+      R := Uhppoted.Lib.Decode.Get_Event (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -698,7 +692,7 @@ package body Uhppoted.Lib is
       R       : Get_Event_Index_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Event_Index (Reply);
+      R := Uhppoted.Lib.Decode.Get_Event_Index (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -726,7 +720,7 @@ package body Uhppoted.Lib is
       R       : Set_Event_Index_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_Event_Index (Reply);
+      R := Uhppoted.Lib.Decode.Set_Event_Index (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -754,7 +748,7 @@ package body Uhppoted.Lib is
       R       : Record_Special_Events_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Record_Special_Events (Reply);
+      R := Uhppoted.Lib.Decode.Record_Special_Events (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -782,7 +776,7 @@ package body Uhppoted.Lib is
       R       : Get_Time_Profile_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Time_Profile (Reply);
+      R := Uhppoted.Lib.Decode.Get_Time_Profile (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -796,19 +790,22 @@ package body Uhppoted.Lib is
          raise Invalid_Response_Error;
       end if;
 
-      return (Start_Date => R.Start_Date,
-              End_Date   => R.End_Date,
-              Weekdays   => (Monday    => R.Monday,
-                             Tuesday   => R.Tuesday,
-                             Wednesday => R.Wednesday,
-                             Thursday  => R.Thursday,
-                             Friday    => R.Friday,
-                             Saturday  => R.Saturday,
-                             Sunday    => R.Sunday),
-              Segments   => [1 => (R.Segment_1_Start, R.Segment_1_End),
-                             2 => (R.Segment_2_Start, R.Segment_2_End),
-                             3 => (R.Segment_3_Start, R.Segment_3_End)],
-              Linked_Profile => R.Linked_Profile);
+      return
+        (Start_Date     => R.Start_Date,
+         End_Date       => R.End_Date,
+         Weekdays       =>
+           (Monday    => R.Monday,
+            Tuesday   => R.Tuesday,
+            Wednesday => R.Wednesday,
+            Thursday  => R.Thursday,
+            Friday    => R.Friday,
+            Saturday  => R.Saturday,
+            Sunday    => R.Sunday),
+         Segments       =>
+           [1 => (R.Segment_1_Start, R.Segment_1_End),
+            2 => (R.Segment_2_Start, R.Segment_2_End),
+            3 => (R.Segment_3_Start, R.Segment_3_End)],
+         Linked_Profile => R.Linked_Profile);
    end Get_Time_Profile;
 
    --  Adds or updates a time profile stored on a a controller. Restricted to the local LAN.
@@ -849,7 +846,7 @@ package body Uhppoted.Lib is
       R       : Set_Time_Profile_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_Time_Profile (Reply);
+      R := Uhppoted.Lib.Decode.Set_Time_Profile (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -875,7 +872,7 @@ package body Uhppoted.Lib is
       R       : Clear_Time_Profiles_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Clear_Time_Profiles (Reply);
+      R := Uhppoted.Lib.Decode.Clear_Time_Profiles (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -915,7 +912,7 @@ package body Uhppoted.Lib is
       R       : Add_Task_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Add_Task (Reply);
+      R := Uhppoted.Lib.Decode.Add_Task (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -941,7 +938,7 @@ package body Uhppoted.Lib is
       R       : Refresh_Task_List_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Refresh_Task_List (Reply);
+      R := Uhppoted.Lib.Decode.Refresh_Task_List (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -967,7 +964,7 @@ package body Uhppoted.Lib is
       R       : Clear_Task_List_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Clear_Task_List (Reply);
+      R := Uhppoted.Lib.Decode.Clear_Task_List (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -997,7 +994,7 @@ package body Uhppoted.Lib is
       R       : Set_PC_Control_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_PC_Control (Reply);
+      R := Uhppoted.Lib.Decode.Set_PC_Control (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -1025,7 +1022,7 @@ package body Uhppoted.Lib is
       R       : Set_Interlock_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_Interlock (Reply);
+      R := Uhppoted.Lib.Decode.Set_Interlock (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -1056,7 +1053,7 @@ package body Uhppoted.Lib is
       R       : Activate_Keypads_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Activate_Keypads (Reply);
+      R := Uhppoted.Lib.Decode.Activate_Keypads (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -1082,23 +1079,28 @@ package body Uhppoted.Lib is
       R       : Get_Antipassback_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Get_Antipassback (Reply);
+      R := Uhppoted.Lib.Decode.Get_Antipassback (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
       end if;
 
       case R.Antipassback is
-         when 0 =>
+         when 0      =>
             return No_Antipassback;
-         when 1 =>
+
+         when 1      =>
             return Readers_12_34;
-         when 2 =>
+
+         when 2      =>
             return Readers_13_24;
-         when 3 =>
+
+         when 3      =>
             return Readers_1_23;
-         when 4 =>
+
+         when 4      =>
             return Readers_1_234;
+
          when others =>
             raise Invalid_Response_Error;
       end case;
@@ -1124,7 +1126,7 @@ package body Uhppoted.Lib is
       R       : Set_Antipassback_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_Antipassback (Reply);
+      R := Uhppoted.Lib.Decode.Set_Antipassback (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -1166,7 +1168,7 @@ package body Uhppoted.Lib is
       R      : Set_First_Card_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Set_First_Card (Reply);
+      R := Uhppoted.Lib.Decode.Set_First_Card (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -1191,7 +1193,7 @@ package body Uhppoted.Lib is
       R       : Restore_Default_Parameters_Response;
    begin
       Reply := Dispatch (U, C.DestAddr, Request, C.Transport, Timeout);
-      R     := Uhppoted.Lib.Decode.Restore_Default_Parameters (Reply);
+      R := Uhppoted.Lib.Decode.Restore_Default_Parameters (Reply);
 
       if R.Controller /= C.ID then
          raise Invalid_Response_Error;
@@ -1205,46 +1207,42 @@ package body Uhppoted.Lib is
       Handler : access Event_Handler'Class;
    end record;
 
-   overriding procedure On_Event (Self : Dispatcher; Msg : Packet) is
+   overriding
+   procedure On_Event (Self : Dispatcher; Msg : Packet) is
       E          : constant Listener_Event := Uhppoted.Lib.Decode.Listener_Event (Msg);
-      Controller : constant Unsigned_32    := E.Controller;
+      Controller : constant Unsigned_32 := E.Controller;
       State      : constant Controller_State :=
-         (System_Date_Time => (Year   => E.System_Date.Year,
-                               Month  => E.System_Date.Month,
-                               Day    => E.System_Date.Day,
-                               Hour   => E.System_Time.Hour,
-                               Minute => E.System_Time.Minute,
-                               Second => E.System_Time.Second),
+        (System_Date_Time =>
+           (Year   => E.System_Date.Year,
+            Month  => E.System_Date.Month,
+            Day    => E.System_Date.Day,
+            Hour   => E.System_Time.Hour,
+            Minute => E.System_Time.Minute,
+            Second => E.System_Time.Second),
 
-          Doors => [1 => (Open     => E.Door_1_Open,
-                          Button   => E.Door_1_Button,
-                          Unlocked => (E.Relays and 16#01#) = 16#01#),
-                    2 => (Open => E.Door_2_Open,
-                          Button => E.Door_2_Button,
-                          Unlocked => (E.Relays and 16#02#) = 16#02#),
-                    3 => (Open => E.Door_3_Open,
-                          Button => E.Door_3_Button,
-                          Unlocked => (E.Relays and 16#04#) = 16#04#),
-                    4 => (Open => E.Door_4_Open,
-                          Button => E.Door_4_Button,
-                          Unlocked => (E.Relays and 16#08#) = 16#08#)],
+         Doors            =>
+           [1 => (Open => E.Door_1_Open, Button => E.Door_1_Button, Unlocked => (E.Relays and 16#01#) = 16#01#),
+            2 => (Open => E.Door_2_Open, Button => E.Door_2_Button, Unlocked => (E.Relays and 16#02#) = 16#02#),
+            3 => (Open => E.Door_3_Open, Button => E.Door_3_Button, Unlocked => (E.Relays and 16#04#) = 16#04#),
+            4 => (Open => E.Door_4_Open, Button => E.Door_4_Button, Unlocked => (E.Relays and 16#08#) = 16#08#)],
 
-          Alarms => (Flags       => Unsigned_8 (E.Inputs),
-                     Fire        => (E.Inputs and 16#01#) = 16#01#,
-                     Lock_Forced => (E.Inputs and 16#02#) = 16#02#),
+         Alarms           =>
+           (Flags       => Unsigned_8 (E.Inputs),
+            Fire        => (E.Inputs and 16#01#) = 16#01#,
+            Lock_Forced => (E.Inputs and 16#02#) = 16#02#),
 
-           System_Error => E.System_Error,
-           Special_Info => E.Special_Info);
+         System_Error     => E.System_Error,
+         Special_Info     => E.Special_Info);
 
       Event : constant Controller_Event :=
-         (Index          => E.Event_Index,
-          Event          => To_Event_Type (E.Event_Type),
-          Timestamp      => E.Event_Timestamp,
-          Door           => E.Event_Door,
-          Direction      => To_Event_Direction (E.Event_Direction),
-          Card           => E.Event_Card,
-          Access_Granted => E.Event_Access_Granted,
-          Reason         => To_Event_Reason (E.Event_Reason));
+        (Index          => E.Event_Index,
+         Event          => To_Event_Type (E.Event_Type),
+         Timestamp      => E.Event_Timestamp,
+         Door           => E.Event_Door,
+         Direction      => To_Event_Direction (E.Event_Direction),
+         Card           => E.Event_Card,
+         Access_Granted => E.Event_Access_Granted,
+         Reason         => To_Event_Reason (E.Event_Reason));
    begin
       if Self.Handler /= null then
          Self.Handler.On_Event (Controller, State, Event);

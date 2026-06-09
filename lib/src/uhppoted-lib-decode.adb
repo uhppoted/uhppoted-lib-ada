@@ -154,30 +154,30 @@ package body Uhppoted.Lib.Decode is
       end if;
 
       return
-         (Controller           => R.Controller,
-          System_Date          => Unpack_Short_Date (R.System_Date),
-          System_Time          => Unpack_Time (R.System_Time),
-          Door_1_Open          => Unpack_Boolean (R.Door_1_Open),
-          Door_2_Open          => Unpack_Boolean (R.Door_2_Open),
-          Door_3_Open          => Unpack_Boolean (R.Door_3_Open),
-          Door_4_Open          => Unpack_Boolean (R.Door_4_Open),
-          Door_1_Button        => Unpack_Boolean (R.Door_1_Button),
-          Door_2_Button        => Unpack_Boolean (R.Door_2_Button),
-          Door_3_Button        => Unpack_Boolean (R.Door_3_Button),
-          Door_4_Button        => Unpack_Boolean (R.Door_4_Button),
-          Relays               => Relay_State (R.Relays),
-          Inputs               => Inputs_State (R.Inputs),
-          System_Error         => R.System_Error,
-          Special_Info         => R.Special_Info,
-          Event_Index          => R.Event_Index,
-          Event_Type           => R.Event_Type,
-          Event_Access_Granted => Unpack_Boolean (R.Event_Access_Granted),
-          Event_Door           => R.Event_Door,
-          Event_Direction      => R.Event_Direction,
-          Event_Card           => R.Event_Card,
-          Event_Timestamp      => Unpack_Date_Time (R.Event_Timestamp),
-          Event_Reason         => R.Event_Reason,
-          Sequence_No          => R.Sequence_No);
+        (Controller           => R.Controller,
+         System_Date          => Unpack_Short_Date (R.System_Date),
+         System_Time          => Unpack_Time (R.System_Time),
+         Door_1_Open          => Unpack_Boolean (R.Door_1_Open),
+         Door_2_Open          => Unpack_Boolean (R.Door_2_Open),
+         Door_3_Open          => Unpack_Boolean (R.Door_3_Open),
+         Door_4_Open          => Unpack_Boolean (R.Door_4_Open),
+         Door_1_Button        => Unpack_Boolean (R.Door_1_Button),
+         Door_2_Button        => Unpack_Boolean (R.Door_2_Button),
+         Door_3_Button        => Unpack_Boolean (R.Door_3_Button),
+         Door_4_Button        => Unpack_Boolean (R.Door_4_Button),
+         Relays               => Relay_State (R.Relays),
+         Inputs               => Inputs_State (R.Inputs),
+         System_Error         => R.System_Error,
+         Special_Info         => R.Special_Info,
+         Event_Index          => R.Event_Index,
+         Event_Type           => R.Event_Type,
+         Event_Access_Granted => Unpack_Boolean (R.Event_Access_Granted),
+         Event_Door           => R.Event_Door,
+         Event_Direction      => R.Event_Direction,
+         Event_Card           => R.Event_Card,
+         Event_Timestamp      => Unpack_Date_Time (R.Event_Timestamp),
+         Event_Reason         => R.Event_Reason,
+         Sequence_No          => R.Sequence_No);
    end Get_Status;
 
    --  Decodes a 64 byte get-door reply as a Get_Door_Response record.
@@ -384,15 +384,15 @@ package body Uhppoted.Lib.Decode is
       end if;
 
       return
-         (Controller     => R.Controller,
-          Index          => R.Index,
-          Event_Type     => R.Event_Type,
-          Access_Granted => Unpack_Boolean (R.Access_Granted),
-          Door           => R.Door,
-          Direction      => R.Direction,
-          Card           => R.Card,
-          Timestamp      => Unpack_Date_Time (R.Timestamp),
-          Reason         => R.Reason);
+        (Controller     => R.Controller,
+         Index          => R.Index,
+         Event_Type     => R.Event_Type,
+         Access_Granted => Unpack_Boolean (R.Access_Granted),
+         Door           => R.Door,
+         Direction      => R.Direction,
+         Card           => R.Card,
+         Timestamp      => Unpack_Date_Time (R.Timestamp),
+         Reason         => R.Reason);
    end Get_Event;
 
    --  Decodes a 64 byte get-event-index reply as a Get_Event_Index_Response record.
@@ -455,24 +455,25 @@ package body Uhppoted.Lib.Decode is
          raise Invalid_Response_Error;
       end if;
 
-      return (Controller      => R.Controller,
-              Profile         => R.Profile,
-              Start_Date      => Unpack_Date (R.Start_Date),
-              End_Date        => Unpack_Date (R.End_Date),
-              Monday          => Unpack_Boolean (R.Monday),
-              Tuesday         => Unpack_Boolean (R.Tuesday),
-              Wednesday       => Unpack_Boolean (R.Wednesday),
-              Thursday        => Unpack_Boolean (R.Thursday),
-              Friday          => Unpack_Boolean (R.Friday),
-              Saturday        => Unpack_Boolean (R.Saturday),
-              Sunday          => Unpack_Boolean (R.Sunday),
-              Segment_1_Start => Unpack_HHmm (R.Segment_1_Start),
-              Segment_1_End   => Unpack_HHmm (R.Segment_1_End),
-              Segment_2_Start => Unpack_HHmm (R.Segment_2_Start),
-              Segment_2_End   => Unpack_HHmm (R.Segment_2_End),
-              Segment_3_Start => Unpack_HHmm (R.Segment_3_Start),
-              Segment_3_End   => Unpack_HHmm (R.Segment_3_End),
-              Linked_Profile  => R.Linked_Profile);
+      return
+        (Controller      => R.Controller,
+         Profile         => R.Profile,
+         Start_Date      => Unpack_Date (R.Start_Date),
+         End_Date        => Unpack_Date (R.End_Date),
+         Monday          => Unpack_Boolean (R.Monday),
+         Tuesday         => Unpack_Boolean (R.Tuesday),
+         Wednesday       => Unpack_Boolean (R.Wednesday),
+         Thursday        => Unpack_Boolean (R.Thursday),
+         Friday          => Unpack_Boolean (R.Friday),
+         Saturday        => Unpack_Boolean (R.Saturday),
+         Sunday          => Unpack_Boolean (R.Sunday),
+         Segment_1_Start => Unpack_HHmm (R.Segment_1_Start),
+         Segment_1_End   => Unpack_HHmm (R.Segment_1_End),
+         Segment_2_Start => Unpack_HHmm (R.Segment_2_Start),
+         Segment_2_End   => Unpack_HHmm (R.Segment_2_End),
+         Segment_3_Start => Unpack_HHmm (R.Segment_3_Start),
+         Segment_3_End   => Unpack_HHmm (R.Segment_3_End),
+         Linked_Profile  => R.Linked_Profile);
    end Get_Time_Profile;
 
    --  Decodes a 64 byte set-time-profile reply as a Set_Time_Profile_Response record.
@@ -680,30 +681,30 @@ package body Uhppoted.Lib.Decode is
       end if;
 
       return
-         (Controller           => R.Controller,
-          System_Date          => Unpack_Short_Date (R.System_Date),
-          System_Time          => Unpack_Time (R.System_Time),
-          Door_1_Open          => Unpack_Boolean (R.Door_1_Open),
-          Door_2_Open          => Unpack_Boolean (R.Door_2_Open),
-          Door_3_Open          => Unpack_Boolean (R.Door_3_Open),
-          Door_4_Open          => Unpack_Boolean (R.Door_4_Open),
-          Door_1_Button        => Unpack_Boolean (R.Door_1_Button),
-          Door_2_Button        => Unpack_Boolean (R.Door_2_Button),
-          Door_3_Button        => Unpack_Boolean (R.Door_3_Button),
-          Door_4_Button        => Unpack_Boolean (R.Door_4_Button),
-          Relays               => Relay_State (R.Relays),
-          Inputs               => Inputs_State (R.Inputs),
-          System_Error         => R.System_Error,
-          Special_Info         => R.Special_Info,
-          Event_Index          => R.Event_Index,
-          Event_Type           => R.Event_Type,
-          Event_Access_Granted => Unpack_Boolean (R.Event_Access_Granted),
-          Event_Door           => R.Event_Door,
-          Event_Direction      => R.Event_Direction,
-          Event_Card           => R.Event_Card,
-          Event_Timestamp      => Unpack_Date_Time (R.Event_Timestamp),
-          Event_Reason         => R.Event_Reason,
-          Sequence_No          => R.Sequence_No);
+        (Controller           => R.Controller,
+         System_Date          => Unpack_Short_Date (R.System_Date),
+         System_Time          => Unpack_Time (R.System_Time),
+         Door_1_Open          => Unpack_Boolean (R.Door_1_Open),
+         Door_2_Open          => Unpack_Boolean (R.Door_2_Open),
+         Door_3_Open          => Unpack_Boolean (R.Door_3_Open),
+         Door_4_Open          => Unpack_Boolean (R.Door_4_Open),
+         Door_1_Button        => Unpack_Boolean (R.Door_1_Button),
+         Door_2_Button        => Unpack_Boolean (R.Door_2_Button),
+         Door_3_Button        => Unpack_Boolean (R.Door_3_Button),
+         Door_4_Button        => Unpack_Boolean (R.Door_4_Button),
+         Relays               => Relay_State (R.Relays),
+         Inputs               => Inputs_State (R.Inputs),
+         System_Error         => R.System_Error,
+         Special_Info         => R.Special_Info,
+         Event_Index          => R.Event_Index,
+         Event_Type           => R.Event_Type,
+         Event_Access_Granted => Unpack_Boolean (R.Event_Access_Granted),
+         Event_Door           => R.Event_Door,
+         Event_Direction      => R.Event_Direction,
+         Event_Card           => R.Event_Card,
+         Event_Timestamp      => Unpack_Date_Time (R.Event_Timestamp),
+         Event_Reason         => R.Event_Reason,
+         Sequence_No          => R.Sequence_No);
    end Listener_Event;
 
    --  Translates an Unsigned_8 into a Boolean - 1 is True, anything else is False.
@@ -718,10 +719,10 @@ package body Uhppoted.Lib.Decode is
 
    --  Translates a BCD coded date to a DateOnly.
    function Unpack_Date (Bytes : BCD) return DateOnly is
-      YYYYMMDD : constant String      := BCD_To_String (Bytes);
+      YYYYMMDD : constant String := BCD_To_String (Bytes);
       YYYY     : constant Unsigned_16 := Unsigned_16'Value (YYYYMMDD (1 .. 4));
-      MM       : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD (5 .. 6));
-      DD       : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD (7 .. 8));
+      MM       : constant Unsigned_8 := Unsigned_8'Value (YYYYMMDD (5 .. 6));
+      DD       : constant Unsigned_8 := Unsigned_8'Value (YYYYMMDD (7 .. 8));
    begin
       if YYYY = 0 and then MM = 0 and then DD = 0 then
          return (Year => 1, Month => 1, Day => 1);
@@ -732,7 +733,7 @@ package body Uhppoted.Lib.Decode is
 
    --  Translates a BCD coded YYMMDD date to a DateOnly.
    function Unpack_Short_Date (Bytes : BCD) return DateOnly is
-      YYMMDD : constant String     := BCD_To_String (Bytes);
+      YYMMDD : constant String := BCD_To_String (Bytes);
       YY     : constant Unsigned_8 := Unsigned_8'Value (YYMMDD (1 .. 2));
       MM     : constant Unsigned_8 := Unsigned_8'Value (YYMMDD (3 .. 4));
       DD     : constant Unsigned_8 := Unsigned_8'Value (YYMMDD (5 .. 6));
@@ -742,7 +743,7 @@ package body Uhppoted.Lib.Decode is
 
    --  Translates a BCD coded time to a TimeOnly.
    function Unpack_Time (Bytes : BCD) return TimeOnly is
-      HHMMSS : constant String     := BCD_To_String (Bytes);
+      HHMMSS : constant String := BCD_To_String (Bytes);
       HH     : constant Unsigned_8 := Unsigned_8'Value (HHMMSS (1 .. 2));
       MM     : constant Unsigned_8 := Unsigned_8'Value (HHMMSS (3 .. 4));
       SS     : constant Unsigned_8 := Unsigned_8'Value (HHMMSS (5 .. 6));
@@ -755,11 +756,11 @@ package body Uhppoted.Lib.Decode is
       YYYYMMDD_HHMMSS : constant String := BCD_To_String (Bytes);
 
       Year   : constant Unsigned_16 := Unsigned_16'Value (YYYYMMDD_HHMMSS (1 .. 4));
-      Month  : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (5 .. 6));
-      Day    : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (7 .. 8));
-      Hour   : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (9 .. 10));
-      Minute : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (11 .. 12));
-      Second : constant Unsigned_8  := Unsigned_8'Value (YYYYMMDD_HHMMSS (13 .. 14));
+      Month  : constant Unsigned_8 := Unsigned_8'Value (YYYYMMDD_HHMMSS (5 .. 6));
+      Day    : constant Unsigned_8 := Unsigned_8'Value (YYYYMMDD_HHMMSS (7 .. 8));
+      Hour   : constant Unsigned_8 := Unsigned_8'Value (YYYYMMDD_HHMMSS (9 .. 10));
+      Minute : constant Unsigned_8 := Unsigned_8'Value (YYYYMMDD_HHMMSS (11 .. 12));
+      Second : constant Unsigned_8 := Unsigned_8'Value (YYYYMMDD_HHMMSS (13 .. 14));
    begin
       if Year = 0 and then Month = 0 and then Day = 0 and then Hour = 0 and then Minute = 0 and then Second = 0 then
          return (Year => 1, Month => 1, Day => 1, Hour => 0, Minute => 0, Second => 0);
@@ -770,7 +771,7 @@ package body Uhppoted.Lib.Decode is
 
    --  Translates a BCD coded time to an HHmm.
    function Unpack_HHmm (Bytes : BCD) return HHmm is
-      HHMM : constant String     := BCD_To_String (Bytes);
+      HHMM : constant String := BCD_To_String (Bytes);
       HH   : constant Unsigned_8 := Unsigned_8'Value (HHMM (1 .. 2));
       MM   : constant Unsigned_8 := Unsigned_8'Value (HHMM (3 .. 4));
    begin
@@ -781,16 +782,16 @@ package body Uhppoted.Lib.Decode is
    function BCD_To_String (Bytes : BCD) return String is
       Hex : constant String := "0123456789";
       S   : String (1 .. Bytes'Length * 2);
-      I   : Positive        := 1;
+      I   : Positive := 1;
    begin
       for B of Bytes loop
          declare
             MSB : constant Integer := Integer (Shift_Right (B, 4));
             LSB : constant Integer := Integer (B and 16#0F#);
          begin
-            S (I)     := Hex (MSB + 1);
+            S (I) := Hex (MSB + 1);
             S (I + 1) := Hex (LSB + 1);
-            I         := I + 2;
+            I := I + 2;
          end;
       end loop;
 

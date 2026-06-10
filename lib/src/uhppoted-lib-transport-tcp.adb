@@ -23,10 +23,7 @@ package body Uhppoted.Lib.Transport.TCP is
    end Finalize;
 
    --  Sends a 64 byte request packet to a specific IPv4 address:port and returns the response (if any).
-   function Send (U        : UHPPOTE;
-                  DestAddr : Sock_Addr_Type;
-                  Request  : Packet;
-                  Timeout  : Duration) return Packet is
+   function Send (U : UHPPOTE; DestAddr : Sock_Addr_Type; Request : Packet; Timeout : Duration) return Packet is
       BindAddr : constant Sock_Addr_Type := U.Bind_Addr;
       Offset   : Stream_Element_Offset;
 
@@ -71,11 +68,12 @@ package body Uhppoted.Lib.Transport.TCP is
          Empty (Write_Set);
          Set (Write_Set, Sock.Client);
 
-         Check_Selector (Selector.Selector,
-                         R_Socket_Set => Read_Set,
-                         W_Socket_Set => Write_Set,
-                         Status       => Status,
-                         Timeout      => Remaining);
+         Check_Selector
+           (Selector.Selector,
+            R_Socket_Set => Read_Set,
+            W_Socket_Set => Write_Set,
+            Status       => Status,
+            Timeout      => Remaining);
 
          if Status = Completed and then Is_Set (Write_Set, Sock.Client) then
             declare
@@ -129,11 +127,12 @@ package body Uhppoted.Lib.Transport.TCP is
             Empty (Write_Set);
             Set (Read_Set, Sock.Client);
 
-            Check_Selector (Selector.Selector,
-                            R_Socket_Set => Read_Set,
-                            W_Socket_Set => Write_Set,
-                            Status       => Status,
-                            Timeout      => Remaining);
+            Check_Selector
+              (Selector.Selector,
+               R_Socket_Set => Read_Set,
+               W_Socket_Set => Write_Set,
+               Status       => Status,
+               Timeout      => Remaining);
 
             case Status is
                when Completed         =>

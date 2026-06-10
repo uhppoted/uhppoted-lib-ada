@@ -21,10 +21,11 @@ package Uhppoted.Lib.Encode is
    --  @param  Gateway     Controller IPv4 gateway address.
    --
    --  @return  Packet  64 byte message packet.
-   function Set_IPv4 (Controller : Unsigned_32;
-                      Addr       : GNAT.Sockets.Inet_Addr_Type;
-                      Netmask    : GNAT.Sockets.Inet_Addr_Type;
-                      Gateway    : GNAT.Sockets.Inet_Addr_Type) return Uhppoted.Lib.Types.Packet;
+   function Set_IPv4
+     (Controller : Unsigned_32;
+      Addr       : GNAT.Sockets.Inet_Addr_Type;
+      Netmask    : GNAT.Sockets.Inet_Addr_Type;
+      Gateway    : GNAT.Sockets.Inet_Addr_Type) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a get-time request as a 64 byte array.
    --
@@ -63,10 +64,12 @@ package Uhppoted.Lib.Encode is
    --  @param  Interval    Interval (seconds) at which to automatically send controller state (0 for none).
    --
    --  @return  Packet  64 byte message packet.
+   --!format off
    function Set_Listener (Controller : Unsigned_32;
                           Addr       : GNAT.Sockets.Inet_Addr_Type;
                           Port       : Unsigned_16;
                           Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+   --!format on
 
    --  Encodes a set-listener request as a 64 byte array.
    --
@@ -75,9 +78,10 @@ package Uhppoted.Lib.Encode is
    --  @param  Interval    Interval (seconds) at which to automatically send controller state (0 for none).
    --
    --  @return  Packet  64 byte message packet.
-   function Set_Listener_Addr_Port (Controller : Unsigned_32;
-                                    Listener   : GNAT.Sockets.Sock_Addr_Type;
-                                    Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+   function Set_Listener_Addr_Port
+      (Controller : Unsigned_32;
+       Listener   : GNAT.Sockets.Sock_Addr_Type;
+       Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a get-status request as a 64 byte array.
    --
@@ -102,10 +106,11 @@ package Uhppoted.Lib.Encode is
    --  @param  OpenDelay   Door unlock duration (seconds).
    --
    --  @return  Packet  64 byte message packet.
-   function Set_Door (Controller : Unsigned_32;
-                      Door       : Unsigned_8;
-                      Mode       : Uhppoted.Lib.Control_Mode;
-                      OpenDelay  : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+   function Set_Door
+      (Controller : Unsigned_32;
+       Door       : Unsigned_8;
+       Mode       : Uhppoted.Lib.Control_Mode;
+       OpenDelay  : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a set-door-passcodes request as a 64 byte array.
    --
@@ -117,12 +122,13 @@ package Uhppoted.Lib.Encode is
    --  @param  Passcode4   Fourth passcode [0..999999] (0 for none).
    --
    --  @return  Packet  64 byte message packet.
-   function Set_Door_Passcodes (Controller : Unsigned_32;
-                                Door       : Unsigned_8;
-                                Passcode1  : Unsigned_32;
-                                Passcode2  : Unsigned_32;
-                                Passcode3  : Unsigned_32;
-                                Passcode4  : Unsigned_32) return Uhppoted.Lib.Types.Packet;
+   function Set_Door_Passcodes
+      (Controller : Unsigned_32;
+       Door       : Unsigned_8;
+       Passcode1  : Unsigned_32;
+       Passcode2  : Unsigned_32;
+       Passcode3  : Unsigned_32;
+       Passcode4  : Unsigned_32) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes an open-door request as a 64 byte array.
    --
@@ -168,15 +174,16 @@ package Uhppoted.Lib.Encode is
    --  @param  PIN         Access reader PIN code [0..999999] (0 for none).
    --
    --  @return  Packet  64 byte message packet.
-   function Put_Card (Controller : Unsigned_32;
-                      Card       : Unsigned_32;
-                      Start_Date : DateOnly;
-                      End_Date   : DateOnly;
-                      Door_1     : Unsigned_8;
-                      Door_2     : Unsigned_8;
-                      Door_3     : Unsigned_8;
-                      Door_4     : Unsigned_8;
-                      PIN        : Unsigned_24) return Uhppoted.Lib.Types.Packet;
+   function Put_Card
+     (Controller : Unsigned_32;
+      Card       : Unsigned_32;
+      Start_Date : DateOnly;
+      End_Date   : DateOnly;
+      Door_1     : Unsigned_8;
+      Door_2     : Unsigned_8;
+      Door_3     : Unsigned_8;
+      Door_4     : Unsigned_8;
+      PIN        : Unsigned_24) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a delete-card request as a 64 byte array.
    --
@@ -255,24 +262,25 @@ package Uhppoted.Lib.Encode is
    --                           constraints/segments (0 if none).
    --
    --  @return  Packet  64 byte message packet.
-   function Set_Time_Profile (Controller      : Unsigned_32;
-                              Profile         : Unsigned_8;
-                              Start_Date      : DateOnly;
-                              End_Date        : DateOnly;
-                              Monday          : Boolean;
-                              Tuesday         : Boolean;
-                              Wednesday       : Boolean;
-                              Thursday        : Boolean;
-                              Friday          : Boolean;
-                              Saturday        : Boolean;
-                              Sunday          : Boolean;
-                              Segment_1_Start : HHmm;
-                              Segment_1_End   : HHmm;
-                              Segment_2_Start : HHmm;
-                              Segment_2_End   : HHmm;
-                              Segment_3_Start : HHmm;
-                              Segment_3_End   : HHmm;
-                              Linked_Profile  : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+   function Set_Time_Profile
+     (Controller      : Unsigned_32;
+      Profile         : Unsigned_8;
+      Start_Date      : DateOnly;
+      End_Date        : DateOnly;
+      Monday          : Boolean;
+      Tuesday         : Boolean;
+      Wednesday       : Boolean;
+      Thursday        : Boolean;
+      Friday          : Boolean;
+      Saturday        : Boolean;
+      Sunday          : Boolean;
+      Segment_1_Start : HHmm;
+      Segment_1_End   : HHmm;
+      Segment_2_Start : HHmm;
+      Segment_2_End   : HHmm;
+      Segment_3_Start : HHmm;
+      Segment_3_End   : HHmm;
+      Linked_Profile  : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a clear-time-profiles request as a 64 byte array.
    --
@@ -299,20 +307,21 @@ package Uhppoted.Lib.Encode is
    --  @param  More_Cards  Number of 'more cards' for More_Cards task ID.
    --
    --  @return  Packet  64 byte message packet.
-   function Add_Task (Controller : Unsigned_32;
-                      Task_ID    : Task_Type;
-                      Start_Date : DateOnly;
-                      End_Date   : DateOnly;
-                      Monday     : Boolean;
-                      Tuesday    : Boolean;
-                      Wednesday  : Boolean;
-                      Thursday   : Boolean;
-                      Friday     : Boolean;
-                      Saturday   : Boolean;
-                      Sunday     : Boolean;
-                      Start_Time : HHmm;
-                      Door       : Unsigned_8;
-                      More_Cards : Unsigned_8) return Uhppoted.Lib.Types.Packet;
+   function Add_Task
+     (Controller : Unsigned_32;
+      Task_ID    : Task_Type;
+      Start_Date : DateOnly;
+      End_Date   : DateOnly;
+      Monday     : Boolean;
+      Tuesday    : Boolean;
+      Wednesday  : Boolean;
+      Thursday   : Boolean;
+      Friday     : Boolean;
+      Saturday   : Boolean;
+      Sunday     : Boolean;
+      Start_Time : HHmm;
+      Door       : Unsigned_8;
+      More_Cards : Unsigned_8) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a refresh-tasklist request as a 64 byte array.
    --
@@ -342,8 +351,9 @@ package Uhppoted.Lib.Encode is
    --  @param  Interlock   Door interlock mode.
    --
    --  @return  Packet  64 byte message packet.
-   function Set_Interlock (Controller : Unsigned_32;
-                           Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet;
+   function Set_Interlock
+      (Controller : Unsigned_32;
+       Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes an activate-keypads request as a 64 byte array.
    --
@@ -354,11 +364,12 @@ package Uhppoted.Lib.Encode is
    --  @param  Reader_4    Enables/disables reader 4.
    --
    --  @return  Packet  64 byte message packet.
-   function Activate_Keypads (Controller : Unsigned_32;
-                              Reader_1   : Boolean;
-                              Reader_2   : Boolean;
-                              Reader_3   : Boolean;
-                              Reader_4   : Boolean) return Uhppoted.Lib.Types.Packet;
+   function Activate_Keypads
+      (Controller : Unsigned_32;
+       Reader_1   : Boolean;
+       Reader_2   : Boolean;
+       Reader_3   : Boolean;
+       Reader_4   : Boolean) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a get-antipassback request as a 64 byte array.
    --
@@ -373,8 +384,9 @@ package Uhppoted.Lib.Encode is
    --  @param  Antipassback  Anti-passback mode.
    --
    --  @return  Packet  64 byte message packet.
-   function Set_Antipassback (Controller   : Unsigned_32;
-                              Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet;
+   function Set_Antipassback
+      (Controller   : Unsigned_32;
+       Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a set-firstcard request as a 64 byte array.
    --
@@ -395,19 +407,20 @@ package Uhppoted.Lib.Encode is
    --  @param  Sunday         Enables/disables first-card mode on Sunday.
    --
    --  @return  Packet  64 byte message packet.
-   function Set_First_Card (Controller    : Unsigned_32;
-                            Door          :  Unsigned_8;
-                            Start_Time    : HHmm;
-                            End_Time      : HHmm;
-                            Active_Mode   : Control_Mode;
-                            Inactive_Mode : Control_Mode;
-                            Monday        : Boolean;
-                            Tuesday       : Boolean;
-                            Wednesday     : Boolean;
-                            Thursday      : Boolean;
-                            Friday        : Boolean;
-                            Saturday      : Boolean;
-                            Sunday        : Boolean) return Uhppoted.Lib.Types.Packet;
+   function Set_First_Card
+     (Controller    : Unsigned_32;
+      Door          : Unsigned_8;
+      Start_Time    : HHmm;
+      End_Time      : HHmm;
+      Active_Mode   : Control_Mode;
+      Inactive_Mode : Control_Mode;
+      Monday        : Boolean;
+      Tuesday       : Boolean;
+      Wednesday     : Boolean;
+      Thursday      : Boolean;
+      Friday        : Boolean;
+      Saturday      : Boolean;
+      Sunday        : Boolean) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a restore-default-parameters request as a 64 byte array.
    --

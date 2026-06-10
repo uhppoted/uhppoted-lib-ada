@@ -54,10 +54,11 @@ package Uhppoted.Lib is
    --  @param  Controller  Controller serial number.
    --  @param  State       Controller current state.
    --  @param  Event       Current event information (if any).
-   procedure On_Event (Self       : Event_Handler;
-                       Controller : Unsigned_32;
-                       State      : Controller_State;
-                       Event      : Controller_Event) is abstract;
+   procedure On_Event
+      (Self       : Event_Handler;
+       Controller : Unsigned_32;
+       State      : Controller_State;
+       Event      : Controller_Event) is abstract;
 
    --  Encapsulates the static information for a controller.
    subtype Controller_Record is Uhppoted.Types.Controller_Record;
@@ -285,12 +286,13 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_IPv4 (U       : UHPPOTE;
-                      C       : Unsigned_32;
-                      Addr    : GNAT.Sockets.Inet_Addr_Type;
-                      Netmask : GNAT.Sockets.Inet_Addr_Type;
-                      Gateway : GNAT.Sockets.Inet_Addr_Type;
-                      Timeout : Duration := 2.5) return Boolean;
+   function Set_IPv4
+     (U       : UHPPOTE;
+      C       : Unsigned_32;
+      Addr    : GNAT.Sockets.Inet_Addr_Type;
+      Netmask : GNAT.Sockets.Inet_Addr_Type;
+      Gateway : GNAT.Sockets.Inet_Addr_Type;
+      Timeout : Duration := 2.5) return Boolean;
 
    --  Sets the access controller IPv4 address, subnet mask and gateway address.
    --
@@ -305,12 +307,13 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_IPv4 (U       : UHPPOTE;
-                      C       : Controller;
-                      Addr    : GNAT.Sockets.Inet_Addr_Type;
-                      Netmask : GNAT.Sockets.Inet_Addr_Type;
-                      Gateway : GNAT.Sockets.Inet_Addr_Type;
-                      Timeout : Duration := 2.5) return Boolean;
+   function Set_IPv4
+     (U       : UHPPOTE;
+      C       : Controller;
+      Addr    : GNAT.Sockets.Inet_Addr_Type;
+      Netmask : GNAT.Sockets.Inet_Addr_Type;
+      Gateway : GNAT.Sockets.Inet_Addr_Type;
+      Timeout : Duration := 2.5) return Boolean;
 
    --  Retrieves the access controller date/time. Restricted to the local LAN.
    --
@@ -398,11 +401,12 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Listener (U        : UHPPOTE;
-                          C        : Unsigned_32;
-                          Listener : GNAT.Sockets.Sock_Addr_Type;
-                          Interval : Unsigned_8;
-                          Timeout  : Duration := 2.5) return Boolean;
+   function Set_Listener
+     (U        : UHPPOTE;
+      C        : Unsigned_32;
+      Listener : GNAT.Sockets.Sock_Addr_Type;
+      Interval : Unsigned_8;
+      Timeout  : Duration := 2.5) return Boolean;
 
    --  Sets the access controller listener address:port and auto-send interval.
    --
@@ -416,11 +420,12 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Listener (U        : UHPPOTE;
-                          C        : Controller;
-                          Listener : GNAT.Sockets.Sock_Addr_Type;
-                          Interval : Unsigned_8;
-                          Timeout  : Duration := 2.5) return Boolean;
+   function Set_Listener
+     (U        : UHPPOTE;
+      C        : Controller;
+      Listener : GNAT.Sockets.Sock_Addr_Type;
+      Interval : Unsigned_8;
+      Timeout  : Duration := 2.5) return Boolean;
 
    --  Retrieves the access controller status. Restricted to the local LAN.
    --
@@ -485,12 +490,13 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Door (U         : UHPPOTE;
-                      C         : Unsigned_32;
-                      Door      : Unsigned_8;
-                      Mode      : Uhppoted.Lib.Control_Mode;
-                      OpenDelay : Unsigned_8;
-                      Timeout   : Duration := 2.5) return Door_Record;
+   function Set_Door
+     (U         : UHPPOTE;
+      C         : Unsigned_32;
+      Door      : Unsigned_8;
+      Mode      : Uhppoted.Lib.Control_Mode;
+      OpenDelay : Unsigned_8;
+      Timeout   : Duration := 2.5) return Door_Record;
 
    --  Sets a door control mode and open delay.
    --
@@ -505,12 +511,13 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Door (U         : UHPPOTE;
-                      C         : Controller;
-                      Door      : Unsigned_8;
-                      Mode      : Uhppoted.Lib.Control_Mode;
-                      OpenDelay : Unsigned_8;
-                      Timeout   : Duration := 2.5) return Door_Record;
+   function Set_Door
+     (U         : UHPPOTE;
+      C         : Controller;
+      Door      : Unsigned_8;
+      Mode      : Uhppoted.Lib.Control_Mode;
+      OpenDelay : Unsigned_8;
+      Timeout   : Duration := 2.5) return Door_Record;
 
    --  Sets the supervisor override passcodes for a door. Restricted to the local LAN.
    --
@@ -524,11 +531,12 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Door_Passcodes (U         : UHPPOTE;
-                                C         : Unsigned_32;
-                                Door      : Unsigned_8;
-                                Passcodes : Uhppoted.Lib.Passcodes_List;
-                                Timeout   : Duration := 2.5) return Boolean;
+   function Set_Door_Passcodes
+     (U         : UHPPOTE;
+      C         : Unsigned_32;
+      Door      : Unsigned_8;
+      Passcodes : Uhppoted.Lib.Passcodes_List;
+      Timeout   : Duration := 2.5) return Boolean;
 
    --  Sets the supervisor override passcodes for a door.
    --
@@ -542,11 +550,12 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Door_Passcodes (U         : UHPPOTE;
-                                C         : Controller;
-                                Door      : Unsigned_8;
-                                Passcodes : Uhppoted.Lib.Passcodes_List;
-                                Timeout   : Duration := 2.5) return Boolean;
+   function Set_Door_Passcodes
+     (U         : UHPPOTE;
+      C         : Controller;
+      Door      : Unsigned_8;
+      Passcodes : Uhppoted.Lib.Passcodes_List;
+      Timeout   : Duration := 2.5) return Boolean;
 
    --  Remotely unlocks a door. Restricted to the local LAN.
    --
@@ -765,10 +774,11 @@ package Uhppoted.Lib is
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
    --  @exception Event_Not_Found        if the event index does not match an existing record.
    --  @exception Event_Overwritten      if the event at the index has been overwritten.
-   function Get_Event (U       : UHPPOTE;
-                       C       : Controller;
-                       Index   : Unsigned_32;
-                       Timeout : Duration := 2.5) return Controller_Event;
+   function Get_Event
+      (U       : UHPPOTE;
+       C       : Controller;
+       Index   : Unsigned_32;
+       Timeout : Duration := 2.5) return Controller_Event;
 
    --  Retrieves the event index from the controller. Restricted to the local LAN.
    --
@@ -805,10 +815,8 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Event_Index (U       : UHPPOTE;
-                             C       : Unsigned_32;
-                             Index   : Unsigned_32;
-                             Timeout : Duration := 2.5) return Boolean;
+   function Set_Event_Index
+     (U : UHPPOTE; C : Unsigned_32; Index : Unsigned_32; Timeout : Duration := 2.5) return Boolean;
 
    --  Sets the downloaded event index on the controller.
    --
@@ -821,10 +829,8 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Set_Event_Index (U       : UHPPOTE;
-                             C       : Controller;
-                             Index   : Unsigned_32;
-                             Timeout : Duration := 2.5) return Boolean;
+   function Set_Event_Index
+     (U : UHPPOTE; C : Controller; Index : Unsigned_32; Timeout : Duration := 2.5) return Boolean;
 
    --  Enables/disables events for e.g. door open, door unlock, etc. Restricted to the local LAN.
    --
@@ -837,10 +843,8 @@ package Uhppoted.Lib is
    --
    --  @exception Timeout_Error          if the controller did not respond.
    --  @exception Invalid_Response_Error if the response did not match the requested controller.
-   function Record_Special_Events (U       : UHPPOTE;
-                                   C       : Unsigned_32;
-                                   Enabled : Boolean;
-                                   Timeout : Duration := 2.5) return Boolean;
+   function Record_Special_Events
+     (U : UHPPOTE; C : Unsigned_32; Enabled : Boolean; Timeout : Duration := 2.5) return Boolean;
 
    --  Enables/disables events for e.g. door open, door unlock, etc.
    --

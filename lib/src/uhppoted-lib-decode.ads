@@ -42,8 +42,8 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Listener_Addr_Port_Response.
-   function Get_Listener_Addr_Port (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Listener_Addr_Port_Response;
+   function Get_Listener_Addr_Port
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Listener_Addr_Port_Response;
 
    --  Decodes a 64 byte set-listener reply as a Set_Listener_Response record.
    --
@@ -55,8 +55,8 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_Listener_Addr_Port_Response.
-   function Set_Listener_Addr_Port (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_Listener_Addr_Port_Response;
+   function Set_Listener_Addr_Port
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Listener_Addr_Port_Response;
 
    --  Decodes a 64 byte get-status reply as a Get_Status_Response record.
    --
@@ -80,8 +80,8 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_Door_Passcodes_Response.
-   function Set_Door_Passcodes (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_Door_Passcodes_Response;
+   function Set_Door_Passcodes
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Door_Passcodes_Response;
 
    --  Decodes a 64 byte open-door reply as an Open_Door_Response record.
    --
@@ -105,8 +105,8 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Card_At_Index_Response.
-   function Get_Card_At_Index (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Card_At_Index_Response;
+   function Get_Card_At_Index
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Card_At_Index_Response;
 
    --  Decodes a 64 byte put-card reply as a Put_Card_Response record.
    --
@@ -124,8 +124,8 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Delete_All_Cards_Response.
-   function Delete_All_Cards (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Delete_All_Cards_Response;
+   function Delete_All_Cards
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Delete_All_Cards_Response;
 
    --  Decodes a 64 byte get-event reply as a Get_Event_Response record.
    --
@@ -149,29 +149,29 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Record_Special_Events_Response.
-   function Record_Special_Events (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Record_Special_Events_Response;
+   function Record_Special_Events
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Record_Special_Events_Response;
 
    --  Decodes a 64 byte get-time-profile reply as a Get_Time_Profile_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Time_Profile_Response.
-   function Get_Time_Profile (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Time_Profile_Response;
+   function Get_Time_Profile
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Time_Profile_Response;
 
    --  Decodes a 64 byte set-time-profile reply as a Set_Time_Profile_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_Time_Profile_Response.
-   function Set_Time_Profile (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_Time_Profile_Response;
+   function Set_Time_Profile
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Time_Profile_Response;
 
    --  Decodes a 64 byte clear-time-profiles reply as a Clear_Time_Profiles_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Clear_Time_Profiles_Response.
-   function Clear_Time_Profiles (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Clear_Time_Profiles_Response;
+   function Clear_Time_Profiles
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Clear_Time_Profiles_Response;
 
    --  Decodes a 64 byte add-task reply as an Add_Task_Response record.
    --
@@ -183,8 +183,8 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Refresh_Task_List_Response.
-   function Refresh_Task_List (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Refresh_Task_List_Response;
+   function Refresh_Task_List
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Refresh_Task_List_Response;
 
    --  Decodes a 64 byte clear-tasklist reply as a Clear_Task_List_Response record.
    --
@@ -208,22 +208,22 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Activate_Keypads_Response.
-   function Activate_Keypads (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Activate_Keypads_Response;
+   function Activate_Keypads
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Activate_Keypads_Response;
 
    --  Decodes a 64 byte get-antipassback reply as a Get_Antipassback_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Get_Antipassback_Response.
-   function Get_Antipassback (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Get_Antipassback_Response;
+   function Get_Antipassback
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Get_Antipassback_Response;
 
    --  Decodes a 64 byte set-antipassback reply as a Set_Antipassback_Response record.
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Set_Antipassback_Response.
-   function Set_Antipassback (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Set_Antipassback_Response;
+   function Set_Antipassback
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Set_Antipassback_Response;
 
    --  Decodes a 64 byte set-firstcard reply as a Set_First_Card_Response record.
    --
@@ -235,8 +235,8 @@ package Uhppoted.Lib.Decode is
    --
    --  @param   Reply  64 byte reply packet to decode.
    --  @return  Decoded Restore_Default_Parameters_Response.
-   function Restore_Default_Parameters (Reply : Uhppoted.Lib.Types.Packet)
-      return Uhppoted.Lib.Responses.Restore_Default_Parameters_Response;
+   function Restore_Default_Parameters
+     (Reply : Uhppoted.Lib.Types.Packet) return Uhppoted.Lib.Responses.Restore_Default_Parameters_Response;
 
    --  Decodes a 64 byte listener-event packet as a Listener_Event record.
    --

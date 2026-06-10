@@ -70,11 +70,12 @@ package body Uhppoted.Lib.Transport.UDP is
             Empty (Write_Set);
             Set (Read_Set, Sock.Client);
 
-            Check_Selector (Selector.Selector,
-                            R_Socket_Set => Read_Set,
-                            W_Socket_Set => Write_Set,
-                            Status       => Status,
-                            Timeout      => Remaining);
+            Check_Selector
+              (Selector.Selector,
+               R_Socket_Set => Read_Set,
+               W_Socket_Set => Write_Set,
+               Status       => Status,
+               Timeout      => Remaining);
 
             if Status = Completed then
                Receive_Socket (Sock.Client, Buffer, Offset, From);
@@ -98,9 +99,10 @@ package body Uhppoted.Lib.Transport.UDP is
    end Broadcast;
 
    --  Broadcasts a 64 byte request packet to a specific controller and returns the response (if any).
-   function BroadcastTo (U        : UHPPOTE;
-                         Request  : Packet;
-                         Timeout  : Duration) return Packet is
+   function BroadcastTo
+      (U        : UHPPOTE;
+       Request  : Packet;
+       Timeout  : Duration) return Packet is
       BindAddr  : constant Sock_Addr_Type := U.Bind_Addr;
       Offset    : Stream_Element_Offset;
 
@@ -161,11 +163,12 @@ package body Uhppoted.Lib.Transport.UDP is
                raise Timeout_Error;
             end if;
 
-            Check_Selector (Selector.Selector,
-                            R_Socket_Set => Read_Set,
-                            W_Socket_Set => Write_Set,
-                            Status       => Status,
-                            Timeout      => Remaining);
+            Check_Selector
+              (Selector.Selector,
+               R_Socket_Set => Read_Set,
+               W_Socket_Set => Write_Set,
+               Status       => Status,
+               Timeout      => Remaining);
 
             case Status is
                when Completed         =>
@@ -189,10 +192,11 @@ package body Uhppoted.Lib.Transport.UDP is
    end BroadcastTo;
 
    --  Sends a 64 byte request packet to a specific controller over 'connectedf UDP' and returns the response (if any).
-   function SendTo (U        : UHPPOTE;
-                    DestAddr : Sock_Addr_Type;
-                    Request  : Packet;
-                    Timeout  : Duration) return Packet is
+   function SendTo
+      (U        : UHPPOTE;
+       DestAddr : Sock_Addr_Type;
+       Request  : Packet;
+       Timeout  : Duration) return Packet is
       BindAddr  : constant Sock_Addr_Type := U.Bind_Addr;
       Offset    : Stream_Element_Offset;
 
@@ -253,11 +257,12 @@ package body Uhppoted.Lib.Transport.UDP is
             Empty (Write_Set);
             Set (Read_Set, Sock.Client);
 
-            Check_Selector (Selector.Selector,
-                            R_Socket_Set => Read_Set,
-                            W_Socket_Set => Write_Set,
-                            Status       => Status,
-                            Timeout      => Remaining);
+            Check_Selector
+              (Selector.Selector,
+               R_Socket_Set => Read_Set,
+               W_Socket_Set => Write_Set,
+               Status       => Status,
+               Timeout      => Remaining);
 
             case Status is
                when Completed         =>
@@ -302,10 +307,7 @@ package body Uhppoted.Lib.Transport.UDP is
             Empty (Write_Set);
             Set (Read_Set, Sock.Client);
 
-            Check_Selector (H,
-                            R_Socket_Set => Read_Set,
-                            W_Socket_Set => Write_Set,
-                            Status       => Status);
+            Check_Selector (H, R_Socket_Set => Read_Set, W_Socket_Set => Write_Set, Status => Status);
 
             exit when Status = Aborted;
 

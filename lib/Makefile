@@ -33,6 +33,9 @@ clean:
 build:
 	alr build
 
+format: build
+	alr exec -- gnatformat -P uhppoted_lib_ada.gpr
+
 test: build
 	cd tests && make test
 

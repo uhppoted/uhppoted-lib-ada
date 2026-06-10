@@ -18,10 +18,11 @@ package Uhppoted.Lib.Transport.TCP is
    --  @param  Timeout   Operation timeout (defaults to 2.5s).
    --
    --  @return  Received packet.
-   function Send (U        : UHPPOTE;
-                  DestAddr : GNAT.Sockets.Sock_Addr_Type;
-                  Request  : Packet;
-                  Timeout  : Duration) return Packet;
+   function Send
+      (U        : UHPPOTE;
+       DestAddr : GNAT.Sockets.Sock_Addr_Type;
+       Request  : Packet;
+       Timeout  : Duration) return Packet;
 
    --  Controlled_Type wrapper for GNAT.Socket.
    type S is tagged limited private;
@@ -37,11 +38,13 @@ private
    --  Initialises the wrapped socket handle.
    --
    --  @param E  Controlled.Initialize implementation for socket.
-   overriding procedure Initialize (E : in out S);
+   overriding
+   procedure Initialize (E : in out S);
 
    --  Closes the wrapped socket handle.
    --
    --  @param E  Controlled.Finalize implementation for socket.
-   overriding procedure Finalize (E : in out S);
+   overriding
+   procedure Finalize (E : in out S);
 
 end Uhppoted.Lib.Transport.TCP;

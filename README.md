@@ -51,6 +51,10 @@ This is known bug in the GNAT FSF builds which mistakenly interprets the OS vers
    - https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120645
    - https://github.com/alire-project/GNAT-FSF-builds/issues/94
 
+#### lint
+1. The .gpr file specifies `-gnatwa` and `-gnatWe`.
+2. _AdaControl_ reports `[..]` array delimiters as illegal characters although they have been recommended since `ada2022`.
+
 
 ## API
 

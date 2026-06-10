@@ -1,4 +1,4 @@
-name: lint
+name: adacontrol
 
 on:
   workflow_dispatch:

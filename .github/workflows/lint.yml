@@ -36,4 +36,4 @@ jobs:
 
     - name: lint
       run: |
-        adactl -h
+        make lint

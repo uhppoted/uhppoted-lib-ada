@@ -50,6 +50,9 @@ build:
 test:
 	cd lib && make test
 
+lint:
+	cd lib && make lint
+
 integration-tests: build
 	cd integration-tests && make test
 

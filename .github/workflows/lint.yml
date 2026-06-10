@@ -24,8 +24,8 @@ jobs:
 
     - name: Install AdaControl
       run: |
-        apt update
-        apt install adacontrol
+        sudo apt update
+        sudo apt install adacontrol
 
     - name: Check out code
       uses: actions/checkout@v6

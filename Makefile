@@ -42,7 +42,10 @@ update:
 	cd examples          && alr index --update-all
 
 format:
-	cd lib && alr exec -- gnatformat -P uhppoted_lib_ada.gpr
+	cd lib && make format
+
+format-all:
+	cd lib && make format-all
 
 build:
 	cd lib && make build
@@ -61,6 +64,9 @@ build-all:
 	cd lib && make build
 	cd examples/cli && make build
 	cd integration-tests && make build
+
+release:
+	cd lib && make release
 
 adadoc: $(SRC)
 	mkdir -p adadoc

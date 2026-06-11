@@ -19,10 +19,7 @@ package Uhppoted.Lib.Transport.TCP is
    --
    --  @return  Received packet.
    function Send
-      (U        : UHPPOTE;
-       DestAddr : GNAT.Sockets.Sock_Addr_Type;
-       Request  : Packet;
-       Timeout  : Duration) return Packet;
+     (U : UHPPOTE; DestAddr : GNAT.Sockets.Sock_Addr_Type; Request : Packet; Timeout : Duration) return Packet;
 
    --  Controlled_Type wrapper for GNAT.Socket.
    type S is tagged limited private;

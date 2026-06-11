@@ -2,8 +2,8 @@ with "config/uhppoted_lib_ada_config.gpr";
 
 project Uhppoted_Lib_Ada is
 
-   for Library_Name use "Uhppoted_Lib_Ada";
-   for Library_Version use Project'Library_Name & ".so." & Uhppoted_Lib_Ada_Config.Crate_Version;
+   for Library_Name use "uhppoted_lib_ada";
+   for Library_Version use "uhppoted_lib_ada" & "." & Uhppoted_Lib_Ada_Config.Crate_Version;
 
    for Source_Dirs use ("src", "config");
    for Object_Dir use "obj/lib/" & Uhppoted_Lib_Ada_Config.Build_Profile;
@@ -16,16 +16,38 @@ project Uhppoted_Lib_Ada is
    for Library_Kind use Library_Type;
 
    package Compiler is 
-      for Default_Switches ("Ada") use Uhppoted_Lib_Ada_Config.Ada_Compiler_Switches & (
+      Baseline := Uhppoted_Lib_Ada_Config.Ada_Compiler_Switches & (
           "-gnat2022"
          ,"-gnatyM120"
          ,"-gnatwa"
-         ,"-gnatWe"
+         ,"-gnatwe"
       );
+
+      case Uhppoted_Lib_Ada_Config.Build_Profile is
+         when "release" =>
+            for Default_Switches ("Ada") use Baseline & ("-O2");
+
+         when "validation" =>
+            for Default_Switches ("Ada") use Baseline & (
+                "-O2"
+               ,"-gnata"
+               ,"-gnatVa");
+
+         when "development" =>
+            for Default_Switches ("Ada") use Baseline & (
+                "-g"
+               ,"-O0"
+               ,"-gnatw.h"
+               ,"-gnatw.q"
+               ,"-gnatw_r"
+               ,"-gnata"
+--             ,"-gnatwh"
+               ,"-gnatVa");
+      end case;
    end Compiler;
 
    package Binder is
-      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+      for Switches ("Ada") use ("-Es");
    end Binder;
 
    package Install is

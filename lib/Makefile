@@ -34,13 +34,20 @@ build:
 	alr build
 
 format: build
+	alr exec -- gnatformat --ignore .ignore.fmt -P uhppoted_lib_ada.gpr
+
+format-all: build
 	alr exec -- gnatformat -P uhppoted_lib_ada.gpr
 
-test: build
+test:
+	alr build --validation
 	cd tests && make test
 
 lint:
 	adactl -f uhppoted-lib.aru -p uhppoted_lib_ada.gpr src/*.ads src/*.adb
+
+release:
+	alr build --release
 
 find-controllers: build
 	cd ../examples/cli && make find-controllers

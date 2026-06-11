@@ -355,12 +355,13 @@ package Uhppoted.Lib.Replies is
       Door_3_Button        : Unsigned_8;
       Door_4_Button        : Unsigned_8;
       System_Error         : Unsigned_8;
-      System_Date          : Uhppoted.Lib.Types.BCD (1 .. 3);
       System_Time          : Uhppoted.Lib.Types.BCD (1 .. 3);
       Sequence_No          : Unsigned_32;
+      Unused               : Ada.Streams.Stream_Element_Array (1 .. 4);
       Special_Info         : Unsigned_8;
       Relays               : Unsigned_8;
       Inputs               : Unsigned_8;
+      System_Date          : Uhppoted.Lib.Types.BCD (1 .. 3);
       Padding              : Ada.Streams.Stream_Element_Array (1 .. 10);
    end record;
 
@@ -389,6 +390,7 @@ package Uhppoted.Lib.Replies is
        System_Error at 36 range 0 .. 7;
        System_Time at 37 range 0 .. 23;
        Sequence_No at 40 range 0 .. 31;
+       Unused at 44 range 0 .. 31;
        Special_Info at 48 range 0 .. 7;
        Relays at 49 range 0 .. 7;
        Inputs at 50 range 0 .. 7;
@@ -1412,12 +1414,13 @@ package Uhppoted.Lib.Replies is
       Door_3_Button        : Unsigned_8;
       Door_4_Button        : Unsigned_8;
       System_Error         : Unsigned_8;
-      System_Date          : Uhppoted.Lib.Types.BCD (1 .. 3);
       System_Time          : Uhppoted.Lib.Types.BCD (1 .. 3);
       Sequence_No          : Unsigned_32;
+      Unused               : Ada.Streams.Stream_Element_Array (1 .. 4);
       Special_Info         : Unsigned_8;
       Relays               : Unsigned_8;
       Inputs               : Unsigned_8;
+      System_Date          : Uhppoted.Lib.Types.BCD (1 .. 3);
       Padding              : Ada.Streams.Stream_Element_Array (1 .. 10);
    end record;
 
@@ -1446,6 +1449,7 @@ package Uhppoted.Lib.Replies is
        System_Error at 36 range 0 .. 7;
        System_Time at 37 range 0 .. 23;
        Sequence_No at 40 range 0 .. 31;
+       Unused at 44 range 0 .. 31;
        Special_Info at 48 range 0 .. 7;
        Relays at 49 range 0 .. 7;
        Inputs at 50 range 0 .. 7;

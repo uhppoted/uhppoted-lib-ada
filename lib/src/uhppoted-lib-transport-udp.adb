@@ -99,12 +99,9 @@ package body Uhppoted.Lib.Transport.UDP is
    end Broadcast;
 
    --  Broadcasts a 64 byte request packet to a specific controller and returns the response (if any).
-   function BroadcastTo
-      (U        : UHPPOTE;
-       Request  : Packet;
-       Timeout  : Duration) return Packet is
-      BindAddr  : constant Sock_Addr_Type := U.Bind_Addr;
-      Offset    : Stream_Element_Offset;
+   function BroadcastTo (U : UHPPOTE; Request : Packet; Timeout : Duration) return Packet is
+      BindAddr : constant Sock_Addr_Type := U.Bind_Addr;
+      Offset   : Stream_Element_Offset;
 
       Sock   : S;
       From   : Sock_Addr_Type;
@@ -192,13 +189,9 @@ package body Uhppoted.Lib.Transport.UDP is
    end BroadcastTo;
 
    --  Sends a 64 byte request packet to a specific controller over 'connectedf UDP' and returns the response (if any).
-   function SendTo
-      (U        : UHPPOTE;
-       DestAddr : Sock_Addr_Type;
-       Request  : Packet;
-       Timeout  : Duration) return Packet is
-      BindAddr  : constant Sock_Addr_Type := U.Bind_Addr;
-      Offset    : Stream_Element_Offset;
+   function SendTo (U : UHPPOTE; DestAddr : Sock_Addr_Type; Request : Packet; Timeout : Duration) return Packet is
+      BindAddr : constant Sock_Addr_Type := U.Bind_Addr;
+      Offset   : Stream_Element_Offset;
 
       Sock   : S;
       From   : Sock_Addr_Type;

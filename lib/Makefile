@@ -34,7 +34,7 @@ build:
 	alr build
 
 format: build
-	alr exec -- gnatformat --ignore .ignore.fmt -P uhppoted_lib_ada.gpr
+	alr exec -- gnatformat --ignore .gnatformat.ignore -P uhppoted_lib_ada.gpr
 
 format-all: build
 	alr exec -- gnatformat -P uhppoted_lib_ada.gpr

@@ -355,9 +355,11 @@ package Uhppoted.Lib.Encode is
    --  @param  Interlock   Door interlock mode.
    --
    --  @return  Packet  64 byte message packet.
+   --!format off
    function Set_Interlock
      (Controller : Unsigned_32;
       Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet;
+   --!format on
 
    --  Encodes an activate-keypads request as a 64 byte array.
    --
@@ -368,12 +370,14 @@ package Uhppoted.Lib.Encode is
    --  @param  Reader_4    Enables/disables reader 4.
    --
    --  @return  Packet  64 byte message packet.
+   --!format off
    function Activate_Keypads
      (Controller : Unsigned_32;
       Reader_1   : Boolean;
       Reader_2   : Boolean;
       Reader_3   : Boolean;
       Reader_4   : Boolean) return Uhppoted.Lib.Types.Packet;
+   --!format on
 
    --  Encodes a get-antipassback request as a 64 byte array.
    --
@@ -389,8 +393,10 @@ package Uhppoted.Lib.Encode is
    --
    --  @return  Packet  64 byte message packet.
    function Set_Antipassback
+   --!format off
      (Controller   : Unsigned_32;
       Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet;
+   --!format on
 
    --  Encodes a set-firstcard request as a 64 byte array.
    --

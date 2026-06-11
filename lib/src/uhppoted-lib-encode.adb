@@ -24,13 +24,14 @@ package body Uhppoted.Lib.Encode is
    end Get_Controller;
 
    --  Encodes a set-IPv4 request as a 64 byte array.
+   --!format off
    function Set_IPv4
      (Controller : Unsigned_32;
       Addr       : Inet_Addr_Type;
       Netmask    : Inet_Addr_Type;
-      Gateway    : Inet_Addr_Type) return Packet is
+      Gateway    : Inet_Addr_Type) return Packet
+   is
       Request : Set_IPv4_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
       --!format on
    begin
@@ -517,21 +518,23 @@ package body Uhppoted.Lib.Encode is
       --!format on
    begin
       Request.Controller := Controller;
-      Request.Enable     := Pack_Boolean (Enable);
+      Request.Enable := Pack_Boolean (Enable);
 
       return Buffer;
    end Set_PC_Control;
 
    --  Encodes a set-interlock request as a 64 byte array.
-   function Set_Interlock (Controller : Unsigned_32;
-                           Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet is
+   function Set_Interlock
+     (Controller : Unsigned_32;
+      Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet
+   is
       Request : Set_Interlock_Request;
       --!format off
       Buffer  : Packet with Address => Request'Address;
       --!format on
    begin
       Request.Controller := Controller;
-      Request.Interlock  := Interlock;
+      Request.Interlock := Interlock;
 
       return Buffer;
    end Set_Interlock;
@@ -542,7 +545,8 @@ package body Uhppoted.Lib.Encode is
       Reader_1   : Boolean;
       Reader_2   : Boolean;
       Reader_3   : Boolean;
-      Reader_4   : Boolean) return Uhppoted.Lib.Types.Packet is
+      Reader_4   : Boolean) return Uhppoted.Lib.Types.Packet
+   is
       Request : Activate_Keypads_Request;
       --!format off
       Buffer  : Packet with Address => Request'Address;
@@ -570,8 +574,10 @@ package body Uhppoted.Lib.Encode is
    end Get_Antipassback;
 
    --  Encodes a set-antipassback request as a 64 byte array.
-   function Set_Antipassback (Controller   : Unsigned_32;
-                              Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet is
+   function Set_Antipassback
+     (Controller   : Unsigned_32;
+      Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet
+   is
       Request : Set_Antipassback_Request;
       --!format off
       Buffer  : Packet with Address => Request'Address;

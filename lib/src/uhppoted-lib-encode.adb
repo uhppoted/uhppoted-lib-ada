@@ -98,11 +98,9 @@ package body Uhppoted.Lib.Encode is
                           Addr       : GNAT.Sockets.Inet_Addr_Type;
                           Port       : Unsigned_16;
                           Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet is
-      --!format on
       Request : Set_Listener_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
+   --!format on
    begin
       Request.Controller := Controller;
       Request.Addr := Pack_IPv4 (Addr);
@@ -117,11 +115,9 @@ package body Uhppoted.Lib.Encode is
    function Set_Listener_Addr_Port (Controller : Unsigned_32;
                                     Listener   : GNAT.Sockets.Sock_Addr_Type;
                                     Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet is
-      --!format on
       Request : Set_Listener_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
+   --!format on
    begin
       Request.Controller := Controller;
       Request.Addr := Pack_IPv4 (Listener.Addr);
@@ -524,8 +520,11 @@ package body Uhppoted.Lib.Encode is
    end Set_PC_Control;
 
    --  Encodes a set-interlock request as a 64 byte array.
+   --  !format off
    function Set_Interlock
-     (Controller : Unsigned_32; Interlock : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet
+     (Controller : Unsigned_32;
+      Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet
+   --  !format on
    is
       Request : Set_Interlock_Request;
       --!format off
@@ -539,14 +538,17 @@ package body Uhppoted.Lib.Encode is
    end Set_Interlock;
 
    --  Encodes an activate-keypads request as a 64 byte array.
+   --!format off
    function Activate_Keypads
-     (Controller : Unsigned_32; Reader_1 : Boolean; Reader_2 : Boolean; Reader_3 : Boolean; Reader_4 : Boolean)
-      return Uhppoted.Lib.Types.Packet
+     (Controller : Unsigned_32;
+      Reader_1   : Boolean;
+      Reader_2   : Boolean;
+      Reader_3   : Boolean;
+      Reader_4   : Boolean) return Uhppoted.Lib.Types.Packet
    is
       Request : Activate_Keypads_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
+   --!format on
    begin
       Request.Controller := Controller;
       Request.Reader_1 := Pack_Boolean (Reader_1);
@@ -570,13 +572,14 @@ package body Uhppoted.Lib.Encode is
    end Get_Antipassback;
 
    --  Encodes a set-antipassback request as a 64 byte array.
+   --!format off
    function Set_Antipassback
-     (Controller : Unsigned_32; Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet
+     (Controller   : Unsigned_32;
+      Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet
    is
       Request : Set_Antipassback_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
+   --!format on
    begin
       Request.Controller := Controller;
       Request.Antipassback := Antipassback;

@@ -527,7 +527,7 @@ package body Uhppoted.Lib.Encode is
    is
       Request : Set_Interlock_Request;
       Buffer  : Packet with Address => Request'Address;
-   --!format on
+   --  !format on
    begin
       Request.Controller := Controller;
       Request.Interlock := Interlock;

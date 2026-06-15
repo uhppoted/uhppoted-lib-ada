@@ -520,14 +520,14 @@ package body Uhppoted.Lib.Encode is
    end Set_PC_Control;
 
    --  Encodes a set-interlock request as a 64 byte array.
-   --  !format off
+   --!format off
    function Set_Interlock
      (Controller : Unsigned_32;
       Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet
    is
       Request : Set_Interlock_Request;
       Buffer  : Packet with Address => Request'Address;
-   --  !format on
+   --!format on
    begin
       Request.Controller := Controller;
       Request.Interlock := Interlock;

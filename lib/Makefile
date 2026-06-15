@@ -50,7 +50,7 @@ release:
 	alr build --release
 
 package:
-	alr publish --tar
+	alr publish --tar --skip-submit
 
 find-controllers: build
 	cd ../examples/cli && make find-controllers

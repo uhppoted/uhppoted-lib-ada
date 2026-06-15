@@ -68,6 +68,9 @@ build-all:
 release:
 	cd lib && make release
 
+package: release
+	cd lib && make package
+
 adadoc: $(SRC)
 	mkdir -p adadoc
 	cd lib && alr exec -- gnatdoc -l --warnings  --style leading -P uhppoted_lib_ada.gpr -O ../adadoc 2>&1 | grep -Ei "warning|error" | wc -l

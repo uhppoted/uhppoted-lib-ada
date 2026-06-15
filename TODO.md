@@ -2,9 +2,5 @@
 
 - [x] lint
 - [x] release build
-- [ ] format
-```
---!format off / --!format on
-```
-
+- [x] format
 - [ ] package & publish

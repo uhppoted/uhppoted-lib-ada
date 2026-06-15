@@ -524,12 +524,10 @@ package body Uhppoted.Lib.Encode is
    function Set_Interlock
      (Controller : Unsigned_32;
       Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet
-   --  !format on
    is
       Request : Set_Interlock_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
+   --!format on
    begin
       Request.Controller := Controller;
       Request.Interlock := Interlock;

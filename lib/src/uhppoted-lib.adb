@@ -353,9 +353,9 @@ package body Uhppoted.Lib is
       Timeout   : Duration := 2.5) return Boolean
    --!format on
    is
-      Request   : Packet;
-      Reply     : Packet;
-      R         : Set_Door_Passcodes_Response;
+      Request : Packet;
+      Reply   : Packet;
+      R       : Set_Door_Passcodes_Response;
 
       Passcode1 : Unsigned_32 := 0;
       Passcode2 : Unsigned_32 := 0;

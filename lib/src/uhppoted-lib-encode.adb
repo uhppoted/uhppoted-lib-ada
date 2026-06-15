@@ -525,8 +525,7 @@ package body Uhppoted.Lib.Encode is
 
    --  Encodes a set-interlock request as a 64 byte array.
    function Set_Interlock
-     (Controller : Unsigned_32;
-      Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet
+     (Controller : Unsigned_32; Interlock : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet
    is
       Request : Set_Interlock_Request;
       --!format off
@@ -541,11 +540,8 @@ package body Uhppoted.Lib.Encode is
 
    --  Encodes an activate-keypads request as a 64 byte array.
    function Activate_Keypads
-     (Controller : Unsigned_32;
-      Reader_1   : Boolean;
-      Reader_2   : Boolean;
-      Reader_3   : Boolean;
-      Reader_4   : Boolean) return Uhppoted.Lib.Types.Packet
+     (Controller : Unsigned_32; Reader_1 : Boolean; Reader_2 : Boolean; Reader_3 : Boolean; Reader_4 : Boolean)
+      return Uhppoted.Lib.Types.Packet
    is
       Request : Activate_Keypads_Request;
       --!format off
@@ -575,8 +571,7 @@ package body Uhppoted.Lib.Encode is
 
    --  Encodes a set-antipassback request as a 64 byte array.
    function Set_Antipassback
-     (Controller   : Unsigned_32;
-      Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet
+     (Controller : Unsigned_32; Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet
    is
       Request : Set_Antipassback_Request;
       --!format off

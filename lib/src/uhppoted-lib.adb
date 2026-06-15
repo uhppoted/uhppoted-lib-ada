@@ -10,20 +10,16 @@ package body Uhppoted.Lib is
    use Uhppoted.Lib.Responses;
 
    --  Factory function to convert a controller ID to a Controller record for Dispatch.
-   --!format off
    function To_Controller (C : Unsigned_32) return Controller is (Controller'(ID => C, others => <>));
-   --!format on
 
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
-   --!format off
    function Dispatch
      (U         : UHPPOTE;
       DestAddr  : Sock_Addr_Type;
       Request   : Packet;
       Transport : Transport_Type;
       Timeout   : Duration) return Packet;
-   --!format on
 
    --  Finds all access controllers on the local LAN.
    function Find_Controllers (U : UHPPOTE; Timeout : Duration := 2.5) return Controller_Record_List is
@@ -330,28 +326,24 @@ package body Uhppoted.Lib is
    end Set_Door;
 
    --  Sets the supervisor override passcodes for a door. Restricted to the local LAN.
-   --!format off
    function Set_Door_Passcodes
      (U         : UHPPOTE;
       C         : Unsigned_32;
       Door      : Unsigned_8;
       Passcodes : Passcodes_List;
       Timeout   : Duration := 2.5) return Boolean
-   --!format on
    is
    begin
       return Set_Door_Passcodes (U, To_Controller (C), Door, Passcodes, Timeout);
    end Set_Door_Passcodes;
 
    --  Sets the supervisor override passcodes for a door.
-   --!format off
    function Set_Door_Passcodes
      (U         : UHPPOTE;
       C         : Controller;
       Door      : Unsigned_8;
       Passcodes : Passcodes_List;
       Timeout   : Duration := 2.5) return Boolean
-   --!format on
    is
       Request : Packet;
       Reply   : Packet;
@@ -479,13 +471,11 @@ package body Uhppoted.Lib is
    end Get_Card_At_Index;
 
    --  Retrieves the card record at the requested index.
-   --!format off
    function Get_Card_At_Index
      (U       : UHPPOTE;
       C       : Controller;
       Index   : Unsigned_32;
       Timeout : Duration := 2.5) return Card_Record
-   --!format on
    is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Card_At_Index (C.ID, Index);
       Reply   : Packet;
@@ -524,15 +514,12 @@ package body Uhppoted.Lib is
    end Put_Card;
 
    --  Adds/updates a card record stored on the controller.
-   --!format off
    function Put_Card
      (U       : UHPPOTE;
       C       : Controller;
       Card    : Card_Record;
       Timeout : Duration := 2.5) return Boolean
-   --!format on
    is
-      --!format off
       Request : constant Packet := Uhppoted.Lib.Encode.Put_Card (C.ID,
                                                                  Card.Card,
                                                                  Card.Start_Date,
@@ -542,7 +529,6 @@ package body Uhppoted.Lib is
                                                                  Card.Door_3,
                                                                  Card.Door_4,
                                                                  Card.PIN);
-      --!format on
       Reply   : Packet;
       R       : Put_Card_Response;
    begin
@@ -601,26 +587,22 @@ package body Uhppoted.Lib is
    end Delete_All_Cards;
 
    --  Retrieves an event from the controller. Restricted to the local LAN.
-   --!format off
    function Get_Event
      (U       : UHPPOTE;
       C       : Unsigned_32;
       Index   : Unsigned_32;
       Timeout : Duration := 2.5) return Controller_Event
-   --!format on
    is
    begin
       return Get_Event (U, To_Controller (C), Index, Timeout);
    end Get_Event;
 
    --  Retrieves an event from the controller.
-   --!format off
    function Get_Event
      (U       : UHPPOTE;
       C       : Controller;
       Index   : Unsigned_32;
       Timeout : Duration := 2.5) return Controller_Event
-   --!format on
    is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Event (C.ID, Index);
       Reply   : Packet;
@@ -679,26 +661,22 @@ package body Uhppoted.Lib is
    end Get_Event_Index;
 
    --  Sets the downloaded event index from the controller. Restricted to the local LAN.
-   --!format off
    function Set_Event_Index
      (U       : UHPPOTE;
       C       : Unsigned_32;
       Index   : Unsigned_32;
       Timeout : Duration := 2.5) return Boolean
-   --!format on
    is
    begin
       return Set_Event_Index (U, To_Controller (C), Index, Timeout);
    end Set_Event_Index;
 
    --  Sets the downloaded event index from the controller.
-   --!format off
    function Set_Event_Index
      (U       : UHPPOTE;
       C       : Controller;
       Index   : Unsigned_32;
       Timeout : Duration := 2.5) return Boolean
-   --!format on
    is
       Request : constant Packet := Uhppoted.Lib.Encode.Set_Event_Index (C.ID, Index);
       Reply   : Packet;
@@ -715,26 +693,22 @@ package body Uhppoted.Lib is
    end Set_Event_Index;
 
    --  Enables/disables events for e.g. door open, door unlock, etc. Restricted to the local LAN.
-   --!format off
    function Record_Special_Events
      (U       : UHPPOTE;
       C       : Unsigned_32;
       Enabled : Boolean;
       Timeout : Duration := 2.5) return Boolean
-   --!format on
    is
    begin
       return Record_Special_Events (U, To_Controller (C), Enabled, Timeout);
    end Record_Special_Events;
 
    --  Enables/disables events for e.g. door open, door unlock, etc.
-   --!format off
    function Record_Special_Events
      (U       : UHPPOTE;
       C       : Controller;
       Enabled : Boolean;
       Timeout : Duration := 2.5) return Boolean
-   --!format on
    is
       Request : constant Packet := Uhppoted.Lib.Encode.Record_Special_Events (C.ID, Enabled);
       Reply   : Packet;
@@ -751,13 +725,11 @@ package body Uhppoted.Lib is
    end Record_Special_Events;
 
    --  Retrieves a time profile from the controller. Restricted to the local LAN.
-   --!format off
    function Get_Time_Profile
      (U       : UHPPOTE;
       C       : Unsigned_32;
       Profile : Unsigned_8;
       Timeout : Duration := 2.5) return Time_Profile
-   --!format on
    is
    begin
       return Get_Time_Profile (U, To_Controller (C), Profile, Timeout);
@@ -765,12 +737,10 @@ package body Uhppoted.Lib is
 
    --  Retrieves a time profile from the controller.
    function Get_Time_Profile
-   --!format off
      (U       : UHPPOTE;
       C       : Controller;
       Profile : Unsigned_8;
       Timeout : Duration := 2.5) return Time_Profile
-   --!format on
    is
       Request : constant Packet := Uhppoted.Lib.Encode.Get_Time_Profile (C.ID, Profile);
       Reply   : Packet;
@@ -810,28 +780,24 @@ package body Uhppoted.Lib is
    end Get_Time_Profile;
 
    --  Adds or updates a time profile stored on a a controller. Restricted to the local LAN.
-   --!format off
    function Set_Time_Profile
      (U          : UHPPOTE;
       C          : Unsigned_32;
       Profile_ID : Unsigned_8;
       Profile    : Time_Profile;
       Timeout    : Duration := 2.5) return Boolean
-   --!format on
    is
    begin
       return Set_Time_Profile (U, To_Controller (C), Profile_ID, Profile, Timeout);
    end Set_Time_Profile;
 
    --  Adds or updates a time profile stored on a a controller.
-   --!format off
    function Set_Time_Profile
      (U          : UHPPOTE;
       C          : Controller;
       Profile_ID : Unsigned_8;
       Profile    : Time_Profile;
       Timeout    : Duration := 2.5) return Boolean
-   --!format on
    is
       Request : constant Packet :=
         Uhppoted.Lib.Encode.Set_Time_Profile
@@ -889,28 +855,23 @@ package body Uhppoted.Lib is
    end Clear_Time_Profiles;
 
    --  Creates a scheduled task assigned to a controller managed door. Restricted to the local LAN.
-   --!format off
    function Add_Task
      (U       : UHPPOTE;
       C       : Unsigned_32;
       T       : Task_Record;
       Timeout : Duration := 2.5) return Boolean
-   --!format on
    is
    begin
       return Add_Task (U, To_Controller (C), T, Timeout);
    end Add_Task;
 
    --  Creates a scheduled task assigned to a controller managed door.
-   --!format off
    function Add_Task
      (U       : UHPPOTE;
       C       : Controller;
       T       : Task_Record;
       Timeout : Duration := 2.5) return Boolean
-   --!format off
    is
-      --!format off
       Request : constant Packet := Uhppoted.Lib.Encode.Add_Task (C.ID, T.Task_ID,
                                                                        T.Start_Date,
                                                                        T.End_Date,
@@ -924,7 +885,6 @@ package body Uhppoted.Lib is
                                                                        T.Start_Time,
                                                                        T.Door,
                                                                        T.More_Cards);
-      --!format on
       Reply   : Packet;
       R       : Add_Task_Response;
    begin
@@ -1007,26 +967,22 @@ package body Uhppoted.Lib is
    end Set_PC_Control;
 
    --  Sets the controller door interlock mode. Restricted to the local LAN.
-   --!format off
    function Set_Interlock
      (U         : UHPPOTE;
       C         : Unsigned_32;
       Interlock : Uhppoted.Lib.Interlock;
       Timeout : Duration := 2.5) return Boolean
-   --!format on
    is
    begin
       return Set_Interlock (U, To_Controller (C), Interlock, Timeout);
    end Set_Interlock;
 
    --  Sets the controller door interlock mode.
-   --!format off
    function Set_Interlock
      (U         : UHPPOTE;
       C         : Controller;
       Interlock : Uhppoted.Lib.Interlock;
       Timeout : Duration := 2.5) return Boolean
-   --!format off
    is
       Request : constant Packet := Uhppoted.Lib.Encode.Set_Interlock (C.ID, Interlock);
       Reply   : Packet;
@@ -1043,33 +999,27 @@ package body Uhppoted.Lib is
    end Set_Interlock;
 
    --  Activates/deactivates the keypads associated with a controller door card reader. Restricted to the local LAN.
-   --!format off
    function Activate_Keypads
      (U        : UHPPOTE;
       C        : Unsigned_32;
       Keypads  : Uhppoted.Lib.Keypads;
       Timeout  : Duration := 2.5) return Boolean
-   --!format on
    is
    begin
       return Activate_Keypads (U, To_Controller (C), Keypads, Timeout);
    end Activate_Keypads;
 
    --  Activates/deactivates the keypads associated with a controller door card reader.
-   --!format off
    function Activate_Keypads
      (U        : UHPPOTE;
       C        : Controller;
       Keypads  : Uhppoted.Lib.Keypads;
       Timeout  : Duration := 2.5) return Boolean
-   --!format on
    is
-      --!format off
       Request : constant Packet := Uhppoted.Lib.Encode.Activate_Keypads (C.ID, Keypads (1),
                                                                                Keypads (2),
                                                                                Keypads (3),
                                                                                Keypads (4));
-      --!format on
       Reply   : Packet;
       R       : Activate_Keypads_Response;
    begin
@@ -1125,26 +1075,22 @@ package body Uhppoted.Lib is
    end Get_Antipassback;
 
    --  Sets the controller anti-passback setting. Restricted to the local LAN.
-   --!format off
    function Set_Antipassback
      (U             : UHPPOTE;
       C             : Unsigned_32;
       Anti_Passback : Antipassback;
       Timeout       : Duration := 2.5) return Boolean
-   --!format on
    is
    begin
       return Set_Antipassback (U, To_Controller (C), Anti_Passback, Timeout);
    end Set_Antipassback;
 
    --  Sets the controller anti-passback setting.
-   --!format off
    function Set_Antipassback
      (U             : UHPPOTE;
       C             : Controller;
       Anti_Passback : Antipassback;
       Timeout       : Duration := 2.5) return Boolean
-   --!format off
    is
       Request : constant Packet := Uhppoted.Lib.Encode.Set_Antipassback (C.ID, Anti_Passback);
       Reply   : Packet;
@@ -1161,28 +1107,24 @@ package body Uhppoted.Lib is
    end Set_Antipassback;
 
    --  Sets the first-card mode for a controller controller managed door. Restricted to the local LAN.
-   --!format off
    function Set_First_Card
      (U          : UHPPOTE;
       C          : Unsigned_32;
       Door       : Unsigned_8;
       First_Card : First_Card_Record;
       Timeout    : Duration := 2.5) return Boolean
-   --!format on
    is
    begin
       return Set_First_Card (U, To_Controller (C), Door, First_Card, Timeout);
    end Set_First_Card;
 
    --  Sets the first-card mode for a controller controller managed door.
-   --!format off
    function Set_First_Card
      (U          : UHPPOTE;
       C          : Controller;
       Door       : Unsigned_8;
       First_Card : First_Card_Record;
       Timeout    : Duration := 2.5) return Boolean
-   --!format on
    is
       Request : constant Packet :=
         Uhppoted.Lib.Encode.Set_First_Card
@@ -1291,14 +1233,12 @@ package body Uhppoted.Lib is
 
    --  Common handler to dispatch a request to a controller and return the response. Handles demuxing the
    --  controller transport/protocol options.
-   --!format off
    function Dispatch
      (U        : UHPPOTE;
       DestAddr : Sock_Addr_Type;
       Request  : Packet;
       Transport : Transport_Type;
       Timeout  : Duration) return Packet is
-   --!format on
    begin
       if Transport = TCP and then DestAddr /= No_Sock_Addr then
          return Uhppoted.Lib.Transport.TCP.Send (U, DestAddr, Request, Timeout);

@@ -14,9 +14,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-controller request as a 64 byte array.
    function Get_Controller (Controller : Unsigned_32) return Packet is
       Request : Get_Controller_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -24,7 +22,6 @@ package body Uhppoted.Lib.Encode is
    end Get_Controller;
 
    --  Encodes a set-IPv4 request as a 64 byte array.
-   --!format off
    function Set_IPv4
      (Controller : Unsigned_32;
       Addr       : Inet_Addr_Type;
@@ -33,7 +30,6 @@ package body Uhppoted.Lib.Encode is
    is
       Request : Set_IPv4_Request;
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Addr := Pack_IPv4 (Addr);
@@ -46,9 +42,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-time request as a 64 byte array.
    function Get_Time (Controller : Unsigned_32) return Packet is
       Request : Get_Time_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -58,9 +52,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a set-time request as a 64 byte array.
    function Set_Time (Controller : Unsigned_32; DT : DateTime) return Packet is
       Request : Set_Time_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Date_Time := Pack_DateTime (DT);
@@ -71,9 +63,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-listener request as a 64 byte array.
    function Get_Listener (Controller : Unsigned_32) return Packet is
       Request : Get_Listener_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -83,9 +73,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-listener request as a 64 byte array.
    function Get_Listener_Addr_Port (Controller : Unsigned_32) return Packet is
       Request : Get_Listener_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -93,14 +81,12 @@ package body Uhppoted.Lib.Encode is
    end Get_Listener_Addr_Port;
 
    --  Encodes a set-listener request as a 64 byte array.
-   --!format off
    function Set_Listener (Controller : Unsigned_32;
                           Addr       : GNAT.Sockets.Inet_Addr_Type;
                           Port       : Unsigned_16;
                           Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet is
       Request : Set_Listener_Request;
       Buffer  : Packet with Address => Request'Address;
-   --!format on
    begin
       Request.Controller := Controller;
       Request.Addr := Pack_IPv4 (Addr);
@@ -111,13 +97,11 @@ package body Uhppoted.Lib.Encode is
    end Set_Listener;
 
    --  Encodes a set-listener request as a 64 byte array.
-   --!format off
    function Set_Listener_Addr_Port (Controller : Unsigned_32;
                                     Listener   : GNAT.Sockets.Sock_Addr_Type;
                                     Interval   : Unsigned_8) return Uhppoted.Lib.Types.Packet is
       Request : Set_Listener_Request;
       Buffer  : Packet with Address => Request'Address;
-   --!format on
    begin
       Request.Controller := Controller;
       Request.Addr := Pack_IPv4 (Listener.Addr);
@@ -130,9 +114,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-status request as a 64 byte array.
    function Get_Status (Controller : Unsigned_32) return Packet is
       Request : Get_Status_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -142,9 +124,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-door request as a 64 byte array.
    function Get_Door (Controller : Unsigned_32; Door : Unsigned_8) return Packet is
       Request : Get_Door_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Door := Door;
@@ -153,16 +133,12 @@ package body Uhppoted.Lib.Encode is
    end Get_Door;
 
    --  Encodes a set-door request as a 64 byte array.
-   --!format off
    function Set_Door (Controller : Unsigned_32;
                       Door       : Unsigned_8;
                       Mode       : Uhppoted.Lib.Control_Mode;
                       OpenDelay  : Unsigned_8) return Uhppoted.Lib.Types.Packet is
-      --!format on
       Request : Set_Door_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Door := Door;
@@ -182,9 +158,7 @@ package body Uhppoted.Lib.Encode is
       Passcode4  : Unsigned_32) return Uhppoted.Lib.Types.Packet
    is
       Request : Set_Door_Passcodes_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Door := Door;
@@ -215,9 +189,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes an open-door request as a 64 byte array.
    function Open_Door (Controller : Unsigned_32; Door : Unsigned_8) return Uhppoted.Lib.Types.Packet is
       Request : Open_Door_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Door := Door;
@@ -228,9 +200,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-cards request as a 64 byte array.
    function Get_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Get_Cards_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -240,9 +210,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-card request as a 64 byte array.
    function Get_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Get_Card_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Card := Card;
@@ -253,9 +221,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-card-at-index request as a 64 byte array.
    function Get_Card_At_Index (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Get_Card_At_Index_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Index := Index;
@@ -276,9 +242,7 @@ package body Uhppoted.Lib.Encode is
       PIN        : Unsigned_24) return Uhppoted.Lib.Types.Packet
    is
       Request : Put_Card_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Card := Card;
@@ -296,9 +260,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a delete-card request as a 64 byte array.
    function Delete_Card (Controller : Unsigned_32; Card : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Delete_Card_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Card := Card;
@@ -309,9 +271,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a delete-cards request as a 64 byte array.
    function Delete_Cards (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Delete_Cards_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -321,9 +281,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-event request as a 64 byte array.
    function Get_Event (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Get_Event_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Index := Index;
@@ -334,9 +292,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-event-index request as a 64 byte array.
    function Get_Event_Index (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Get_Event_Index_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -346,9 +302,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a set-event-index request as a 64 byte array.
    function Set_Event_Index (Controller : Unsigned_32; Index : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Set_Event_Index_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Index := Index;
@@ -359,9 +313,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a record-special-events request as a 64 byte array.
    function Record_Special_Events (Controller : Unsigned_32; Enabled : Boolean) return Uhppoted.Lib.Types.Packet is
       Request : Record_Special_Events_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Enabled := Pack_Boolean (Enabled);
@@ -372,9 +324,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-time-profile request as a 64 byte array.
    function Get_Time_Profile (Controller : Unsigned_32; Profile : Unsigned_8) return Uhppoted.Lib.Types.Packet is
       Request : Get_Time_Profile_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Profile := Profile;
@@ -404,9 +354,7 @@ package body Uhppoted.Lib.Encode is
       Linked_Profile  : Unsigned_8) return Uhppoted.Lib.Types.Packet
    is
       Request : Set_Time_Profile_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Profile := Profile;
@@ -433,9 +381,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a clear-time-profiles request as a 64 byte array.
    function Clear_Time_Profiles (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Clear_Time_Profiles_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -460,9 +406,7 @@ package body Uhppoted.Lib.Encode is
       More_Cards : Unsigned_8) return Uhppoted.Lib.Types.Packet
    is
       Request : Add_Task_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Task_ID := Task_ID;
@@ -485,9 +429,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a refresh-tasklist request as a 64 byte array.
    function Refresh_Task_List (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Refresh_Task_List_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -497,9 +439,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a clear-tasklist request as a 64 byte array.
    function Clear_Task_List (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Clear_Task_List_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -509,9 +449,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a set-pc-control request as a 64 byte array.
    function Set_PC_Control (Controller : Unsigned_32; Enable : Boolean) return Uhppoted.Lib.Types.Packet is
       Request : Set_PC_Control_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
       Request.Enable := Pack_Boolean (Enable);
@@ -520,14 +458,12 @@ package body Uhppoted.Lib.Encode is
    end Set_PC_Control;
 
    --  Encodes a set-interlock request as a 64 byte array.
-   --!format off
    function Set_Interlock
      (Controller : Unsigned_32;
       Interlock  : Uhppoted.Lib.Interlock) return Uhppoted.Lib.Types.Packet
    is
       Request : Set_Interlock_Request;
       Buffer  : Packet with Address => Request'Address;
-   --!format on
    begin
       Request.Controller := Controller;
       Request.Interlock := Interlock;
@@ -536,7 +472,6 @@ package body Uhppoted.Lib.Encode is
    end Set_Interlock;
 
    --  Encodes an activate-keypads request as a 64 byte array.
-   --!format off
    function Activate_Keypads
      (Controller : Unsigned_32;
       Reader_1   : Boolean;
@@ -546,7 +481,6 @@ package body Uhppoted.Lib.Encode is
    is
       Request : Activate_Keypads_Request;
       Buffer  : Packet with Address => Request'Address;
-   --!format on
    begin
       Request.Controller := Controller;
       Request.Reader_1 := Pack_Boolean (Reader_1);
@@ -560,9 +494,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a get-antipassback request as a 64 byte array.
    function Get_Antipassback (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Get_Antipassback_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 
@@ -570,14 +502,12 @@ package body Uhppoted.Lib.Encode is
    end Get_Antipassback;
 
    --  Encodes a set-antipassback request as a 64 byte array.
-   --!format off
    function Set_Antipassback
      (Controller   : Unsigned_32;
       Antipassback : Uhppoted.Lib.Antipassback) return Uhppoted.Lib.Types.Packet
    is
       Request : Set_Antipassback_Request;
       Buffer  : Packet with Address => Request'Address;
-   --!format on
    begin
       Request.Controller := Controller;
       Request.Antipassback := Antipassback;
@@ -602,9 +532,7 @@ package body Uhppoted.Lib.Encode is
       Sunday        : Boolean) return Uhppoted.Lib.Types.Packet
    is
       Request : Set_First_Card_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
 
       Active   : Unsigned_8;
       Inactive : Unsigned_8;
@@ -657,9 +585,7 @@ package body Uhppoted.Lib.Encode is
    --  Encodes a restore-default-parameters request as a 64 byte array.
    function Restore_Default_Parameters (Controller : Unsigned_32) return Uhppoted.Lib.Types.Packet is
       Request : Restore_Default_Parameters_Request;
-      --!format off
       Buffer  : Packet with Address => Request'Address;
-      --!format on
    begin
       Request.Controller := Controller;
 

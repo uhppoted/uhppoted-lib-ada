@@ -76,8 +76,8 @@ publish: release
 
 adadoc: $(SRC)
 	mkdir -p adadoc
-	cd lib && alr exec -- gnatdoc -l --warnings  --style leading -P uhppoted_lib_ada.gpr -O ../adadoc 2>&1 | grep -Ei "warning|error" | wc -l
-	cd lib && alr exec -- gnatdoc -l --warnings  --style leading -P uhppoted_lib_ada.gpr -O ../adadoc
+	cd lib && alr exec -- gnatdoc -l --warnings  --style leading -P uhppoted_lib.gpr -O ../adadoc 2>&1 | grep -Ei "warning|error" | wc -l
+	cd lib && alr exec -- gnatdoc -l --warnings  --style leading -P uhppoted_lib.gpr -O ../adadoc
 
 adadoc-watch: $(SRC)
 	find ./lib/src -name "*.ad[sb]" | entr -c make adadoc

@@ -1,6 +1,6 @@
 name = "cli"
-description = "Example CLI for the uhppoted-lib-ada crate"
-version = "0.1.0-dev"
+description = "Example CLI for the uhppoted-lib crate"
+version = "0.2.0-dev"
 
 authors = ["uhppoted"]
 maintainers = ["uhppoted <uhppoted.development@gmail.com>"]
@@ -12,7 +12,7 @@ tags = []
 executables = ["cli"]
 
 [[depends-on]]
-uhppoted_lib_ada = "*"
+uhppoted_lib = "*"
 
 [[pins]]
-uhppoted_lib_ada = { path='../../lib' }
+uhppoted_lib = { path='../../lib' }

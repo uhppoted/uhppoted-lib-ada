@@ -1,5 +1,6 @@
 .DS_Store
-/obj/
-/bin/
-/alire/
-/config/
+obj
+bin
+alire
+config
+share

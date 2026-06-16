@@ -1,6 +1,6 @@
-name = "uhppoted_lib_ada"
+name = "uhppoted_lib"
 description = "Library for the UHPPOTE access controllers"
-version = "0.1.0"
+version = "0.2.0"
 licenses = "MIT"
 
 authors = ["uhppoted"]

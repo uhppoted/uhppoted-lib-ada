@@ -1,5 +1,5 @@
 name = "tests"
-description = "uhppoted-lib-ada unit tests"
+description = "uhppoted-lib unit tests"
 version = "0.1.0-dev"
 
 authors = ["uhppoted"]

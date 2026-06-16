@@ -32,7 +32,6 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Address     Controller IPv4 address.
    --  @field  Netmask     IPv4 subnet mask.
@@ -40,10 +39,10 @@ package Uhppoted.Lib.Replies is
    --  @field  MAC         Controller MAC address.
    --  @field  Version     Firmware version.
    --  @field  Date        Firmware release date.
-   --  @field  Padding     Unused bytes.
    type Get_Controller_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Address    : IPv4;
@@ -52,6 +51,7 @@ package Uhppoted.Lib.Replies is
       MAC        : Hardware_Addr;
       Version    : Version_Field;
       Date       : Uhppoted.Lib.Types.BCD (1 .. 4);
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 32);
    end record;
 
@@ -78,16 +78,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Set_IPv4_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -109,16 +109,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Date_Time   Date/time (yyyy-mm-dd HH:mm:ss).
-   --  @field  Padding     Unused bytes.
    type Get_Time_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Date_Time  : Uhppoted.Lib.Types.BCD (1 .. 7);
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
    end record;
 
@@ -140,16 +140,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Date_Time   Date/time (yyyy-mm-dd HH:mm:ss).
-   --  @field  Padding     Unused bytes.
    type Set_Time_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Date_Time  : Uhppoted.Lib.Types.BCD (1 .. 7);
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
    end record;
 
@@ -171,20 +171,20 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Address     IPv4 address of event listener.
    --  @field  Port        UDP port [1..65535] of event listener.
    --  @field  Interval    Interval (seconds) at which to send controller state (0 for none).
-   --  @field  Padding     Unused bytes.
    type Get_Listener_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Address    : IPv4;
       Port       : Unsigned_16;
       Interval   : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
    end record;
 
@@ -208,20 +208,20 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Address     IPv4 address of event listener.
    --  @field  Port        UDP port [1..65535] of event listener.
    --  @field  Interval    Interval (seconds) at which to send controller state (0 for none).
-   --  @field  Padding     Unused bytes.
    type Get_Listener_Addr_Port_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Address    : IPv4;
       Port       : Unsigned_16;
       Interval   : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48);
    end record;
 
@@ -245,16 +245,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Set_Listener_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Boolean;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -276,16 +276,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Set_Listener_Addr_Port_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Boolean;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -307,7 +307,6 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM                   Start of message byte (16#17#).
    --  @field  OpCode                Packet type/op-code.
-   --  @field  Reserved              Unused bytes (reserved for manufacturer use).
    --  @field  Controller            Controller serial number.
    --  @field  Event_Index           Index of most recent event (0 if none).
    --  @field  Event_Type            Event type of most recent event.
@@ -332,10 +331,10 @@ package Uhppoted.Lib.Replies is
    --  @field  Special_Info          Absolutely no idea.
    --  @field  Relays                Door unlock relays bitset.
    --  @field  Inputs                Alarm inputs bitset.
-   --  @field  Padding               Unused bytes.
    type Get_Status_Response is record
       SOM                  : Unsigned_8;
       Opcode               : Unsigned_8;
+      --  @exclude
       Reserved             : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller           : Unsigned_32;
       Event_Index          : Unsigned_32;
@@ -357,11 +356,13 @@ package Uhppoted.Lib.Replies is
       System_Error         : Unsigned_8;
       System_Time          : Uhppoted.Lib.Types.BCD (1 .. 3);
       Sequence_No          : Unsigned_32;
+      --  @exclude
       Unused               : Ada.Streams.Stream_Element_Array (1 .. 4);
       Special_Info         : Unsigned_8;
       Relays               : Unsigned_8;
       Inputs               : Unsigned_8;
       System_Date          : Uhppoted.Lib.Types.BCD (1 .. 3);
+      --  @exclude
       Padding              : Ada.Streams.Stream_Element_Array (1 .. 10);
    end record;
 
@@ -406,20 +407,20 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Door        Door ID [1..4].
    --  @field  Mode        Door control mode (1:normally open, 2:normally closed, 3:controlled).
    --  @field  Open_Delay  Door unlock duration (seconds).
-   --  @field  Padding     Unused bytes.
    type Get_Door_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Door       : Unsigned_8;
       Mode       : Unsigned_8;
       Open_Delay : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 53);
    end record;
 
@@ -443,20 +444,20 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Door        Door ID [1..4].
    --  @field  Mode        Door control mode (1:normally open, 2:normally closed, 3:controlled).
    --  @field  Open_Delay  Door unlock duration (seconds).
-   --  @field  Padding     Unused bytes.
    type Set_Door_Response is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Door       : Unsigned_8;
       Mode       : Unsigned_8;
       Open_Delay : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 53);
    end record;
 
@@ -480,16 +481,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Set_Door_Passcodes_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -511,16 +512,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Open_Door_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -542,16 +543,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Cards       Number of valid card records.
-   --  @field  Padding     Unused bytes.
    type Get_Cards_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Cards      : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52);
    end record;
 
@@ -573,7 +574,6 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Card        Card number.
    --  @field  Start_Date  Date from which card is valid.
@@ -583,10 +583,10 @@ package Uhppoted.Lib.Replies is
    --  @field  Door_3      Access permissions for door 3 (0:none, 1:24x7, 2..254:time profile).
    --  @field  Door_4      Access permissions for door 4 (0:none, 1:24x7, 2..254:time profile).
    --  @field  PIN         Reader keypad PIN [0..999999] (0 for none).
-   --  @field  Padding     Unused bytes.
    type Get_Card_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Card       : Unsigned_32;
@@ -597,6 +597,7 @@ package Uhppoted.Lib.Replies is
       Door_3     : Unsigned_8;
       Door_4     : Unsigned_8;
       PIN        : Unsigned_24;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 37);
    end record;
 
@@ -625,7 +626,6 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Card        Card number.
    --  @field  Start_Date  Date from which card is valid.
@@ -635,10 +635,10 @@ package Uhppoted.Lib.Replies is
    --  @field  Door_3      Access permissions for door 3 (0:none, 1:24x7, 2..254:time profile).
    --  @field  Door_4      Access permissions for door 4 (0:none, 1:24x7, 2..254:time profile).
    --  @field  PIN         Reader keypad PIN [0..999999] (0 for none).
-   --  @field  Padding     Unused bytes.
    type Get_Card_At_Index_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Card       : Unsigned_32;
@@ -649,6 +649,7 @@ package Uhppoted.Lib.Replies is
       Door_3     : Unsigned_8;
       Door_4     : Unsigned_8;
       PIN        : Unsigned_24;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 37);
    end record;
 
@@ -677,16 +678,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Put_Card_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -708,16 +709,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Delete_Card_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -739,16 +740,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Delete_All_Cards_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -770,7 +771,6 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM             Start of message byte (16#17#).
    --  @field  OpCode          Packet type/op-code.
-   --  @field  Reserved        Unused bytes (reserved for manufacturer use).
    --  @field  Controller      Controller serial number.
    --  @field  Index           Event record index.
    --  @field  Event_Type      Event type.
@@ -780,10 +780,10 @@ package Uhppoted.Lib.Replies is
    --  @field  Card            Card number.
    --  @field  Timestamp       Event timestamp.
    --  @field  Reason          Event reason code.
-   --  @field  Padding         Unused bytes.
    type Get_Event_Reply is record
       SOM            : Unsigned_8;
       Opcode         : Unsigned_8;
+      --  @exclude
       Reserved       : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller     : Unsigned_32;
       Index          : Unsigned_32;
@@ -794,6 +794,7 @@ package Uhppoted.Lib.Replies is
       Card           : Unsigned_32;
       Timestamp      : Uhppoted.Lib.Types.BCD (1 .. 7);
       Reason         : Unsigned_8;
+      --  @exclude
       Padding        : Ada.Streams.Stream_Element_Array (1 .. 36);
    end record;
 
@@ -822,16 +823,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Index       Event index.
-   --  @field  Padding     Unused bytes.
    type Get_Event_Index_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Index      : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52);
    end record;
 
@@ -853,16 +854,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Set_Event_Index_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -884,16 +885,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Record_Special_Events_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -915,7 +916,6 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM              Start of message byte (16#17#).
    --  @field  OpCode           Packet type/op-code.
-   --  @field  Reserved         Unused bytes (reserved for manufacturer use).
    --  @field  Controller       Controller serial number.
    --  @field  Profile          Time profile ID [2..254].
    --  @field  Start_Date       Date from which time profile is enabled.
@@ -934,10 +934,10 @@ package Uhppoted.Lib.Replies is
    --  @field  Segment_3_Start  Time of day for start of third time segment.
    --  @field  Segment_3_End    Time of day for end of third time segment.
    --  @field  Linked_Profile   Profile ID [2..254] of time profile with additional constraints/segments (0 for none).
-   --  @field  Padding          Unused bytes.
    type Get_Time_Profile_Reply is record
       SOM             : Unsigned_8;
       Opcode          : Unsigned_8;
+      --  @exclude
       Reserved        : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller      : Unsigned_32;
       Profile         : Unsigned_8;
@@ -957,6 +957,7 @@ package Uhppoted.Lib.Replies is
       Segment_3_Start : Uhppoted.Lib.Types.BCD (1 .. 2);
       Segment_3_End   : Uhppoted.Lib.Types.BCD (1 .. 2);
       Linked_Profile  : Unsigned_8;
+      --  @exclude
       Padding         : Ada.Streams.Stream_Element_Array (1 .. 27);
    end record;
 
@@ -994,16 +995,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Set_Time_Profile_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1025,16 +1026,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Clear_Time_Profiles_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1056,16 +1057,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Add_Task_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1087,16 +1088,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Refresh_Task_List_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1118,16 +1119,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Clear_Task_List_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1149,16 +1150,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Set_PC_Control_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1180,16 +1181,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Set_Interlock_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1211,16 +1212,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Activate_Keypads_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1242,16 +1243,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM           Start of message byte (16#17#).
    --  @field  OpCode        Packet type/op-code.
-   --  @field  Reserved      Unused bytes (reserved for manufacturer use).
    --  @field  Controller    Controller serial number.
    --  @field  Antipassback  Controller anti-passback mode.
-   --  @field  Padding       Unused bytes.
    type Get_Antipassback_Reply is record
       SOM          : Unsigned_8;
       Opcode       : Unsigned_8;
+      --  @exclude
       Reserved     : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller   : Unsigned_32;
       Antipassback : Unsigned_8;
+      --  @exclude
       Padding      : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1273,16 +1274,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Set_Antipassback_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1304,16 +1305,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Set_First_Card_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1335,16 +1336,16 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM         Start of message byte (16#17#).
    --  @field  OpCode      Packet type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Ok          Success (1) or fail (0) result.
-   --  @field  Padding     Unused bytes.
    type Restore_Default_Parameters_Reply is record
       SOM        : Unsigned_8;
       Opcode     : Unsigned_8;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Ok         : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55);
    end record;
 
@@ -1366,7 +1367,6 @@ package Uhppoted.Lib.Replies is
    --
    --  @field  SOM                   Start of message byte (16#17#).
    --  @field  OpCode                Packet type/op-code.
-   --  @field  Reserved              Unused bytes (reserved for manufacturer use).
    --  @field  Controller            Controller serial number.
    --  @field  Event_Index           Index of most recent event (0 if none).
    --  @field  Event_Type            Event type of most recent event.
@@ -1391,10 +1391,10 @@ package Uhppoted.Lib.Replies is
    --  @field  Special_Info          Absolutely no idea.
    --  @field  Relays                Door unlock relays bitset.
    --  @field  Inputs                Alarm inputs bitset.
-   --  @field  Padding               Unused bytes.
    type Listener_Event is record
       SOM                  : Unsigned_8 := Codec.SOM;
       Opcode               : Unsigned_8 := 16#20#;
+      --  @exclude
       Reserved             : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller           : Unsigned_32;
       Event_Index          : Unsigned_32;
@@ -1416,11 +1416,13 @@ package Uhppoted.Lib.Replies is
       System_Error         : Unsigned_8;
       System_Time          : Uhppoted.Lib.Types.BCD (1 .. 3);
       Sequence_No          : Unsigned_32;
+      --  @exclude
       Unused               : Ada.Streams.Stream_Element_Array (1 .. 4);
       Special_Info         : Unsigned_8;
       Relays               : Unsigned_8;
       Inputs               : Unsigned_8;
       System_Date          : Uhppoted.Lib.Types.BCD (1 .. 3);
+      --  @exclude
       Padding              : Ada.Streams.Stream_Element_Array (1 .. 10);
    end record;
 

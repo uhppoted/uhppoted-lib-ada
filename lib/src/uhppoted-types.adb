@@ -3,23 +3,27 @@ with Ada.Strings.Fixed;
 package body Uhppoted.Types is
    use Ada.Strings;
 
+   --  Controlled.Initialize implementation for a Signal.
    overriding
    procedure Initialize (S : in out Signal) is
    begin
       GNAT.Sockets.Create_Selector (S.Selector);
    end Initialize;
 
+   --  Controlled.Finalize implementation for a Signal.
    overriding
    procedure Finalize (S : in out Signal) is
    begin
       GNAT.Sockets.Close_Selector (S.Selector);
    end Finalize;
 
+   --  Utility procedure to raise a signal.
    procedure Trigger (S : in out Signal) is
    begin
       GNAT.Sockets.Abort_Selector (S.Selector);
    end Trigger;
 
+   --  Utility function to translate an Unsigned_8 to a door Control_Mode enum.
    function To_Control_Mode (V : Unsigned_8) return Control_Mode is
    begin
       case V is
@@ -37,6 +41,7 @@ package body Uhppoted.Types is
       end case;
    end To_Control_Mode;
 
+   --  Utility function to translate an Unsigned_8 to an event type enum.
    function To_Event_Type (V : Unsigned_8) return Event_Type is
    begin
       case V is
@@ -57,6 +62,7 @@ package body Uhppoted.Types is
       end case;
    end To_Event_Type;
 
+   --  Utility function to translate an Unsigned_8 to an event direction enum.
    function To_Event_Direction (V : Unsigned_8) return Event_Direction is
    begin
       case V is
@@ -71,6 +77,7 @@ package body Uhppoted.Types is
       end case;
    end To_Event_Direction;
 
+   --  Utility function to translate an Unsigned_8 to an event reason enum.
    function To_Event_Reason (V : Unsigned_8) return Event_Reason is
    begin
       case V is
@@ -175,6 +182,7 @@ package body Uhppoted.Types is
       end case;
    end To_Event_Reason;
 
+   --  Utility function to translate an Unsigned_8 to a Task type enum.
    function To_Task_Type (V : Unsigned_8) return Task_Type is
    begin
       case V is
@@ -222,6 +230,7 @@ package body Uhppoted.Types is
       end case;
    end To_Task_Type;
 
+   --  Utility function to translate an Unsigned_8 to an Interlock enum.
    function To_Interlock (V : Unsigned_8) return Interlock is
    begin
       case V is

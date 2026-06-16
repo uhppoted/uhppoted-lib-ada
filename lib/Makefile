@@ -34,17 +34,17 @@ build:
 	alr build
 
 format: build
-	alr exec -- gnatformat --ignore .gnatformat.ignore -P uhppoted_lib_ada.gpr
+	alr exec -- gnatformat --ignore .gnatformat.ignore -P uhppoted_lib.gpr
 
 format-all: build
-	alr exec -- gnatformat -P uhppoted_lib_ada.gpr
+	alr exec -- gnatformat -P uhppoted_lib.gpr
 
 test:
 	alr build --validation
 	cd tests && make test
 
 lint:
-	adactl -f uhppoted-lib.aru -p uhppoted_lib_ada.gpr src/*.ads src/*.adb
+	adactl -f uhppoted-lib.aru -p uhppoted_lib.gpr src/*.ads src/*.adb
 
 release:
 	alr build --release

@@ -1,4 +1,5 @@
 ![build](https://github.com/uhppoted/uhppoted-lib-ada/workflows/build/badge.svg)
+[![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/uhppoted_lib.json)](https://alire.ada.dev/crates/uhppoted_lib.html)
 
 # uhppoted-lib-ada
 
@@ -14,6 +15,11 @@ A basic example CLI illustrating the use of the library can be found in the
 
 
 ## Installation
+
+Using _Alire_:
+```
+alr with uhppoted_lib
+```
 
 ## Development
 

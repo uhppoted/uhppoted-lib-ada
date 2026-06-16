@@ -20,14 +20,14 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
    type Get_Controller_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Controller;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
@@ -48,22 +48,22 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Addr        Controller IPv4 address.
    --  @field  Netmask     Controller IPv4 subnet mask.
    --  @field  Gateway     Controller IPv4 gateway address.
    --  @field  MagicWord   Hard-coded authorisation constant.
-   --  @field  Padding     Unused bytes.
    type Set_IPv4_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_IPv4;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Addr       : IPv4;
       Netmask    : IPv4;
       Gateway    : IPv4;
       MagicWord  : Unsigned_32 := Codec.MagicWord;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 40) := [others => 0];
    end record;
 
@@ -88,14 +88,14 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
    type Get_Time_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Time;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
@@ -116,16 +116,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Date_Time   Date/time (yyyy-mm-dd HH:mm).
-   --  @field  Padding     Unused bytes.
    type Set_Time_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Time;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Date_Time  : BCD7 := [others => 0];
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 49) := [others => 0];
    end record;
 
@@ -147,14 +147,14 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
    type Get_Listener_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Listener;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
@@ -175,20 +175,20 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Addr        Listener IPv4 address.
    --  @field  Port        Listener port [1..65535].
    --  @field  Interval    Interval (seconds) at which to automatically send controller state (0 for none).
-   --  @field  Padding     Unused bytes.
    type Set_Listener_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Listener;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Addr       : IPv4;
       Port       : Unsigned_16;
       Interval   : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 49) := [others => 0];
    end record;
 
@@ -212,14 +212,14 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
    type Get_Status_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Status;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
@@ -240,16 +240,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Door        Door ID [1..4].
-   --  @field  Padding     Unused bytes.
    type Get_Door_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Door;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Door       : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
@@ -271,20 +271,20 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Door        Door ID [1..4].
    --  @field  Mode        Door control mode (1:normally open, 2:normally close, 3: controlled).
    --  @field  OpenDelay   Door unlock duration (seconds).
-   --  @field  Padding     Unused bytes.
    type Set_Door_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Door;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Door       : Unsigned_8;
       Mode       : Control_Mode;
       OpenDelay  : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 53) := [others => 0];
    end record;
 
@@ -308,26 +308,26 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Door        Door ID [1..4].
-   --  @field  Reserved2   Unused bytes (reserved for manufacturer use).
    --  @field  Passcode1   First passcode [0..999999] (0 for none).
    --  @field  Passcode2   Second passcode [0..999999] (0 for none).
    --  @field  Passcode3   Third passcode [0..999999] (0 for none).
    --  @field  Passcode4   Fourth passcode [0..999999] (0 for none).
-   --  @field  Padding     Unused bytes.
    type Set_Door_Passcodes_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Door_Passcodes;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Door       : Unsigned_8;
+      --  @exclude
       Reserved2  : Ada.Streams.Stream_Element_Array (1 .. 3) := [others => 0];
       Passcode1  : Unsigned_32 := 0;
       Passcode2  : Unsigned_32 := 0;
       Passcode3  : Unsigned_32 := 0;
       Passcode4  : Unsigned_32 := 0;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 36) := [others => 0];
    end record;
 
@@ -354,16 +354,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Door        Door ID [1..4].
-   --  @field  Padding     Unused bytes.
    type Open_Door_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Open_Door;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Door       : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
@@ -385,14 +385,14 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
    type Get_Cards_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Cards;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
@@ -413,16 +413,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Card        Card number.
-   --  @field  Padding     Unused bytes.
    type Get_Card_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Card;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Card       : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
@@ -444,16 +444,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Index       Card record index.
-   --  @field  Padding     Unused bytes.
    type Get_Card_At_Index_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Card_At_Index;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Index      : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
@@ -475,7 +475,6 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Card        Card number.
    --  @field  Start_Date  Date from which card is valid.
@@ -485,10 +484,10 @@ package Uhppoted.Lib.Requests is
    --  @field  Door_3      Access permissions for door 3 (0: none, 1:24x7, 2..254: time profile).
    --  @field  Door_4      Access permissions for door 4 (0: none, 1:24x7, 2..254: time profile).
    --  @field  PIN         Access reader PIN code [0..999999] (0 for none).
-   --  @field  Padding     Unused bytes.
    type Put_Card_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Put_Card;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Card       : Unsigned_32;
@@ -499,6 +498,7 @@ package Uhppoted.Lib.Requests is
       Door_3     : Unsigned_8;
       Door_4     : Unsigned_8;
       PIN        : Unsigned_24;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 37) := [others => 0];
    end record;
 
@@ -527,16 +527,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Card        Card number.
-   --  @field  Padding     Unused bytes.
    type Delete_Card_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Delete_Card;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Card       : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
@@ -558,16 +558,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  MagicWord   Hard-coded authorisation constant.
-   --  @field  Padding     Unused bytes.
    type Delete_Cards_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Delete_All_Cards;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       MagicWord  : Unsigned_32 := Codec.MagicWord;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
@@ -589,16 +589,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Index       Event index.
-   --  @field  Padding     Unused bytes.
    type Get_Event_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Event;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Index      : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
@@ -620,14 +620,14 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
    type Get_Event_Index_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Event_Index;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 53) := [others => 0];
    end record;
 
@@ -648,18 +648,18 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Index       Event index.
    --  @field  MagicWord   Hard-coded authorisation constant.
-   --  @field  Padding     Unused bytes.
    type Set_Event_Index_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Event_Index;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Index      : Unsigned_32;
       MagicWord  : Unsigned_32 := Codec.MagicWord;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 48) := [others => 0];
    end record;
 
@@ -682,16 +682,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Enabled     Enables/disables door/pusbutton/etc events.
-   --  @field  Padding     Unused bytes.
    type Record_Special_Events_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Record_Special_Events;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Enabled    : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
@@ -713,16 +713,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Profile     Time profile ID [2..254].
-   --  @field  Padding     Unused bytes.
    type Get_Time_Profile_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Time_Profile;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Profile    : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
@@ -744,7 +744,6 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM              Start of message byte (16#17).
    --  @field  OpCode           Message type/op-code.
-   --  @field  Reserved         Unused bytes (reserved for manufacturer use).
    --  @field  Controller       Controller serial number.
    --  @field  Profile          Time profile ID [2..254].
    --  @field  Start_Date       Date from which time profile is enabled.
@@ -764,10 +763,10 @@ package Uhppoted.Lib.Requests is
    --  @field  Segment_3_End    Hour of day for end of third time segment.
    --  @field  Linked_Profile   Profile ID [2..254] of time profile with additional
    --                           constraints/segments (0 if none).
-   --  @field  Padding          Unused bytes.
    type Set_Time_Profile_Request is record
       SOM             : Unsigned_8 := Codec.SOM;
       OpCode          : Codec.Op_Code := Codec.Set_Time_Profile;
+      --  @exclude
       Reserved        : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller      : Unsigned_32;
       Profile         : Unsigned_8;
@@ -787,6 +786,7 @@ package Uhppoted.Lib.Requests is
       Segment_3_Start : BCD2;
       Segment_3_End   : BCD2;
       Linked_Profile  : Unsigned_8;
+      --  @exclude
       Padding         : Ada.Streams.Stream_Element_Array (1 .. 27) := [others => 0];
    end record;
 
@@ -824,16 +824,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  MagicWord   Hard-coded authorisation constant.
-   --  @field  Padding     Unused bytes.
    type Clear_Time_Profiles_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Clear_Time_Profiles;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       MagicWord  : Unsigned_32 := Codec.MagicWord;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
@@ -855,7 +855,6 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Start_Date  Date from which scheduled task is enabled.
    --  @field  End_Date    Date after which scheduled task is no longer enabled.
@@ -870,10 +869,10 @@ package Uhppoted.Lib.Requests is
    --  @field  Door        Door ID [1..4] for scheduled task action.
    --  @field  Task_ID     Scheduled task type.
    --  @field  More_Cards  Number of 'more cards' for More_Cards task ID.
-   --  @field  Padding     Unused bytes.
    type Add_Task_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Add_Task;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Start_Date : BCD4;
@@ -889,6 +888,7 @@ package Uhppoted.Lib.Requests is
       Door       : Unsigned_8;
       Task_ID    : Task_Type;
       More_Cards : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 35) := [others => 0];
    end record;
 
@@ -922,16 +922,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  MagicWord   Hard-coded authorisation constant.
-   --  @field  Padding     Unused bytes.
    type Refresh_Task_List_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Refresh_Task_List;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       MagicWord  : Unsigned_32 := Codec.MagicWord;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
@@ -953,16 +953,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  MagicWord   Hard-coded authorisation constant.
-   --  @field  Padding     Unused bytes.
    type Clear_Task_List_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Clear_Task_List;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       MagicWord  : Unsigned_32 := Codec.MagicWord;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
@@ -984,18 +984,18 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  MagicWord   Hard-coded authorisation constant.
    --  @field  Enable      Enables/disables remote access control.
-   --  @field  Padding     Unused bytes.
    type Set_PC_Control_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_PC_Control;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       MagicWord  : Unsigned_32 := Codec.MagicWord;
       Enable     : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 51) := [others => 0];
    end record;
 
@@ -1018,16 +1018,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Interlock   Door interlock mode.
-   --  @field  Padding     Unused bytes.
    type Set_Interlock_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Set_Interlock;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Interlock  : Uhppoted.Lib.Interlock;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
@@ -1049,22 +1049,22 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  Reader_1    Enables/disables keypads for reader 1.
    --  @field  Reader_2    Enables/disables keypads for reader 2.
    --  @field  Reader_3    Enables/disables keypads for reader 3.
    --  @field  Reader_4    Enables/disables keypads for reader 4.
-   --  @field  Padding     Unused bytes.
    type Activate_Keypads_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Activate_Keypads;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       Reader_1   : Unsigned_8;
       Reader_2   : Unsigned_8;
       Reader_3   : Unsigned_8;
       Reader_4   : Unsigned_8;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 
@@ -1089,14 +1089,14 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
-   --  @field  Padding     Unused bytes.
    type Get_Antipassback_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Get_Antipassback;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 56) := [others => 0];
    end record;
 
@@ -1117,16 +1117,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM           Start of message byte (16#17).
    --  @field  OpCode        Message type/op-code.
-   --  @field  Reserved      Unused bytes (reserved for manufacturer use).
    --  @field  Controller    Controller serial number.
    --  @field  Antipassback  Anti-passback mode.
-   --  @field  Padding       Unused bytes.
    type Set_Antipassback_Request is record
       SOM          : Unsigned_8 := Codec.SOM;
       OpCode       : Codec.Op_Code := Codec.Set_Antipassback;
+      --  @exclude
       Reserved     : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller   : Unsigned_32;
       Antipassback : Uhppoted.Lib.Antipassback;
+      --  @exclude
       Padding      : Ada.Streams.Stream_Element_Array (1 .. 55) := [others => 0];
    end record;
 
@@ -1148,7 +1148,6 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM            Start of message byte (16#17).
    --  @field  OpCode         Message type/op-code.
-   --  @field  Reserved       Unused bytes (reserved for manufacturer use).
    --  @field  Controller     Controller serial number.
    --  @field  Door           Door ID [1..4].
    --  @field  Start_Time     Time of day from which first-card mode can be activated.
@@ -1162,10 +1161,10 @@ package Uhppoted.Lib.Requests is
    --  @field  Friday         Enables/disables first-card mode on Friday.
    --  @field  Saturday       Enables/disables first-card mode on Saturday.
    --  @field  Sunday         Enables/disables first-card mode on Sunday.
-   --  @field  Padding        Unused bytes.
    type Set_First_Card_Request is record
       SOM           : Unsigned_8 := Codec.SOM;
       OpCode        : Codec.Op_Code := Codec.Set_First_Card;
+      --  @exclude
       Reserved      : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller    : Unsigned_32;
       Door          : Unsigned_8;
@@ -1180,6 +1179,7 @@ package Uhppoted.Lib.Requests is
       Friday        : Unsigned_8;
       Saturday      : Unsigned_8;
       Sunday        : Unsigned_8;
+      --  @exclude
       Padding       : Ada.Streams.Stream_Element_Array (1 .. 42) := [others => 0];
    end record;
 
@@ -1212,16 +1212,16 @@ package Uhppoted.Lib.Requests is
    --
    --  @field  SOM         Start of message byte (16#17).
    --  @field  OpCode      Message type/op-code.
-   --  @field  Reserved    Unused bytes (reserved for manufacturer use).
    --  @field  Controller  Controller serial number.
    --  @field  MagicWord   Hard-coded authorisation constant.
-   --  @field  Padding     Unused bytes.
    type Restore_Default_Parameters_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Restore_Default_Parameters;
+      --  @exclude
       Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
       Controller : Unsigned_32;
       MagicWord  : Unsigned_32 := Codec.MagicWord;
+      --  @exclude
       Padding    : Ada.Streams.Stream_Element_Array (1 .. 52) := [others => 0];
    end record;
 

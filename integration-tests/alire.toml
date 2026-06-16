@@ -1,5 +1,5 @@
 name = "integration_tests"
-description = "Integration tests for the uhppoted-lib-ada crate."
+description = "Integration tests for the uhppoted-lib crate."
 version = "0.1.0-dev"
 
 authors = ["uhppoted"]
@@ -15,8 +15,8 @@ executables = ["integration_tests"]
 aunit = "^26.0.0"
 
 [[depends-on]]
-uhppoted_lib_ada = "*"
+uhppoted_lib = "*"
 
 [[pins]]
-uhppoted_lib_ada = { path='../lib' }
+uhppoted_lib = { path='../lib' }
 

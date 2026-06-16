@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html class=main>
-<link rel=stylesheet href=gnatdoc.css><body class=content><h1>Uhppoted.Lib.Transport.TCP</h1><h2>Entities</h2><h3>Tagged Types</h3><ul><li><a href=#3bccab1f337e031eba039ad4864a1ce360556c1db585e613d9593f25fee0166d>S</a></ul><h3>Subprograms</h3><ul><li><a href=#54b0139026150e628eac51b10c9135a25a763ef7059343200cf0e4df0d2f1f0a>Send</a></ul><h2>Description</h2><p>@summary TCP transport implementation for the UHPPOTE request/response protocol.<p>@description Implements the functionality required to send a UHPPOTE request packet over TCP/IP and wait for the response.<h4 id=3bccab1f337e031eba039ad4864a1ce360556c1db585e613d9593f25fee0166d>S</h4><pre class=ada-code-snippet><code>type S is tagged limited private;
-</code></pre><h4 id=54b0139026150e628eac51b10c9135a25a763ef7059343200cf0e4df0d2f1f0a>Send</h4><pre class=ada-code-snippet><code>function Send (U        : UHPPOTE;
-               DestAddr : GNAT.Sockets.Sock_Addr_Type;
-               Request  : Packet;
-               Timeout  : Duration) return Packet
-</code></pre><h5>Parameters</h5><dl><dt>U<dd><dt>DestAddr<dd><dt>Request<dd><dt>Timeout<dd></dl><h5>Return Value</h5><dl><dd></dl>
+<link rel=stylesheet href=gnatdoc.css><body class=content><h1>Uhppoted.Lib.Transport.TCP</h1><h2>Entities</h2><h3>Tagged Types</h3><ul><li><a href=#3bccab1f337e031eba039ad4864a1ce360556c1db585e613d9593f25fee0166d>S</a></ul><h3>Subprograms</h3><ul><li><a href=#54b0139026150e628eac51b10c9135a25a763ef7059343200cf0e4df0d2f1f0a>Send</a></ul><h2>Description</h2><p>(weird gnatdoc bug: blank lines above and below required or param/field tags are rejected)<h4 id=3bccab1f337e031eba039ad4864a1ce360556c1db585e613d9593f25fee0166d>S</h4><pre class=ada-code-snippet><code>type S is tagged limited private;
+</code></pre><p>Controlled_Type wrapper for GNAT.Socket.<h4 id=54b0139026150e628eac51b10c9135a25a763ef7059343200cf0e4df0d2f1f0a>Send</h4><pre class=ada-code-snippet><code>function Send
+  (U : UHPPOTE; DestAddr : GNAT.Sockets.Sock_Addr_Type; Request : Packet; Timeout : Duration) return Packet
+</code></pre><p>Sends a 64 byte request packet to a specific IPv4 address:port and returns the response (if any).<h5>Parameters</h5><dl><dt>U<dd><p>UHPPOTE configuration.<dt>DestAddr<dd><p>Controller IPv4 address:port.<dt>Request<dd><p>64 byte request packet.<dt>Timeout<dd><p>Operation timeout (defaults to 2.5s).</dl><h5>Return Value</h5><dl><dd><p>Received packet.</dl>

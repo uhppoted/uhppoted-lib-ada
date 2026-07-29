@@ -6,7 +6,7 @@
 Standalone ADA library for the UHPPOTE access controllers.
 
 A basic example CLI illustrating the use of the library can be found in the
-[examples](https://github.com/uhppoted/uhppoted-lib-ada/tree/main/examples/cli) folder.
+[examples](https://codeberg.org/uhppoted/uhppoted-lib-ada/tree/main/examples/cli) folder.
 
 
 ## Release Notes
@@ -32,14 +32,14 @@ Requirements:
 Assuming you have `Alire`, `gnat 15.12+` and `make` installed:
 
 ```
-git clone https://github.com/uhppoted/uhppoted-lib-ada/uhppoted-lib-ada.git
+git clone https://codeberg.org/uhppoted/uhppoted-lib-ada/uhppoted-lib-ada.git
 cd uhppoted-lib-ada
 make build-all
 ```
 
 If you prefer building manually:
 ```
-git clone https://github.com/uhppoted/uhppoted-lib-ada/uhppoted-lib-ada.git
+git clone https://codeberg.org/uhppoted/uhppoted-lib-ada/uhppoted-lib-ada.git
 cd uhppoted-lib-ada
 cd lib && alr build
 cd ../examples/cli && alr build
@@ -106,5 +106,5 @@ The API is documented in the [API.md](API.md) file - for convenience the availab
 
 ## License
 
-[MIT](https://github.com/uhppoted/uhpoted-lib-ada/blob/master/LICENSE). 
+[MIT](https://codeberg.org/uhppoted/uhpoted-lib-ada/blob/master/LICENSE). 
 

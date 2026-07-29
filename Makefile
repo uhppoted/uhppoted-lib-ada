@@ -32,6 +32,10 @@ FIRSTCARD ?= 08:30,16:45,normally open,firstcard only,[Mon,Tues,Fri]
 clean:
 	cd lib && make clean
 
+push:
+	git push
+	git push bitbucket
+
 generate:
 	cd .codegen && make generate
 

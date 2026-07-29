@@ -6,5 +6,5 @@ licenses = "MIT"
 authors = ["uhppoted"]
 maintainers = ["uhppoted <uhppoted.development@gmail.com>"]
 maintainers-logins = ["uhppoted", "twystd"]
-website = "https://github.com/uhppoted/uhppoted-lib-ada"
+website = "https://codeberg.org/uhppoted/uhppoted-lib-ada"
 tags = ["access-control", "uhppote"]

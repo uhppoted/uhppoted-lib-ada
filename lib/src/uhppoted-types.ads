@@ -413,15 +413,23 @@ package Uhppoted.Types is
    --  @field  Door_3      Access privileges for door 3 (0: none, 1: 24x7, 2..254: time profile).
    --  @field  Door_4      Access privileges for door 4 (0: none, 1: 24x7, 2..254: time profile).
    --  @field  PIN         Access reader PIN code (0 for none).
+   --  @field  FirstCard_1 First card privilege for door 1.
+   --  @field  FirstCard_2 First card privilege for door 2.
+   --  @field  FirstCard_3 First card privilege for door 3.
+   --  @field  FirstCard_4 First card privilege for door 4.
    type Card_Record is record
-      Card       : Unsigned_32;
-      Start_Date : DateOnly;
-      End_Date   : DateOnly;
-      Door_1     : Unsigned_8;
-      Door_2     : Unsigned_8;
-      Door_3     : Unsigned_8;
-      Door_4     : Unsigned_8;
-      PIN        : Unsigned_24;
+      Card        : Unsigned_32;
+      Start_Date  : DateOnly;
+      End_Date    : DateOnly;
+      Door_1      : Unsigned_8;
+      Door_2      : Unsigned_8;
+      Door_3      : Unsigned_8;
+      Door_4      : Unsigned_8;
+      PIN         : Unsigned_24;
+      FirstCard_1 : Boolean;
+      FirstCard_2 : Boolean;
+      FirstCard_3 : Boolean;
+      FirstCard_4 : Boolean;
    end record;
 
    --  Utility function to translate an Unsigned_8 to a door Control_Mode enum.

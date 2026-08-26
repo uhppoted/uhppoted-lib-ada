@@ -453,14 +453,18 @@ package body Uhppoted.Lib is
       end if;
 
       return
-        (Card       => R.Card,
-         Start_Date => R.Start_Date,
-         End_Date   => R.End_Date,
-         Door_1     => R.Door_1,
-         Door_2     => R.Door_2,
-         Door_3     => R.Door_3,
-         Door_4     => R.Door_4,
-         PIN        => R.PIN);
+        (Card        => R.Card,
+         Start_Date  => R.Start_Date,
+         End_Date    => R.End_Date,
+         Door_1      => R.Door_1,
+         Door_2      => R.Door_2,
+         Door_3      => R.Door_3,
+         Door_4      => R.Door_4,
+         PIN         => R.PIN,
+         FirstCard_1 => R.FirstCard_1,
+         FirstCard_2 => R.FirstCard_2,
+         FirstCard_3 => R.FirstCard_3,
+         FirstCard_4 => R.FirstCard_4);
    end Get_Card;
 
    --  Retrieves the card record at the requested index. Restricted to the local LAN.
@@ -497,14 +501,18 @@ package body Uhppoted.Lib is
       end if;
 
       return
-        (Card       => R.Card,
-         Start_Date => R.Start_Date,
-         End_Date   => R.End_Date,
-         Door_1     => R.Door_1,
-         Door_2     => R.Door_2,
-         Door_3     => R.Door_3,
-         Door_4     => R.Door_4,
-         PIN        => R.PIN);
+        (Card        => R.Card,
+         Start_Date  => R.Start_Date,
+         End_Date    => R.End_Date,
+         Door_1      => R.Door_1,
+         Door_2      => R.Door_2,
+         Door_3      => R.Door_3,
+         Door_4      => R.Door_4,
+         PIN         => R.PIN,
+         FirstCard_1 => R.FirstCard_1,
+         FirstCard_2 => R.FirstCard_2,
+         FirstCard_3 => R.FirstCard_3,
+         FirstCard_4 => R.FirstCard_4);
    end Get_Card_At_Index;
 
    --  Adds/updates a card record stored on the controller. Restricted to the local LAN.
@@ -528,7 +536,11 @@ package body Uhppoted.Lib is
                                                                  Card.Door_2,
                                                                  Card.Door_3,
                                                                  Card.Door_4,
-                                                                 Card.PIN);
+                                                                 Card.PIN,
+                                                                 Card.FirstCard_1,
+                                                                 Card.FirstCard_2,
+                                                                 Card.FirstCard_3,
+                                                                 Card.FirstCard_4);
       Reply   : Packet;
       R       : Put_Card_Response;
    begin

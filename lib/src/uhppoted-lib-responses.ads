@@ -212,25 +212,33 @@ package Uhppoted.Lib.Responses is
 
    --  Message definition for a get-card response.
    --
-   --  @field  Controller  Controller serial number.
-   --  @field  Card        Card number.
-   --  @field  Start_Date  Date from which card is valid.
-   --  @field  End_Date    Date after which card is no longer valid.
-   --  @field  Door_1      Door 1 access permissions (0: none, 1: 24x7, 2..254: access time profile).
-   --  @field  Door_2      Door 2 access permissions (0: none, 1: 24x7, 2..254: access time profile).
-   --  @field  Door_3      Door 3 access permissions (0: none, 1: 24x7, 2..254: access time profile).
-   --  @field  Door_4      Door 4 access permissions (0: none, 1: 24x7, 2..254: access time profile).
-   --  @field  PIN         Keypad PIN code [0..999999] (0 for none).
+   --  @field  Controller   Controller serial number.
+   --  @field  Card         Card number.
+   --  @field  Start_Date   Date from which card is valid.
+   --  @field  End_Date     Date after which card is no longer valid.
+   --  @field  Door_1       Door 1 access permissions (0: none, 1: 24x7, 2..254: access time profile).
+   --  @field  Door_2       Door 2 access permissions (0: none, 1: 24x7, 2..254: access time profile).
+   --  @field  Door_3       Door 3 access permissions (0: none, 1: 24x7, 2..254: access time profile).
+   --  @field  Door_4       Door 4 access permissions (0: none, 1: 24x7, 2..254: access time profile).
+   --  @field  PIN          Keypad PIN code [0..999999] (0 for none).
+   --  @field  FirstCard_1  First card privilege for door 1.
+   --  @field  FirstCard_2  First card privilege for door 2.
+   --  @field  FirstCard_3  First card privilege for door 3.
+   --  @field  FirstCard_4  First card privilege for door 4.
    type Get_Card_Response is record
-      Controller : Unsigned_32;
-      Card       : Unsigned_32;
-      Start_Date : DateOnly;
-      End_Date   : DateOnly;
-      Door_1     : Unsigned_8;
-      Door_2     : Unsigned_8;
-      Door_3     : Unsigned_8;
-      Door_4     : Unsigned_8;
-      PIN        : Unsigned_24;
+      Controller  : Unsigned_32;
+      Card        : Unsigned_32;
+      Start_Date  : DateOnly;
+      End_Date    : DateOnly;
+      Door_1      : Unsigned_8;
+      Door_2      : Unsigned_8;
+      Door_3      : Unsigned_8;
+      Door_4      : Unsigned_8;
+      PIN         : Unsigned_24;
+      FirstCard_1 : Boolean;
+      FirstCard_2 : Boolean;
+      FirstCard_3 : Boolean;
+      FirstCard_4 : Boolean;
    end record;
 
    --  Message definition for a get-card-at-index response.
@@ -244,16 +252,24 @@ package Uhppoted.Lib.Responses is
    --  @field  Door_3      Door 3 access permissions (0: none, 1: 24x7, 2..254: access time profile).
    --  @field  Door_4      Door 4 access permissions (0: none, 1: 24x7, 2..254: access time profile).
    --  @field  PIN         Keypad PIN code [0..999999] (0 for none).
+   --  @field  FirstCard_1 First card privilege for door 1.
+   --  @field  FirstCard_2 First card privilege for door 2.
+   --  @field  FirstCard_3 First card privilege for door 3.
+   --  @field  FirstCard_4 First card privilege for door 4.
    type Get_Card_At_Index_Response is record
-      Controller : Unsigned_32;
-      Card       : Unsigned_32;
-      Start_Date : DateOnly;
-      End_Date   : DateOnly;
-      Door_1     : Unsigned_8;
-      Door_2     : Unsigned_8;
-      Door_3     : Unsigned_8;
-      Door_4     : Unsigned_8;
-      PIN        : Unsigned_24;
+      Controller  : Unsigned_32;
+      Card        : Unsigned_32;
+      Start_Date  : DateOnly;
+      End_Date    : DateOnly;
+      Door_1      : Unsigned_8;
+      Door_2      : Unsigned_8;
+      Door_3      : Unsigned_8;
+      Door_4      : Unsigned_8;
+      PIN         : Unsigned_24;
+      FirstCard_1 : Boolean;
+      FirstCard_2 : Boolean;
+      FirstCard_3 : Boolean;
+      FirstCard_4 : Boolean;
    end record;
 
    --  Message definition for a put-card response.

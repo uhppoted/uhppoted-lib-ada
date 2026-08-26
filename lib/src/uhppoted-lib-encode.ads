@@ -162,27 +162,35 @@ package Uhppoted.Lib.Encode is
 
    --  Encodes a put-card request as a 64 byte array.
    --
-   --  @param  Controller  Controller serial number.
-   --  @param  Card        Card number.
-   --  @param  Start_Date  Date from which card is valid.
-   --  @param  End_Date    Date after which card is no longer valid.
-   --  @param  Door_1      Access permissions for door 1 (0: none, 1:24x7, 2..254: time profile).
-   --  @param  Door_2      Access permissions for door 2 (0: none, 1:24x7, 2..254: time profile).
-   --  @param  Door_3      Access permissions for door 3 (0: none, 1:24x7, 2..254: time profile).
-   --  @param  Door_4      Access permissions for door 4 (0: none, 1:24x7, 2..254: time profile).
-   --  @param  PIN         Access reader PIN code [0..999999] (0 for none).
+   --  @param  Controller   Controller serial number.
+   --  @param  Card         Card number.
+   --  @param  Start_Date   Date from which card is valid.
+   --  @param  End_Date     Date after which card is no longer valid.
+   --  @param  Door_1       Access permissions for door 1 (0: none, 1:24x7, 2..254: time profile).
+   --  @param  Door_2       Access permissions for door 2 (0: none, 1:24x7, 2..254: time profile).
+   --  @param  Door_3       Access permissions for door 3 (0: none, 1:24x7, 2..254: time profile).
+   --  @param  Door_4       Access permissions for door 4 (0: none, 1:24x7, 2..254: time profile).
+   --  @param  PIN          Access reader PIN code [0..999999] (0 for none).
+   --  @param  FirstCard_1  First card privilege for door 1.
+   --  @param  FirstCard_2  First card privilege for door 2.
+   --  @param  FirstCard_3  First card privilege for door 3.
+   --  @param  FirstCard_4  First card privilege for door 4.
    --
    --  @return  Packet  64 byte message packet.
    function Put_Card
-     (Controller : Unsigned_32;
-      Card       : Unsigned_32;
-      Start_Date : DateOnly;
-      End_Date   : DateOnly;
-      Door_1     : Unsigned_8;
-      Door_2     : Unsigned_8;
-      Door_3     : Unsigned_8;
-      Door_4     : Unsigned_8;
-      PIN        : Unsigned_24) return Uhppoted.Lib.Types.Packet;
+     (Controller  : Unsigned_32;
+      Card        : Unsigned_32;
+      Start_Date  : DateOnly;
+      End_Date    : DateOnly;
+      Door_1      : Unsigned_8;
+      Door_2      : Unsigned_8;
+      Door_3      : Unsigned_8;
+      Door_4      : Unsigned_8;
+      PIN         : Unsigned_24;
+      FirstCard_1 : Boolean;
+      FirstCard_2 : Boolean;
+      FirstCard_3 : Boolean;
+      FirstCard_4 : Boolean) return Uhppoted.Lib.Types.Packet;
 
    --  Encodes a delete-card request as a 64 byte array.
    --

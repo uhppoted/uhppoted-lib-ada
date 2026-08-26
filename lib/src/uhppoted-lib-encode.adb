@@ -231,19 +231,40 @@ package body Uhppoted.Lib.Encode is
 
    --  Encodes a put-card request as a 64 byte array.
    function Put_Card
-     (Controller : Unsigned_32;
-      Card       : Unsigned_32;
-      Start_Date : DateOnly;
-      End_Date   : DateOnly;
-      Door_1     : Unsigned_8;
-      Door_2     : Unsigned_8;
-      Door_3     : Unsigned_8;
-      Door_4     : Unsigned_8;
-      PIN        : Unsigned_24) return Uhppoted.Lib.Types.Packet
+     (Controller  : Unsigned_32;
+      Card        : Unsigned_32;
+      Start_Date  : DateOnly;
+      End_Date    : DateOnly;
+      Door_1      : Unsigned_8;
+      Door_2      : Unsigned_8;
+      Door_3      : Unsigned_8;
+      Door_4      : Unsigned_8;
+      PIN         : Unsigned_24;
+      FirstCard_1 : Boolean;
+      FirstCard_2 : Boolean;
+      FirstCard_3 : Boolean;
+      FirstCard_4 : Boolean) return Uhppoted.Lib.Types.Packet
    is
-      Request : Put_Card_Request;
-      Buffer  : Packet with Address => Request'Address;
+      Request   : Put_Card_Request;
+      Buffer    : Packet with Address => Request'Address;
+      FirstCard : Unsigned_8 := 16#00#;
    begin
+      if FirstCard_1 then
+         FirstCard := FirstCard or 16#01#;
+      end if;
+
+      if FirstCard_2 then
+         FirstCard := FirstCard or 16#02#;
+      end if;
+
+      if FirstCard_3 then
+         FirstCard := FirstCard or 16#04#;
+      end if;
+
+      if FirstCard_4 then
+         FirstCard := FirstCard or 16#08#;
+      end if;
+
       Request.Controller := Controller;
       Request.Card := Card;
       Request.Start_Date := Pack_Date (Start_Date);
@@ -253,6 +274,7 @@ package body Uhppoted.Lib.Encode is
       Request.Door_3 := Door_3;
       Request.Door_4 := Door_4;
       Request.PIN := PIN;
+      Request.FirstCard := FirstCard;
 
       return Buffer;
    end Put_Card;

@@ -11,12 +11,13 @@ MODE      ?= controlled
 DELAY     ?= 5
 PASSCODES ?= 7531,12345,54321
 
-CARD       ?= 10058400
-CARD_INDEX ?= 3
-START_DATE ?= 2026-01-01
-END_DATE   ?= 2026-12-31
-DOORS      ?= 1,3,4
-PIN        ?= 7531
+CARD           ?= 10058400
+CARD_INDEX     ?= 3
+START_DATE     ?= 2026-01-01
+END_DATE       ?= 2026-12-31
+DOORS          ?= 1,3,4
+PIN            ?= 7531
+CARD_FIRSTCARD ?= 1,4
 
 EVENT_INDEX ?= 23
 RECORD_SPECIAL_EVENTS ?= yes
@@ -135,7 +136,12 @@ get-card-at-index: build
 	cd examples/cli && make get-card-at-index CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) CARD_INDEX=$(CARD_INDEX)
 
 put-card: build
-	cd examples/cli && make put-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) CARD=$(CARD) START=$(START_DATE) END=$(END_DATE) ACCESS=$(DOORS) PIN=$(PIN)
+	cd examples/cli && make put-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) \
+	                                 CARD=$(CARD) \
+	                                 START=$(START_DATE) END=$(END_DATE) \
+	                                 ACCESS=$(DOORS) \
+	                                 PIN=$(PIN) \
+	                                 CARD_FIRSTCARD=$(CARD_FIRSTCARD)
 
 delete-card: build
 	cd examples/cli && make delete-card CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=$(TRANSPORT) CARD=$(CARD)

@@ -617,14 +617,18 @@ where:
 Returns a `Card_Record`:
 ```
    typeCard_Record is record
-      Card       : Unsigned_32;
-      Start_Date : DateOnly;
-      End_Date   : DateOnly;
-      Door_1     : Unsigned_8;
-      Door_2     : Unsigned_8;
-      Door_3     : Unsigned_8;
-      Door_4     : Unsigned_8;
-      PIN        : Unsigned_32;
+      Card        : Unsigned_32;
+      Start_Date  : DateOnly;
+      End_Date    : DateOnly;
+      Door_1      : Unsigned_8;
+      Door_2      : Unsigned_8;
+      Door_3      : Unsigned_8;
+      Door_4      : Unsigned_8;
+      PIN         : Unsigned_32;
+      FirstCard_1 : Boolean;
+      FirstCard_2 : Boolean;
+      FirstCard_3 : Boolean;
+      FirstCard_4 : Boolean;
    end record;
 ```
 
@@ -659,14 +663,18 @@ where:
 Returns a `Card_Record`:
 ```
    type Card_Record is record
-      Card       : Unsigned_32;
-      Start_Date : DateOnly;
-      End_Date   : DateOnly;
-      Door_1     : Unsigned_8;
-      Door_2     : Unsigned_8;
-      Door_3     : Unsigned_8;
-      Door_4     : Unsigned_8;
-      PIN        : Unsigned_32;
+      Card        : Unsigned_32;
+      Start_Date  : DateOnly;
+      End_Date    : DateOnly;
+      Door_1      : Unsigned_8;
+      Door_2      : Unsigned_8;
+      Door_3      : Unsigned_8;
+      Door_4      : Unsigned_8;
+      PIN         : Unsigned_32;
+      FirstCard_1 : Boolean;
+      FirstCard_2 : Boolean;
+      FirstCard_3 : Boolean;
+      FirstCard_4 : Boolean;
    end record;
 ```
 
@@ -699,14 +707,18 @@ where:
 - Card       Card_Record     Card information:
 
    type Card_Record is record
-      Card       : Unsigned_32;
-      Start_Date : DateOnly;
-      End_Date   : DateOnly;
-      Door_1     : Unsigned_8;
-      Door_2     : Unsigned_8;
-      Door_3     : Unsigned_8;
-      Door_4     : Unsigned_8;
-      PIN        : Unsigned_32;
+      Card        : Unsigned_32;
+      Start_Date  : DateOnly;
+      End_Date    : DateOnly;
+      Door_1      : Unsigned_8;
+      Door_2      : Unsigned_8;
+      Door_3      : Unsigned_8;
+      Door_4      : Unsigned_8;
+      PIN         : Unsigned_32;
+      FirstCard_1 : Boolean;
+      FirstCard_2 : Boolean;
+      FirstCard_3 : Boolean;
+      FirstCard_4 : Boolean;
    end record;
 ```
 

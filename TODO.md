@@ -1,10 +1,11 @@
 # TODO
 
-- [x] lint
-- [x] release build
-- [x] format
-- [ ] package & publish
-   - [x] Change name to uhppoted_lib
-   - [x] adadoc for uhppoted-types.adb
-   - [x] Installation section in README
-   - [x] README: Add [Alire badge](https://alire.ada.dev/docs/#publishing-your-projects-in-alire)
+- [ ] add first-card privilege to `get-card` and `put-card` (cf. https://codeberg.org/uhppoted/uhppoted/issues/3)
+    - [x] get-card
+    - [x] get-card-at-index
+    - [x] put-card
+    - [x] unit tests
+    - [x] CLI
+    - [x] integration tests
+    - [x] README
+    - [x] CHANGELOG

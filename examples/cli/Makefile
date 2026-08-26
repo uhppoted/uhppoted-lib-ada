@@ -16,12 +16,13 @@ MODE      ?= controlled
 DELAY     ?= 5
 PASSCODES ?= 7531,12345,54321
 
-CARD       ?= 10058400
-CARD_INDEX ?= 3
-START_DATE ?= 2026-01-01
-END_DATE   ?= 2026-12-31
-DOORS      ?= 1,3,4
-PIN        ?= 7531
+CARD           ?= 10058400
+CARD_INDEX     ?= 3
+START_DATE     ?= 2026-01-01
+END_DATE       ?= 2026-12-31
+DOORS          ?= 1,3,4
+PIN            ?= 7531
+CARD_FIRSTCARD ?= 1,4
 
 EVENT_INDEX ?= 23
 RECORD_SPECIAL_EVENTS ?= yes
@@ -86,7 +87,12 @@ get-card-at-index: build
 	$(CLI) get-card-at-index --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --index $(CARD_INDEX)
 
 put-card: build
-	$(CLI) put-card --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --card $(CARD) --start $(START_DATE) --end $(END_DATE) --doors $(DOORS) --PIN $(PIN)
+	$(CLI) put-card --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) \
+	                --card $(CARD) \
+	                --start $(START_DATE) --end $(END_DATE) \
+	                --doors $(DOORS) \
+	                --PIN $(PIN) \
+	                --firstcard $(CARD_FIRSTCARD)
 
 delete-card: build
 	$(CLI) delete-card --controller $(CONTROLLER) --dest $(DEST) --transport $(TRANSPORT) --card $(CARD)

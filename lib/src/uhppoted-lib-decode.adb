@@ -282,15 +282,19 @@ package body Uhppoted.Lib.Decode is
       end if;
 
       return
-        (Controller => R.Controller,
-         Card       => R.Card,
-         Start_Date => Unpack_Date (R.Start_Date),
-         End_Date   => Unpack_Date (R.End_Date),
-         Door_1     => R.Door_1,
-         Door_2     => R.Door_2,
-         Door_3     => R.Door_3,
-         Door_4     => R.Door_4,
-         PIN        => R.PIN);
+        (Controller  => R.Controller,
+         Card        => R.Card,
+         Start_Date  => Unpack_Date (R.Start_Date),
+         End_Date    => Unpack_Date (R.End_Date),
+         Door_1      => R.Door_1,
+         Door_2      => R.Door_2,
+         Door_3      => R.Door_3,
+         Door_4      => R.Door_4,
+         PIN         => R.PIN,
+         FirstCard_1 => (R.FirstCard and 16#01#) = 16#01#,
+         FirstCard_2 => (R.FirstCard and 16#02#) = 16#02#,
+         FirstCard_3 => (R.FirstCard and 16#04#) = 16#04#,
+         FirstCard_4 => (R.FirstCard and 16#08#) = 16#08#);
    end Get_Card;
 
    --  Decodes a 64 byte get-card-at-index reply as an Get_Card_Response record.
@@ -306,15 +310,19 @@ package body Uhppoted.Lib.Decode is
       end if;
 
       return
-        (Controller => R.Controller,
-         Card       => R.Card,
-         Start_Date => Unpack_Date (R.Start_Date),
-         End_Date   => Unpack_Date (R.End_Date),
-         Door_1     => R.Door_1,
-         Door_2     => R.Door_2,
-         Door_3     => R.Door_3,
-         Door_4     => R.Door_4,
-         PIN        => R.PIN);
+        (Controller  => R.Controller,
+         Card        => R.Card,
+         Start_Date  => Unpack_Date (R.Start_Date),
+         End_Date    => Unpack_Date (R.End_Date),
+         Door_1      => R.Door_1,
+         Door_2      => R.Door_2,
+         Door_3      => R.Door_3,
+         Door_4      => R.Door_4,
+         PIN         => R.PIN,
+         FirstCard_1 => (R.FirstCard and 16#01#) = 16#01#,
+         FirstCard_2 => (R.FirstCard and 16#02#) = 16#02#,
+         FirstCard_3 => (R.FirstCard and 16#04#) = 16#04#,
+         FirstCard_4 => (R.FirstCard and 16#08#) = 16#08#);
    end Get_Card_At_Index;
 
    --  Decodes a 64 byte put-card reply as a Put_Card_Response record.

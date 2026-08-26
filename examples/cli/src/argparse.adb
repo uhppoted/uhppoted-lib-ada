@@ -514,6 +514,7 @@ package body ArgParse is
       End_Date   : aliased String_Access := null;
       Doors      : aliased String_Access := null;
       PIN        : aliased Integer       := 0;
+      FirstCard  : aliased String_Access := null;
 
       C : Controller;
    begin
@@ -549,6 +550,12 @@ package body ArgParse is
                      Help        => "(optional) PIN",
                      Argument    => "PIN [0..999999]");
 
+      Define_Switch (Config,
+                     Output      => FirstCard'Access,
+                     Long_Switch => "--firstcard:",
+                     Help        => "e.g. 1,4",
+                     Argument    => "FIRSTCARD");
+
       Getopt (Config, Concatenate => True);
       Extract_Controller_Args (Controller_ID, Controller_Addr, Controller_Transport, C);
 
@@ -557,15 +564,22 @@ package body ArgParse is
          S : String renames Start_Date.all;
          E : String renames End_Date.all;
          D : String renames Doors.all;
+         F : String renames FirstCard.all;
 
-         I : Positive := D'First;
+         I : Positive;
 
          Door_1 : Unsigned_8 := 0;
          Door_2 : Unsigned_8 := 0;
          Door_3 : Unsigned_8 := 0;
          Door_4 : Unsigned_8 := 0;
+
+         FirstCard_1 : Boolean := False;
+         FirstCard_2 : Boolean := False;
+         FirstCard_3 : Boolean := False;
+         FirstCard_4 : Boolean := False;
       begin
          --  parse 'doors' arg
+         I := D'First;
          while I <= D'Last loop
             declare
                J     : constant Natural := Index (D, ",", I);
@@ -584,21 +598,45 @@ package body ArgParse is
             end;
          end loop;
 
+         --  parse 'firstcard' arg
+         I := F'First;
+         while I <= F'Last loop
+            declare
+               J     : constant Natural := Index (F, ",", I);
+               Token : constant String  := (if J = 0 then F (I .. F'Last) else D (I .. J - 1));
+               V     : constant Integer := Integer'Value (Token);
+            begin
+               I := (if J = 0 then F'Last + 1 else J + 1);
+
+               case V is
+                  when 1 => FirstCard_1 := True;
+                  when 2 => FirstCard_2 := True;
+                  when 3 => FirstCard_3 := True;
+                  when 4 => FirstCard_4 := True;
+                  when others => null;
+               end case;
+            end;
+         end loop;
+
          return (T           => ArgParse.Put_Card_Args,
                  Controller  => C,
                  Door        => 0,
-                 Card        => (Card       => Unsigned_32 (Card),
-                                 Start_Date => (Year  => Unsigned_16'Value (S (1 .. 4)),
-                                                Month => Unsigned_8'Value  (S (6 .. 7)),
-                                                Day   => Unsigned_8'Value  (S (9 .. 10))),
-                                 End_Date   => (Year  => Unsigned_16'Value (E (1 .. 4)),
-                                                Month => Unsigned_8'Value  (E (6 .. 7)),
-                                                Day   => Unsigned_8'Value  (E (9 .. 10))),
-                                 Door_1     => Door_1,
-                                 Door_2     => Door_2,
-                                 Door_3     => Door_3,
-                                 Door_4     => Door_4,
-                                 PIN        => Unsigned_24 (PIN)),
+                 Card        => (Card        => Unsigned_32 (Card),
+                                 Start_Date  => (Year  => Unsigned_16'Value (S (1 .. 4)),
+                                                 Month => Unsigned_8'Value  (S (6 .. 7)),
+                                                 Day   => Unsigned_8'Value  (S (9 .. 10))),
+                                 End_Date    => (Year  => Unsigned_16'Value (E (1 .. 4)),
+                                                 Month => Unsigned_8'Value  (E (6 .. 7)),
+                                                 Day   => Unsigned_8'Value  (E (9 .. 10))),
+                                 Door_1      => Door_1,
+                                 Door_2      => Door_2,
+                                 Door_3      => Door_3,
+                                 Door_4      => Door_4,
+                                 PIN         => Unsigned_24 (PIN),
+                                 FirstCard_1 => FirstCard_1,
+                                 FirstCard_2 => FirstCard_2,
+                                 FirstCard_3 => FirstCard_3,
+                                 FirstCard_4 => FirstCard_4),
                  Event_Index => 0,
                  Profile_ID  => 0);
       end;

@@ -484,6 +484,8 @@ package Uhppoted.Lib.Requests is
    --  @field  Door_3      Access permissions for door 3 (0: none, 1:24x7, 2..254: time profile).
    --  @field  Door_4      Access permissions for door 4 (0: none, 1:24x7, 2..254: time profile).
    --  @field  PIN         Access reader PIN code [0..999999] (0 for none).
+   --  @field  PIN         Access reader PIN code [0..999999] (0 for none).
+   --  @field  FirstCard   First card privileges bitset.
    type Put_Card_Request is record
       SOM        : Unsigned_8 := Codec.SOM;
       OpCode     : Codec.Op_Code := Codec.Put_Card;
@@ -498,8 +500,9 @@ package Uhppoted.Lib.Requests is
       Door_3     : Unsigned_8;
       Door_4     : Unsigned_8;
       PIN        : Unsigned_24;
+      FirstCard  : Unsigned_8;
       --  @exclude
-      Padding    : Ada.Streams.Stream_Element_Array (1 .. 37) := [others => 0];
+      Padding    : Ada.Streams.Stream_Element_Array (1 .. 36) := [others => 0];
    end record;
 
    for Put_Card_Request use
@@ -516,7 +519,8 @@ package Uhppoted.Lib.Requests is
        Door_3 at 22 range 0 .. 7;
        Door_4 at 23 range 0 .. 7;
        PIN at 24 range 0 .. 23;
-       Padding at 27 range 0 .. 295;
+       FirstCard at 27 range 0 .. 7;
+       Padding at 28 range 0 .. 287;
      end record;
 
    for Put_Card_Request'Size use 64 * 8;

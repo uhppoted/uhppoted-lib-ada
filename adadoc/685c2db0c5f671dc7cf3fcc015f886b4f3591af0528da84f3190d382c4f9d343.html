@@ -29,28 +29,36 @@ end record;
    Antipassback : Unsigned_8;
 end record;
 </code></pre><p>Message definition for a get-antipassback response.<h5>Record fields</h5><dl><dt>Controller<dd><p>Controller serial number.<dt>Antipassback<dd><p>Controller anti-passback setting.</dl><h4 id=bbf0a848ff78aaae62a06a69934861aa53bd96f6179e9730b41a25806a690025>Get_Card_At_Index_Response</h4><pre class=ada-code-snippet><code>type Get_Card_At_Index_Response is record
-   Controller : Unsigned_32;
-   Card       : Unsigned_32;
-   Start_Date : DateOnly;
-   End_Date   : DateOnly;
-   Door_1     : Unsigned_8;
-   Door_2     : Unsigned_8;
-   Door_3     : Unsigned_8;
-   Door_4     : Unsigned_8;
-   PIN        : Unsigned_24;
+   Controller  : Unsigned_32;
+   Card        : Unsigned_32;
+   Start_Date  : DateOnly;
+   End_Date    : DateOnly;
+   Door_1      : Unsigned_8;
+   Door_2      : Unsigned_8;
+   Door_3      : Unsigned_8;
+   Door_4      : Unsigned_8;
+   PIN         : Unsigned_24;
+   FirstCard_1 : Boolean;
+   FirstCard_2 : Boolean;
+   FirstCard_3 : Boolean;
+   FirstCard_4 : Boolean;
 end record;
-</code></pre><p>Message definition for a get-card-at-index response.<h5>Record fields</h5><dl><dt>Controller<dd><p>Controller serial number.<dt>Card<dd><p>Card number.<dt>Start_Date<dd><p>Date from which card is valid.<dt>End_Date<dd><p>Date after which card is no longer valid.<dt>Door_1<dd><p>Door 1 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_2<dd><p>Door 2 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_3<dd><p>Door 3 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_4<dd><p>Door 4 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>PIN<dd><p>Keypad PIN code [0..999999] (0 for none).</dl><h4 id=821727e47d32d3a1c28db0092d4cef53088c45abb6ee1f48263a973c743dd927>Get_Card_Response</h4><pre class=ada-code-snippet><code>type Get_Card_Response is record
-   Controller : Unsigned_32;
-   Card       : Unsigned_32;
-   Start_Date : DateOnly;
-   End_Date   : DateOnly;
-   Door_1     : Unsigned_8;
-   Door_2     : Unsigned_8;
-   Door_3     : Unsigned_8;
-   Door_4     : Unsigned_8;
-   PIN        : Unsigned_24;
+</code></pre><p>Message definition for a get-card-at-index response.<h5>Record fields</h5><dl><dt>Controller<dd><p>Controller serial number.<dt>Card<dd><p>Card number.<dt>Start_Date<dd><p>Date from which card is valid.<dt>End_Date<dd><p>Date after which card is no longer valid.<dt>Door_1<dd><p>Door 1 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_2<dd><p>Door 2 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_3<dd><p>Door 3 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_4<dd><p>Door 4 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>PIN<dd><p>Keypad PIN code [0..999999] (0 for none).<dt>FirstCard_1<dd><p>First card privilege for door 1.<dt>FirstCard_2<dd><p>First card privilege for door 2.<dt>FirstCard_3<dd><p>First card privilege for door 3.<dt>FirstCard_4<dd><p>First card privilege for door 4.</dl><h4 id=821727e47d32d3a1c28db0092d4cef53088c45abb6ee1f48263a973c743dd927>Get_Card_Response</h4><pre class=ada-code-snippet><code>type Get_Card_Response is record
+   Controller  : Unsigned_32;
+   Card        : Unsigned_32;
+   Start_Date  : DateOnly;
+   End_Date    : DateOnly;
+   Door_1      : Unsigned_8;
+   Door_2      : Unsigned_8;
+   Door_3      : Unsigned_8;
+   Door_4      : Unsigned_8;
+   PIN         : Unsigned_24;
+   FirstCard_1 : Boolean;
+   FirstCard_2 : Boolean;
+   FirstCard_3 : Boolean;
+   FirstCard_4 : Boolean;
 end record;
-</code></pre><p>Message definition for a get-card response.<h5>Record fields</h5><dl><dt>Controller<dd><p>Controller serial number.<dt>Card<dd><p>Card number.<dt>Start_Date<dd><p>Date from which card is valid.<dt>End_Date<dd><p>Date after which card is no longer valid.<dt>Door_1<dd><p>Door 1 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_2<dd><p>Door 2 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_3<dd><p>Door 3 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_4<dd><p>Door 4 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>PIN<dd><p>Keypad PIN code [0..999999] (0 for none).</dl><h4 id=5e30816cb12b354dd2064a71f949b8aa8858ca48aa9f30c634361e04bab6df30>Get_Cards_Response</h4><pre class=ada-code-snippet><code>type Get_Cards_Response is record
+</code></pre><p>Message definition for a get-card response.<h5>Record fields</h5><dl><dt>Controller<dd><p>Controller serial number.<dt>Card<dd><p>Card number.<dt>Start_Date<dd><p>Date from which card is valid.<dt>End_Date<dd><p>Date after which card is no longer valid.<dt>Door_1<dd><p>Door 1 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_2<dd><p>Door 2 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_3<dd><p>Door 3 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>Door_4<dd><p>Door 4 access permissions (0: none, 1: 24x7, 2..254: access time profile).<dt>PIN<dd><p>Keypad PIN code [0..999999] (0 for none).<dt>FirstCard_1<dd><p>First card privilege for door 1.<dt>FirstCard_2<dd><p>First card privilege for door 2.<dt>FirstCard_3<dd><p>First card privilege for door 3.<dt>FirstCard_4<dd><p>First card privilege for door 4.</dl><h4 id=5e30816cb12b354dd2064a71f949b8aa8858ca48aa9f30c634361e04bab6df30>Get_Cards_Response</h4><pre class=ada-code-snippet><code>type Get_Cards_Response is record
    Controller : Unsigned_32;
    Cards      : Unsigned_32;
 end record;

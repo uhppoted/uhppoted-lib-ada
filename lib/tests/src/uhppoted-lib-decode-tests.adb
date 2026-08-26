@@ -363,19 +363,23 @@ package body Uhppoted.Lib.Decode.Tests is
       pragma Unreferenced (T);
 
       Expected : constant Get_Card_Response := (
-         Controller => 405419896,
-         Card       => 10058400,
-         Start_Date => (Year => 2024, Month => 1, Day => 1),
-         End_Date   => (Year => 2024, Month => 12, Day => 31),
-         Door_1     => 1,
-         Door_2     => 0,
-         Door_3     => 17,
-         Door_4     => 1,
-         PIN        => 999999);
+         Controller  => 405419896,
+         Card        => 10058400,
+         Start_Date  => (Year => 2024, Month => 1, Day => 1),
+         End_Date    => (Year => 2024, Month => 12, Day => 31),
+         Door_1      => 1,
+         Door_2      => 0,
+         Door_3      => 17,
+         Door_4      => 1,
+         PIN         => 999999,
+         FirstCard_1 => True,
+         FirstCard_2 => True,
+         FirstCard_3 => False,
+         FirstCard_4 => True);
 
       Reply : constant Packet := [
          16#17#, 16#5a#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#a0#, 16#7a#, 16#99#, 16#00#, 16#20#, 16#24#, 16#01#, 16#01#,
-         16#20#, 16#24#, 16#12#, 16#31#, 16#01#, 16#00#, 16#11#, 16#01#,  16#3f#, 16#42#, 16#0f#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#20#, 16#24#, 16#12#, 16#31#, 16#01#, 16#00#, 16#11#, 16#01#,  16#3f#, 16#42#, 16#0f#, 16#0b#, 16#00#, 16#00#, 16#00#, 16#00#,
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];
@@ -389,15 +393,19 @@ package body Uhppoted.Lib.Decode.Tests is
       pragma Unreferenced (T);
 
       Expected : constant Get_Card_Response := (
-         Controller => 405419896,
-         Card       => 0,
-         Start_Date => (Year => 1, Month => 1, Day => 1),
-         End_Date   => (Year => 1, Month => 1, Day => 1),
-         Door_1     => 0,
-         Door_2     => 0,
-         Door_3     => 0,
-         Door_4     => 0,
-         PIN        => 0);
+         Controller  => 405419896,
+         Card        => 0,
+         Start_Date  => (Year => 1, Month => 1, Day => 1),
+         End_Date    => (Year => 1, Month => 1, Day => 1),
+         Door_1      => 0,
+         Door_2      => 0,
+         Door_3      => 0,
+         Door_4      => 0,
+         PIN         => 0,
+         FirstCard_1 => False,
+         FirstCard_2 => False,
+         FirstCard_3 => False,
+         FirstCard_4 => False);
 
       Reply : constant Packet := [
          16#17#, 16#5a#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
@@ -415,19 +423,23 @@ package body Uhppoted.Lib.Decode.Tests is
       pragma Unreferenced (T);
 
       Expected : constant Get_Card_At_Index_Response := (
-         Controller => 405419896,
-         Card       => 10058400,
-         Start_Date => (Year => 2024, Month => 1, Day => 1),
-         End_Date   => (Year => 2024, Month => 12, Day => 31),
-         Door_1     => 1,
-         Door_2     => 0,
-         Door_3     => 17,
-         Door_4     => 1,
-         PIN        => 999999);
+         Controller  => 405419896,
+         Card        => 10058400,
+         Start_Date  => (Year => 2024, Month => 1, Day => 1),
+         End_Date    => (Year => 2024, Month => 12, Day => 31),
+         Door_1      => 1,
+         Door_2      => 0,
+         Door_3      => 17,
+         Door_4      => 1,
+         PIN         => 999999,
+         FirstCard_1 => True,
+         FirstCard_2 => False,
+         FirstCard_3 => True,
+         FirstCard_4 => True);
 
       Reply : constant Packet := [
          16#17#, 16#5c#, 16#00#, 16#00#, 16#78#, 16#37#, 16#2a#, 16#18#,  16#a0#, 16#7a#, 16#99#, 16#00#, 16#20#, 16#24#, 16#01#, 16#01#,
-         16#20#, 16#24#, 16#12#, 16#31#, 16#01#, 16#00#, 16#11#, 16#01#,  16#3f#, 16#42#, 16#0f#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
+         16#20#, 16#24#, 16#12#, 16#31#, 16#01#, 16#00#, 16#11#, 16#01#,  16#3f#, 16#42#, 16#0f#, 16#0d#, 16#00#, 16#00#, 16#00#, 16#00#,
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,
          16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#,  16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#
       ];

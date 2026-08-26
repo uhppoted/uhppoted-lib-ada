@@ -69,9 +69,10 @@ end record;
    Door_3     : Unsigned_8;
    Door_4     : Unsigned_8;
    PIN        : Unsigned_24;
-   Padding    : Ada.Streams.Stream_Element_Array (1 .. 37);
+   FirstCard  : Unsigned_8;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 36);
 end record;
-</code></pre><p>Message definition for a get-card-at-index reply.<h5>Record fields</h5><dl><dt>SOM<dd><p>Start of message byte (16#17#).<dt>Opcode<dd><p>Packet type/op-code.<dt>Reserved<dd><p>@exclude<dt>Controller<dd><p>Controller serial number.<dt>Card<dd><p>Card number.<dt>Start_Date<dd><p>Date from which card is valid.<dt>End_Date<dd><p>Date after which card is no longer valid.<dt>Door_1<dd><p>Access permissions for door 1 (0:none, 1:24x7, 2..254:time profile).<dt>Door_2<dd><p>Access permissions for door 2 (0:none, 1:24x7, 2..254:time profile).<dt>Door_3<dd><p>Access permissions for door 3 (0:none, 1:24x7, 2..254:time profile).<dt>Door_4<dd><p>Access permissions for door 4 (0:none, 1:24x7, 2..254:time profile).<dt>PIN<dd><p>Reader keypad PIN [0..999999] (0 for none).<dt>Padding<dd><p>@exclude</dl><h4 id=d523cefd670f5dd8692e9693278326fceb61494b71d00808f5909ba7597961f6>Get_Card_Reply</h4><pre class=ada-code-snippet><code>type Get_Card_Reply is record
+</code></pre><p>Message definition for a get-card-at-index reply.<h5>Record fields</h5><dl><dt>SOM<dd><p>Start of message byte (16#17#).<dt>Opcode<dd><p>Packet type/op-code.<dt>Reserved<dd><p>@exclude<dt>Controller<dd><p>Controller serial number.<dt>Card<dd><p>Card number.<dt>Start_Date<dd><p>Date from which card is valid.<dt>End_Date<dd><p>Date after which card is no longer valid.<dt>Door_1<dd><p>Access permissions for door 1 (0:none, 1:24x7, 2..254:time profile).<dt>Door_2<dd><p>Access permissions for door 2 (0:none, 1:24x7, 2..254:time profile).<dt>Door_3<dd><p>Access permissions for door 3 (0:none, 1:24x7, 2..254:time profile).<dt>Door_4<dd><p>Access permissions for door 4 (0:none, 1:24x7, 2..254:time profile).<dt>PIN<dd><p>Reader keypad PIN [0..999999] (0 for none).<dt>FirstCard<dd><p>First card privileges bitset.<dt>Padding<dd><p>@exclude</dl><h4 id=d523cefd670f5dd8692e9693278326fceb61494b71d00808f5909ba7597961f6>Get_Card_Reply</h4><pre class=ada-code-snippet><code>type Get_Card_Reply is record
    SOM        : Unsigned_8;
    Opcode     : Unsigned_8;
    Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];
@@ -84,9 +85,10 @@ end record;
    Door_3     : Unsigned_8;
    Door_4     : Unsigned_8;
    PIN        : Unsigned_24;
-   Padding    : Ada.Streams.Stream_Element_Array (1 .. 37);
+   FirstCard  : Unsigned_8;
+   Padding    : Ada.Streams.Stream_Element_Array (1 .. 36);
 end record;
-</code></pre><p>Message definition for a get-card reply.<h5>Record fields</h5><dl><dt>SOM<dd><p>Start of message byte (16#17#).<dt>Opcode<dd><p>Packet type/op-code.<dt>Reserved<dd><p>@exclude<dt>Controller<dd><p>Controller serial number.<dt>Card<dd><p>Card number.<dt>Start_Date<dd><p>Date from which card is valid.<dt>End_Date<dd><p>Date after which card is no longer valid.<dt>Door_1<dd><p>Access permissions for door 1 (0:none, 1:24x7, 2..254:time profile).<dt>Door_2<dd><p>Access permissions for door 2 (0:none, 1:24x7, 2..254:time profile).<dt>Door_3<dd><p>Access permissions for door 3 (0:none, 1:24x7, 2..254:time profile).<dt>Door_4<dd><p>Access permissions for door 4 (0:none, 1:24x7, 2..254:time profile).<dt>PIN<dd><p>Reader keypad PIN [0..999999] (0 for none).<dt>Padding<dd><p>@exclude</dl><h4 id=1678b6c16ca83fa18b1d86cc4410cda676d54b2ce149916310a0f3411658eed6>Get_Cards_Reply</h4><pre class=ada-code-snippet><code>type Get_Cards_Reply is record
+</code></pre><p>Message definition for a get-card reply.<h5>Record fields</h5><dl><dt>SOM<dd><p>Start of message byte (16#17#).<dt>Opcode<dd><p>Packet type/op-code.<dt>Reserved<dd><p>@exclude<dt>Controller<dd><p>Controller serial number.<dt>Card<dd><p>Card number.<dt>Start_Date<dd><p>Date from which card is valid.<dt>End_Date<dd><p>Date after which card is no longer valid.<dt>Door_1<dd><p>Access permissions for door 1 (0:none, 1:24x7, 2..254:time profile).<dt>Door_2<dd><p>Access permissions for door 2 (0:none, 1:24x7, 2..254:time profile).<dt>Door_3<dd><p>Access permissions for door 3 (0:none, 1:24x7, 2..254:time profile).<dt>Door_4<dd><p>Access permissions for door 4 (0:none, 1:24x7, 2..254:time profile).<dt>PIN<dd><p>Reader keypad PIN [0..999999] (0 for none).<dt>FirstCard<dd><p>First card privileges bitset.<dt>Padding<dd><p>@exclude</dl><h4 id=1678b6c16ca83fa18b1d86cc4410cda676d54b2ce149916310a0f3411658eed6>Get_Cards_Reply</h4><pre class=ada-code-snippet><code>type Get_Cards_Reply is record
    SOM        : Unsigned_8;
    Opcode     : Unsigned_8;
    Reserved   : Ada.Streams.Stream_Element_Array (1 .. 2) := [others => 0];

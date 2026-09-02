@@ -1,4 +1,4 @@
-![build](https://github.com/uhppoted/uhppoted-lib-ada/workflows/build/badge.svg)
+![build](https://img.shields.io/badge/dynamic/json?url=https://gist.github.com/twystd/2609d9356470acaf904386ce4a74f54e/raw/uhppoted-lib-ada.json&query=$.message&label=build&color=brightgreen)
 [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/uhppoted_lib.json)](https://alire.ada.dev/crates/uhppoted_lib.html)
 
 # uhppoted-lib-ada
@@ -11,7 +11,12 @@ A basic example CLI illustrating the use of the library can be found in the
 
 ## Release Notes
 
-**In Development**
+### Current Release
+
+**[v0.2.0](https://codeberg.org/uhppoted/uhppoted-ada/releases/tag/v0.2.0) - 2026-06-27**
+
+1. Initial release to [Alire](https://alire.ada.dev/crates/uhppoted_lib.html)
+
 
 
 ## Installation

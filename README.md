@@ -1,5 +1,6 @@
-![build](https://img.shields.io/badge/dynamic/json?url=https://gist.github.com/twystd/2609d9356470acaf904386ce4a74f54e/raw/uhppoted-lib-ada.json&query=$.message&label=build&color=brightgreen)
+![build](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/twystd/2609d9356470acaf904386ce4a74f54e/raw/uhppoted-lib-ada.json)
 [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/uhppoted_lib.json)](https://alire.ada.dev/crates/uhppoted_lib.html)
+
 
 # uhppoted-lib-ada
 
@@ -13,10 +14,11 @@ A basic example CLI illustrating the use of the library can be found in the
 
 ### Current Release
 
-**[v0.2.0](https://codeberg.org/uhppoted/uhppoted-ada/releases/tag/v0.2.0) - 2026-06-27**
+**[v0.3.0](https://codeberg.org/uhppoted/uhppoted-ada/releases/tag/v0.3.0) - 2026-09-07**
 
-1. Initial release to [Alire](https://alire.ada.dev/crates/uhppoted_lib.html)
-
+1. Migrated from _github.com/uhppoted/uhppoted-lib-ada_ to _codeberg.org/uhppoted/uhppoted-lib-ada_.
+2. Added `set-firstcard` API to configure controller managed door first-card access.
+3. Added _first-card privileges_ to `get-card`, `get-card-at-index` and `put-card` APIs.
 
 
 ## Installation
@@ -61,6 +63,7 @@ This is known bug in the GNAT FSF builds which mistakenly interprets the OS vers
    - https://forum.ada-lang.io/t/gnat-toolchain-now-broken-after-os-upgrade-to-macos-26-tahoe-arm64/3843/8
    - https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120645
    - https://github.com/alire-project/GNAT-FSF-builds/issues/94
+
 
 #### lint
 1. The .gpr file specifies `-gnatwa` and `-gnatWe`.

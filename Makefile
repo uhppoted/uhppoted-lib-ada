@@ -1,7 +1,7 @@
 SRC = lib/src/*.ads lib/src/*.adb
 
 CONTROLLER ?= 405419896
-DEST ?= ""
+DEST ?= 192.168.1.125
 TRANSPORT ?= default
 
 LISTENER  ?= 192.168.1.125:60001
@@ -95,6 +95,12 @@ find-controllers: build
 
 get-controller: build
 	cd examples/cli && make get-controller
+
+get-controller-udp: build
+	cd examples/cli && make get-controller CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=udp
+
+get-controller-tcp: build
+	cd examples/cli && make get-controller CONTROLLER=$(CONTROLLER) DEST=$(DEST) TRANSPORT=tcp
 
 set-IPv4: build
 	cd examples/cli && make set-IPv4

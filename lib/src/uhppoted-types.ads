@@ -13,6 +13,18 @@ package Uhppoted.Types is
    --  Custom error raised when the bind, broadcast or listen address is invalid.
    Invalid_Address_Error : exception;
 
+   --  Custom error raised when the bind address:port matches the broadcast port.
+   Bind_Address_Port_Reserved_For_Broadcast : exception;
+
+   --  Custom error raised when the bound address:port matches the broadcast port.
+   Bound_Address_Port_Reserved_For_Broadcast : exception;
+
+   --  Custom error raised when the bind address:port matches the destination port.
+   Bind_Address_Port_Reserved_For_Destination : exception;
+
+   --  Custom error raised when the bound address:port matches the destination port.
+   Bound_Address_Port_Reserved_For_Destination : exception;
+
    --  Custom error raised when the door control mode is not valid.
    Invalid_Door_Mode_Error : exception;
 

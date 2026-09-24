@@ -216,6 +216,21 @@ package Uhppoted.Lib is
    --  Custom error raised when the bind, broadcast or listen address is invalid.
    Invalid_Address_Error : exception renames Uhppoted.Types.Invalid_Address_Error;
 
+   --  Custom error raised when the bind address matches the broadcast port.
+   Bind_Address_Port_Reserved_For_Broadcast : exception renames Uhppoted.Types.Bind_Address_Port_Reserved_For_Broadcast;
+
+   --  Custom error raised when the bound address matches the broadcast port.
+   Bound_Address_Port_Reserved_For_Broadcast : exception
+      renames Uhppoted.Types.Bound_Address_Port_Reserved_For_Broadcast;
+
+   --  Custom error raised when the bind address matches the destination port.
+   Bind_Address_Port_Reserved_For_Destination : exception
+      renames Uhppoted.Types.Bind_Address_Port_Reserved_For_Destination;
+
+   --  Custom error raised when the bound address matches the destination port.
+   Bound_Address_Port_Reserved_For_Destination : exception
+      renames Uhppoted.Types.Bound_Address_Port_Reserved_For_Destination;
+
    --  Custom error raised when the door control mode is not valid.
    Invalid_Door_Mode_Error : exception renames Uhppoted.Types.Invalid_Door_Mode_Error;
 

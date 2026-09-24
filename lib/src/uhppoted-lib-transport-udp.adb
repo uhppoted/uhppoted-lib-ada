@@ -23,13 +23,49 @@ package body Uhppoted.Lib.Transport.UDP is
       end if;
    end Finalize;
 
+   --  Creates the wrapped list of sockets.
+   overriding
+   procedure Initialize (E : in out Socket_List) is
+   begin
+      Create_Socket (E.Clients (1), Family_Inet, Socket_Datagram);
+   end Initialize;
+
+   --  Closes the wrapped socket handle.
+   overriding
+   procedure Finalize (E : in out Socket_List) is
+   begin
+      for I in 1 .. 5 loop
+         if E.Clients (I) /= No_Socket then
+            Close_Socket (E.Clients (I));
+            E.Clients (I) := No_Socket;
+         end if;
+      end loop;
+   end Finalize;
+
+   --  Returns either the active socket (if any) or No_Socket.
+   function Client (E : Socket_List) return Socket_Type is
+   begin
+      if E.IX <= 5 then
+         return E.Clients (E.IX);
+      end if;
+
+      return No_Socket;
+   end Client;
+
+   --  Creates a new socket and adds it to the list of managed sockets.
+   procedure Next (E : in out Socket_List) is
+   begin
+      E.IX := E.IX + 1;
+      Create_Socket (E.Clients (E.IX), Family_Inet, Socket_Datagram);
+   end Next;
+
    --  Broadcasts a 64 byte request packet and returns the response (if any).
    function Broadcast (U : UHPPOTE; Request : Packet; Timeout : Duration) return Packet_List is
       BindAddr : constant Sock_Addr_Type := U.Bind_Addr;
       DestAddr : constant Sock_Addr_Type := U.Broadcast_Addr;
       Offset   : Stream_Element_Offset;
 
-      Sock    : S;
+      Sockets : Socket_List;
       From    : Sock_Addr_Type;
       Buffer  : Stream_Element_Array (1 .. 64);
       Replies : Packet_List;
@@ -45,13 +81,44 @@ package body Uhppoted.Lib.Transport.UDP is
          raise Invalid_Address_Error;
       end if;
 
+      --  send-to-self
+      --
+      --  If the bind port is 0, retries (up to 5 times) until the OS binds to a port that is not the
+      --  destination port. The interim sockets are retained to prevent the OS from reusing the invalid
+      --  port, which it will happily do if the socket is closed immediately.
+      --
+      --  It should really match on both address and port but multiple network cards, etc make it complicated
+      --  and fragile.
+      declare
+         Endpoint : Sock_Addr_Type;
+         Retries  : Positive := 1;
+      begin
+         loop
+            Bind_Socket (Sockets.Client, BindAddr);
+
+            Endpoint := Get_Socket_Name (Sockets.Client);
+
+            exit when Endpoint.Port /= U.Broadcast_Addr.Port;
+
+            if BindAddr.Port /= 0 then
+               raise Bind_Address_Port_Reserved_For_Broadcast;
+            end if;
+
+            if Retries >= 5 then
+               raise Bound_Address_Port_Reserved_For_Broadcast;
+            end if;
+
+            Sockets.Next;
+            Retries := Retries + 1;
+         end loop;
+      end;
+
       --  execute
       Replies.Reserve_Capacity (16);
 
-      Bind_Socket (Sock.Client, BindAddr);
-      Set_Socket_Option (Sock.Client, Socket_Level, (Broadcast, True));
+      Set_Socket_Option (Sockets.Client, Socket_Level, (Broadcast, True));
 
-      Send_Socket (Sock.Client, To_Stream (Request), Offset, DestAddr);
+      Send_Socket (Sockets.Client, To_Stream (Request), Offset, DestAddr);
       if U.Debug then
          Dump ("... sent to " & Image (DestAddr) & " (UDP)", Request);
       end if;
@@ -68,7 +135,7 @@ package body Uhppoted.Lib.Transport.UDP is
 
             Empty (Read_Set);
             Empty (Write_Set);
-            Set (Read_Set, Sock.Client);
+            Set (Read_Set, Sockets.Client);
 
             Check_Selector
               (Selector.Selector,
@@ -78,7 +145,7 @@ package body Uhppoted.Lib.Transport.UDP is
                Timeout      => Remaining);
 
             if Status = Completed then
-               Receive_Socket (Sock.Client, Buffer, Offset, From);
+               Receive_Socket (Sockets.Client, Buffer, Offset, From);
 
                if Offset = 64 then
                   Reply := To_Packet (Buffer);
@@ -103,10 +170,10 @@ package body Uhppoted.Lib.Transport.UDP is
       BindAddr : constant Sock_Addr_Type := U.Bind_Addr;
       Offset   : Stream_Element_Offset;
 
-      Sock   : S;
-      From   : Sock_Addr_Type;
-      Buffer : Stream_Element_Array (1 .. 64);
-      Reply  : Packet;
+      Sockets : Socket_List;
+      From    : Sock_Addr_Type;
+      Buffer  : Stream_Element_Array (1 .. 64);
+      Reply   : Packet;
 
       Selector  : H;
       Read_Set  : Socket_Set_Type;
@@ -120,11 +187,42 @@ package body Uhppoted.Lib.Transport.UDP is
          raise Invalid_Address_Error;
       end if;
 
-      --  execute
-      Bind_Socket (Sock.Client, BindAddr);
-      Set_Socket_Option (Sock.Client, Socket_Level, (Broadcast, True));
+      --  send-to-self
+      --
+      --  If the bind port is 0, retries (up to 5 times) until the OS binds to a port that is not the
+      --  destination port. The interim sockets are retained to prevent the OS from reusing the invalid
+      --  port, which it will happily do if the socket is closed immediately.
+      --
+      --  It should really match on both address and port but multiple network cards, etc make it complicated
+      --  and fragile.
+      declare
+         Endpoint : Sock_Addr_Type;
+         Retries  : Positive := 1;
+      begin
+         loop
+            Bind_Socket (Sockets.Client, BindAddr);
 
-      Send_Socket (Sock.Client, To_Stream (Request), Offset, U.Broadcast_Addr);
+            Endpoint := Get_Socket_Name (Sockets.Client);
+
+            exit when Endpoint.Port /= U.Broadcast_Addr.Port;
+
+            if BindAddr.Port /= 0 then
+               raise Bind_Address_Port_Reserved_For_Broadcast;
+            end if;
+
+            if Retries >= 5 then
+               raise Bound_Address_Port_Reserved_For_Broadcast;
+            end if;
+
+            Sockets.Next;
+            Retries := Retries + 1;
+         end loop;
+      end;
+
+      --  execute
+      Set_Socket_Option (Sockets.Client, Socket_Level, (Broadcast, True));
+
+      Send_Socket (Sockets.Client, To_Stream (Request), Offset, U.Broadcast_Addr);
       if U.Debug then
          Dump ("... sent to " & Image (U.Broadcast_Addr) & " (UDP)", Request);
       end if;
@@ -154,7 +252,7 @@ package body Uhppoted.Lib.Transport.UDP is
 
             Empty (Read_Set);
             Empty (Write_Set);
-            Set (Read_Set, Sock.Client);
+            Set (Read_Set, Sockets.Client);
 
             if Remaining <= 0.0 then
                raise Timeout_Error;
@@ -168,8 +266,8 @@ package body Uhppoted.Lib.Transport.UDP is
                Timeout      => Remaining);
 
             case Status is
-               when Completed         =>
-                  Receive_Socket (Sock.Client, Buffer, Offset, From);
+               when Completed =>
+                  Receive_Socket (Sockets.Client, Buffer, Offset, From);
 
                   if Offset = 64 then
                      Reply := To_Packet (Buffer);
@@ -193,10 +291,10 @@ package body Uhppoted.Lib.Transport.UDP is
       BindAddr : constant Sock_Addr_Type := U.Bind_Addr;
       Offset   : Stream_Element_Offset;
 
-      Sock   : S;
-      From   : Sock_Addr_Type;
-      Buffer : Stream_Element_Array (1 .. 64);
-      Reply  : Packet;
+      Sockets : Socket_List;
+      From    : Sock_Addr_Type;
+      Buffer  : Stream_Element_Array (1 .. 64);
+      Reply   : Packet;
 
       Selector  : H;
       Read_Set  : Socket_Set_Type;
@@ -210,11 +308,42 @@ package body Uhppoted.Lib.Transport.UDP is
          raise Invalid_Address_Error;
       end if;
 
-      --  execute
-      Bind_Socket (Sock.Client, BindAddr);
-      Connect_Socket (Sock.Client, DestAddr);
+      --  send-to-self
+      --
+      --  If the bind port is 0, retries (up to 5 times) until the OS binds to a port that is not the
+      --  destination port. The interim sockets are retained to prevent the OS from reusing the invalid
+      --  port, which it will happily do if the socket is closed immediately.
+      --
+      --  It should really match on both address and port but multiple network cards, etc make it complicated
+      --  and fragile.
+      declare
+         Endpoint : Sock_Addr_Type;
+         Retries  : Positive := 1;
+      begin
+         loop
+            Bind_Socket (Sockets.Client, BindAddr);
 
-      Send_Socket (Sock.Client, To_Stream (Request), Offset);
+            Endpoint := Get_Socket_Name (Sockets.Client);
+
+            exit when Endpoint.Port /= DestAddr.Port;
+
+            if BindAddr.Port /= 0 then
+               raise Bind_Address_Port_Reserved_For_Destination;
+            end if;
+
+            if Retries >= 5 then
+               raise Bound_Address_Port_Reserved_For_Destination;
+            end if;
+
+            Sockets.Next;
+            Retries := Retries + 1;
+         end loop;
+      end;
+
+      --  execute
+      Connect_Socket (Sockets.Client, DestAddr);
+
+      Send_Socket (Sockets.Client, To_Stream (Request), Offset);
       if U.Debug then
          Dump ("... sent to " & Image (DestAddr) & " (UDP)", Request);
       end if;
@@ -248,7 +377,7 @@ package body Uhppoted.Lib.Transport.UDP is
 
             Empty (Read_Set);
             Empty (Write_Set);
-            Set (Read_Set, Sock.Client);
+            Set (Read_Set, Sockets.Client);
 
             Check_Selector
               (Selector.Selector,
@@ -258,8 +387,8 @@ package body Uhppoted.Lib.Transport.UDP is
                Timeout      => Remaining);
 
             case Status is
-               when Completed         =>
-                  Receive_Socket (Sock.Client, Buffer, Offset, From);
+               when Completed =>
+                  Receive_Socket (Sockets.Client, Buffer, Offset, From);
 
                   if Offset = 64 then
                      Reply := To_Packet (Buffer);

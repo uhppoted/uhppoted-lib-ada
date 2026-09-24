@@ -44,4 +44,32 @@ private
    overriding
    procedure Finalize (E : in out S);
 
+   type Socket_Array is array (1 .. 5) of Socket_Type;
+
+   --  Controlled_Type wrapper for list of GNAT.Socket.
+   --
+   --  @field  Client  Wrapped socket.
+   type Socket_List is new Ada.Finalization.Limited_Controlled with record
+      Clients : Socket_Array := [others => GNAT.Sockets.No_Socket];
+      IX      : Positive := 1;
+   end record;
+
+   --  Initialises the wrapped list of sockets.
+   --
+   --  @param E  Controlled.Initialize implementation for socket list.
+   overriding
+   procedure Initialize (E : in out Socket_List);
+
+   --  Closes the sockets in the wrapped list of sockets.
+   --
+   --  @param E  Controlled.Finalize implementation for socket list.
+   overriding
+   procedure Finalize (E : in out Socket_List);
+
+   --  Returns either the active socket (if any) or No_Socket.
+   function Client (E : Socket_List) return Socket_Type;
+
+   --  Creates a new socket, adds it to the list of managed sockets and makes it the active socket.
+   procedure Next (E : in out Socket_List);
+
 end Uhppoted.Lib.Transport.TCP;

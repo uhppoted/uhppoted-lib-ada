@@ -22,14 +22,50 @@ package body Uhppoted.Lib.Transport.TCP is
       end if;
    end Finalize;
 
+   --  Creates the wrapped list of sockets.
+   overriding
+   procedure Initialize (E : in out Socket_List) is
+   begin
+      Create_Socket (E.Clients (1), Family_Inet, Socket_Datagram);
+   end Initialize;
+
+   --  Closes the wrapped socket handle.
+   overriding
+   procedure Finalize (E : in out Socket_List) is
+   begin
+      for I in 1 .. 5 loop
+         if E.Clients (I) /= No_Socket then
+            Close_Socket (E.Clients (I));
+            E.Clients (I) := No_Socket;
+         end if;
+      end loop;
+   end Finalize;
+
+   --  Returns either the active socket (if any) or No_Socket.
+   function Client (E : Socket_List) return Socket_Type is
+   begin
+      if E.IX <= 5 then
+         return E.Clients (E.IX);
+      end if;
+
+      return No_Socket;
+   end Client;
+
+   --  Creates a new socket and adds it to the list of managed sockets.
+   procedure Next (E : in out Socket_List) is
+   begin
+      E.IX := E.IX + 1;
+      Create_Socket (E.Clients (E.IX), Family_Inet, Socket_Datagram);
+   end Next;
+
    --  Sends a 64 byte request packet to a specific IPv4 address:port and returns the response (if any).
    function Send (U : UHPPOTE; DestAddr : Sock_Addr_Type; Request : Packet; Timeout : Duration) return Packet is
       BindAddr : constant Sock_Addr_Type := U.Bind_Addr;
       Offset   : Stream_Element_Offset;
 
-      Sock   : S;
-      Buffer : Ada.Streams.Stream_Element_Array (1 .. 64);
-      Reply  : Packet;
+      Sockets : Socket_List;
+      Buffer  : Ada.Streams.Stream_Element_Array (1 .. 64);
+      Reply   : Packet;
 
       Selector  : H;
       Read_Set  : Socket_Set_Type;
@@ -43,9 +79,39 @@ package body Uhppoted.Lib.Transport.TCP is
          raise Invalid_Address_Error;
       end if;
 
-      --  non-blocking connect
-      Bind_Socket (Sock.Client, BindAddr);
+      --  send-to-self
+      --
+      --  If the bind port is 0, retries (up to 5 times) until the OS binds to a port that is not the
+      --  destination port. The interim sockets are retained to prevent the OS from reusing the invalid
+      --  port, which it will happily do if the socket is closed immediately.
+      --
+      --  It should really match on both address and port but multiple network cards, etc make it complicated
+      --  and fragile.
+      declare
+         Endpoint : Sock_Addr_Type;
+         Retries  : Positive := 1;
+      begin
+         loop
+            Bind_Socket (Sockets.Client, BindAddr);
 
+            Endpoint := Get_Socket_Name (Sockets.Client);
+
+            exit when Endpoint.Port /= DestAddr.Port;
+
+            if BindAddr.Port /= 0 then
+               raise Bind_Address_Port_Reserved_For_Destination;
+            end if;
+
+            if Retries >= 5 then
+               raise Bound_Address_Port_Reserved_For_Destination;
+            end if;
+
+            Sockets.Next;
+            Retries := Retries + 1;
+         end loop;
+      end;
+
+      --  non-blocking connect
       declare
          Non_Blocking : Request_Type := (Name => Non_Blocking_IO, Enabled => True);
          Blocking     : Request_Type := (Name => Non_Blocking_IO, Enabled => False);
@@ -53,8 +119,8 @@ package body Uhppoted.Lib.Transport.TCP is
          Remaining    : Duration;
       begin
          begin
-            Control_Socket (Sock.Client, Non_Blocking);
-            Connect_Socket (Sock.Client, DestAddr);
+            Control_Socket (Sockets.Client, Non_Blocking);
+            Connect_Socket (Sockets.Client, DestAddr);
          exception
             when E : Socket_Error =>
                Err := Resolve_Exception (E);
@@ -66,7 +132,7 @@ package body Uhppoted.Lib.Transport.TCP is
          Remaining := Deadline - Clock;
          Empty (Read_Set);
          Empty (Write_Set);
-         Set (Write_Set, Sock.Client);
+         Set (Write_Set, Sockets.Client);
 
          Check_Selector
            (Selector.Selector,
@@ -75,23 +141,23 @@ package body Uhppoted.Lib.Transport.TCP is
             Status       => Status,
             Timeout      => Remaining);
 
-         if Status = Completed and then Is_Set (Write_Set, Sock.Client) then
+         if Status = Completed and then Is_Set (Write_Set, Sockets.Client) then
             declare
-               Err : constant Option_Type := Get_Socket_Option (Sock.Client, Socket_Level, Error);
+               Err : constant Option_Type := Get_Socket_Option (Sockets.Client, Socket_Level, Error);
             begin
                if Err.Error /= Success then
                   raise Socket_Error with "Connect failed: " & Err.Error'Image;
                end if;
             end;
 
-            Control_Socket (Sock.Client, Blocking);
+            Control_Socket (Sockets.Client, Blocking);
          else
             raise Timeout_Error;
          end if;
       end;
 
       --  send/receive
-      Send_Socket (Sock.Client, To_Stream (Request), Offset);
+      Send_Socket (Sockets.Client, To_Stream (Request), Offset);
       if U.Debug then
          Dump ("... sent to " & Image (DestAddr) & " (TCP)", Request);
       end if;
@@ -125,7 +191,7 @@ package body Uhppoted.Lib.Transport.TCP is
 
             Empty (Read_Set);
             Empty (Write_Set);
-            Set (Read_Set, Sock.Client);
+            Set (Read_Set, Sockets.Client);
 
             Check_Selector
               (Selector.Selector,
@@ -136,7 +202,7 @@ package body Uhppoted.Lib.Transport.TCP is
 
             case Status is
                when Completed         =>
-                  Receive_Socket (Sock.Client, Buffer, Offset);
+                  Receive_Socket (Sockets.Client, Buffer, Offset);
                   if Offset = 64 then
                      Reply := To_Packet (Buffer);
 

@@ -1,6 +1,6 @@
 name = "uhppoted_lib"
 description = "Library for the UHPPOTE access controllers"
-version = "0.3.0"
+version = "0.9.1"
 licenses = "MIT"
 
 authors = ["uhppoted"]

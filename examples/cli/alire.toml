@@ -1,6 +1,6 @@
 name = "cli"
 description = "Example CLI for the uhppoted-lib crate"
-version = "0.3.0-dev"
+version = "0.9.1-dev"
 
 authors = ["uhppoted"]
 maintainers = ["uhppoted <uhppoted.development@gmail.com>"]

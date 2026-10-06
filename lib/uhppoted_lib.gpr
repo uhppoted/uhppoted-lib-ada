@@ -1,7 +1,6 @@
 with "config/uhppoted_lib_config.gpr";
 
 project Uhppoted_Lib is
-
    for Library_Name use "uhppoted_lib";
    for Library_Version use "uhppoted_lib" & "." & Uhppoted_Lib_Config.Crate_Version;
 
@@ -23,18 +22,31 @@ project Uhppoted_Lib is
          ,"-gnatwe"
       );
 
+      MacOS_ARM64_Switches := ();
+      case Uhppoted_Lib_Config.Alire_Host_OS is
+          when "macos" =>
+              case Uhppoted_Lib_Config.Alire_Host_Arch is
+                  when "aarch64" =>
+                      MacOS_ARM64_Switches := ("-mmacosx-version-min=26.0");
+                  when others =>
+                      null;
+              end case;
+         when others =>
+             null;
+      end case;
+
       case Uhppoted_Lib_Config.Build_Profile is
          when "release" =>
-            for Default_Switches ("Ada") use Baseline & ("-O2");
+            for Default_Switches ("Ada") use Baseline & MacOS_ARM64_Switches & ("-O2");
 
          when "validation" =>
-            for Default_Switches ("Ada") use Baseline & (
+            for Default_Switches ("Ada") use Baseline & MacOS_ARM64_Switches & (
                 "-O2"
                ,"-gnata"
                ,"-gnatVa");
 
          when "development" =>
-            for Default_Switches ("Ada") use Baseline & (
+            for Default_Switches ("Ada") use Baseline & MacOS_ARM64_Switches & (
                 "-g"
                ,"-O0"
                ,"-gnatw.h"

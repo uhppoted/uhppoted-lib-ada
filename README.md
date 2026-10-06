@@ -65,6 +65,12 @@ This is known bug in the GNAT FSF builds which mistakenly interprets the OS vers
    - https://github.com/alire-project/GNAT-FSF-builds/issues/94
 
 
+2. _clang: error: invalid version number in '-mmacosx-version-min=18.0'_
+
+This is known bug in the GNAT FSF builds which doesn't correctly handle the Apple Silicon OS versioning:
+   - https://github.com/alire-project/GNAT-FSF-builds/issues/113
+
+
 #### lint
 1. The .gpr file specifies `-gnatwa` and `-gnatWe`.
 2. _AdaControl_ reports `[..]` array delimiters as illegal characters although they have been recommended since `ada2022`.

@@ -389,10 +389,7 @@ package body Uhppoted.Lib.Encode.Tests is
          17,
          1,
          999999,
-         True,
-         True,
-         False,
-         True);
+         11);
    begin
       Assert (Request = Expected, "incorrectly encoded put-card request: got" & Request'Image);
    end Test_Encode_Put_Card;

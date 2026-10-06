@@ -9,7 +9,20 @@ project Integration_Tests is
    for Main use ("integration_tests.adb");
 
    package Compiler is
-      for Default_Switches ("Ada") use Integration_Tests_Config.Ada_Compiler_Switches & (
+      MacOS_ARM64_Switches := ();
+      case Integration_Tests_Config.Alire_Host_OS is
+          when "macos" =>
+              case Integration_Tests_Config.Alire_Host_Arch is
+                  when "aarch64" =>
+                      MacOS_ARM64_Switches := ("-mmacosx-version-min=26.0");
+                  when others =>
+                      null;
+              end case;
+         when others =>
+             null;
+      end case;
+
+      for Default_Switches ("Ada") use Integration_Tests_Config.Ada_Compiler_Switches & MacOS_ARM64_Switches & (
           "-gnat2022"
          ,"-gnatyM140"
       );

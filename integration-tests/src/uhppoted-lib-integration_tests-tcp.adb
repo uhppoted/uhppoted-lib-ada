@@ -341,9 +341,9 @@ package body Uhppoted.Lib.Integration_Tests.TCP is
          Door_3      => 17,
          Door_4      => 1,
          PIN         => 999999,
-         FirstCard_1 => True,
-         FirstCard_2 => True,
-         FirstCard_3 => False,
+         FirstCard_1 => False,
+         FirstCard_2 => False,
+         FirstCard_3 => True,
          FirstCard_4 => True);
 
       V : constant Boolean := Put_Card (U, C, Card, 0.5);

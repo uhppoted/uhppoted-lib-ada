@@ -46,7 +46,5 @@ var Responses = []types.Response{
 }
 
 var FindControllersResponse = types.Response{
-	Message: types.Message{
-		Name: "find controllers response",
-	},
+	Name: "find controllers response",
 }

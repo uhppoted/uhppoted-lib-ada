@@ -34,7 +34,7 @@ build:
 	alr build
 
 format: build
-	alr exec -- gnatformat --ignore .gnatformat.ignore -P uhppoted_lib.gpr
+	MACOSX_DEPLOYMENT_TARGET=27.0 alr exec -- gnatformat --ignore .gnatformat.ignore -P uhppoted_lib.gpr
 
 format-all: build
 	alr exec -- gnatformat -P uhppoted_lib.gpr

@@ -132,9 +132,9 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_3      => 17,
      Door_4      => 1,
      PIN         => 7531,
-     FirstCard_1 => True,
-     FirstCard_2 => True,
-     FirstCard_3 => False,
+     FirstCard_1 => False,
+     FirstCard_2 => False,
+     FirstCard_3 => True,
      FirstCard_4 => True);
 
    Get_Card_Not_Found : constant Card_Record := (
@@ -161,8 +161,8 @@ package Uhppoted.Lib.Integration_Tests.Expected is
      Door_4      => 1,
      PIN         => 7531,
      FirstCard_1 => True,
-     FirstCard_2 => False,
-     FirstCard_3 => True,
+     FirstCard_2 => True,
+     FirstCard_3 => False,
      FirstCard_4 => True);
 
    Get_Card_At_Index_Not_Found : constant Card_Record := (

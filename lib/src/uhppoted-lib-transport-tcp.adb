@@ -26,7 +26,7 @@ package body Uhppoted.Lib.Transport.TCP is
    overriding
    procedure Initialize (E : in out Socket_List) is
    begin
-      Create_Socket (E.Clients (1), Family_Inet, Socket_Datagram);
+      Create_Socket (E.Clients (1), Family_Inet);
    end Initialize;
 
    --  Closes the wrapped socket handle.

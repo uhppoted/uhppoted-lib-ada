@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## [0.9.1](https://codeberg.org/uhppoted/uhppoted-lib-ada/releases/tag/v0.9.1) - 2026-10-13
 
 ### Added
 1. Added check and retry for transport bound port conflict with destination port (_send-to-self_).

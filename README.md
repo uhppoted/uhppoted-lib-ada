@@ -14,11 +14,12 @@ A basic example CLI illustrating the use of the library can be found in the
 
 ### Current Release
 
-**[v0.3.0](https://codeberg.org/uhppoted/uhppoted-ada/releases/tag/v0.3.0) - 2026-09-07**
+## [0.9.1](https://codeberg.org/uhppoted/uhppoted-lib-ada/releases/tag/v0.9.1) - 2026-10-13
 
-1. Migrated from _github.com/uhppoted/uhppoted-lib-ada_ to _codeberg.org/uhppoted/uhppoted-lib-ada_.
-2. Added `set-firstcard` API to configure controller managed door first-card access.
-3. Added _first-card privileges_ to `get-card`, `get-card-at-index` and `put-card` APIs.
+_Feature parity_
+
+1. Added check and retry for transport bound port conflict with destination port (_send-to-self_).
+2. Fixed compiler switches for building on MacOS 27.0.1.
 
 
 ## Installation
